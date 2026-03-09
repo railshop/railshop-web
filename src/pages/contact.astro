@@ -1,88 +1,239 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionTag from '../components/ui/SectionTag.astro';
-import ContactForm from '../components/ContactForm';
 ---
 
 <BaseLayout
   title="Contact — Railshop"
   description="Book a call with Railshop or send us a message. We respond within one business day."
 >
-  <!-- Header -->
+
+  <!-- Hero -->
   <section class="page-hero">
     <div class="container">
       <SectionTag label="Get in Touch" />
-      <h1 class="page-title">Let's talk</h1>
+      <h1 class="page-title">Let's talk.</h1>
       <p class="page-desc">
-        Book a call to discuss your paid media program, or fill out the form and
-        we'll be in touch within one business day.
+        Let's find out if we're the right fit. Book a call or send a message — we respond within one business day.
       </p>
     </div>
   </section>
 
-  <!-- Two-column layout -->
-  <section class="section">
-    <div class="container contact-grid">
-      <!-- Left: Contact Form -->
-      <div class="contact-form-col">
-        <h2 class="col-heading">Send a message</h2>
-        <p class="col-subhead">
-          Tell us about your goals and we'll come prepared to the call.
-        </p>
-        <div style="margin-top: 28px;">
-          <ContactForm client:load />
-        </div>
+  <!-- Trust Bar -->
+  <div class="trust-bar">
+    <div class="container trust-inner">
+      <div class="trust-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>30-minute intro call</span>
       </div>
+      <div class="trust-sep" aria-hidden="true"></div>
+      <div class="trust-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>No obligation, no sales pressure</span>
+      </div>
+      <div class="trust-sep" aria-hidden="true"></div>
+      <div class="trust-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Response within one business day</span>
+      </div>
+    </div>
+  </div>
 
-      <!-- Right: Meetings Embed -->
-      <div class="contact-meetings-col">
-        <h2 class="col-heading">Book a call</h2>
-        <p class="col-subhead">
-          Pick a time that works for you. Calls are 30 minutes — no sales
-          pressure, just an honest conversation about your program.
+  <!-- Two-column: Book a Call + Embed -->
+  <section class="contact-section">
+    <div class="container contact-grid">
+
+      <!-- Left (40%): Book a Call -->
+      <div class="book-col">
+        <h2 class="book-heading">Book a call.</h2>
+        <p class="book-subhead">
+          Pick a time that works for you. Calls are 30 minutes — no sales pressure, just an honest conversation about your business.
         </p>
 
-        <!-- What to expect -->
-        <div class="expect-list">
-          <p class="expect-heading">What to expect</p>
+        <div class="expect-card">
+          <p class="expect-eyebrow">What to Expect</p>
           {[
-            'A quick audit of your current paid media setup',
-            'Honest assessment of what\'s working and what isn\'t',
-            'Initial thinking on where the biggest opportunities are',
+            'A quick look at your current digital presence',
+            'Honest assessment of where the opportunities are',
+            'A clear picture of what working together looks like',
             'No obligation — if we\'re not the right fit, we\'ll say so',
           ].map((item) => (
             <div class="expect-item">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
               <span>{item}</span>
             </div>
           ))}
         </div>
 
-        <!-- HubSpot Meetings embed placeholder -->
-        <div id="hubspot-meetings" class="meetings-embed" aria-label="Book a meeting with Railshop">
-          <div class="meetings-placeholder">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-              <line x1="16" y1="2" x2="16" y2="6"/>
-              <line x1="8" y1="2" x2="8" y2="6"/>
-              <line x1="3" y1="10" x2="21" y2="10"/>
-            </svg>
-            <p class="meetings-placeholder-title">HubSpot Meetings</p>
-            <p class="meetings-placeholder-desc">
-              Add your HubSpot Meetings embed script here. Replace this
-              placeholder with your{' '}
-              <code>&lt;div class="meetings-embed-container"&gt;</code>{' '}
-              and script tag from HubSpot.
-            </p>
+        <div class="office-address">
+          <div class="office-address-text">
+            <span class="office-label">Our Office</span>
+            <address>
+              33 East Pittsburgh Street<br />
+              Greensburg, PA 15601
+            </address>
           </div>
         </div>
       </div>
+
+      <!-- Right (60%): HubSpot Meetings embed -->
+      <div id="hubspot-meetings" class="meetings-embed" aria-label="Book a meeting with Railshop">
+        <div class="meetings-placeholder">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          <p class="meetings-placeholder-title">HubSpot Meetings</p>
+          <p class="meetings-placeholder-desc">
+            Add your HubSpot Meetings embed script here. Replace this placeholder with your
+            <code>&lt;div class="meetings-embed-container"&gt;</code> and script tag from HubSpot.
+          </p>
+        </div>
+      </div>
+
     </div>
   </section>
+
+  <!-- Collapsible: Send a Message -->
+  <div class="message-section">
+    <div class="container">
+      <div class="message-accordion" id="message-accordion">
+
+        <button class="message-toggle" id="message-toggle" aria-expanded="false" aria-controls="message-form-wrap">
+          <div class="toggle-left">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <div class="toggle-copy">
+              <span class="toggle-heading">Prefer to send a message instead?</span>
+              <span class="toggle-sub">We'll get back to you within one business day.</span>
+            </div>
+          </div>
+          <svg class="toggle-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+
+        <div class="message-form-wrap" id="message-form-wrap">
+          <div class="message-divider" aria-hidden="true"></div>
+          <div class="message-form-inner">
+          <form
+            name="contact"
+            method="POST"
+            netlify
+            class="contact-form"
+          >
+            <input type="hidden" name="form-name" value="contact" />
+
+            <div class="field-row">
+              <div class="field-group">
+                <label class="field-label" for="name">Name</label>
+                <input id="name" type="text" name="name" placeholder="Your name" required class="field-input" />
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="email">Email</label>
+                <input id="email" type="email" name="email" placeholder="Your email" required class="field-input" />
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="phone">Phone</label>
+              <input id="phone" type="tel" name="phone" placeholder="Your phone number" class="field-input" />
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">What are you interested in?</label>
+              <div class="pill-group" id="pill-group">
+                {[
+                  { label: 'Web Design & Development', value: 'web-design' },
+                  { label: 'Paid Ads',                 value: 'paid-ads' },
+                  { label: 'SEO',                      value: 'seo' },
+                  { label: 'Content Creation',         value: 'content-creation' },
+                  { label: 'Strategy & Consulting',    value: 'strategy' },
+                  { label: 'AI Integration & Consulting', value: 'ai-integration' },
+                ].map((opt) => (
+                  <button type="button" class="pill" data-value={opt.value}>{opt.label}</button>
+                ))}
+              </div>
+              <input type="hidden" name="interests" id="interests-input" />
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="source">How did you hear about us?</label>
+              <select id="source" name="source" class="field-input field-select">
+                <option value="" disabled selected>Select an option</option>
+                <option value="google-search">Google Search</option>
+                <option value="referral">Referral</option>
+                <option value="linkedin">LinkedIn</option>
+                <option value="instagram">Instagram</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                placeholder="Tell us about your business, your goals, and anything that would help us prepare for our call."
+                class="field-input field-textarea"
+              ></textarea>
+            </div>
+
+            <p class="social-proof">Most of our best client relationships started with a single conversation.</p>
+            <button type="submit" class="submit-btn">Send Message</button>
+          </form>
+        </div><!-- /message-form-inner -->
+        </div><!-- /message-form-wrap -->
+
+      </div><!-- /message-accordion -->
+    </div>
+  </div>
+
 </BaseLayout>
 
+<script>
+  // ── Collapsible form ──
+  const toggle   = document.getElementById('message-toggle') as HTMLButtonElement;
+  const wrap     = document.getElementById('message-form-wrap') as HTMLElement;
+  const accordion = document.getElementById('message-accordion') as HTMLElement;
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = wrap.classList.toggle('message-form-wrap--open');
+    accordion.classList.toggle('message-accordion--open', isOpen);
+    toggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  // ── Pill selection ──
+  const pills = document.querySelectorAll<HTMLButtonElement>('#pill-group .pill');
+  const interestsInput = document.getElementById('interests-input') as HTMLInputElement;
+  const selected = new Set<string>();
+
+  pills.forEach((pill) => {
+    pill.addEventListener('click', () => {
+      const val = pill.dataset.value ?? '';
+      if (selected.has(val)) {
+        selected.delete(val);
+        pill.classList.remove('pill--active');
+      } else {
+        selected.add(val);
+        pill.classList.add('pill--active');
+      }
+      interestsInput.value = Array.from(selected).join(', ');
+    });
+  });
+</script>
+
 <style>
-  .page-hero { padding: 80px 0 48px; border-bottom: 1px solid var(--border); }
+  /* ── Hero ── */
+  .page-hero {
+    padding: 80px 0 56px;
+    border-bottom: 1px solid var(--border);
+  }
 
   .page-title {
     font-size: clamp(36px, 5vw, 56px);
@@ -90,44 +241,94 @@ import ContactForm from '../components/ContactForm';
     color: var(--text-2);
     margin-top: 16px;
     letter-spacing: -0.02em;
+    line-height: 1.1;
   }
 
   .page-desc {
     font-size: 17px;
     color: var(--text-3);
     max-width: 520px;
-    line-height: 1.7;
+    line-height: 1.75;
     margin-top: 12px;
+  }
+
+  /* ── Trust Bar ── */
+  .trust-bar {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 0;
+  }
+
+  .trust-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text-3);
+    padding: 4px 32px;
+  }
+
+  .trust-sep {
+    width: 1px;
+    height: 16px;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+
+  /* ── Two-column layout ── */
+  .contact-section {
+    padding: 64px 0 56px;
   }
 
   .contact-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
+    grid-template-columns: 40fr 60fr;
+    gap: 56px;
     align-items: start;
   }
 
-  .col-heading { font-size: 20px; font-weight: 700; color: var(--text-2); }
-  .col-subhead { font-size: 14px; color: var(--text-3); line-height: 1.7; margin-top: 8px; }
+  /* ── Left: Book a Call ── */
+  .book-heading {
+    font-size: clamp(28px, 3vw, 36px);
+    font-weight: 800;
+    color: var(--text-2);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
 
-  /* What to expect */
-  .expect-list {
-    background: var(--surface);
+  .book-subhead {
+    font-size: 15px;
+    color: var(--text-3);
+    line-height: 1.75;
+    margin-top: 12px;
+  }
+
+  .expect-card {
+    background: var(--surface-2);
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 24px;
-    margin-top: 24px;
+    margin-top: 28px;
     display: flex;
     flex-direction: column;
     gap: 12px;
   }
 
-  .expect-heading {
+  .expect-eyebrow {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
+    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--text-3);
+    color: var(--blue);
     margin-bottom: 4px;
   }
 
@@ -137,15 +338,44 @@ import ContactForm from '../components/ContactForm';
     gap: 10px;
     font-size: 14px;
     color: var(--text-3);
-    line-height: 1.5;
+    line-height: 1.55;
   }
 
   .expect-item svg { flex-shrink: 0; margin-top: 2px; }
 
-  /* Meetings embed */
-  .meetings-embed {
+  /* ── Office address ── */
+  .office-address {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
     margin-top: 24px;
-    min-height: 400px;
+  }
+
+  .office-address-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .office-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+  }
+
+  .office-address address {
+    font-size: 14px;
+    color: var(--text-3);
+    line-height: 1.6;
+    font-style: normal;
+  }
+
+  /* ── Right: Meetings embed ── */
+  .meetings-embed {
+    min-height: 520px;
     border-radius: 12px;
     overflow: hidden;
     border: 1px solid var(--border);
@@ -157,7 +387,7 @@ import ContactForm from '../components/ContactForm';
     align-items: center;
     justify-content: center;
     gap: 12px;
-    min-height: 400px;
+    min-height: 520px;
     background: var(--surface);
     padding: 40px;
     text-align: center;
@@ -185,7 +415,217 @@ import ContactForm from '../components/ContactForm';
     color: var(--blue);
   }
 
+  /* ── Collapsible message section ── */
+  .message-section {
+    padding-bottom: 80px;
+  }
+
+  .message-accordion {
+    margin-top: 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+  }
+
+  .message-accordion:hover,
+  .message-accordion--open {
+    border-color: var(--blue);
+  }
+
+  .message-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+    transition: background 0.2s;
+  }
+
+  .message-accordion:hover .message-toggle,
+  .message-accordion--open .message-toggle {
+    background: var(--surface-2);
+  }
+
+  .toggle-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .toggle-left svg { flex-shrink: 0; }
+
+  .toggle-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .toggle-heading {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-2);
+  }
+
+  .toggle-sub {
+    font-size: 13px;
+    color: var(--text-3);
+  }
+
+  .toggle-chevron {
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .message-accordion--open .toggle-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Collapse animation */
+  .message-form-wrap {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+
+  .message-form-wrap--open {
+    max-height: 1200px;
+  }
+
+  .message-divider {
+    height: 1px;
+    background: var(--border);
+  }
+
+  .message-form-inner {
+    padding: 24px;
+  }
+
+  /* ── Contact Form ── */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 680px;
+  }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .field-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+  }
+
+  .field-input {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: var(--text);
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.15s;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .field-input::placeholder { color: var(--text-3); opacity: 0.7; }
+  .field-input:focus { border-color: var(--blue); }
+
+  .field-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23666' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+
+  .field-textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.6;
+  }
+
+  /* ── Pill group ── */
+  .pill-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pill {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--text-3);
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+
+  .pill:hover { border-color: var(--blue); color: var(--text-2); }
+
+  .pill--active {
+    background: rgba(56, 182, 255, 0.1);
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+
+  /* ── Social proof + submit ── */
+  .social-proof {
+    font-size: 13px;
+    color: var(--text-3);
+    font-style: italic;
+    text-align: center;
+    margin-bottom: -4px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    background: var(--blue);
+    color: #111315;
+    font-weight: 700;
+    font-size: 15px;
+    font-family: inherit;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .submit-btn:hover { opacity: 0.88; }
+
+  /* ── Responsive ── */
   @media (max-width: 900px) {
     .contact-grid { grid-template-columns: 1fr; }
+    .trust-sep { display: none; }
+    .trust-inner { flex-direction: column; gap: 12px; align-items: flex-start; padding: 0 24px; }
+    .trust-item { padding: 0; }
+    .field-row { grid-template-columns: 1fr; }
   }
 </style>

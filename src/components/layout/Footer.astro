@@ -24,6 +24,12 @@ const year = new Date().getFullYear();
           Digital growth for service businesses.<br />
           Built on strategy. Delivered by practitioners.
         </p>
+        <div class="footer-address">
+          <address class="footer-address-text">
+            33 East Pittsburgh Street<br />
+            Greensburg, PA 15601
+          </address>
+        </div>
         <div class="footer-socials">
           <a
             href="https://linkedin.com/company/railshop"
@@ -123,6 +129,7 @@ const year = new Date().getFullYear();
     display: flex;
     gap: 12px;
     align-items: center;
+    margin-top: 12px;
   }
 
   .footer-social-icon {
@@ -135,6 +142,20 @@ const year = new Date().getFullYear();
 
   .footer-social-icon:hover {
     color: var(--blue);
+  }
+
+  .footer-address {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    margin-top: 20px;
+  }
+
+  .footer-address-text {
+    font-size: 13px;
+    color: var(--text-3);
+    line-height: 1.6;
+    font-style: normal;
   }
 
   .footer-nav-heading {
