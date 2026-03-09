@@ -26,12 +26,12 @@ try {
 
 // Placeholder services if Sanity is empty
 const displayServices = services.length > 0 ? services : [
-  { _id: '1', title: 'Paid Search', description: 'Google & Microsoft Ads strategy, setup, and optimisation built for scale.', icon: '🔍', slug: { current: 'paid-search' } },
-  { _id: '2', title: 'Paid Social', description: 'Meta, LinkedIn, and TikTok campaigns that convert at every funnel stage.', icon: '📱', slug: { current: 'paid-social' } },
-  { _id: '3', title: 'Programmatic', description: 'Display and video buying across premium inventory with full attribution.', icon: '📺', slug: { current: 'programmatic' } },
-  { _id: '4', title: 'Analytics & Tracking', description: 'Tag governance, GA4, and custom dashboards that make decisions obvious.', icon: '📊', slug: { current: 'analytics' } },
-  { _id: '5', title: 'Creative Strategy', description: 'Ad creative testing frameworks that surface winners faster.', icon: '🎨', slug: { current: 'creative-strategy' } },
-  { _id: '6', title: 'Full-Funnel Strategy', description: 'Aligning paid, owned, and earned channels into one coherent growth plan.', icon: '🗺️', slug: { current: 'full-funnel' } },
+  { _id: '1', title: 'Web Design & Development', description: 'Fast, conversion-focused websites built for service businesses.', slug: { current: 'web-design' } },
+  { _id: '2', title: 'Paid Ads', description: 'Google, Meta, and beyond — campaigns built to drive leads, not just clicks.', slug: { current: 'paid-ads' } },
+  { _id: '3', title: 'SEO', description: 'Sustainable organic growth through technical SEO and content that ranks.', slug: { current: 'seo' } },
+  { _id: '4', title: 'Content Creation', description: 'Video and photo content that builds authority and keeps your brand visible between campaigns.', slug: { current: 'content-creation' } },
+  { _id: '5', title: 'Strategy & Consulting', description: 'Not sure where to start? We\'ll assess what your business needs and build a plan.', slug: { current: 'strategy' } },
+  { _id: '6', title: 'AI Integration & Consulting', description: 'Practical AI implementation that saves time, reduces cost, and gives your business a real edge.', slug: { current: 'ai-integration' } },
 ];
 
 // Placeholder posts if Sanity is empty
@@ -41,7 +41,7 @@ const displayPosts = posts.length > 0 ? posts : [
   { _id: '3', title: 'GA4 Custom Dimensions You Should Have Set Up Yesterday', excerpt: 'The tracking gaps that cost most brands their attribution accuracy.', publishedAt: '2024-10-05', slug: { current: 'ga4-custom-dimensions' } },
 ];
 
-const industries = ['E-Commerce', 'SaaS', 'B2B Services', 'Consumer Brands', 'Professional Services'];
+const industries = ['Concrete & Hardscape', 'Construction', 'Excavation', 'Home & Business Security', 'HVAC', 'Landscaping', 'Plumbing', 'Roofing', 'Windows & Doors'];
 ---
 
 <BaseLayout>
@@ -55,16 +55,15 @@ const industries = ['E-Commerce', 'SaaS', 'B2B Services', 'Consumer Brands', 'Pr
     </div>
     <div class="container hero-content">
       <div class="hero-eyebrow">
-        <SectionTag label="Performance Marketing" />
+        <SectionTag label="Digital Growth Partner" />
       </div>
       <h1 class="hero-headline">
-        Paid media that<br />
-        <span class="hero-headline-accent">compounds over time.</span>
+        We help service businesses<br />
+        <span class="hero-headline-accent">grow revenue online.</span>
       </h1>
       <p class="hero-subhead">
-        We build and run paid media programs for ambitious brands — from account
-        architecture to creative testing to full-funnel attribution. No vanity
-        metrics. No black boxes.
+        Railshop is a boutique growth partner for home and consumer service brands.
+        We build what your business needs — and nothing it doesn't.
       </p>
       <div class="hero-ctas">
         <Button href="/contact#hubspot-meetings" variant="primary">
@@ -113,7 +112,38 @@ const industries = ['E-Commerce', 'SaaS', 'B2B Services', 'Consumer Brands', 'Pr
       <div class="services-grid stagger">
         {displayServices.map((svc) => (
           <Card href={`/services/${svc.slug.current}`} animate class="service-card">
-            <span class="service-icon">{svc.icon}</span>
+            <span class="service-icon">
+              {svc._id === '1' && (
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+              )}
+              {svc._id === '2' && (
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
+                </svg>
+              )}
+              {svc._id === '3' && (
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+                </svg>
+              )}
+              {svc._id === '4' && (
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M15 10l4.553-2.07A1 1 0 0121 8.868v6.264a1 1 0 01-1.447.899L15 14"/><rect x="2" y="7" width="13" height="10" rx="2"/>
+                </svg>
+              )}
+              {svc._id === '5' && (
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 017 7c0 2.62-1.4 4.91-3.5 6.19V17a1 1 0 01-1 1h-5a1 1 0 01-1-1v-1.81A7.003 7.003 0 015 9a7 7 0 017-7z"/>
+                </svg>
+              )}
+              {svc._id === '6' && (
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3l1.5 3.5L17 8l-3.5 1.5L12 13l-1.5-3.5L7 8l3.5-1.5L12 3z"/><path d="M5 17l1 2.5L8.5 20 7 17.5 5 17z"/><path d="M17 14l1 2.5L20.5 17 19 14.5 17 14z"/>
+                </svg>
+              )}
+            </span>
             <h3 class="service-title">{svc.title}</h3>
             <p class="service-desc">{svc.description}</p>
             <span class="service-arrow">
@@ -129,30 +159,26 @@ const industries = ['E-Commerce', 'SaaS', 'B2B Services', 'Consumer Brands', 'Pr
   <!-- ============================================================
        4. WHO WE SERVE
        ============================================================ -->
-  <section class="section who-we-serve">
+  <section class="who-we-serve">
     <div class="container">
       <div class="who-inner">
         <div class="who-copy">
           <SectionTag label="Who We Serve" />
-          <h2 class="section-title" style="margin-top: 16px;">
-            Built for brands ready<br />to own their growth
-          </h2>
-          <p class="section-desc">
-            We work best with marketing teams and founders who are past the
-            "trying things" stage and ready to build a compounding paid media
-            system. If you have product-market fit and budget to scale, we
-            should talk.
+          <h2 class="who-title">Built for service businesses ready to grow.</h2>
+          <p class="who-desc">
+            You run a great operation. Your digital presence should reflect that — and drive real leads.
+            Whether you're a local landscaping company or a regional security provider, we build what
+            your business needs to compete and win online.
           </p>
-          <Button href="/contact#hubspot-meetings" variant="primary" class="who-cta">
-            See If We're a Fit
-          </Button>
+          <Button href="/contact" variant="primary">See If We're a Fit</Button>
         </div>
         <div class="who-tags">
-          <p class="who-tags-label">Industries we know well</p>
+          <p class="who-tags-label">Industries we serve</p>
           <div class="who-tag-list">
             {industries.map((ind) => (
-              <span class="tag">{ind}</span>
+              <span class="who-tag">{ind}</span>
             ))}
+            <span class="who-tag who-tag--more">+ More</span>
           </div>
         </div>
       </div>
@@ -164,58 +190,87 @@ const industries = ['E-Commerce', 'SaaS', 'B2B Services', 'Consumer Brands', 'Pr
        ============================================================ -->
   <section class="section">
     <div class="container">
-      <SectionTag label="Client Results" />
-      <div class="case-study-card" style="margin-top: 24px;">
+      <div class="case-study-card">
         <div class="case-study-content">
-          <p class="case-study-eyebrow">
-            {featuredCase?.industry ?? 'E-Commerce'} · {featuredCase?.client ?? 'Confidential Client'}
-          </p>
+          <SectionTag label="Client Results" />
+          <p class="case-study-eyebrow">HVAC · 5-Year Partnership</p>
           <h2 class="case-study-title">
-            {featuredCase?.title ?? 'From stagnant ROAS to category leadership in 90 days'}
+            From local HVAC company to regional market leader.
           </h2>
           <p class="case-study-excerpt">
-            {featuredCase?.excerpt ?? 'A DTC brand with strong product-market fit but a paid media program that had plateaued. We rebuilt the account architecture, introduced a creative testing cadence, and overhauled attribution. The result: a 3.2× ROAS improvement across channels.'}
+            A family-owned HVAC business ready to scale but stuck on word-of-mouth and slow seasons.
+            We built their digital foundation — web, paid search, SEO, and content — and grew with
+            them for five years. The result: 4x revenue growth and an 8x blended return on ad spend.
           </p>
-          <div class="case-study-result">
-            <span class="case-study-result-value">
-              {featuredCase?.results ?? '3.2× ROAS Improvement'}
-            </span>
+          <div class="case-study-stats">
+            <span class="cs-stat cs-stat--green">8x Blended ROAS</span>
+            <span class="cs-stat cs-stat--blue">4x Revenue Growth</span>
+            <span class="cs-stat cs-stat--gold">5-Year Partnership</span>
           </div>
-          <Button href={featuredCase ? `/work/${featuredCase.slug.current}` : '/work'} variant="secondary">
+          <a href={featuredCase ? `/work/${featuredCase.slug.current}` : '/work'} class="cs-cta">
             Read the Case Study
-          </Button>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
         <div class="case-study-visual" aria-hidden="true">
-          <div class="case-study-chart">
-            <div class="chart-bar" style="height: 30%; background: var(--surface-3);"></div>
-            <div class="chart-bar" style="height: 45%; background: var(--surface-3);"></div>
-            <div class="chart-bar" style="height: 38%; background: var(--surface-3);"></div>
-            <div class="chart-bar" style="height: 60%; background: var(--blue); opacity: 0.4;"></div>
-            <div class="chart-bar" style="height: 75%; background: var(--blue); opacity: 0.6;"></div>
-            <div class="chart-bar" style="height: 95%; background: var(--blue);"></div>
-          </div>
+          <div class="cs-image-glow"></div>
+          <span class="cs-image-label">Featured Image</span>
         </div>
       </div>
     </div>
   </section>
 
+  <hr class="section-divider" />
+
   <!-- ============================================================
        6. ABOUT TEASER
        ============================================================ -->
-  <section class="section about-teaser">
+  <section class="about-teaser">
     <div class="container">
       <div class="about-inner">
-        <SectionTag label="About Railshop" />
-        <p class="about-copy">
-          Railshop is a boutique performance marketing agency. We're a small,
-          senior team — no account managers, no juniors running your budget.
-          Every engagement is handled by experienced practitioners who have
-          managed large paid media programs across multiple verticals. We built
-          this shop because we believe you deserve that.
-        </p>
-        <Button href="/about" variant="secondary">
-          Our Story
-        </Button>
+        <div class="about-copy">
+          <SectionTag label="About Railshop" />
+          <h2 class="about-title">Enterprise experience.<br />Boutique delivery.</h2>
+          <p class="about-desc">
+            Railshop is led by a senior marketer with enterprise brand experience and a product
+            leader from the software world. When engagements call for it, we bring in hand-selected
+            specialists from our professional network — people we know and trust. You always get
+            the right expertise for the job, without the overhead of a bloated agency.
+          </p>
+          <a href="/about" class="about-cta">
+            Our Story
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+        <div class="about-cards">
+          <div class="about-card">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
+            </svg>
+            <div>
+              <p class="about-card-label">Senior-Only Team</p>
+              <p class="about-card-desc">Every engagement handled by experienced practitioners — no juniors, no handoffs.</p>
+            </div>
+          </div>
+          <div class="about-card">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
+            </svg>
+            <div>
+              <p class="about-card-label">The Right People, Every Time</p>
+              <p class="about-card-desc">Senior leadership plus a curated network of specialists. No bloated teams — just the right expertise for your engagement.</p>
+            </div>
+          </div>
+          <div class="about-card">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
+            </svg>
+            <div>
+              <p class="about-card-label">Built to Partner</p>
+              <p class="about-card-desc">We work as an extension of your team — transparent, responsive, and invested in your growth.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -227,7 +282,8 @@ const industries = ['E-Commerce', 'SaaS', 'B2B Services', 'Consumer Brands', 'Pr
     <div class="container">
       <div class="section-header">
         <SectionTag label="From the Blog" />
-        <h2 class="section-title">Thinking out loud<br />on paid media</h2>
+        <h2 class="section-title">Straight talk on<br />digital marketing.</h2>
+        <p class="section-desc">No fluff, no vanity metrics — just honest perspective on what's working for service businesses online.</p>
       </div>
       <div class="blog-grid stagger">
         {displayPosts.map((post) => (
@@ -255,13 +311,12 @@ const industries = ['E-Commerce', 'SaaS', 'B2B Services', 'Consumer Brands', 'Pr
        ============================================================ -->
   <section class="cta-banner">
     <div class="container cta-inner">
-      <SectionTag label="Get Started" />
+      <SectionTag label="Let's Talk" />
       <h2 class="cta-title">
-        Ready to build a paid media<br />program that actually scales?
+        Ready to grow your service<br />business online?
       </h2>
       <p class="cta-desc">
-        We take on a limited number of new clients each quarter. Book a call to
-        see if we're the right fit.
+        We take on a limited number of new clients. Book a call to see if we're the right fit.
       </p>
       <div class="cta-buttons">
         <Button href="/contact#hubspot-meetings" variant="primary">
@@ -279,8 +334,9 @@ const industries = ['E-Commerce', 'SaaS', 'B2B Services', 'Consumer Brands', 'Pr
   /* ---- Hero ---- */
   .hero {
     position: relative;
-    padding: 120px 0 100px;
+    padding: 140px 0 120px;
     overflow: hidden;
+    text-align: center;
   }
 
   .hero-bg {
@@ -302,32 +358,34 @@ const industries = ['E-Commerce', 'SaaS', 'B2B Services', 'Consumer Brands', 'Pr
 
   .hero-glow {
     position: absolute;
-    top: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 600px;
-    height: 400px;
-    background: radial-gradient(ellipse, rgba(56, 182, 255, 0.12) 0%, transparent 70%);
+    top: -80px;
+    right: -100px;
+    width: 700px;
+    height: 500px;
+    background: radial-gradient(ellipse, rgba(56, 182, 255, 0.07) 0%, transparent 70%);
     pointer-events: none;
   }
 
   .hero-content {
     position: relative;
     z-index: 1;
-    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .hero-eyebrow {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
   }
 
   .hero-headline {
-    font-size: clamp(40px, 6vw, 68px);
+    font-size: clamp(48px, 7vw, 80px);
     font-weight: 800;
-    line-height: 1.1;
-    color: var(--text-2);
-    margin-bottom: 20px;
-    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--text);
+    margin-bottom: 24px;
+    letter-spacing: -0.03em;
+    max-width: 900px;
   }
 
   .hero-headline-accent {
@@ -337,15 +395,16 @@ const industries = ['E-Commerce', 'SaaS', 'B2B Services', 'Consumer Brands', 'Pr
   .hero-subhead {
     font-size: 18px;
     color: var(--text-3);
-    max-width: 520px;
+    max-width: 560px;
     line-height: 1.7;
-    margin-bottom: 36px;
+    margin-bottom: 40px;
   }
 
   .hero-ctas {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
+    justify-content: center;
   }
 
   /* ---- Social Proof Bar ---- */
@@ -424,8 +483,8 @@ const industries = ['E-Commerce', 'SaaS', 'B2B Services', 'Consumer Brands', 'Pr
   }
 
   .service-icon {
-    font-size: 28px;
-    line-height: 1;
+    display: flex;
+    align-items: center;
   }
 
   .service-title {
@@ -456,17 +515,36 @@ const industries = ['E-Commerce', 'SaaS', 'B2B Services', 'Consumer Brands', 'Pr
     background: var(--surface);
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
+    padding: 100px 0;
   }
 
   .who-inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 64px;
+    gap: 80px;
     align-items: center;
   }
 
-  .who-cta {
-    margin-top: 24px;
+  .who-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  .who-title {
+    font-size: clamp(26px, 3.5vw, 36px);
+    font-weight: 800;
+    color: var(--text-2);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .who-desc {
+    font-size: 16px;
+    color: var(--text-3);
+    line-height: 1.75;
+    max-width: 480px;
   }
 
   .who-tags-label {
@@ -475,13 +553,30 @@ const industries = ['E-Commerce', 'SaaS', 'B2B Services', 'Consumer Brands', 'Pr
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--text-3);
-    margin-bottom: 16px;
+    margin-bottom: 20px;
   }
 
   .who-tag-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px;
+  }
+
+  .who-tag {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-3);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    background: var(--surface-2);
+  }
+
+  .who-tag--more {
+    color: var(--text-3);
+    border-style: dashed;
+    opacity: 0.6;
+    font-style: italic;
   }
 
   /* ---- Featured Case Study ---- */
@@ -492,13 +587,15 @@ const industries = ['E-Commerce', 'SaaS', 'B2B Services', 'Consumer Brands', 'Pr
     display: grid;
     grid-template-columns: 1fr 1fr;
     overflow: hidden;
+    min-height: 400px;
   }
 
   .case-study-content {
     padding: 48px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    align-items: flex-start;
+    gap: 20px;
   }
 
   .case-study-eyebrow {
@@ -510,71 +607,184 @@ const industries = ['E-Commerce', 'SaaS', 'B2B Services', 'Consumer Brands', 'Pr
   }
 
   .case-study-title {
-    font-size: 26px;
+    font-size: clamp(22px, 2.5vw, 28px);
     font-weight: 800;
     color: var(--text-2);
     line-height: 1.25;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
   }
 
   .case-study-excerpt {
     font-size: 15px;
     color: var(--text-3);
-    line-height: 1.7;
+    line-height: 1.75;
   }
 
-  .case-study-result {
+  .case-study-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .cs-stat {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 20px;
+  }
+
+  .cs-stat--green {
+    background: rgba(52, 211, 153, 0.1);
+    color: var(--green);
+  }
+
+  .cs-stat--blue {
+    background: rgba(56, 182, 255, 0.08);
+    color: var(--blue);
+  }
+
+  .cs-stat--gold {
+    background: rgba(251, 191, 36, 0.08);
+    color: var(--gold);
+  }
+
+  .cs-cta {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    background: var(--blue-glow);
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--blue);
     border: 1px solid var(--blue-border);
     border-radius: 8px;
-    padding: 8px 14px;
-    width: fit-content;
+    padding: 9px 16px;
+    transition: background 0.15s, border-color 0.15s;
   }
 
-  .case-study-result-value {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--blue);
-    font-family: 'JetBrains Mono', monospace;
+  .cs-cta:hover {
+    background: var(--blue-glow);
+    border-color: var(--blue);
   }
 
   .case-study-visual {
     background: var(--surface-2);
     border-left: 1px solid var(--border);
+    position: relative;
     display: flex;
-    align-items: flex-end;
-    padding: 48px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
   }
 
-  .case-study-chart {
-    display: flex;
-    align-items: flex-end;
-    gap: 8px;
-    width: 100%;
-    height: 180px;
+  .cs-image-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(56, 182, 255, 0.07) 0%, transparent 70%);
+    pointer-events: none;
   }
 
-  .chart-bar {
-    flex: 1;
-    border-radius: 4px 4px 0 0;
-    transition: height 0.3s ease;
+  .cs-image-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+    opacity: 0.5;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---- Section divider ---- */
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
   }
 
   /* ---- About Teaser ---- */
+  .about-teaser {
+    padding: 100px 0;
+  }
+
   .about-inner {
-    max-width: 680px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .about-title {
+    font-size: clamp(26px, 3.5vw, 36px);
+    font-weight: 800;
+    color: var(--text-2);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .about-desc {
+    font-size: 16px;
+    color: var(--text-3);
+    line-height: 1.75;
+  }
+
+  .about-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--blue);
+    border: 1px solid var(--blue-border);
+    border-radius: 8px;
+    padding: 9px 16px;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .about-cta:hover {
+    background: var(--blue-glow);
+    border-color: var(--blue);
+  }
+
+  .about-cards {
     display: flex;
     flex-direction: column;
     gap: 16px;
   }
 
-  .about-copy {
-    font-size: 16px;
+  .about-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  .about-card svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .about-card-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-2);
+    margin-bottom: 4px;
+  }
+
+  .about-card-desc {
+    font-size: 13px;
     color: var(--text-3);
-    line-height: 1.8;
+    line-height: 1.6;
   }
 
   /* ---- Blog Grid ---- */
@@ -674,7 +884,8 @@ const industries = ['E-Commerce', 'SaaS', 'B2B Services', 'Consumer Brands', 'Pr
   @media (max-width: 768px) {
     .services-grid,
     .blog-grid,
-    .who-inner {
+    .who-inner,
+    .about-inner {
       grid-template-columns: 1fr;
     }
 
