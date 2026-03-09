@@ -32,9 +32,21 @@ const currentPath = Astro.url.pathname;
       ))}
     </nav>
 
-    <!-- Right: theme toggle + CTA -->
+    <!-- Right: theme toggle + client login + CTA -->
     <div class="nav-right">
       <ThemeToggle client:load />
+      <a
+        href="https://app.railshop.co"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="nav-client-login"
+        aria-label="Client Login"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
+      </a>
       <a href="/contact#hubspot-meetings" class="btn-primary nav-cta">
         Book a Call
       </a>
@@ -72,6 +84,18 @@ const currentPath = Astro.url.pathname;
         {link.label}
       </a>
     ))}
+    <a
+      href="https://app.railshop.co"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="nav-mobile-link nav-mobile-link--secondary"
+    >
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="8" r="4"/>
+        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+      </svg>
+      Client Login
+    </a>
   </nav>
 
   <!-- Pinned CTA -->
@@ -167,6 +191,21 @@ const currentPath = Astro.url.pathname;
     padding: 8px 14px;
   }
 
+  .nav-client-login {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--text-3);
+    text-decoration: none;
+    transition: color 0.15s;
+    white-space: nowrap;
+  }
+
+  .nav-client-login:hover {
+    color: var(--text);
+  }
+
   /* Hamburger */
   .nav-hamburger {
     display: none;
@@ -251,6 +290,19 @@ const currentPath = Astro.url.pathname;
 
   .nav-mobile-link:hover {
     color: var(--text);
+  }
+
+  .nav-mobile-link--secondary {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-3);
+  }
+
+  .nav-mobile-link--secondary:hover {
+    color: var(--text-3);
   }
 
   /* Pinned CTA */
