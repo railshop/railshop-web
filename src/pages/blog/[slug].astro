@@ -12,11 +12,11 @@ export async function getStaticPaths() {
     }
   } catch (_) {}
   return [
+    'why-service-businesses-fail-online',
     'google-ads-plateau',
-    'creative-testing-system',
-    'ga4-custom-dimensions',
-    'meta-ads-structure',
-    'full-funnel-attribution',
+    'local-seo-2026',
+    'service-business-website-conversion',
+    'ai-in-client-engagements',
   ].map((slug) => ({ params: { slug } }));
 }
 
@@ -32,8 +32,8 @@ if (!post) {
     title: slug.replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase()),
     excerpt: 'Full post content coming soon.',
     publishedAt: new Date().toISOString(),
-    author: 'Railshop',
     slug: { current: slug },
+    categories: [],
   };
 }
 
@@ -57,69 +57,106 @@ const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
     </div>
   </div>
 
-  <!-- Header -->
+  <!-- Hero -->
   <section class="post-hero">
     <div class="container">
-      <div class="post-meta">
-        <span class="post-date">{formattedDate}</span>
+      <div class="post-hero-meta">
         {post.categories?.map((cat: any) => (
           <span class="tag">{cat.title}</span>
         ))}
+        <span class="post-date">{formattedDate}</span>
       </div>
       <h1 class="post-title">{post.title}</h1>
       <p class="post-excerpt">{post.excerpt}</p>
-      {post.author && (
-        <p class="post-author">By {post.author}</p>
-      )}
     </div>
   </section>
 
+  <!-- Featured Image -->
+  <div class="post-featured-image">
+    <div class="post-featured-image-glow" aria-hidden="true"></div>
+    <span class="post-featured-image-label">Post Image</span>
+  </div>
+
   <!-- Body -->
-  <section class="section">
-    <div class="container">
-      <div class="post-body">
+  <div class="content-wrap">
+    <div class="container content-grid">
+
+      <!-- Main -->
+      <article class="post-body">
         {post.body ? (
           <p>Post content from Sanity will render here with a Portable Text renderer.</p>
         ) : (
-          <div class="placeholder-content">
-            <p>
-              Full post content is managed in Sanity CMS. Once connected, the
-              full article will render here using Portable Text.
-            </p>
-            <p>
-              In the meantime, visit our{' '}
-              <a href="/blog" style="color: var(--blue);">blog index</a> to see
-              all available posts.
-            </p>
+          <div class="placeholder-body">
+            <h2>The Challenge</h2>
+            <p>Full post content is managed in Sanity CMS. Once connected, the full article will render here using Portable Text. Each post is written by a senior practitioner with direct experience managing this type of program for service businesses.</p>
+
+            <h2>What We've Observed</h2>
+            <p>This section will contain the main body of the post — frameworks, data observations, and actionable perspective. The content is designed for owners and marketing leads at service businesses who want honest, experience-backed insight rather than recycled agency advice.</p>
+
+            <h2>What to Do About It</h2>
+            <p>The final section of each post includes clear, prioritised actions — not vague recommendations. If you want to discuss how this applies to your specific business, book a call and we'll walk through it together.</p>
+
+            <p>In the meantime, <a href="/blog">browse all posts</a> to find more relevant reading.</p>
           </div>
         )}
+      </article>
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <p class="sidebar-eyebrow">About the Authors</p>
+          <p class="sidebar-body">Railshop is a boutique digital growth agency for service businesses. Everything we publish comes from direct experience managing paid media, SEO, and web programs for clients across HVAC, landscaping, home security, and more.</p>
+          <a href="/about" class="sidebar-link">Meet the team →</a>
+        </div>
+
+        <div class="sidebar-card">
+          <p class="sidebar-eyebrow sidebar-eyebrow--blue">Work With Us</p>
+          <p class="sidebar-body">Book a no-commitment call to discuss your digital program and see what's possible.</p>
+          <a href="/contact#hubspot-meetings" class="sidebar-btn-link">Book a Call</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- CTA Banner -->
+  <section class="cta-banner">
+    <div class="cta-glow" aria-hidden="true"></div>
+    <div class="container cta-inner">
+      <SectionTag label="Enjoyed This Post?" />
+      <h2 class="cta-title">See how we put this into practice.</h2>
+      <p class="cta-desc">Book a call to talk through your digital program.</p>
+      <div class="cta-buttons">
+        <Button href="/contact#hubspot-meetings" variant="primary">Book a Call</Button>
+        <Button href="/blog" variant="secondary">Read More Posts</Button>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="section cta-strip">
-    <div class="container cta-inner">
-      <div>
-        <h2 class="cta-title">Want to put this into practice?</h2>
-        <p class="cta-desc">Book a call and we'll review your current program.</p>
-      </div>
-      <Button href="/contact#hubspot-meetings" variant="primary">Book a Call</Button>
-    </div>
-  </section>
 </BaseLayout>
 
 <style>
+  /* ── Breadcrumb ── */
   .breadcrumb { border-bottom: 1px solid var(--border); background: var(--surface); }
   .breadcrumb-inner { display: flex; align-items: center; gap: 8px; padding: 14px 24px; font-size: 13px; }
-  .breadcrumb-link { color: var(--text-3); }
+  .breadcrumb-link { color: var(--text-3); transition: color 0.15s; }
   .breadcrumb-link:hover { color: var(--text); }
   .breadcrumb-sep { color: var(--border-2); }
-  .breadcrumb-current { color: var(--text-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 300px; }
+  .breadcrumb-current { color: var(--text-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 360px; }
 
-  .post-hero { padding: 64px 0 48px; border-bottom: 1px solid var(--border); }
+  /* ── Hero ── */
+  .post-hero {
+    padding: 64px 0 56px;
+    border-bottom: 1px solid var(--border);
+  }
 
-  .post-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+  .post-hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
 
   .post-date {
     font-family: 'JetBrains Mono', monospace;
@@ -130,29 +167,218 @@ const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
   }
 
   .post-title {
-    font-size: clamp(28px, 4vw, 44px);
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 800;
+    color: var(--text-2);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    max-width: 720px;
+    margin-bottom: 16px;
+  }
+
+  .post-excerpt {
+    font-size: 17px;
+    color: var(--text-3);
+    max-width: 640px;
+    line-height: 1.75;
+  }
+
+  /* ── Featured image ── */
+  .post-featured-image {
+    position: relative;
+    height: 400px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .post-featured-image-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(56, 182, 255, 0.05) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .post-featured-image-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-3);
+    opacity: 0.4;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Layout ── */
+  .content-wrap { padding: 64px 0 80px; }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 64px;
+    align-items: start;
+  }
+
+  /* ── Post body ── */
+  .post-body {
+    font-size: 16px;
+    color: var(--text-3);
+    line-height: 1.85;
+    min-width: 0;
+  }
+
+  .placeholder-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .post-body h2,
+  .placeholder-body h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-2);
+    margin-top: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .post-body p,
+  .placeholder-body p {
+    font-size: 16px;
+    color: var(--text-3);
+    line-height: 1.85;
+  }
+
+  .post-body a,
+  .placeholder-body a {
+    color: var(--blue);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: sticky;
+    top: 88px;
+  }
+
+  .sidebar-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .sidebar-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+  }
+
+  .sidebar-eyebrow--blue { color: var(--blue); }
+
+  .sidebar-body {
+    font-size: 13px;
+    color: var(--text-3);
+    line-height: 1.7;
+  }
+
+  .sidebar-link {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--blue);
+    text-decoration: none;
+  }
+
+  .sidebar-link:hover { text-decoration: underline; }
+
+  .sidebar-btn-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--blue);
+    color: #111315;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 8px;
+    padding: 10px 18px;
+    transition: opacity 0.2s;
+    text-decoration: none;
+    margin-top: 4px;
+  }
+
+  .sidebar-btn-link:hover { opacity: 0.88; }
+
+  /* ── CTA Banner ── */
+  .cta-banner {
+    position: relative;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 80px 0;
+    overflow: hidden;
+  }
+
+  .cta-glow {
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 500px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(56, 182, 255, 0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .cta-title {
+    font-size: clamp(26px, 4vw, 40px);
     font-weight: 800;
     color: var(--text-2);
     letter-spacing: -0.02em;
     line-height: 1.2;
-    max-width: 760px;
-    margin-bottom: 16px;
+    max-width: 560px;
   }
 
-  .post-excerpt { font-size: 17px; color: var(--text-3); max-width: 620px; line-height: 1.7; }
-  .post-author { font-size: 13px; color: var(--text-3); margin-top: 12px; font-family: 'JetBrains Mono', monospace; }
-
-  .post-body {
-    max-width: 720px;
+  .cta-desc {
     font-size: 16px;
     color: var(--text-3);
-    line-height: 1.8;
+    max-width: 440px;
+    line-height: 1.7;
   }
 
-  .placeholder-content { display: flex; flex-direction: column; gap: 16px; }
+  .cta-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 8px;
+  }
 
-  .cta-strip { background: var(--surface); border-top: 1px solid var(--border); }
-  .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; padding-top: 48px; padding-bottom: 48px; }
-  .cta-title { font-size: 22px; font-weight: 700; color: var(--text-2); }
-  .cta-desc { font-size: 14px; color: var(--text-3); margin-top: 6px; }
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .content-grid { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    .post-featured-image { height: 260px; }
+  }
 </style>

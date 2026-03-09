@@ -1,65 +1,210 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionTag from '../../components/ui/SectionTag.astro';
-import Card from '../../components/ui/Card.astro';
 import { getPosts } from '../../lib/sanity';
 
 let posts: any[] = [];
 try {
   posts = await getPosts(20);
 } catch (_) {}
-
-const displayPosts = posts.length > 0 ? posts : [
-  { _id: '1', title: 'Why Most Google Ads Accounts Plateau After Month 3', excerpt: 'The structural patterns we see in stalled accounts, and the levers that consistently move them.', publishedAt: '2024-11-01', slug: { current: 'google-ads-plateau' }, categories: [{ title: 'Paid Search', slug: { current: 'paid-search' } }] },
-  { _id: '2', title: 'Building a Paid Social Creative Testing System', excerpt: 'How to set up a repeatable process for finding winning ad creatives at scale without burning budget on guesses.', publishedAt: '2024-10-18', slug: { current: 'creative-testing-system' }, categories: [{ title: 'Paid Social', slug: { current: 'paid-social' } }] },
-  { _id: '3', title: 'GA4 Custom Dimensions You Should Have Set Up Yesterday', excerpt: 'The tracking gaps that cost most brands their attribution accuracy — and how to fix them this week.', publishedAt: '2024-10-05', slug: { current: 'ga4-custom-dimensions' }, categories: [{ title: 'Analytics', slug: { current: 'analytics' } }] },
-  { _id: '4', title: 'How to Structure a Meta Ads Account for Scale', excerpt: 'Campaign architecture decisions that make scaling painless vs. the common mistakes that create a ceiling.', publishedAt: '2024-09-20', slug: { current: 'meta-ads-structure' }, categories: [{ title: 'Paid Social', slug: { current: 'paid-social' } }] },
-  { _id: '5', title: 'The Case for Full-Funnel Attribution (Even When It\'s Imperfect)', excerpt: 'Why imperfect holistic measurement beats precise but siloed channel metrics.', publishedAt: '2024-09-08', slug: { current: 'full-funnel-attribution' }, categories: [{ title: 'Analytics', slug: { current: 'analytics' } }] },
-];
 ---
 
-<BaseLayout title="Blog — Railshop" description="Performance marketing thinking from the Railshop team. Paid search, paid social, analytics, and full-funnel strategy.">
-  <!-- Header -->
+<BaseLayout
+  title="Blog — Railshop"
+  description="Straight talk on digital marketing for service businesses. No fluff — honest perspective from practitioners who live in the accounts."
+>
+
+  <!-- Hero -->
   <section class="page-hero">
     <div class="container">
       <SectionTag label="The Blog" />
-      <h1 class="page-title">Thinking on paid media</h1>
+      <h1 class="page-title">Straight talk on<br />digital marketing.</h1>
       <p class="page-desc">
-        Frameworks, analysis, and opinion from practitioners who live in the
-        accounts. No recycled advice.
+        No fluff, no vanity metrics — honest perspective on what's working for service businesses
+        online. Written by practitioners who live in the accounts.
       </p>
     </div>
   </section>
 
-  <!-- Posts -->
-  <section class="section">
+  <!-- Featured Post -->
+  <section class="featured-section">
     <div class="container">
-      <div class="posts-list stagger">
-        {displayPosts.map((post) => (
-          <Card href={`/blog/${post.slug.current}`} animate class="post-card">
-            <div class="post-meta">
-              <span class="post-date">
-                {new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-              </span>
-              {post.categories?.map((cat: any) => (
-                <span class="tag">{cat.title}</span>
-              ))}
-            </div>
-            <h2 class="post-title">{post.title}</h2>
-            <p class="post-excerpt">{post.excerpt}</p>
-            <span class="post-link">
-              Read post
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </span>
-          </Card>
-        ))}
-      </div>
+      <a href="/blog/why-service-businesses-fail-online" class="featured-card">
+        <div class="featured-image">
+          <div class="featured-image-glow" aria-hidden="true"></div>
+          <span class="featured-image-label">Featured Post Image</span>
+        </div>
+        <div class="featured-content">
+          <div class="post-meta">
+            <span class="tag">Strategy</span>
+            <span class="post-date">February 12, 2026</span>
+          </div>
+          <h2 class="featured-title">Why Most Service Businesses Fail Online (And What Actually Works)</h2>
+          <p class="featured-excerpt">The common mistakes we see across every industry — and the framework we use to fix them.</p>
+          <span class="post-link">Read post →</span>
+        </div>
+      </a>
     </div>
   </section>
+
+  <!-- Filter Tabs -->
+  <div class="filter-bar">
+    <div class="container filter-inner">
+      <span class="filter-label">Filter by</span>
+      <div class="filter-tabs" id="filter-tabs">
+        <button class="filter-tab filter-tab--active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="web">Web</button>
+        <button class="filter-tab" data-filter="seo">SEO</button>
+        <button class="filter-tab" data-filter="paid-ads">Paid Ads</button>
+        <button class="filter-tab" data-filter="content">Content</button>
+        <button class="filter-tab" data-filter="strategy">Strategy</button>
+        <button class="filter-tab" data-filter="ai">AI</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post Grid -->
+  <section class="posts-section">
+    <div class="container">
+      <div class="posts-grid" id="posts-grid">
+
+        <a href="/blog/google-ads-plateau" class="post-card" data-category="paid-ads">
+          <div class="post-image">
+            <div class="post-image-glow" aria-hidden="true"></div>
+            <span class="post-image-label">Post Image</span>
+          </div>
+          <div class="post-content">
+            <div class="post-meta">
+              <span class="tag">Paid Ads</span>
+              <span class="post-date">January 28, 2026</span>
+            </div>
+            <h2 class="post-title">Why Most Google Ads Accounts Plateau After Month 3</h2>
+            <p class="post-excerpt">The structural patterns we see in stalled accounts, and the levers that consistently move them.</p>
+            <span class="post-link">Read post →</span>
+          </div>
+        </a>
+
+        <a href="/blog/local-seo-2026" class="post-card" data-category="seo">
+          <div class="post-image">
+            <div class="post-image-glow" aria-hidden="true"></div>
+            <span class="post-image-label">Post Image</span>
+          </div>
+          <div class="post-content">
+            <div class="post-meta">
+              <span class="tag">SEO</span>
+              <span class="post-date">January 14, 2026</span>
+            </div>
+            <h2 class="post-title">Local SEO in 2026: What's Changed and What Still Works</h2>
+            <p class="post-excerpt">The tactics that have faded and the fundamentals that keep driving rankings for service businesses.</p>
+            <span class="post-link">Read post →</span>
+          </div>
+        </a>
+
+        <a href="/blog/service-business-website-conversion" class="post-card" data-category="web">
+          <div class="post-image">
+            <div class="post-image-glow" aria-hidden="true"></div>
+            <span class="post-image-label">Post Image</span>
+          </div>
+          <div class="post-content">
+            <div class="post-meta">
+              <span class="tag">Web</span>
+              <span class="post-date">December 18, 2025</span>
+            </div>
+            <h2 class="post-title">What Makes a Service Business Website Actually Convert</h2>
+            <p class="post-excerpt">Speed, structure, and trust signals — the three things that separate websites that generate leads from ones that don't.</p>
+            <span class="post-link">Read post →</span>
+          </div>
+        </a>
+
+        <a href="/blog/ai-in-client-engagements" class="post-card" data-category="ai">
+          <div class="post-image">
+            <div class="post-image-glow" aria-hidden="true"></div>
+            <span class="post-image-label">Post Image</span>
+          </div>
+          <div class="post-content">
+            <div class="post-meta">
+              <span class="tag">AI</span>
+              <span class="post-date">December 3, 2025</span>
+            </div>
+            <h2 class="post-title">How We're Using AI in Client Engagements Right Now</h2>
+            <p class="post-excerpt">Practical applications, not hype. Where AI is actually saving time and improving output in our day-to-day work.</p>
+            <span class="post-link">Read post →</span>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- Pagination -->
+      <nav class="pagination" aria-label="Post pagination">
+        <button class="page-btn page-btn--nav" disabled>← Prev</button>
+        <div class="page-numbers">
+          <button class="page-btn page-btn--active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">3</button>
+        </div>
+        <button class="page-btn page-btn--nav">Next →</button>
+      </nav>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="cta-banner">
+    <div class="cta-glow" aria-hidden="true"></div>
+    <div class="container cta-inner">
+      <SectionTag label="Stay Sharp" />
+      <h2 class="cta-title">Practical insight, straight to your inbox.</h2>
+      <p class="cta-desc">No fluff, no sales pitches. Just the frameworks and observations we'd share with a client.</p>
+      <form
+        name="newsletter-signup"
+        method="POST"
+        netlify
+        class="newsletter-form"
+      >
+        <input type="hidden" name="form-name" value="newsletter-signup" />
+        <div class="newsletter-row">
+          <input
+            type="email"
+            name="email"
+            placeholder="Your email address"
+            required
+            class="newsletter-input"
+          />
+          <button type="submit" class="newsletter-btn">Subscribe</button>
+        </div>
+        <p class="newsletter-helper">No spam. Unsubscribe anytime.</p>
+      </form>
+    </div>
+  </section>
+
 </BaseLayout>
 
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.filter-tab');
+  const cards = document.querySelectorAll<HTMLElement>('.post-card');
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const filter = tab.dataset.filter ?? 'all';
+
+      // Update active tab
+      tabs.forEach((t) => t.classList.remove('filter-tab--active'));
+      tab.classList.add('filter-tab--active');
+
+      // Show/hide cards
+      cards.forEach((card) => {
+        const match = filter === 'all' || card.dataset.category === filter;
+        card.style.display = match ? '' : 'none';
+      });
+    });
+  });
+</script>
+
 <style>
-  .page-hero { padding: 80px 0 48px; border-bottom: 1px solid var(--border); }
+  /* ── Hero ── */
+  .page-hero {
+    padding: 80px 0 56px;
+    border-bottom: 1px solid var(--border);
+  }
 
   .page-title {
     font-size: clamp(36px, 5vw, 56px);
@@ -67,31 +212,200 @@ const displayPosts = posts.length > 0 ? posts : [
     color: var(--text-2);
     margin-top: 16px;
     letter-spacing: -0.02em;
+    line-height: 1.1;
   }
 
   .page-desc {
     font-size: 17px;
     color: var(--text-3);
-    max-width: 500px;
-    line-height: 1.7;
+    max-width: 560px;
+    line-height: 1.75;
     margin-top: 12px;
   }
 
-  .posts-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    max-width: 800px;
+  /* ── Featured Post ── */
+  .featured-section {
+    padding: 48px 0 0;
   }
 
-  :global(.post-card) {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 32px;
+  .featured-card {
+    display: block;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
     text-decoration: none;
+    transition: border-color 0.2s;
   }
 
+  .featured-card:hover { border-color: var(--border-2); }
+
+  .featured-image {
+    position: relative;
+    height: 320px;
+    background: var(--surface-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .featured-image-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(56, 182, 255, 0.06) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .featured-image-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-3);
+    opacity: 0.5;
+    position: relative;
+    z-index: 1;
+  }
+
+  .featured-content {
+    padding: 28px 32px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .featured-title {
+    font-size: clamp(20px, 2.5vw, 28px);
+    font-weight: 700;
+    color: var(--text-2);
+    line-height: 1.25;
+  }
+
+  .featured-excerpt {
+    font-size: 15px;
+    color: var(--text-3);
+    line-height: 1.7;
+  }
+
+  /* ── Filter Bar ── */
+  .filter-bar {
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border);
+    margin-top: 32px;
+  }
+
+  .filter-inner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .filter-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+    flex-shrink: 0;
+  }
+
+  .filter-tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .filter-tab {
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-3);
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+    font-family: inherit;
+  }
+
+  .filter-tab:hover {
+    border-color: var(--blue);
+    color: var(--text-2);
+  }
+
+  .filter-tab--active {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: #111315;
+  }
+
+  .filter-tab--active:hover {
+    border-color: var(--blue);
+    color: #111315;
+  }
+
+  /* ── Post Grid ── */
+  .posts-section {
+    padding: 48px 0 80px;
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .post-card {
+    display: block;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: border-color 0.2s;
+  }
+
+  .post-card:hover { border-color: var(--border-2); }
+
+  .post-image {
+    position: relative;
+    height: 200px;
+    background: var(--surface-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .post-image-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(56, 182, 255, 0.05) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .post-image-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-3);
+    opacity: 0.5;
+    position: relative;
+    z-index: 1;
+  }
+
+  .post-content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* ── Shared post elements ── */
   .post-meta {
     display: flex;
     align-items: center;
@@ -107,16 +421,177 @@ const displayPosts = posts.length > 0 ? posts : [
     color: var(--text-3);
   }
 
-  .post-title { font-size: 20px; font-weight: 700; color: var(--text-2); line-height: 1.35; }
-  .post-excerpt { font-size: 14px; color: var(--text-3); line-height: 1.7; }
+  .post-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-2);
+    line-height: 1.35;
+  }
+
+  .post-excerpt {
+    font-size: 14px;
+    color: var(--text-3);
+    line-height: 1.7;
+  }
 
   .post-link {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--blue);
+    margin-top: 4px;
+  }
+
+  /* ── Pagination ── */
+  .pagination {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
-    font-size: 12px;
+    margin-top: 48px;
+  }
+
+  .page-numbers {
+    display: flex;
+    gap: 6px;
+  }
+
+  .page-btn {
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    padding: 7px 13px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-3);
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+  }
+
+  .page-btn:hover:not(:disabled) {
+    border-color: var(--blue);
+    color: var(--text-2);
+  }
+
+  .page-btn--active {
+    border-color: var(--blue);
     color: var(--blue);
-    font-weight: 600;
-    width: fit-content;
+    font-weight: 700;
+  }
+
+  .page-btn--nav {
+    padding: 7px 16px;
+    color: var(--text-3);
+  }
+
+  .page-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  /* ── CTA Banner ── */
+  .cta-banner {
+    position: relative;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 80px 0;
+    overflow: hidden;
+  }
+
+  .cta-glow {
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 500px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(56, 182, 255, 0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .cta-title {
+    font-size: clamp(24px, 3.5vw, 38px);
+    font-weight: 800;
+    color: var(--text-2);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    max-width: 580px;
+  }
+
+  .cta-desc {
+    font-size: 16px;
+    color: var(--text-3);
+    max-width: 480px;
+    line-height: 1.7;
+  }
+
+  .newsletter-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  .newsletter-row {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .newsletter-input {
+    flex: 1;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: var(--text);
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.15s;
+    min-width: 0;
+  }
+
+  .newsletter-input::placeholder { color: var(--text-3); }
+  .newsletter-input:focus { border-color: var(--blue); }
+
+  .newsletter-btn {
+    background: var(--blue);
+    color: #111315;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: inherit;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+    flex-shrink: 0;
+  }
+
+  .newsletter-btn:hover { opacity: 0.88; }
+
+  .newsletter-helper {
+    font-size: 12px;
+    color: var(--text-3);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .posts-grid { grid-template-columns: 1fr; }
+    .filter-inner { gap: 12px; }
   }
 </style>
