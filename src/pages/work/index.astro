@@ -11,13 +11,54 @@ try {
 } catch (_) {}
 
 const displayCases = caseStudies.length > 0 ? caseStudies : [
-  { _id: '1', title: 'From stagnant ROAS to category leadership in 90 days', client: 'Confidential Client', industry: 'E-Commerce', results: '3.2× ROAS improvement', excerpt: 'A DTC brand with strong product but a paid media program that had plateaued. We rebuilt the architecture and introduced a systematic creative testing cadence.', slug: { current: 'ecom-roas-turnaround' } },
-  { _id: '2', title: 'Scaling a SaaS brand from $40K to $200K/mo in paid social', client: 'Confidential Client', industry: 'SaaS', results: '5× spend scale, stable CPA', excerpt: 'LinkedIn + Meta program for a B2B SaaS brand entering a new market segment. Full-funnel strategy from awareness to demo-booked.', slug: { current: 'saas-paid-social-scale' } },
-  { _id: '3', title: 'Building a measurement foundation for a multi-location retailer', client: 'Confidential Client', industry: 'Retail', results: '40% improvement in attribution accuracy', excerpt: 'GA4 implementation, offline conversion imports, and custom dashboards that finally connected ad spend to in-store revenue.', slug: { current: 'retail-measurement' } },
+  {
+    _id: '1',
+    industry: 'HVAC',
+    title: 'From local HVAC company to regional market leader.',
+    excerpt: 'A family-owned HVAC business stuck on word-of-mouth and slow seasons. We built their digital foundation — web, paid search, SEO, and content — and grew with them for five years.',
+    stats: [
+      { label: '8x Blended ROAS', color: 'green' },
+      { label: '4x Revenue Growth', color: 'blue' },
+    ],
+    slug: { current: 'hvac-market-leader' },
+  },
+  {
+    _id: '2',
+    industry: 'Landscaping',
+    title: 'From zero digital presence to fully booked seasons.',
+    excerpt: 'A regional landscaping company with no website and no online visibility. We built their site, launched local SEO, and ran targeted paid search during peak seasons.',
+    stats: [
+      { label: '3.2x ROAS', color: 'green' },
+      { label: 'First Page Rankings in 90 Days', color: 'blue' },
+    ],
+    slug: { current: 'landscaping-digital-presence' },
+  },
+  {
+    _id: '3',
+    industry: 'Excavation',
+    title: 'Building a digital foundation for a growing excavation company.',
+    excerpt: 'An excavation contractor relying entirely on referrals with no digital presence. We built their brand online — site, local SEO, and Google Ads — opening up a new inbound lead channel.',
+    stats: [
+      { label: 'New Inbound Channel', color: 'gold' },
+      { label: '68% Lower CPL vs. Industry Avg', color: 'green' },
+    ],
+    slug: { current: 'excavation-digital-foundation' },
+  },
+  {
+    _id: '4',
+    industry: 'Home Security',
+    title: 'Scaling a home security brand beyond door-to-door.',
+    excerpt: 'A regional home security company over-reliant on door-to-door sales. We built their digital acquisition engine — paid search, local SEO, and a converting website — to create a scalable inbound channel.',
+    stats: [
+      { label: '2.8x Lead Volume', color: 'green' },
+      { label: '47% Lower CPL', color: 'blue' },
+    ],
+    slug: { current: 'home-security-digital-acquisition' },
+  },
 ];
 ---
 
-<BaseLayout title="Work — Railshop" description="Case studies from Railshop. See how we've helped brands scale paid media programs and drive measurable growth.">
+<BaseLayout title="Work — Railshop" description="Case studies from Railshop. See how we've helped service businesses build their digital presence and drive real growth.">
   <!-- Header -->
   <section class="page-hero">
     <div class="container">
@@ -36,33 +77,45 @@ const displayCases = caseStudies.length > 0 ? caseStudies : [
       <div class="cases-grid stagger">
         {displayCases.map((cs) => (
           <Card href={`/work/${cs.slug.current}`} animate class="case-card">
-            <div class="case-meta">
-              <span class="tag">{cs.industry}</span>
+            <!-- Featured image placeholder -->
+            <div class="case-image">
+              <div class="case-image-glow" aria-hidden="true"></div>
+              <span class="case-image-label">Client Photo</span>
             </div>
-            <h2 class="case-title">{cs.title}</h2>
-            <p class="case-excerpt">{cs.excerpt}</p>
-            <div class="case-result">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-              <span class="case-result-text">{cs.results}</span>
+            <!-- Content -->
+            <div class="case-content">
+              <div class="case-meta">
+                <span class="tag">{cs.industry}</span>
+              </div>
+              <h2 class="case-title">{cs.title}</h2>
+              <p class="case-excerpt">{cs.excerpt}</p>
+              <div class="case-stats">
+                {(cs.stats ?? []).map((stat: { label: string; color: string }) => (
+                  <span class={`case-stat case-stat--${stat.color}`}>{stat.label}</span>
+                ))}
+              </div>
+              <span class="case-link">
+                Read case study
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </span>
             </div>
-            <span class="case-link">
-              Read case study
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </span>
           </Card>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="section cta-strip">
+  <!-- CTA Banner -->
+  <section class="cta-banner">
+    <div class="cta-glow" aria-hidden="true"></div>
     <div class="container cta-inner">
-      <div>
-        <h2 class="cta-title">Want results like these?</h2>
-        <p class="cta-desc">Book a call and let's see what's possible for your program.</p>
+      <SectionTag label="Let's Talk" />
+      <h2 class="cta-title">Want results like these?</h2>
+      <p class="cta-desc">We take on a limited number of new clients each quarter. Book a call to see if we're the right fit.</p>
+      <div class="cta-buttons">
+        <Button href="/contact#hubspot-meetings" variant="primary">Book a Call</Button>
+        <Button href="/contact" variant="secondary">Send a Message</Button>
       </div>
-      <Button href="/contact#hubspot-meetings" variant="primary">Book a Call</Button>
     </div>
   </section>
 </BaseLayout>
@@ -95,34 +148,86 @@ const displayCases = caseStudies.length > 0 ? caseStudies : [
     gap: 20px;
   }
 
+
   :global(.case-card) {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 32px;
+    gap: 0;
+    padding: 0;
     text-decoration: none;
+    overflow: hidden;
+  }
+
+  /* Featured image placeholder */
+  .case-image {
+    position: relative;
+    height: 200px;
+    background: var(--surface-3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .case-image-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(56, 182, 255, 0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .case-image-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+    opacity: 0.5;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Card content area */
+  .case-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 28px 32px 32px;
+    flex: 1;
   }
 
   .case-meta { display: flex; gap: 8px; }
   .case-title { font-size: 20px; font-weight: 700; color: var(--text-2); line-height: 1.3; }
   .case-excerpt { font-size: 14px; color: var(--text-3); line-height: 1.8; flex: 1; }
 
-  .case-result {
+  .case-stats {
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
     gap: 8px;
-    background: rgba(52, 211, 153, 0.06);
-    border: 1px solid rgba(52, 211, 153, 0.2);
-    border-radius: 6px;
-    padding: 6px 10px;
-    width: fit-content;
   }
 
-  .case-result-text {
+  .case-stat {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
-    color: var(--green);
     font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 20px;
+  }
+
+  .case-stat--green {
+    background: rgba(52, 211, 153, 0.08);
+    color: var(--green);
+  }
+
+  .case-stat--blue {
+    background: rgba(56, 182, 255, 0.08);
+    color: var(--blue);
+  }
+
+  .case-stat--gold {
+    background: rgba(251, 191, 36, 0.08);
+    color: var(--gold);
   }
 
   .case-link {
@@ -134,23 +239,57 @@ const displayCases = caseStudies.length > 0 ? caseStudies : [
     font-weight: 600;
   }
 
-  .cta-strip {
+  /* CTA Banner */
+  .cta-banner {
+    position: relative;
     background: var(--surface);
     border-top: 1px solid var(--border);
+    padding: 80px 0;
+    overflow: hidden;
+  }
+
+  .cta-glow {
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 500px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(56, 182, 255, 0.07) 0%, transparent 70%);
+    pointer-events: none;
   }
 
   .cta-inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    gap: 32px;
-    flex-wrap: wrap;
-    padding-top: 48px;
-    padding-bottom: 48px;
+    gap: 16px;
   }
 
-  .cta-title { font-size: 22px; font-weight: 700; color: var(--text-2); }
-  .cta-desc { font-size: 14px; color: var(--text-3); margin-top: 6px; }
+  .cta-title {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 800;
+    color: var(--text-2);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .cta-desc {
+    font-size: 16px;
+    color: var(--text-3);
+    max-width: 480px;
+    line-height: 1.7;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 8px;
+  }
 
   @media (max-width: 768px) {
     .cases-grid { grid-template-columns: 1fr; }

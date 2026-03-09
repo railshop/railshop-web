@@ -11,25 +11,25 @@ try {
 } catch (_) {}
 
 const displayServices = services.length > 0 ? services : [
-  { _id: '1', title: 'Paid Search', description: 'Google & Microsoft Ads strategy, architecture, and optimisation. We build accounts that perform at scale and age well as market conditions shift.', icon: '🔍', slug: { current: 'paid-search' } },
-  { _id: '2', title: 'Paid Social', description: 'Meta, LinkedIn, and TikTok campaigns. Audience strategy, creative testing, and funnel-aware media planning that connects brand to conversion.', icon: '📱', slug: { current: 'paid-social' } },
-  { _id: '3', title: 'Programmatic Display', description: 'Full-funnel display and video across premium inventory. Prospecting, retargeting, and sequential messaging with proper attribution.', icon: '📺', slug: { current: 'programmatic' } },
-  { _id: '4', title: 'Analytics & Tracking', description: 'GA4 implementation, custom event tracking, tag governance, and dashboards that make decisions obvious. Data you can trust.', icon: '📊', slug: { current: 'analytics' } },
-  { _id: '5', title: 'Creative Strategy', description: 'Ad creative briefs, testing frameworks, and performance analysis. We help you ship more winners faster without blowing your creative budget.', icon: '🎨', slug: { current: 'creative-strategy' } },
-  { _id: '6', title: 'Full-Funnel Strategy', description: 'Connecting paid to organic, email, and CRM. A coherent growth strategy instead of isolated channel tactics.', icon: '🗺️', slug: { current: 'full-funnel' } },
+  { _id: '1', title: 'Web Design & Development', description: 'Fast, conversion-focused websites built for service businesses. We design and build sites that look the part, load fast, and turn visitors into leads.', slug: { current: 'web-design' } },
+  { _id: '2', title: 'Paid Ads', description: 'Google, Meta, and beyond — campaigns built to drive leads, not just clicks. We manage paid advertising end-to-end for service businesses that need a reliable lead pipeline.', slug: { current: 'paid-ads' } },
+  { _id: '3', title: 'SEO', description: 'Sustainable organic growth through technical SEO and content that ranks. We build search visibility that compounds over time and drives leads without paying for every click.', slug: { current: 'seo' } },
+  { _id: '4', title: 'Content Creation', description: 'Video and photo content that builds authority and keeps your brand visible between campaigns. Content that works across your website, ads, and social channels.', slug: { current: 'content-creation' } },
+  { _id: '5', title: 'Strategy & Consulting', description: "Not sure where to start? We'll assess what your business needs and build a clear, prioritised digital growth plan — so you invest in the right things, in the right order.", slug: { current: 'strategy' } },
+  { _id: '6', title: 'AI Integration & Consulting', description: 'Practical AI implementation that saves time, reduces cost, and gives your business a real edge. We cut through the hype and identify where AI actually creates value.', slug: { current: 'ai-integration' } },
 ];
 ---
 
-<BaseLayout title="Services — Railshop" description="Performance marketing services built for measurable growth. Paid search, paid social, programmatic, analytics, and more.">
+<BaseLayout title="Services — Railshop" description="Digital growth services for service businesses — web design, paid ads, SEO, content, strategy, and AI integration.">
   <!-- Page Header -->
   <section class="page-hero">
     <div class="container">
       <SectionTag label="Services" />
       <h1 class="page-title">What we do</h1>
       <p class="page-desc">
-        We run paid media programs end-to-end — from strategy and account
-        architecture to creative testing and attribution. Every service is
-        delivered by senior practitioners, not account managers.
+        We build what service businesses need to compete online — from websites and paid ads
+        to SEO, content, and AI integration. Every engagement is delivered by senior practitioners
+        who've done this before.
       </p>
     </div>
   </section>
@@ -40,7 +40,38 @@ const displayServices = services.length > 0 ? services : [
       <div class="services-grid stagger">
         {displayServices.map((svc) => (
           <Card href={`/services/${svc.slug.current}`} animate class="service-card">
-            <span class="service-icon">{svc.icon}</span>
+            <span class="service-icon">
+              {svc._id === '1' && (
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+              )}
+              {svc._id === '2' && (
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
+                </svg>
+              )}
+              {svc._id === '3' && (
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+                </svg>
+              )}
+              {svc._id === '4' && (
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M15 10l4.553-2.07A1 1 0 0121 8.868v6.264a1 1 0 01-1.447.899L15 14"/><rect x="2" y="7" width="13" height="10" rx="2"/>
+                </svg>
+              )}
+              {svc._id === '5' && (
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 017 7c0 2.62-1.4 4.91-3.5 6.19V17a1 1 0 01-1 1h-5a1 1 0 01-1-1v-1.81A7.003 7.003 0 015 9a7 7 0 017-7z"/>
+                </svg>
+              )}
+              {svc._id === '6' && (
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3l1.5 3.5L17 8l-3.5 1.5L12 13l-1.5-3.5L7 8l3.5-1.5L12 3z"/><path d="M5 17l1 2.5L8.5 20 7 17.5 5 17z"/><path d="M17 14l1 2.5L20.5 17 19 14.5 17 14z"/>
+                </svg>
+              )}
+            </span>
             <h2 class="service-title">{svc.title}</h2>
             <p class="service-desc">{svc.description}</p>
             <span class="service-link">
@@ -53,14 +84,56 @@ const displayServices = services.length > 0 ? services : [
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="section cta-strip">
-    <div class="container cta-inner">
-      <div>
-        <h2 class="cta-title">Not sure which service fits?</h2>
-        <p class="cta-desc">Book a no-commitment call and we'll map out what makes sense for your situation.</p>
+  <!-- Our Approach -->
+  <section class="approach-section">
+    <div class="container">
+      <div class="approach-header">
+        <SectionTag label="How We Work" />
+        <h2 class="approach-title">A process built for service businesses.</h2>
+        <p class="approach-subhead">Every engagement follows the same north star — find what works, build on it, and grow.</p>
       </div>
-      <Button href="/contact#hubspot-meetings" variant="primary">Book a Call</Button>
+      <div class="approach-steps">
+        <div class="approach-step">
+          <span class="step-num">01</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <h3 class="step-title">Assess</h3>
+          <p class="step-desc">We start by understanding your business, your market, and where the real opportunities are. No assumptions, no default playbooks.</p>
+        </div>
+        <div class="approach-connector" aria-hidden="true"></div>
+        <div class="approach-step">
+          <span class="step-num">02</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+          </svg>
+          <h3 class="step-title">Build</h3>
+          <p class="step-desc">We construct the right strategy and execute it — whether that's a new website, a paid campaign, an SEO foundation, or all of the above.</p>
+        </div>
+        <div class="approach-connector" aria-hidden="true"></div>
+        <div class="approach-step">
+          <span class="step-num">03</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
+          </svg>
+          <h3 class="step-title">Grow</h3>
+          <p class="step-desc">We measure what matters, optimize continuously, and scale what's working. You always know where your budget is going and why.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="cta-banner">
+    <div class="cta-glow" aria-hidden="true"></div>
+    <div class="container cta-inner">
+      <SectionTag label="Let's Talk" />
+      <h2 class="cta-title">Not sure where to start?</h2>
+      <p class="cta-desc">Most of our best client relationships started with a single conversation. Book a no-commitment call — we'll map out what makes sense for your business.</p>
+      <div class="cta-buttons">
+        <Button href="/contact#hubspot-meetings" variant="primary">Book a Call</Button>
+        <Button href="/contact" variant="secondary">Send a Message</Button>
+      </div>
     </div>
   </section>
 </BaseLayout>
@@ -101,7 +174,7 @@ const displayServices = services.length > 0 ? services : [
     text-decoration: none;
   }
 
-  .service-icon { font-size: 28px; }
+  .service-icon { display: flex; align-items: center; }
   .service-title { font-size: 18px; font-weight: 700; color: var(--text-2); }
   .service-desc { font-size: 14px; color: var(--text-3); line-height: 1.7; flex: 1; }
 
@@ -114,27 +187,152 @@ const displayServices = services.length > 0 ? services : [
     font-weight: 600;
   }
 
-  .cta-strip {
+  /* ---- Our Approach ---- */
+  .approach-section {
+    padding: 100px 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(56, 182, 255, 0.04) 0%, transparent 70%);
+    border-top: 1px solid var(--border);
+  }
+
+  .approach-header {
+    text-align: center;
+    margin-bottom: 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .approach-title {
+    font-size: clamp(26px, 3.5vw, 36px);
+    font-weight: 800;
+    color: var(--text-2);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .approach-subhead {
+    font-size: 16px;
+    color: var(--text-3);
+    max-width: 480px;
+    line-height: 1.7;
+  }
+
+  .approach-steps {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .approach-step {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .approach-connector {
+    width: 48px;
+    flex-shrink: 0;
+    height: 1px;
+    border-top: 1px dashed var(--border);
+    position: relative;
+    top: -16px;
+  }
+
+  .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--blue);
+    line-height: 1;
+    opacity: 0.35;
+  }
+
+  .step-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-2);
+  }
+
+  .step-desc {
+    font-size: 14px;
+    color: var(--text-3);
+    line-height: 1.75;
+  }
+
+  /* ---- CTA Banner ---- */
+  .cta-banner {
+    position: relative;
     background: var(--surface);
     border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+    padding: 100px 0;
+    overflow: hidden;
+  }
+
+  .cta-glow {
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 600px;
+    height: 500px;
+    background: radial-gradient(ellipse, rgba(56, 182, 255, 0.07) 0%, transparent 70%);
+    pointer-events: none;
   }
 
   .cta-inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    gap: 32px;
-    flex-wrap: wrap;
-    padding-top: 48px;
-    padding-bottom: 48px;
+    gap: 20px;
   }
 
-  .cta-title { font-size: 22px; font-weight: 700; color: var(--text-2); }
-  .cta-desc { font-size: 14px; color: var(--text-3); margin-top: 6px; }
+  .cta-title {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 800;
+    color: var(--text-2);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .cta-desc {
+    font-size: 16px;
+    color: var(--text-3);
+    max-width: 520px;
+    line-height: 1.7;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 8px;
+  }
 
   @media (max-width: 1024px) {
     .services-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .approach-steps {
+      flex-direction: column;
+      gap: 16px;
+    }
+    .approach-connector {
+      width: 1px;
+      height: 24px;
+      border-top: none;
+      border-left: 1px dashed var(--border);
+      top: 0;
+    }
   }
 
   @media (max-width: 640px) {

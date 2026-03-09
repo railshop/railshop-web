@@ -26,13 +26,31 @@ try {
 const sample = serviceSamples[slug];
 const data = {
   title:        service?.title        ?? sample?.title        ?? slug,
-  icon:         service?.icon         ?? sample?.icon         ?? '📋',
   description:  service?.description  ?? sample?.description  ?? '',
   deliverables: sample?.deliverables  ?? [],
   approach:     sample?.approach      ?? [],
   whoFor:       sample?.whoFor        ?? [],
   relatedSlugs: sample?.relatedSlugs  ?? [],
 };
+
+const serviceIcons: Record<string, string> = {
+  'web-design':     '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>',
+  'paid-ads':       '<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>',
+  'seo':            '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>',
+  'content-creation': '<path d="M15 10l4.553-2.07A1 1 0 0121 8.868v6.264a1 1 0 01-1.447.899L15 14"/><rect x="2" y="7" width="13" height="10" rx="2"/>',
+  'strategy':       '<path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 017 7c0 2.62-1.4 4.91-3.5 6.19V17a1 1 0 01-1 1h-5a1 1 0 01-1-1v-1.81A7.003 7.003 0 015 9a7 7 0 017-7z"/>',
+  'ai-integration': '<path d="M12 3l1.5 3.5L17 8l-3.5 1.5L12 13l-1.5-3.5L7 8l3.5-1.5L12 3z"/><path d="M5 17l1 2.5L8.5 20 7 17.5 5 17z"/><path d="M17 14l1 2.5L20.5 17 19 14.5 17 14z"/>',
+};
+const iconPaths = serviceIcons[slug] ?? '<circle cx="12" cy="12" r="10"/>';
+
+const allServices = [
+  { slug: 'web-design',      title: 'Web Design & Development' },
+  { slug: 'paid-ads',        title: 'Paid Ads' },
+  { slug: 'seo',             title: 'SEO' },
+  { slug: 'content-creation',title: 'Content Creation' },
+  { slug: 'strategy',        title: 'Strategy & Consulting' },
+  { slug: 'ai-integration',  title: 'AI Integration & Consulting' },
+];
 ---
 
 <BaseLayout
@@ -51,7 +69,9 @@ const data = {
   <!-- Hero -->
   <section class="page-hero">
     <div class="container">
-      <span class="service-icon">{data.icon}</span>
+      <span class="service-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={iconPaths} />
+      </span>
       <SectionTag label="Service" />
       <h1 class="page-title">{data.title}</h1>
       <p class="page-desc">{data.description}</p>
@@ -93,11 +113,9 @@ const data = {
             <div class="approach-steps">
               {data.approach.map((step, i) => (
                 <div class="approach-step">
-                  <div class="step-number">{String(i + 1).padStart(2, '0')}</div>
-                  <div class="step-body">
-                    <h3 class="step-heading">{step.step}</h3>
-                    <p class="step-detail">{step.detail}</p>
-                  </div>
+                  <span class="step-number">{String(i + 1).padStart(2, '0')}</span>
+                  <h3 class="step-heading">{step.step}</h3>
+                  <p class="step-detail">{step.detail}</p>
                 </div>
               ))}
             </div>
@@ -122,48 +140,47 @@ const data = {
 
       <!-- Sidebar -->
       <aside class="sidebar">
+        <!-- CTA card -->
         <div class="sidebar-card">
-          <p class="sidebar-heading">Ready to get started?</p>
-          <p class="sidebar-body">
-            Book a no-commitment call to talk through what a {data.title.toLowerCase()} program could look like for your brand.
-          </p>
-          <Button href="/contact#hubspot-meetings" variant="primary" class="sidebar-btn">
-            Book a Call
-          </Button>
+          <p class="sidebar-eyebrow sidebar-eyebrow--blue">Ready to Get Started?</p>
+          <p class="sidebar-body">Book a no-commitment call to talk through what this could look like for your brand.</p>
+          <a href="/contact#hubspot-meetings" class="sidebar-btn-link">Book a Call</a>
         </div>
 
-        {data.relatedSlugs.length > 0 && (
-          <div class="sidebar-card">
-            <p class="sidebar-heading">Related services</p>
-            <div class="related-list">
-              {data.relatedSlugs.map((rslug) => {
-                const related = serviceSamples[rslug];
-                return related ? (
-                  <a href={`/services/${rslug}`} class="related-item">
-                    <span class="related-icon">{related.icon}</span>
-                    <span class="related-title">{related.title}</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                  </a>
-                ) : null;
-              })}
-            </div>
-          </div>
-        )}
+        <!-- All services card -->
+        <div class="sidebar-card">
+          <p class="sidebar-eyebrow">All Services</p>
+          <nav class="all-services-list">
+            {allServices.map((svc) => {
+              const isActive = svc.slug === slug;
+              return (
+                <a href={`/services/${svc.slug}`} class={`all-services-item ${isActive ? 'all-services-item--active' : ''}`}>
+                  {isActive && <span class="active-dot" aria-hidden="true"></span>}
+                  <span class="all-services-title">{svc.title}</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </a>
+              );
+            })}
+          </nav>
+        </div>
       </aside>
 
     </div>
   </div>
 
   <!-- CTA Banner -->
-  <section class="cta-strip">
+  <section class="cta-banner">
+    <div class="cta-glow" aria-hidden="true"></div>
     <div class="container cta-inner">
-      <div>
-        <h2 class="cta-title">Interested in {data.title}?</h2>
-        <p class="cta-desc">Let's talk about what a program could look like for your brand.</p>
+      <SectionTag label="Let's Talk" />
+      <h2 class="cta-title">Interested in {data.title}?</h2>
+      <p class="cta-desc">Let's talk about what a program could look like for your brand.</p>
+      <div class="cta-buttons">
+        <Button href="/contact#hubspot-meetings" variant="primary">Book a Call</Button>
+        <Button href="/services" variant="secondary">All Services</Button>
       </div>
-      <Button href="/contact#hubspot-meetings" variant="primary">Book a Call</Button>
     </div>
   </section>
 </BaseLayout>
@@ -181,7 +198,7 @@ const data = {
     border-bottom: 1px solid var(--border);
   }
 
-  .service-icon { font-size: 36px; display: block; margin-bottom: 16px; }
+  .service-icon { display: block; margin-bottom: 16px; line-height: 0; }
 
   .page-title {
     font-size: clamp(32px, 5vw, 52px);
@@ -251,35 +268,32 @@ const data = {
   .check-icon { flex-shrink: 0; margin-top: 3px; }
 
   /* Approach steps */
-  .approach-steps { display: flex; flex-direction: column; gap: 0; }
+  .approach-steps { display: flex; flex-direction: column; gap: 12px; }
 
   .approach-step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--blue);
+    border-radius: 10px;
+    padding: 24px;
     display: flex;
-    gap: 20px;
-    padding: 24px 0;
-    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    gap: 8px;
   }
-
-  .approach-step:last-child { border-bottom: none; }
 
   .step-number {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    font-weight: 500;
+    font-size: 32px;
+    font-weight: 700;
     color: var(--blue);
-    letter-spacing: 0.05em;
-    padding-top: 3px;
-    flex-shrink: 0;
-    width: 28px;
+    line-height: 1;
+    opacity: 0.4;
   }
-
-  .step-body { flex: 1; }
 
   .step-heading {
     font-size: 16px;
     font-weight: 700;
     color: var(--text-2);
-    margin-bottom: 8px;
   }
 
   .step-detail {
@@ -319,16 +333,16 @@ const data = {
   }
 
   .sidebar-card {
-    background: var(--surface);
+    background: var(--surface-2);
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 24px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
   }
 
-  .sidebar-heading {
+  .sidebar-eyebrow {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
     text-transform: uppercase;
@@ -336,51 +350,119 @@ const data = {
     color: var(--text-3);
   }
 
+  .sidebar-eyebrow--blue { color: var(--blue); }
+
   .sidebar-body {
     font-size: 14px;
     color: var(--text-3);
     line-height: 1.65;
   }
 
-  .sidebar-btn { width: 100%; justify-content: center; }
-
-  .related-list { display: flex; flex-direction: column; gap: 2px; }
-
-  .related-item {
+  .sidebar-btn-link {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px 8px;
-    border-radius: 8px;
+    justify-content: center;
+    background: var(--blue);
+    color: #111315;
+    font-weight: 700;
     font-size: 14px;
-    color: var(--text-3);
-    transition: background 0.15s, color 0.15s;
+    border-radius: 8px;
+    padding: 10px 18px;
+    transition: background 0.2s;
     text-decoration: none;
   }
 
-  .related-item:hover { background: var(--surface-2); color: var(--text); }
+  .sidebar-btn-link:hover { background: var(--blue-dim); }
 
-  .related-icon { font-size: 16px; }
-
-  .related-title { flex: 1; font-weight: 500; }
-
-  .related-item svg { color: var(--border-2); flex-shrink: 0; }
-
-  /* CTA */
-  .cta-strip { background: var(--surface); border-top: 1px solid var(--border); padding: 0; }
-
-  .cta-inner {
+  /* All services nav */
+  .all-services-list {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 32px;
-    flex-wrap: wrap;
-    padding-top: 48px;
-    padding-bottom: 48px;
+    flex-direction: column;
   }
 
-  .cta-title { font-size: 22px; font-weight: 700; color: var(--text-2); }
-  .cta-desc { font-size: 14px; color: var(--text-3); margin-top: 6px; }
+  .all-services-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 0;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-2);
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .all-services-item:last-child { border-bottom: none; }
+  .all-services-item:hover { color: var(--blue); }
+
+  .all-services-item--active { color: var(--blue); }
+
+  .all-services-item svg { margin-left: auto; flex-shrink: 0; opacity: 0.4; }
+  .all-services-item:hover svg,
+  .all-services-item--active svg { opacity: 1; color: var(--blue); }
+
+  .active-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--blue);
+    flex-shrink: 0;
+  }
+
+  .all-services-title { flex: 1; }
+
+  /* CTA Banner */
+  .cta-banner {
+    position: relative;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 80px 0;
+    overflow: hidden;
+  }
+
+  .cta-glow {
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 500px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(56, 182, 255, 0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .cta-title {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 800;
+    color: var(--text-2);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .cta-desc {
+    font-size: 16px;
+    color: var(--text-3);
+    max-width: 480px;
+    line-height: 1.7;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 8px;
+  }
 
   @media (max-width: 900px) {
     .content-grid { grid-template-columns: 1fr; }
