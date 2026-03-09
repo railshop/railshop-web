@@ -1,0 +1,26 @@
+---
+interface Props {
+  label: string;
+  class?: string;
+}
+
+const { label, class: className = '' } = Astro.props;
+---
+
+<span class={`section-tag ${className}`}>{label}</span>
+
+<style>
+  .section-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-radius: 4px;
+    padding: 4px 10px;
+    display: inline-block;
+    border: 1px solid var(--blue-border);
+    color: var(--blue);
+    background: var(--blue-glow);
+  }
+</style>

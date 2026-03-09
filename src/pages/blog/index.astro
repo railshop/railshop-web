@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionTag from '../../components/ui/SectionTag.astro';
+import Card from '../../components/ui/Card.astro';
+import { getPosts } from '../../lib/sanity';
+
+let posts: any[] = [];
+try {
+  posts = await getPosts(20);
+} catch (_) {}
+
+const displayPosts = posts.length > 0 ? posts : [
+  { _id: '1', title: 'Why Most Google Ads Accounts Plateau After Month 3', excerpt: 'The structural patterns we see in stalled accounts, and the levers that consistently move them.', publishedAt: '2024-11-01', slug: { current: 'google-ads-plateau' }, categories: [{ title: 'Paid Search', slug: { current: 'paid-search' } }] },
+  { _id: '2', title: 'Building a Paid Social Creative Testing System', excerpt: 'How to set up a repeatable process for finding winning ad creatives at scale without burning budget on guesses.', publishedAt: '2024-10-18', slug: { current: 'creative-testing-system' }, categories: [{ title: 'Paid Social', slug: { current: 'paid-social' } }] },
+  { _id: '3', title: 'GA4 Custom Dimensions You Should Have Set Up Yesterday', excerpt: 'The tracking gaps that cost most brands their attribution accuracy — and how to fix them this week.', publishedAt: '2024-10-05', slug: { current: 'ga4-custom-dimensions' }, categories: [{ title: 'Analytics', slug: { current: 'analytics' } }] },
+  { _id: '4', title: 'How to Structure a Meta Ads Account for Scale', excerpt: 'Campaign architecture decisions that make scaling painless vs. the common mistakes that create a ceiling.', publishedAt: '2024-09-20', slug: { current: 'meta-ads-structure' }, categories: [{ title: 'Paid Social', slug: { current: 'paid-social' } }] },
+  { _id: '5', title: 'The Case for Full-Funnel Attribution (Even When It\'s Imperfect)', excerpt: 'Why imperfect holistic measurement beats precise but siloed channel metrics.', publishedAt: '2024-09-08', slug: { current: 'full-funnel-attribution' }, categories: [{ title: 'Analytics', slug: { current: 'analytics' } }] },
+];
+---
+
+<BaseLayout title="Blog — Railshop" description="Performance marketing thinking from the Railshop team. Paid search, paid social, analytics, and full-funnel strategy.">
+  <!-- Header -->
+  <section class="page-hero">
+    <div class="container">
+      <SectionTag label="The Blog" />
+      <h1 class="page-title">Thinking on paid media</h1>
+      <p class="page-desc">
+        Frameworks, analysis, and opinion from practitioners who live in the
+        accounts. No recycled advice.
+      </p>
+    </div>
+  </section>
+
+  <!-- Posts -->
+  <section class="section">
+    <div class="container">
+      <div class="posts-list stagger">
+        {displayPosts.map((post) => (
+          <Card href={`/blog/${post.slug.current}`} animate class="post-card">
+            <div class="post-meta">
+              <span class="post-date">
+                {new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+              </span>
+              {post.categories?.map((cat: any) => (
+                <span class="tag">{cat.title}</span>
+              ))}
+            </div>
+            <h2 class="post-title">{post.title}</h2>
+            <p class="post-excerpt">{post.excerpt}</p>
+            <span class="post-link">
+              Read post
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero { padding: 80px 0 48px; border-bottom: 1px solid var(--border); }
+
+  .page-title {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 800;
+    color: var(--text-2);
+    margin-top: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .page-desc {
+    font-size: 17px;
+    color: var(--text-3);
+    max-width: 500px;
+    line-height: 1.7;
+    margin-top: 12px;
+  }
+
+  .posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 800px;
+  }
+
+  :global(.post-card) {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 32px;
+    text-decoration: none;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .post-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-3);
+  }
+
+  .post-title { font-size: 20px; font-weight: 700; color: var(--text-2); line-height: 1.35; }
+  .post-excerpt { font-size: 14px; color: var(--text-3); line-height: 1.7; }
+
+  .post-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--blue);
+    font-weight: 600;
+    width: fit-content;
+  }
+</style>

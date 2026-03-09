@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionTag from '../../components/ui/SectionTag.astro';
+import Button from '../../components/ui/Button.astro';
+import { getPostBySlug, getAllPostSlugs } from '../../lib/sanity';
+
+export async function getStaticPaths() {
+  try {
+    const slugs = await getAllPostSlugs();
+    if (slugs.length > 0) {
+      return slugs.map((s: { slug: string }) => ({ params: { slug: s.slug } }));
+    }
+  } catch (_) {}
+  return [
+    'google-ads-plateau',
+    'creative-testing-system',
+    'ga4-custom-dimensions',
+    'meta-ads-structure',
+    'full-funnel-attribution',
+  ].map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+
+let post: any = null;
+try {
+  post = await getPostBySlug(slug);
+} catch (_) {}
+
+if (!post) {
+  post = {
+    title: slug.replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase()),
+    excerpt: 'Full post content coming soon.',
+    publishedAt: new Date().toISOString(),
+    author: 'Railshop',
+    slug: { current: slug },
+  };
+}
+
+const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+});
+---
+
+<BaseLayout
+  title={`${post.title} — Railshop Blog`}
+  description={post.seo?.metaDescription ?? post.excerpt}
+>
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <div class="container breadcrumb-inner">
+      <a href="/blog" class="breadcrumb-link">Blog</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">{post.title}</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <section class="post-hero">
+    <div class="container">
+      <div class="post-meta">
+        <span class="post-date">{formattedDate}</span>
+        {post.categories?.map((cat: any) => (
+          <span class="tag">{cat.title}</span>
+        ))}
+      </div>
+      <h1 class="post-title">{post.title}</h1>
+      <p class="post-excerpt">{post.excerpt}</p>
+      {post.author && (
+        <p class="post-author">By {post.author}</p>
+      )}
+    </div>
+  </section>
+
+  <!-- Body -->
+  <section class="section">
+    <div class="container">
+      <div class="post-body">
+        {post.body ? (
+          <p>Post content from Sanity will render here with a Portable Text renderer.</p>
+        ) : (
+          <div class="placeholder-content">
+            <p>
+              Full post content is managed in Sanity CMS. Once connected, the
+              full article will render here using Portable Text.
+            </p>
+            <p>
+              In the meantime, visit our{' '}
+              <a href="/blog" style="color: var(--blue);">blog index</a> to see
+              all available posts.
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section cta-strip">
+    <div class="container cta-inner">
+      <div>
+        <h2 class="cta-title">Want to put this into practice?</h2>
+        <p class="cta-desc">Book a call and we'll review your current program.</p>
+      </div>
+      <Button href="/contact#hubspot-meetings" variant="primary">Book a Call</Button>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .breadcrumb { border-bottom: 1px solid var(--border); background: var(--surface); }
+  .breadcrumb-inner { display: flex; align-items: center; gap: 8px; padding: 14px 24px; font-size: 13px; }
+  .breadcrumb-link { color: var(--text-3); }
+  .breadcrumb-link:hover { color: var(--text); }
+  .breadcrumb-sep { color: var(--border-2); }
+  .breadcrumb-current { color: var(--text-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 300px; }
+
+  .post-hero { padding: 64px 0 48px; border-bottom: 1px solid var(--border); }
+
+  .post-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+
+  .post-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-3);
+  }
+
+  .post-title {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 800;
+    color: var(--text-2);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    max-width: 760px;
+    margin-bottom: 16px;
+  }
+
+  .post-excerpt { font-size: 17px; color: var(--text-3); max-width: 620px; line-height: 1.7; }
+  .post-author { font-size: 13px; color: var(--text-3); margin-top: 12px; font-family: 'JetBrains Mono', monospace; }
+
+  .post-body {
+    max-width: 720px;
+    font-size: 16px;
+    color: var(--text-3);
+    line-height: 1.8;
+  }
+
+  .placeholder-content { display: flex; flex-direction: column; gap: 16px; }
+
+  .cta-strip { background: var(--surface); border-top: 1px solid var(--border); }
+  .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; padding-top: 48px; padding-bottom: 48px; }
+  .cta-title { font-size: 22px; font-weight: 700; color: var(--text-2); }
+  .cta-desc { font-size: 14px; color: var(--text-3); margin-top: 6px; }
+</style>

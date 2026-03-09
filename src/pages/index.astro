@@ -1,0 +1,695 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionTag from '../components/ui/SectionTag.astro';
+import Card from '../components/ui/Card.astro';
+import Button from '../components/ui/Button.astro';
+import {
+  getServices,
+  getFeaturedCaseStudy,
+  getPosts,
+} from '../lib/sanity';
+
+// Fetch data at build time
+let services: any[] = [];
+let featuredCase: any = null;
+let posts: any[] = [];
+
+try {
+  [services, featuredCase, posts] = await Promise.all([
+    getServices(),
+    getFeaturedCaseStudy(),
+    getPosts(3),
+  ]);
+} catch (_) {
+  // Sanity not connected yet — use placeholder data
+}
+
+// Placeholder services if Sanity is empty
+const displayServices = services.length > 0 ? services : [
+  { _id: '1', title: 'Paid Search', description: 'Google & Microsoft Ads strategy, setup, and optimisation built for scale.', icon: '🔍', slug: { current: 'paid-search' } },
+  { _id: '2', title: 'Paid Social', description: 'Meta, LinkedIn, and TikTok campaigns that convert at every funnel stage.', icon: '📱', slug: { current: 'paid-social' } },
+  { _id: '3', title: 'Programmatic', description: 'Display and video buying across premium inventory with full attribution.', icon: '📺', slug: { current: 'programmatic' } },
+  { _id: '4', title: 'Analytics & Tracking', description: 'Tag governance, GA4, and custom dashboards that make decisions obvious.', icon: '📊', slug: { current: 'analytics' } },
+  { _id: '5', title: 'Creative Strategy', description: 'Ad creative testing frameworks that surface winners faster.', icon: '🎨', slug: { current: 'creative-strategy' } },
+  { _id: '6', title: 'Full-Funnel Strategy', description: 'Aligning paid, owned, and earned channels into one coherent growth plan.', icon: '🗺️', slug: { current: 'full-funnel' } },
+];
+
+// Placeholder posts if Sanity is empty
+const displayPosts = posts.length > 0 ? posts : [
+  { _id: '1', title: 'Why Most Google Ads Accounts Plateau After Month 3', excerpt: 'The structural patterns we see in stalled accounts, and the levers that move them.', publishedAt: '2024-11-01', slug: { current: 'google-ads-plateau' } },
+  { _id: '2', title: 'Building a Paid Social Creative Testing System', excerpt: 'How to set up a repeatable process for finding winning ad creatives at scale.', publishedAt: '2024-10-18', slug: { current: 'creative-testing-system' } },
+  { _id: '3', title: 'GA4 Custom Dimensions You Should Have Set Up Yesterday', excerpt: 'The tracking gaps that cost most brands their attribution accuracy.', publishedAt: '2024-10-05', slug: { current: 'ga4-custom-dimensions' } },
+];
+
+const industries = ['E-Commerce', 'SaaS', 'B2B Services', 'Consumer Brands', 'Professional Services'];
+---
+
+<BaseLayout>
+  <!-- ============================================================
+       1. HERO
+       ============================================================ -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="hero-grid"></div>
+      <div class="hero-glow"></div>
+    </div>
+    <div class="container hero-content">
+      <div class="hero-eyebrow">
+        <SectionTag label="Performance Marketing" />
+      </div>
+      <h1 class="hero-headline">
+        Paid media that<br />
+        <span class="hero-headline-accent">compounds over time.</span>
+      </h1>
+      <p class="hero-subhead">
+        We build and run paid media programs for ambitious brands — from account
+        architecture to creative testing to full-funnel attribution. No vanity
+        metrics. No black boxes.
+      </p>
+      <div class="hero-ctas">
+        <Button href="/contact#hubspot-meetings" variant="primary">
+          Book a Call
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </Button>
+        <Button href="/work" variant="secondary">
+          See Our Work
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       2. SOCIAL PROOF BAR
+       ============================================================ -->
+  <section class="proof-bar">
+    <div class="container proof-inner">
+      {[
+        { value: '12+', label: 'Active Clients' },
+        { value: '$2M+', label: 'Ad Spend Managed' },
+        { value: '5', label: 'Industries Served' },
+        { value: '3.4×', label: 'Average ROAS Lift' },
+      ].map((stat) => (
+        <div class="proof-stat">
+          <span class="proof-value">{stat.value}</span>
+          <span class="proof-label">{stat.label}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ============================================================
+       3. SERVICES OVERVIEW
+       ============================================================ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <SectionTag label="What We Do" />
+        <h2 class="section-title">Services built for<br />measurable growth</h2>
+        <p class="section-desc">
+          Every engagement starts with your business goals, not a default
+          playbook. Here's how we can help.
+        </p>
+      </div>
+      <div class="services-grid stagger">
+        {displayServices.map((svc) => (
+          <Card href={`/services/${svc.slug.current}`} animate class="service-card">
+            <span class="service-icon">{svc.icon}</span>
+            <h3 class="service-title">{svc.title}</h3>
+            <p class="service-desc">{svc.description}</p>
+            <span class="service-arrow">
+              Learn more
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       4. WHO WE SERVE
+       ============================================================ -->
+  <section class="section who-we-serve">
+    <div class="container">
+      <div class="who-inner">
+        <div class="who-copy">
+          <SectionTag label="Who We Serve" />
+          <h2 class="section-title" style="margin-top: 16px;">
+            Built for brands ready<br />to own their growth
+          </h2>
+          <p class="section-desc">
+            We work best with marketing teams and founders who are past the
+            "trying things" stage and ready to build a compounding paid media
+            system. If you have product-market fit and budget to scale, we
+            should talk.
+          </p>
+          <Button href="/contact#hubspot-meetings" variant="primary" class="who-cta">
+            See If We're a Fit
+          </Button>
+        </div>
+        <div class="who-tags">
+          <p class="who-tags-label">Industries we know well</p>
+          <div class="who-tag-list">
+            {industries.map((ind) => (
+              <span class="tag">{ind}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       5. FEATURED CASE STUDY
+       ============================================================ -->
+  <section class="section">
+    <div class="container">
+      <SectionTag label="Client Results" />
+      <div class="case-study-card" style="margin-top: 24px;">
+        <div class="case-study-content">
+          <p class="case-study-eyebrow">
+            {featuredCase?.industry ?? 'E-Commerce'} · {featuredCase?.client ?? 'Confidential Client'}
+          </p>
+          <h2 class="case-study-title">
+            {featuredCase?.title ?? 'From stagnant ROAS to category leadership in 90 days'}
+          </h2>
+          <p class="case-study-excerpt">
+            {featuredCase?.excerpt ?? 'A DTC brand with strong product-market fit but a paid media program that had plateaued. We rebuilt the account architecture, introduced a creative testing cadence, and overhauled attribution. The result: a 3.2× ROAS improvement across channels.'}
+          </p>
+          <div class="case-study-result">
+            <span class="case-study-result-value">
+              {featuredCase?.results ?? '3.2× ROAS Improvement'}
+            </span>
+          </div>
+          <Button href={featuredCase ? `/work/${featuredCase.slug.current}` : '/work'} variant="secondary">
+            Read the Case Study
+          </Button>
+        </div>
+        <div class="case-study-visual" aria-hidden="true">
+          <div class="case-study-chart">
+            <div class="chart-bar" style="height: 30%; background: var(--surface-3);"></div>
+            <div class="chart-bar" style="height: 45%; background: var(--surface-3);"></div>
+            <div class="chart-bar" style="height: 38%; background: var(--surface-3);"></div>
+            <div class="chart-bar" style="height: 60%; background: var(--blue); opacity: 0.4;"></div>
+            <div class="chart-bar" style="height: 75%; background: var(--blue); opacity: 0.6;"></div>
+            <div class="chart-bar" style="height: 95%; background: var(--blue);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       6. ABOUT TEASER
+       ============================================================ -->
+  <section class="section about-teaser">
+    <div class="container">
+      <div class="about-inner">
+        <SectionTag label="About Railshop" />
+        <p class="about-copy">
+          Railshop is a boutique performance marketing agency. We're a small,
+          senior team — no account managers, no juniors running your budget.
+          Every engagement is handled by experienced practitioners who have
+          managed large paid media programs across multiple verticals. We built
+          this shop because we believe you deserve that.
+        </p>
+        <Button href="/about" variant="secondary">
+          Our Story
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       7. BLOG TEASER
+       ============================================================ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <SectionTag label="From the Blog" />
+        <h2 class="section-title">Thinking out loud<br />on paid media</h2>
+      </div>
+      <div class="blog-grid stagger">
+        {displayPosts.map((post) => (
+          <Card href={`/blog/${post.slug.current}`} animate class="blog-card">
+            <p class="blog-date">
+              {new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+            </p>
+            <h3 class="blog-title">{post.title}</h3>
+            <p class="blog-excerpt">{post.excerpt}</p>
+            <span class="blog-read-more">
+              Read post
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </Card>
+        ))}
+      </div>
+      <div style="text-align: center; margin-top: 40px;">
+        <Button href="/blog" variant="secondary">All Posts</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       8. CTA BANNER
+       ============================================================ -->
+  <section class="cta-banner">
+    <div class="container cta-inner">
+      <SectionTag label="Get Started" />
+      <h2 class="cta-title">
+        Ready to build a paid media<br />program that actually scales?
+      </h2>
+      <p class="cta-desc">
+        We take on a limited number of new clients each quarter. Book a call to
+        see if we're the right fit.
+      </p>
+      <div class="cta-buttons">
+        <Button href="/contact#hubspot-meetings" variant="primary">
+          Book a Call
+        </Button>
+        <Button href="/contact" variant="secondary">
+          Send a Message
+        </Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---- Hero ---- */
+  .hero {
+    position: relative;
+    padding: 120px 0 100px;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.35;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 100%);
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(56, 182, 255, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+  }
+
+  .hero-eyebrow {
+    margin-bottom: 20px;
+  }
+
+  .hero-headline {
+    font-size: clamp(40px, 6vw, 68px);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--text-2);
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-headline-accent {
+    color: var(--blue);
+  }
+
+  .hero-subhead {
+    font-size: 18px;
+    color: var(--text-3);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 36px;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  /* ---- Social Proof Bar ---- */
+  .proof-bar {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .proof-inner {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 32px 24px;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .proof-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .proof-value {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--blue);
+    letter-spacing: -0.02em;
+  }
+
+  .proof-label {
+    font-size: 12px;
+    color: var(--text-3);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* ---- Section Helpers ---- */
+  .section-header {
+    margin-bottom: 48px;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 800;
+    color: var(--text-2);
+    margin-top: 16px;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .section-desc {
+    font-size: 16px;
+    color: var(--text-3);
+    max-width: 500px;
+    line-height: 1.7;
+    margin-top: 12px;
+  }
+
+  /* ---- Services Grid ---- */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  :global(.service-card) {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 32px;
+    text-decoration: none;
+  }
+
+  .service-icon {
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  .service-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-2);
+  }
+
+  .service-desc {
+    font-size: 14px;
+    color: var(--text-3);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .service-arrow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--blue);
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  /* ---- Who We Serve ---- */
+  .who-we-serve {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .who-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .who-cta {
+    margin-top: 24px;
+  }
+
+  .who-tags-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+    margin-bottom: 16px;
+  }
+
+  .who-tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* ---- Featured Case Study ---- */
+  .case-study-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+
+  .case-study-content {
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .case-study-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+  }
+
+  .case-study-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text-2);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+
+  .case-study-excerpt {
+    font-size: 15px;
+    color: var(--text-3);
+    line-height: 1.7;
+  }
+
+  .case-study-result {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--blue-glow);
+    border: 1px solid var(--blue-border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    width: fit-content;
+  }
+
+  .case-study-result-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--blue);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .case-study-visual {
+    background: var(--surface-2);
+    border-left: 1px solid var(--border);
+    display: flex;
+    align-items: flex-end;
+    padding: 48px;
+  }
+
+  .case-study-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    width: 100%;
+    height: 180px;
+  }
+
+  .chart-bar {
+    flex: 1;
+    border-radius: 4px 4px 0 0;
+    transition: height 0.3s ease;
+  }
+
+  /* ---- About Teaser ---- */
+  .about-inner {
+    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .about-copy {
+    font-size: 16px;
+    color: var(--text-3);
+    line-height: 1.8;
+  }
+
+  /* ---- Blog Grid ---- */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  :global(.blog-card) {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 32px;
+    text-decoration: none;
+  }
+
+  .blog-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-3);
+  }
+
+  .blog-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-2);
+    line-height: 1.4;
+  }
+
+  .blog-excerpt {
+    font-size: 14px;
+    color: var(--text-3);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .blog-read-more {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--blue);
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  /* ---- CTA Banner ---- */
+  .cta-banner {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    margin-top: 80px;
+    padding: 80px 0;
+  }
+
+  .cta-inner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .cta-title {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 800;
+    color: var(--text-2);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .cta-desc {
+    font-size: 16px;
+    color: var(--text-3);
+    max-width: 480px;
+    line-height: 1.7;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 8px;
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 1024px) {
+    .services-grid,
+    .blog-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .services-grid,
+    .blog-grid,
+    .who-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .case-study-card {
+      grid-template-columns: 1fr;
+    }
+
+    .case-study-visual {
+      border-left: none;
+      border-top: 1px solid var(--border);
+      min-height: 160px;
+    }
+
+    .case-study-content {
+      padding: 32px 24px;
+    }
+  }
+</style>

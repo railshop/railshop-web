@@ -1,0 +1,27 @@
+---
+interface Props {
+  href?: string;
+  class?: string;
+  animate?: boolean;
+}
+
+const { href, class: className = '', animate = false } = Astro.props;
+const cls = `card ${animate ? 'card--animate' : ''} ${className}`;
+---
+
+{href ? (
+  <a href={href} class={cls}>
+    <slot />
+  </a>
+) : (
+  <div class={cls}>
+    <slot />
+  </div>
+)}
+
+<style>
+  .card--animate {
+    opacity: 0;
+    animation: fadeup 0.4s ease forwards;
+  }
+</style>

@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionTag from '../../components/ui/SectionTag.astro';
+import Card from '../../components/ui/Card.astro';
+import Button from '../../components/ui/Button.astro';
+import { getServices } from '../../lib/sanity';
+
+let services: any[] = [];
+try {
+  services = await getServices();
+} catch (_) {}
+
+const displayServices = services.length > 0 ? services : [
+  { _id: '1', title: 'Paid Search', description: 'Google & Microsoft Ads strategy, architecture, and optimisation. We build accounts that perform at scale and age well as market conditions shift.', icon: '🔍', slug: { current: 'paid-search' } },
+  { _id: '2', title: 'Paid Social', description: 'Meta, LinkedIn, and TikTok campaigns. Audience strategy, creative testing, and funnel-aware media planning that connects brand to conversion.', icon: '📱', slug: { current: 'paid-social' } },
+  { _id: '3', title: 'Programmatic Display', description: 'Full-funnel display and video across premium inventory. Prospecting, retargeting, and sequential messaging with proper attribution.', icon: '📺', slug: { current: 'programmatic' } },
+  { _id: '4', title: 'Analytics & Tracking', description: 'GA4 implementation, custom event tracking, tag governance, and dashboards that make decisions obvious. Data you can trust.', icon: '📊', slug: { current: 'analytics' } },
+  { _id: '5', title: 'Creative Strategy', description: 'Ad creative briefs, testing frameworks, and performance analysis. We help you ship more winners faster without blowing your creative budget.', icon: '🎨', slug: { current: 'creative-strategy' } },
+  { _id: '6', title: 'Full-Funnel Strategy', description: 'Connecting paid to organic, email, and CRM. A coherent growth strategy instead of isolated channel tactics.', icon: '🗺️', slug: { current: 'full-funnel' } },
+];
+---
+
+<BaseLayout title="Services — Railshop" description="Performance marketing services built for measurable growth. Paid search, paid social, programmatic, analytics, and more.">
+  <!-- Page Header -->
+  <section class="page-hero">
+    <div class="container">
+      <SectionTag label="Services" />
+      <h1 class="page-title">What we do</h1>
+      <p class="page-desc">
+        We run paid media programs end-to-end — from strategy and account
+        architecture to creative testing and attribution. Every service is
+        delivered by senior practitioners, not account managers.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services Grid -->
+  <section class="section">
+    <div class="container">
+      <div class="services-grid stagger">
+        {displayServices.map((svc) => (
+          <Card href={`/services/${svc.slug.current}`} animate class="service-card">
+            <span class="service-icon">{svc.icon}</span>
+            <h2 class="service-title">{svc.title}</h2>
+            <p class="service-desc">{svc.description}</p>
+            <span class="service-link">
+              Learn more
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section cta-strip">
+    <div class="container cta-inner">
+      <div>
+        <h2 class="cta-title">Not sure which service fits?</h2>
+        <p class="cta-desc">Book a no-commitment call and we'll map out what makes sense for your situation.</p>
+      </div>
+      <Button href="/contact#hubspot-meetings" variant="primary">Book a Call</Button>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding: 80px 0 48px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-title {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 800;
+    color: var(--text-2);
+    margin-top: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .page-desc {
+    font-size: 17px;
+    color: var(--text-3);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-top: 12px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  :global(.service-card) {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 32px;
+    text-decoration: none;
+  }
+
+  .service-icon { font-size: 28px; }
+  .service-title { font-size: 18px; font-weight: 700; color: var(--text-2); }
+  .service-desc { font-size: 14px; color: var(--text-3); line-height: 1.7; flex: 1; }
+
+  .service-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--blue);
+    font-weight: 600;
+  }
+
+  .cta-strip {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+
+  .cta-title { font-size: 22px; font-weight: 700; color: var(--text-2); }
+  .cta-desc { font-size: 14px; color: var(--text-3); margin-top: 6px; }
+
+  @media (max-width: 1024px) {
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .services-grid { grid-template-columns: 1fr; }
+  }
+</style>

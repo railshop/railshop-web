@@ -1,0 +1,234 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionTag from '../components/ui/SectionTag.astro';
+import Button from '../components/ui/Button.astro';
+---
+
+<BaseLayout
+  title="About — Railshop"
+  description="Railshop is a boutique performance marketing agency. Senior practitioners, no account managers, no black boxes."
+>
+  <!-- Header -->
+  <section class="page-hero">
+    <div class="container">
+      <SectionTag label="About Railshop" />
+      <h1 class="page-title">
+        Built different<br />
+        <span class="accent">on purpose.</span>
+      </h1>
+    </div>
+  </section>
+
+  <!-- Main Copy -->
+  <section class="section">
+    <div class="container about-grid">
+      <div class="about-main">
+        <h2 class="section-h2">Why we started Railshop</h2>
+        <p>
+          We spent years inside agencies watching the same story play out. A brand
+          hires a large agency. Their account gets assigned to a mid-level manager
+          who runs templated strategies and calls it a win when spend scales but
+          profitability doesn't. The senior people who closed the deal are never
+          actually in the account.
+        </p>
+        <p>
+          We built Railshop because we believe you deserve better than that.
+          Every account at Railshop is managed by a practitioner with real
+          experience — someone who has built and scaled paid media programs from
+          scratch, across industries, and who can speak frankly about what's
+          working and what isn't.
+        </p>
+
+        <h2 class="section-h2" style="margin-top: 40px;">How we work</h2>
+        <p>
+          We're deliberately small. That's not a constraint — it's a feature. We
+          take on a limited number of clients so that every engagement gets our
+          full attention. We run retainer-based partnerships, not project-by-project
+          work, because compounding results require continuity.
+        </p>
+        <p>
+          We believe in radical transparency. You'll always know where your budget
+          is going, what we're testing, and what the data is actually telling us —
+          not a curated highlight reel.
+        </p>
+
+        <h2 class="section-h2" style="margin-top: 40px;">Our values</h2>
+        <div class="values-list">
+          {[
+            { label: 'Honest reporting', desc: "We tell you what the data says, even when it's bad news." },
+            { label: 'No vanity metrics', desc: 'We optimise for business outcomes, not platform metrics that look good in a slide deck.' },
+            { label: 'Senior-only delivery', desc: 'No account managers between you and the person doing the work.' },
+            { label: 'Long-term thinking', desc: 'We build programs designed to compound over years, not spike for a quarter.' },
+          ].map((v) => (
+            <div class="value-item">
+              <div class="value-dot"></div>
+              <div>
+                <p class="value-label">{v.label}</p>
+                <p class="value-desc">{v.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="about-sidebar">
+        <div class="sidebar-card">
+          <p class="sidebar-heading">By the numbers</p>
+          {[
+            { value: '12+', label: 'Active clients' },
+            { value: '$2M+', label: 'Ad spend managed' },
+            { value: '5', label: 'Industries' },
+            { value: '8 yrs', label: 'Avg practitioner experience' },
+          ].map((stat) => (
+            <div class="sidebar-stat">
+              <span class="sidebar-stat-value">{stat.value}</span>
+              <span class="sidebar-stat-label">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+
+        <div class="sidebar-cta">
+          <p class="sidebar-cta-text">
+            Ready to work with a team that's actually in your account?
+          </p>
+          <Button href="/contact#hubspot-meetings" variant="primary">
+            Book a Call
+          </Button>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero { padding: 80px 0 48px; border-bottom: 1px solid var(--border); }
+
+  .page-title {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 800;
+    color: var(--text-2);
+    margin-top: 16px;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .accent { color: var(--blue); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .about-main {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .about-main p {
+    font-size: 16px;
+    color: var(--text-3);
+    line-height: 1.8;
+  }
+
+  .section-h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-2);
+  }
+
+  .values-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 8px;
+  }
+
+  .value-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .value-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--blue);
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  .value-label {
+    font-weight: 600;
+    color: var(--text-2);
+    font-size: 15px;
+    margin-bottom: 2px;
+  }
+
+  .value-desc {
+    font-size: 14px;
+    color: var(--text-3);
+    line-height: 1.6;
+  }
+
+  /* Sidebar */
+  .about-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: sticky;
+    top: 88px;
+  }
+
+  .sidebar-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .sidebar-heading {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+  }
+
+  .sidebar-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-stat:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .sidebar-stat-value { font-size: 20px; font-weight: 800; color: var(--blue); letter-spacing: -0.02em; }
+  .sidebar-stat-label { font-size: 12px; color: var(--text-3); }
+
+  .sidebar-cta {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .sidebar-cta-text { font-size: 14px; color: var(--text-3); line-height: 1.6; }
+
+  @media (max-width: 900px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .about-sidebar { position: static; }
+  }
+</style>

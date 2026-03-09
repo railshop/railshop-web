@@ -1,0 +1,389 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionTag from '../../components/ui/SectionTag.astro';
+import Button from '../../components/ui/Button.astro';
+import { getServiceBySlug, getAllServiceSlugs } from '../../lib/sanity';
+import { serviceSamples } from '../../lib/sampleData';
+
+export async function getStaticPaths() {
+  try {
+    const slugs = await getAllServiceSlugs();
+    if (slugs.length > 0) {
+      return slugs.map((s: { slug: string }) => ({ params: { slug: s.slug } }));
+    }
+  } catch (_) {}
+  return Object.keys(serviceSamples).map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+
+let service: any = null;
+try {
+  service = await getServiceBySlug(slug);
+} catch (_) {}
+
+// Fall back to sample data
+const sample = serviceSamples[slug];
+const data = {
+  title:        service?.title        ?? sample?.title        ?? slug,
+  icon:         service?.icon         ?? sample?.icon         ?? '📋',
+  description:  service?.description  ?? sample?.description  ?? '',
+  deliverables: sample?.deliverables  ?? [],
+  approach:     sample?.approach      ?? [],
+  whoFor:       sample?.whoFor        ?? [],
+  relatedSlugs: sample?.relatedSlugs  ?? [],
+};
+---
+
+<BaseLayout
+  title={`${data.title} — Railshop`}
+  description={service?.seo?.metaDescription ?? data.description}
+>
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <div class="container breadcrumb-inner">
+      <a href="/services" class="breadcrumb-link">Services</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">{data.title}</span>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="service-icon">{data.icon}</span>
+      <SectionTag label="Service" />
+      <h1 class="page-title">{data.title}</h1>
+      <p class="page-desc">{data.description}</p>
+      <div class="hero-ctas">
+        <Button href="/contact#hubspot-meetings" variant="primary">Book a Call</Button>
+        <Button href="/services" variant="secondary">All Services</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Body -->
+  <div class="content-wrap">
+    <div class="container content-grid">
+
+      <!-- Main column -->
+      <div class="main-col">
+
+        <!-- Deliverables -->
+        {data.deliverables.length > 0 && (
+          <div class="content-section">
+            <h2 class="section-h2">What's included</h2>
+            <ul class="deliverables-list">
+              {data.deliverables.map((item) => (
+                <li class="deliverable-item">
+                  <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <!-- Approach -->
+        {data.approach.length > 0 && (
+          <div class="content-section">
+            <h2 class="section-h2">Our approach</h2>
+            <div class="approach-steps">
+              {data.approach.map((step, i) => (
+                <div class="approach-step">
+                  <div class="step-number">{String(i + 1).padStart(2, '0')}</div>
+                  <div class="step-body">
+                    <h3 class="step-heading">{step.step}</h3>
+                    <p class="step-detail">{step.detail}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <!-- Who it's for -->
+        {data.whoFor.length > 0 && (
+          <div class="content-section">
+            <h2 class="section-h2">Who this is for</h2>
+            <div class="who-list">
+              {data.whoFor.map((item) => (
+                <div class="who-item">
+                  <div class="who-dot"></div>
+                  <p>{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <p class="sidebar-heading">Ready to get started?</p>
+          <p class="sidebar-body">
+            Book a no-commitment call to talk through what a {data.title.toLowerCase()} program could look like for your brand.
+          </p>
+          <Button href="/contact#hubspot-meetings" variant="primary" class="sidebar-btn">
+            Book a Call
+          </Button>
+        </div>
+
+        {data.relatedSlugs.length > 0 && (
+          <div class="sidebar-card">
+            <p class="sidebar-heading">Related services</p>
+            <div class="related-list">
+              {data.relatedSlugs.map((rslug) => {
+                const related = serviceSamples[rslug];
+                return related ? (
+                  <a href={`/services/${rslug}`} class="related-item">
+                    <span class="related-icon">{related.icon}</span>
+                    <span class="related-title">{related.title}</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </a>
+                ) : null;
+              })}
+            </div>
+          </div>
+        )}
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- CTA Banner -->
+  <section class="cta-strip">
+    <div class="container cta-inner">
+      <div>
+        <h2 class="cta-title">Interested in {data.title}?</h2>
+        <p class="cta-desc">Let's talk about what a program could look like for your brand.</p>
+      </div>
+      <Button href="/contact#hubspot-meetings" variant="primary">Book a Call</Button>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .breadcrumb { border-bottom: 1px solid var(--border); background: var(--surface); }
+  .breadcrumb-inner { display: flex; align-items: center; gap: 8px; padding: 14px 24px; font-size: 13px; }
+  .breadcrumb-link { color: var(--text-3); transition: color 0.15s; }
+  .breadcrumb-link:hover { color: var(--text); }
+  .breadcrumb-sep { color: var(--border-2); }
+  .breadcrumb-current { color: var(--text-3); }
+
+  .page-hero {
+    padding: 64px 0 56px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .service-icon { font-size: 36px; display: block; margin-bottom: 16px; }
+
+  .page-title {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 800;
+    color: var(--text-2);
+    margin-top: 16px;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .page-desc {
+    font-size: 17px;
+    color: var(--text-3);
+    max-width: 580px;
+    line-height: 1.75;
+    margin-top: 14px;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+
+  /* Layout */
+  .content-wrap { padding: 64px 0 80px; }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .main-col { display: flex; flex-direction: column; gap: 56px; }
+
+  .content-section { display: flex; flex-direction: column; gap: 24px; }
+
+  .section-h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-2);
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Deliverables */
+  .deliverables-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .deliverable-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 15px;
+    color: var(--text-3);
+    line-height: 1.6;
+  }
+
+  .check-icon { flex-shrink: 0; margin-top: 3px; }
+
+  /* Approach steps */
+  .approach-steps { display: flex; flex-direction: column; gap: 0; }
+
+  .approach-step {
+    display: flex;
+    gap: 20px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .approach-step:last-child { border-bottom: none; }
+
+  .step-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--blue);
+    letter-spacing: 0.05em;
+    padding-top: 3px;
+    flex-shrink: 0;
+    width: 28px;
+  }
+
+  .step-body { flex: 1; }
+
+  .step-heading {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-2);
+    margin-bottom: 8px;
+  }
+
+  .step-detail {
+    font-size: 14px;
+    color: var(--text-3);
+    line-height: 1.75;
+  }
+
+  /* Who it's for */
+  .who-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .who-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--text-3);
+    line-height: 1.6;
+  }
+
+  .who-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--blue);
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: sticky;
+    top: 88px;
+  }
+
+  .sidebar-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .sidebar-heading {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+  }
+
+  .sidebar-body {
+    font-size: 14px;
+    color: var(--text-3);
+    line-height: 1.65;
+  }
+
+  .sidebar-btn { width: 100%; justify-content: center; }
+
+  .related-list { display: flex; flex-direction: column; gap: 2px; }
+
+  .related-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 8px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: var(--text-3);
+    transition: background 0.15s, color 0.15s;
+    text-decoration: none;
+  }
+
+  .related-item:hover { background: var(--surface-2); color: var(--text); }
+
+  .related-icon { font-size: 16px; }
+
+  .related-title { flex: 1; font-weight: 500; }
+
+  .related-item svg { color: var(--border-2); flex-shrink: 0; }
+
+  /* CTA */
+  .cta-strip { background: var(--surface); border-top: 1px solid var(--border); padding: 0; }
+
+  .cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+
+  .cta-title { font-size: 22px; font-weight: 700; color: var(--text-2); }
+  .cta-desc { font-size: 14px; color: var(--text-3); margin-top: 6px; }
+
+  @media (max-width: 900px) {
+    .content-grid { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+  }
+</style>

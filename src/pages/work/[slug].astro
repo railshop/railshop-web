@@ -1,0 +1,438 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionTag from '../../components/ui/SectionTag.astro';
+import Button from '../../components/ui/Button.astro';
+import { getCaseStudyBySlug, getAllCaseStudySlugs } from '../../lib/sanity';
+import { caseStudySamples } from '../../lib/sampleData';
+
+export async function getStaticPaths() {
+  try {
+    const slugs = await getAllCaseStudySlugs();
+    if (slugs.length > 0) {
+      return slugs.map((s: { slug: string }) => ({ params: { slug: s.slug } }));
+    }
+  } catch (_) {}
+  return Object.keys(caseStudySamples).map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+
+let sanityCs: any = null;
+try {
+  sanityCs = await getCaseStudyBySlug(slug);
+} catch (_) {}
+
+const sample = caseStudySamples[slug];
+const cs = {
+  title:       sanityCs?.title    ?? sample?.title    ?? 'Case Study',
+  client:      sanityCs?.client   ?? sample?.client   ?? 'Confidential Client',
+  industry:    sanityCs?.industry ?? sample?.industry ?? '',
+  excerpt:     sanityCs?.excerpt  ?? sample?.excerpt  ?? '',
+  results:     sanityCs?.results  ?? sample?.results  ?? '',
+  duration:    sample?.duration   ?? '',
+  services:    sample?.services   ?? [],
+  challenge:   sample?.challenge  ?? '',
+  approach:    sample?.approach   ?? [],
+  outcomes:    sample?.outcomes   ?? [],
+  testimonial: sample?.testimonial,
+};
+---
+
+<BaseLayout
+  title={`${cs.title} — Railshop Work`}
+  description={sanityCs?.seo?.metaDescription ?? cs.excerpt}
+>
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <div class="container breadcrumb-inner">
+      <a href="/work" class="breadcrumb-link">Work</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">{cs.title}</span>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="case-hero">
+    <div class="container">
+      <div class="case-hero-meta">
+        {cs.industry && <span class="tag">{cs.industry}</span>}
+        {cs.services.map((svc) => <span class="tag">{svc}</span>)}
+      </div>
+      <h1 class="case-title">{cs.title}</h1>
+      <p class="case-excerpt">{cs.excerpt}</p>
+      <div class="hero-bottom">
+        {cs.results && (
+          <div class="case-result">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+              <polyline points="17 6 23 6 23 12"/>
+            </svg>
+            <span class="case-result-text">{cs.results}</span>
+          </div>
+        )}
+        <div class="case-meta-chips">
+          {cs.client && (
+            <div class="meta-chip">
+              <span class="meta-chip-label">Client</span>
+              <span class="meta-chip-value">{cs.client}</span>
+            </div>
+          )}
+          {cs.duration && (
+            <div class="meta-chip">
+              <span class="meta-chip-label">Duration</span>
+              <span class="meta-chip-value">{cs.duration}</span>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Outcomes bar -->
+  {cs.outcomes.length > 0 && (
+    <div class="outcomes-bar">
+      <div class="container outcomes-inner">
+        {cs.outcomes.map((o) => (
+          <div class="outcome-stat">
+            <span class="outcome-value">{o.value}</span>
+            <span class="outcome-label">{o.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <!-- Body -->
+  <div class="content-wrap">
+    <div class="container content-grid">
+
+      <div class="main-col">
+
+        <!-- Challenge -->
+        {cs.challenge && (
+          <div class="content-section">
+            <h2 class="section-h2">The Challenge</h2>
+            <p class="body-copy">{cs.challenge}</p>
+          </div>
+        )}
+
+        <!-- Approach -->
+        {cs.approach.length > 0 && (
+          <div class="content-section">
+            <h2 class="section-h2">Our Approach</h2>
+            <div class="approach-blocks">
+              {cs.approach.map((block) => (
+                <div class="approach-block">
+                  <h3 class="approach-heading">{block.heading}</h3>
+                  <p class="body-copy">{block.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <!-- Testimonial -->
+        {cs.testimonial && (
+          <blockquote class="testimonial">
+            <p class="testimonial-quote">"{cs.testimonial.quote}"</p>
+            <footer class="testimonial-footer">
+              <span class="testimonial-author">{cs.testimonial.author}</span>
+              <span class="testimonial-role">{cs.testimonial.role}</span>
+            </footer>
+          </blockquote>
+        )}
+
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        {cs.outcomes.length > 0 && (
+          <div class="sidebar-card">
+            <p class="sidebar-heading">Key results</p>
+            {cs.outcomes.map((o) => (
+              <div class="sidebar-stat">
+                <span class="sidebar-stat-value">{o.value}</span>
+                <span class="sidebar-stat-label">{o.label}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div class="sidebar-card">
+          <p class="sidebar-heading">Want results like this?</p>
+          <p class="sidebar-body">
+            Book a call to discuss your program and see what's possible.
+          </p>
+          <Button href="/contact#hubspot-meetings" variant="primary" class="sidebar-btn">
+            Book a Call
+          </Button>
+        </div>
+
+        <a href="/work" class="sidebar-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 5l-7 7 7 7"/>
+          </svg>
+          All case studies
+        </a>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta-strip">
+    <div class="container cta-inner">
+      <div>
+        <h2 class="cta-title">Want results like this?</h2>
+        <p class="cta-desc">Book a call to discuss your paid media program.</p>
+      </div>
+      <Button href="/contact#hubspot-meetings" variant="primary">Book a Call</Button>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .breadcrumb { border-bottom: 1px solid var(--border); background: var(--surface); }
+  .breadcrumb-inner { display: flex; align-items: center; gap: 8px; padding: 14px 24px; font-size: 13px; }
+  .breadcrumb-link { color: var(--text-3); transition: color 0.15s; }
+  .breadcrumb-link:hover { color: var(--text); }
+  .breadcrumb-sep { color: var(--border-2); }
+  .breadcrumb-current { color: var(--text-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 360px; }
+
+  /* Hero */
+  .case-hero { padding: 64px 0 56px; border-bottom: 1px solid var(--border); }
+
+  .case-hero-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+
+  .case-title {
+    font-size: clamp(28px, 4.5vw, 48px);
+    font-weight: 800;
+    color: var(--text-2);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    max-width: 800px;
+    margin-bottom: 18px;
+  }
+
+  .case-excerpt {
+    font-size: 17px;
+    color: var(--text-3);
+    max-width: 680px;
+    line-height: 1.75;
+    margin-bottom: 28px;
+  }
+
+  .hero-bottom { display: flex; flex-direction: column; gap: 20px; }
+
+  .case-result {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(52, 211, 153, 0.06);
+    border: 1px solid rgba(52, 211, 153, 0.2);
+    border-radius: 8px;
+    padding: 10px 16px;
+    width: fit-content;
+  }
+
+  .case-result-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--green);
+    font-weight: 500;
+  }
+
+  .case-meta-chips { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .meta-chip { display: flex; flex-direction: column; gap: 2px; }
+
+  .meta-chip-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+  }
+
+  .meta-chip-value { font-size: 13px; color: var(--text-3); font-weight: 500; }
+
+  /* Outcomes bar */
+  .outcomes-bar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .outcomes-inner {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 32px 24px;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .outcome-stat { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+
+  .outcome-value {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--blue);
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .outcome-label {
+    font-size: 11px;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Content */
+  .content-wrap { padding: 64px 0 80px; }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .main-col { display: flex; flex-direction: column; gap: 56px; }
+
+  .content-section { display: flex; flex-direction: column; gap: 24px; }
+
+  .section-h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-2);
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .body-copy { font-size: 15px; color: var(--text-3); line-height: 1.8; }
+
+  .approach-blocks { display: flex; flex-direction: column; gap: 32px; }
+
+  .approach-heading {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-2);
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 14px;
+  }
+
+  .approach-heading::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 4px;
+    bottom: 4px;
+    width: 3px;
+    background: var(--blue);
+    border-radius: 2px;
+  }
+
+  /* Testimonial */
+  .testimonial {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--blue);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: 0;
+  }
+
+  .testimonial-quote {
+    font-size: 16px;
+    color: var(--text);
+    line-height: 1.75;
+    font-style: italic;
+    margin-bottom: 18px;
+  }
+
+  .testimonial-footer { display: flex; flex-direction: column; gap: 2px; }
+
+  .testimonial-author { font-size: 14px; font-weight: 600; color: var(--text-2); }
+
+  .testimonial-role {
+    font-size: 12px;
+    color: var(--text-3);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Sidebar */
+  .sidebar { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 88px; }
+
+  .sidebar-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .sidebar-heading {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+  }
+
+  .sidebar-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-stat:last-of-type { border-bottom: none; padding-bottom: 0; }
+
+  .sidebar-stat-value { font-size: 18px; font-weight: 800; color: var(--blue); letter-spacing: -0.02em; }
+  .sidebar-stat-label { font-size: 12px; color: var(--text-3); max-width: 140px; text-align: right; line-height: 1.4; }
+
+  .sidebar-body { font-size: 14px; color: var(--text-3); line-height: 1.65; }
+
+  .sidebar-btn { width: 100%; justify-content: center; }
+
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-3);
+    padding: 8px 0;
+    transition: color 0.15s;
+    text-decoration: none;
+  }
+
+  .sidebar-link:hover { color: var(--text); }
+
+  /* CTA */
+  .cta-strip { background: var(--surface); border-top: 1px solid var(--border); }
+
+  .cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+
+  .cta-title { font-size: 22px; font-weight: 700; color: var(--text-2); }
+  .cta-desc { font-size: 14px; color: var(--text-3); margin-top: 6px; }
+
+  @media (max-width: 900px) {
+    .content-grid { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+  }
+</style>
