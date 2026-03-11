@@ -36,15 +36,18 @@ const displayServices = services.length > 0 ? services : [
 
 // Placeholder posts if Sanity is empty
 const displayPosts = posts.length > 0 ? posts : [
-  { _id: '1', title: 'Why Most Google Ads Accounts Plateau After Month 3', excerpt: 'The structural patterns we see in stalled accounts, and the levers that move them.', publishedAt: '2024-11-01', slug: { current: 'google-ads-plateau' } },
-  { _id: '2', title: 'Building a Paid Social Creative Testing System', excerpt: 'How to set up a repeatable process for finding winning ad creatives at scale.', publishedAt: '2024-10-18', slug: { current: 'creative-testing-system' } },
-  { _id: '3', title: 'GA4 Custom Dimensions You Should Have Set Up Yesterday', excerpt: 'The tracking gaps that cost most brands their attribution accuracy.', publishedAt: '2024-10-05', slug: { current: 'ga4-custom-dimensions' } },
+  { _id: '1', title: 'Why Most Service Businesses Fail Online (And What Actually Works)', excerpt: 'The common mistakes we see across every industry — and the framework we use to fix them.', publishedAt: '2026-02-12', slug: { current: 'why-service-businesses-fail-online' } },
+  { _id: '2', title: 'Local SEO in 2026: What\'s Changed and What Still Works', excerpt: 'The tactics that have faded and the fundamentals that keep driving rankings for service businesses.', publishedAt: '2026-01-14', slug: { current: 'local-seo-2026' } },
+  { _id: '3', title: 'What Makes a Service Business Website Actually Convert', excerpt: 'Speed, structure, and trust signals — the three things that separate websites that generate leads from ones that don\'t.', publishedAt: '2025-12-18', slug: { current: 'service-business-website-conversion' } },
 ];
 
 const industries = ['Concrete & Hardscape', 'Construction', 'Excavation', 'Home & Business Security', 'HVAC', 'Landscaping', 'Plumbing', 'Roofing', 'Windows & Doors'];
 ---
 
-<BaseLayout>
+<BaseLayout
+  title="Railshop | Digital Marketing for Home & Consumer Service Businesses"
+  description="Railshop is a boutique digital growth agency for home and consumer service businesses. We build websites, run paid ads, and drive SEO — delivered by senior leaders who've done it at scale."
+>
   <!-- ============================================================
        1. HERO
        ============================================================ -->
@@ -83,10 +86,10 @@ const industries = ['Concrete & Hardscape', 'Construction', 'Excavation', 'Home 
   <section class="proof-bar">
     <div class="container proof-inner">
       {[
-        { value: '12+', label: 'Active Clients' },
-        { value: '$2M+', label: 'Ad Spend Managed' },
-        { value: '5', label: 'Industries Served' },
-        { value: '3.4×', label: 'Average ROAS Lift' },
+        { value: '$100M+', label: 'Ad Spend Managed' },
+        { value: '8x', label: 'Avg Blended ROAS' },
+        { value: '5+ Yrs', label: 'Avg Client Tenure' },
+        { value: '9+', label: 'Industries Served' },
       ].map((stat) => (
         <div class="proof-stat">
           <span class="proof-value">{stat.value}</span>
@@ -105,8 +108,7 @@ const industries = ['Concrete & Hardscape', 'Construction', 'Excavation', 'Home 
         <SectionTag label="What We Do" />
         <h2 class="section-title">Services built for<br />measurable growth</h2>
         <p class="section-desc">
-          Every engagement starts with your business goals, not a default
-          playbook. Here's how we can help.
+          Six ways we help service businesses compete and grow online. Every engagement starts with your goals — not a default package.
         </p>
       </div>
       <div class="services-grid stagger">
@@ -207,14 +209,19 @@ const industries = ['Concrete & Hardscape', 'Construction', 'Excavation', 'Home 
             <span class="cs-stat cs-stat--blue">4x Revenue Growth</span>
             <span class="cs-stat cs-stat--gold">5-Year Partnership</span>
           </div>
-          <a href={featuredCase ? `/work/${featuredCase.slug.current}` : '/work'} class="cs-cta">
+          <a href={featuredCase ? `/work/${featuredCase.slug.current}` : '/work/hvac-market-leader'} class="cs-cta">
             Read the Case Study
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
         </div>
-        <div class="case-study-visual" aria-hidden="true">
-          <div class="cs-image-glow"></div>
-          <span class="cs-image-label">Featured Image</span>
+        <div class="case-study-visual">
+          <img
+            src="/images/F&I Scaled 1500.jpg"
+            alt="HVAC business owner reviewing campaign results with a client"
+            class="cs-image"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </div>
     </div>
@@ -232,10 +239,7 @@ const industries = ['Concrete & Hardscape', 'Construction', 'Excavation', 'Home 
           <SectionTag label="About Railshop" />
           <h2 class="about-title">Enterprise experience.<br />Boutique delivery.</h2>
           <p class="about-desc">
-            Railshop is led by a senior marketer with enterprise brand experience and a product
-            leader from the software world. When engagements call for it, we bring in hand-selected
-            specialists from our professional network — people we know and trust. You always get
-            the right expertise for the job, without the overhead of a bloated agency.
+            Railshop is a digital growth agency co-founded by a corporate marketing leader and a product management leader in software. We spent years at the senior level inside national brands — building and scaling the kinds of digital programs most agencies only claim to understand. We started Railshop to bring that experience directly to growing service businesses, without the overhead.
           </p>
           <a href="/about" class="about-cta">
             Our Story
@@ -310,6 +314,7 @@ const industries = ['Concrete & Hardscape', 'Construction', 'Excavation', 'Home 
        8. CTA BANNER
        ============================================================ -->
   <section class="cta-banner">
+    <div class="cta-glow" aria-hidden="true"></div>
     <div class="container cta-inner">
       <SectionTag label="Let's Talk" />
       <h2 class="cta-title">
@@ -668,31 +673,16 @@ const industries = ['Concrete & Hardscape', 'Construction', 'Excavation', 'Home 
   }
 
   .case-study-visual {
-    background: var(--surface-2);
     border-left: 1px solid var(--border);
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     overflow: hidden;
   }
 
-  .cs-image-glow {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at center, rgba(56, 182, 255, 0.07) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .cs-image-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-3);
-    opacity: 0.5;
-    position: relative;
-    z-index: 1;
+  .cs-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
   }
 
   /* ---- Section divider ---- */
@@ -836,13 +826,27 @@ const industries = ['Concrete & Hardscape', 'Construction', 'Excavation', 'Home 
 
   /* ---- CTA Banner ---- */
   .cta-banner {
+    position: relative;
     background: var(--surface);
     border-top: 1px solid var(--border);
     margin-top: 80px;
-    padding: 80px 0;
+    padding: 100px 0;
+    overflow: hidden;
+  }
+
+  .cta-glow {
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 600px;
+    height: 500px;
+    background: radial-gradient(ellipse, rgba(56, 182, 255, 0.07) 0%, transparent 70%);
+    pointer-events: none;
   }
 
   .cta-inner {
+    position: relative;
+    z-index: 1;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -851,7 +855,7 @@ const industries = ['Concrete & Hardscape', 'Construction', 'Excavation', 'Home 
   }
 
   .cta-title {
-    font-size: clamp(28px, 4vw, 40px);
+    font-size: clamp(32px, 5vw, 48px);
     font-weight: 800;
     color: var(--text-2);
     letter-spacing: -0.02em;
@@ -895,8 +899,9 @@ const industries = ['Concrete & Hardscape', 'Construction', 'Excavation', 'Home 
 
     .case-study-visual {
       border-left: none;
-      border-top: 1px solid var(--border);
-      min-height: 160px;
+      border-bottom: 1px solid var(--border);
+      min-height: 240px;
+      order: -1;
     }
 
     .case-study-content {

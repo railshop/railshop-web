@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionTag from '../../components/ui/SectionTag.astro';
+import Button from '../../components/ui/Button.astro';
+
+const post = {
+  title: 'What Makes a Service Business Website Actually Convert',
+  category: 'Web',
+  publishedAt: 'December 18, 2025',
+  excerpt: "Speed, structure, and trust signals — the three things that separate websites that generate leads from ones that don't.",
+};
+---
+
+<BaseLayout title={`${post.title} — Railshop Blog`} description={post.excerpt}>
+
+  <div class="breadcrumb">
+    <div class="container breadcrumb-inner">
+      <a href="/blog" class="breadcrumb-link">Blog</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">{post.title}</span>
+    </div>
+  </div>
+
+  <section class="post-hero">
+    <div class="container">
+      <div class="post-hero-meta">
+        <span class="post-cat-tag">{post.category}</span>
+        <span class="post-date">{post.publishedAt}</span>
+      </div>
+      <h1 class="post-title">{post.title}</h1>
+      <p class="post-byline">By the Railshop Team</p>
+    </div>
+  </section>
+
+  <div class="content-wrap">
+    <div class="container content-grid">
+
+      <article class="post-body">
+        <p>Most service business websites exist. Very few of them actually work.</p>
+        <p>By "work" we mean: a stranger lands on the page, understands what you do and who you do it for, trusts that you're credible, and takes an action — a call, a form fill, a booking. That's the job. Everything else is secondary.</p>
+        <p>We've audited a lot of websites. Here's what consistently separates the ones that convert from the ones that don't.</p>
+
+        <h2>Speed Is Not Optional</h2>
+        <p>A page that takes more than three seconds to load loses a significant portion of mobile visitors before they ever see your content. For service businesses where most traffic comes from mobile, this is a direct revenue problem.</p>
+        <p>This isn't about having a perfect PageSpeed score. It's about not having a site that was built on a bloated page builder, loaded with oversized images, running a dozen third-party scripts before the first byte of content loads. We see this constantly with sites built on DIY platforms or by developers who prioritized visual complexity over performance.</p>
+        <p>Fast sites convert better. That's been true for years and it's still true.</p>
+
+        <h2>Structure Determines Whether People Stay</h2>
+        <p>When someone lands on your homepage, they're asking three questions almost immediately: What do you do? Do you serve my area? Can I trust you? If your site doesn't answer those questions in the first few seconds, most people leave.</p>
+        <p>The structure of a converting service website is not complicated. Clear headline that states what you do and who you do it for. Service areas visible early. Social proof — reviews, credentials, years in business — above the fold or close to it. A phone number that's easy to find. A call to action that's specific and low-friction.</p>
+        <p>Most sites bury the important information. They lead with a vague tagline, put the phone number in the footer, and make the prospect work to understand why they should call. That's backwards.</p>
+
+        <h2>Trust Signals Do More Work Than You Think</h2>
+        <p>For service businesses, trust is the conversion variable. People are inviting someone into their home or business, or making a significant purchasing decision. They need to feel confident before they act.</p>
+        <p>Reviews are the most powerful trust signal you have — and not just the star rating. Recent, specific, detailed reviews from real customers in recognizable locations convert better than a high aggregate score with no recent activity. Credentials, licenses, certifications, and years in business all contribute. Photos of real work, real equipment, and real people convert better than stock photography.</p>
+        <p>None of this requires a redesign. A lot of it is just making sure the trust signals you've already earned are visible on the page.</p>
+
+        <h2>The Bottom Line</h2>
+        <p>A converting service business website isn't about design trends or feature lists. It's about answering the right questions fast, making it easy to take the next step, and giving people enough confidence to do it.</p>
+        <p>If your site isn't generating leads at the rate your business deserves, there's almost always a fixable reason. <a href="/contact#hubspot-meetings">Book a call</a> and we'll tell you what it is.</p>
+      </article>
+
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <p class="sidebar-eyebrow">About the Authors</p>
+          <p class="sidebar-body">Railshop is a boutique digital growth agency for service businesses. Everything we publish comes from direct experience managing paid media, SEO, and web programs for clients across HVAC, landscaping, home security, and more.</p>
+          <a href="/about" class="sidebar-link">Meet the team →</a>
+        </div>
+        <div class="sidebar-card">
+          <p class="sidebar-eyebrow sidebar-eyebrow--blue">Work With Us</p>
+          <p class="sidebar-body">Book a no-commitment call to discuss your digital program and see what's possible.</p>
+          <a href="/contact#hubspot-meetings" class="sidebar-btn-link">Book a Call</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <section class="cta-banner">
+    <div class="cta-glow" aria-hidden="true"></div>
+    <div class="container cta-inner">
+      <SectionTag label="Enjoyed This Post?" />
+      <h2 class="cta-title">See how we put this into practice.</h2>
+      <p class="cta-desc">Book a call to talk through your digital program.</p>
+      <div class="cta-buttons">
+        <Button href="/contact#hubspot-meetings" variant="primary">Book a Call</Button>
+        <Button href="/blog" variant="secondary">Read More Posts</Button>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .breadcrumb { border-bottom: 1px solid var(--border); background: var(--surface); }
+  .breadcrumb-inner { display: flex; align-items: center; gap: 8px; padding: 14px 24px; font-size: 13px; }
+  .breadcrumb-link { color: var(--text-3); transition: color 0.15s; }
+  .breadcrumb-link:hover { color: var(--text); }
+  .breadcrumb-sep { color: var(--border-2); }
+  .breadcrumb-current { color: var(--text-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 360px; }
+
+  .post-hero { padding: 64px 0 56px; border-bottom: 1px solid var(--border); }
+  .post-hero-meta { display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+
+  .post-cat-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--blue); background: var(--blue-glow); border: 1px solid var(--blue-border); border-radius: 999px; padding: 4px 10px; display: inline-flex; align-items: center; }
+  .post-date { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); }
+  .post-title { font-size: clamp(28px, 4vw, 48px); font-weight: 800; color: var(--text-2); letter-spacing: -0.02em; line-height: 1.15; max-width: 720px; margin-bottom: 16px; }
+  .post-byline { font-size: 14px; color: var(--text-3); }
+
+  .content-wrap { padding: 64px 0 80px; }
+  .content-grid { display: grid; grid-template-columns: 1fr 280px; gap: 64px; align-items: start; }
+
+  .post-body { font-size: 16px; color: var(--text-3); line-height: 1.85; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+  .post-body h2 { font-size: 22px; font-weight: 700; color: var(--text-2); margin-top: 24px; letter-spacing: -0.01em; }
+  .post-body p { font-size: 16px; color: var(--text-3); line-height: 1.85; }
+  .post-body a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
+
+  .sidebar { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 88px; }
+  .sidebar-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 12px; }
+  .sidebar-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-3); }
+  .sidebar-eyebrow--blue { color: var(--blue); }
+  .sidebar-body { font-size: 13px; color: var(--text-3); line-height: 1.7; }
+  .sidebar-link { font-size: 12px; font-weight: 600; color: var(--blue); text-decoration: none; }
+  .sidebar-link:hover { text-decoration: underline; }
+  .sidebar-btn-link { display: flex; align-items: center; justify-content: center; background: var(--blue); color: #111315; font-weight: 700; font-size: 14px; border-radius: 8px; padding: 10px 18px; transition: opacity 0.2s; text-decoration: none; margin-top: 4px; }
+  :global([data-theme="light"]) .sidebar-btn-link { color: #FFFFFF; }
+  .sidebar-btn-link:hover { opacity: 0.88; }
+
+  .cta-banner { position: relative; background: var(--surface); border-top: 1px solid var(--border); padding: 80px 0; overflow: hidden; }
+  .cta-glow { position: absolute; top: -80px; right: -80px; width: 500px; height: 400px; background: radial-gradient(ellipse, rgba(56, 182, 255, 0.07) 0%, transparent 70%); pointer-events: none; }
+  .cta-inner { position: relative; z-index: 1; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .cta-title { font-size: clamp(26px, 4vw, 40px); font-weight: 800; color: var(--text-2); letter-spacing: -0.02em; line-height: 1.2; max-width: 560px; }
+  .cta-desc { font-size: 16px; color: var(--text-3); max-width: 440px; line-height: 1.7; }
+  .cta-buttons { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+
+  @media (max-width: 900px) {
+    .content-grid { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+  }
+</style>

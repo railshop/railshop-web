@@ -77,10 +77,22 @@ const displayCases = caseStudies.length > 0 ? caseStudies : [
       <div class="cases-grid stagger">
         {displayCases.map((cs) => (
           <Card href={`/work/${cs.slug.current}`} animate class="case-card">
-            <!-- Featured image placeholder -->
+            <!-- Featured image -->
             <div class="case-image">
-              <div class="case-image-glow" aria-hidden="true"></div>
-              <span class="case-image-label">Client Photo</span>
+              {cs._id === '1' ? (
+                <img
+                  src="/images/F&I Scaled 1500.jpg"
+                  alt="HVAC business owner reviewing campaign results with a client"
+                  class="case-img"
+                  loading="lazy"
+                  decoding="async"
+                />
+              ) : (
+                <>
+                  <div class="case-image-glow" aria-hidden="true"></div>
+                  <span class="case-image-label">Client Photo</span>
+                </>
+              )}
             </div>
             <!-- Content -->
             <div class="case-content">
@@ -168,6 +180,14 @@ const displayCases = caseStudies.length > 0 ? caseStudies : [
     justify-content: center;
     overflow: hidden;
     flex-shrink: 0;
+  }
+
+  .case-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
   }
 
   .case-image-glow {

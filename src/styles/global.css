@@ -33,15 +33,27 @@
    CSS CUSTOM PROPERTIES — LIGHT MODE
    ============================================================ */
 [data-theme="light"] {
-  --bg:          #F8FAFC;
-  --surface:     #FFFFFF;
-  --surface-2:   #F1F5F9;
-  --surface-3:   #E8EDF2;
-  --border:      #E2E8F0;
-  --border-2:    #CBD5E1;
+  --bg:          #FFFFFF;
+  --surface:     #F0F4F8;
+  --surface-2:   #E2EBF2;
+  --surface-3:   #D5E0E8;
+  --border:      #CBD5E1;
+  --border-2:    #B0BFCC;
   --text:        #0F172A;
   --text-2:      #334155;
-  --text-3:      #64748B;
+  --text-3:      #475569;
+
+  --blue:        #0369A1;
+  --blue-dim:    #025E8F;
+  --blue-glow:   rgba(3, 105, 161, 0.08);
+  --blue-border: rgba(3, 105, 161, 0.25);
+  --green:       #047857;
+  --gold:        #B45309;
+  --red:         #DC2626;
+}
+
+[data-theme="light"] .btn-primary {
+  color: #FFFFFF;
 }
 
 /* ============================================================

@@ -62,10 +62,9 @@ import Button from '../components/ui/Button.astro';
         </div>
       </div>
 
-      <!-- Right: photo placeholder -->
+      <!-- Right: office photo -->
       <div class="story-photo">
-        <div class="story-photo-glow" aria-hidden="true"></div>
-        <span class="story-photo-label">Office / Team Photo</span>
+        <img src="/images/office.jpg" alt="Railshop office" class="story-photo-img" />
       </div>
 
     </div>
@@ -76,20 +75,19 @@ import Button from '../components/ui/Button.astro';
     <div class="container">
       <div class="section-header">
         <SectionTag label="The Team" />
-        <h2 class="section-headline">Practitioners. Not account managers.</h2>
-        <p class="section-subhead">Every client works directly with us — not a coordinator or junior hire.</p>
+        <h2 class="section-headline">Senior experience. No hand-offs.</h2>
+        <p class="section-subhead">Every client works directly with us — not a coordinator or a junior hire.</p>
       </div>
       <div class="team-grid">
 
         <div class="team-card">
-          <div class="team-photo" aria-hidden="true">
-            <div class="team-photo-glow"></div>
-            <span class="team-photo-initial">D</span>
+          <div class="team-photo">
+            <img src="/images/drew 169 cropped.jpg" alt="Andrew Opalinski" class="team-photo-img" />
           </div>
           <div class="team-info">
-            <p class="team-name">Drew</p>
-            <p class="team-title">Co-Founder, Growth & Strategy</p>
-            <p class="team-bio">Former senior digital marketing leader at national home service brands. Drew has built and scaled paid media, SEO, and web programs from the ground up — and brings that enterprise playbook to growing service businesses.</p>
+            <p class="team-name">Andrew Opalinski</p>
+            <p class="team-title">Co-Founder, Head of Digital Strategy</p>
+            <p class="team-bio">Former Head of Digital Marketing at Window Nation and Vector Security, where he built and scaled paid media, SEO, and web programs across national markets. Drew brings that enterprise playbook directly to growing service businesses.</p>
             <a href="https://linkedin.com/in/drewrailshop" class="linkedin-link" target="_blank" rel="noopener noreferrer">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/>
@@ -102,14 +100,13 @@ import Button from '../components/ui/Button.astro';
         </div>
 
         <div class="team-card">
-          <div class="team-photo" aria-hidden="true">
-            <div class="team-photo-glow"></div>
-            <span class="team-photo-initial">S</span>
+          <div class="team-photo">
+            <img src="/images/sean 169 cropped.jpg" alt="Sean Connelly" class="team-photo-img" />
           </div>
           <div class="team-info">
-            <p class="team-name">Sean</p>
-            <p class="team-title">Co-Founder, Product & Operations</p>
-            <p class="team-bio">Former VP of Product at a software company. Sean brings systems thinking and product discipline to every client engagement — making sure strategy translates into execution that actually ships.</p>
+            <p class="team-name">Sean Connelly</p>
+            <p class="team-title">Co-Founder, Head of Product & Operations</p>
+            <p class="team-bio">VP of Product at Momentive Software, where he leads product development and systems thinking at scale. Sean brings that same discipline to every Railshop engagement — making sure strategy translates into execution that actually ships.</p>
             <a href="https://linkedin.com/in/seanrailshop" class="linkedin-link" target="_blank" rel="noopener noreferrer">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/>
@@ -133,15 +130,24 @@ import Button from '../components/ui/Button.astro';
         <p class="logos-subhead">Names shared on request — we respect client confidentiality.</p>
       </div>
       <div class="logos-row">
-        {[0,1,2,3,4,5].map(() => (
-          <div class="logo-tile">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="2" y="7" width="20" height="14" rx="2"/>
-              <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
-              <path d="M2 12h20"/>
-            </svg>
-          </div>
-        ))}
+        <div class="logo-tile">
+          <img src="/images/logos/window nation logo.png" alt="Window Nation" class="logo-img logo-window-nation" />
+        </div>
+        <div class="logo-tile">
+          <img src="/images/logos/vector security logo.svg" alt="Vector Security" class="logo-img logo-vector-security" />
+        </div>
+        <div class="logo-tile">
+          <img src="/images/logos/fire and ice logo.png" alt="Fire & Ice" class="logo-img logo-fire-ice" />
+        </div>
+        <div class="logo-tile">
+          <img src="/images/logos/country farms logo.png" alt="Country Farms" class="logo-img logo-country-farms" />
+        </div>
+        <div class="logo-tile">
+          <img src="/images/logos/jp operations logo.svg" alt="JP Operations" class="logo-img logo-jp-operations" />
+        </div>
+        <div class="logo-tile">
+          <img src="/images/logos/cedar crek logo.jpg" alt="Cedar Creek" class="logo-img logo-cedar-creek" />
+        </div>
       </div>
     </div>
   </section>
@@ -278,32 +284,16 @@ import Button from '../components/ui/Button.astro';
 
   /* ── Story photo ── */
   .story-photo {
-    position: relative;
-    min-height: 480px;
-    background: var(--surface-2);
-    border: 1px solid var(--border);
     border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     overflow: hidden;
+    min-height: 480px;
   }
 
-  .story-photo-glow {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at center, rgba(56, 182, 255, 0.05) 0%, transparent 65%);
-    pointer-events: none;
-  }
-
-  .story-photo-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-3);
-    position: relative;
-    z-index: 1;
+  .story-photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   /* ── Team ── */
@@ -355,29 +345,16 @@ import Button from '../components/ui/Button.astro';
   }
 
   .team-photo {
-    position: relative;
     height: 240px;
-    background: var(--surface-2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    overflow: hidden;
     flex-shrink: 0;
   }
 
-  .team-photo-glow {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at center, rgba(56, 182, 255, 0.05) 0%, transparent 65%);
-    pointer-events: none;
-  }
-
-  .team-photo-initial {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--text-3);
-    position: relative;
-    z-index: 1;
+  .team-photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .team-info {
@@ -454,7 +431,8 @@ import Button from '../components/ui/Button.astro';
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 20px 32px;
+    width: 180px;
+    height: 88px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -463,6 +441,17 @@ import Button from '../components/ui/Button.astro';
   }
 
   .logo-tile:hover { opacity: 1; }
+
+  .logo-img {
+    width: 120px;
+    height: 44px;
+    object-fit: contain;
+    display: block;
+    filter: brightness(0) invert(1);
+  }
+
+  .logo-window-nation { width: 174px; height: 76px; }
+  .logo-vector-security { width: 148px; height: 60px; }
 
   /* ── Values ── */
   .values-section {

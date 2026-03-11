@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionTag from '../../components/ui/SectionTag.astro';
+import Button from '../../components/ui/Button.astro';
+
+const post = {
+  title: "How We're Using AI in Client Engagements Right Now",
+  category: 'AI',
+  publishedAt: 'December 3, 2025',
+  excerpt: 'Practical applications, not hype. Where AI is actually saving time and improving output in our day-to-day work.',
+};
+---
+
+<BaseLayout title={`${post.title} — Railshop Blog`} description={post.excerpt}>
+
+  <div class="breadcrumb">
+    <div class="container breadcrumb-inner">
+      <a href="/blog" class="breadcrumb-link">Blog</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">{post.title}</span>
+    </div>
+  </div>
+
+  <section class="post-hero">
+    <div class="container">
+      <div class="post-hero-meta">
+        <span class="post-cat-tag">{post.category}</span>
+        <span class="post-date">{post.publishedAt}</span>
+      </div>
+      <h1 class="post-title">{post.title}</h1>
+      <p class="post-byline">By the Railshop Team</p>
+    </div>
+  </section>
+
+  <div class="content-wrap">
+    <div class="container content-grid">
+
+      <article class="post-body">
+        <p>There's no shortage of takes on AI in marketing. Most of them are either breathlessly optimistic or reflexively dismissive. We're not going to do either.</p>
+        <p>Here's where we're actually using AI in client work right now, what it's doing well, and where we still rely on human judgment.</p>
+
+        <h2>Content at the Right Scale</h2>
+        <p>For clients with location-based SEO strategies, we use AI to help build out service area pages at scale — not to generate thin, templated content, but to create a solid first draft that we then edit for accuracy, local specificity, and brand voice. What used to take a day per page now takes a fraction of that time, and the quality is higher than what most people could produce writing from scratch under time pressure.</p>
+        <p>The same applies to ad copy variations. Testing headlines and descriptions across a large keyword set used to mean either cutting corners or spending hours on copy. AI handles the volume. We handle the judgment calls about what actually sounds right for the brand and the audience.</p>
+
+        <h2>Research and Competitive Analysis</h2>
+        <p>AI tools have made competitive research significantly faster. Summarizing competitor positioning, identifying gaps in messaging, pulling patterns from a large set of search results — tasks that used to take hours of manual work are now much faster. We still verify everything, but the starting point is better and we get there faster.</p>
+        <p>For client onboarding specifically, we use AI to process intake materials, identify key themes, and surface questions we'd want to ask in a discovery call. It's not replacing the discovery process — it's making us better prepared for it.</p>
+
+        <h2>What We're Not Doing</h2>
+        <p>We're not using AI to generate final copy without human review. We're not using it to make strategic decisions about budget allocation, channel mix, or creative direction. We're not using it to write client-facing reports without significant editing.</p>
+        <p>The judgment calls that actually matter — what's working, what to do next, how to talk to a specific audience — still require experience and context that AI doesn't have. What AI does well is reduce the time we spend on tasks that don't require that judgment, which means we spend more time on the ones that do.</p>
+
+        <h2>The Honest Take</h2>
+        <p>AI is a productivity tool, not a strategy. The agencies and in-house teams getting real value from it are the ones using it to do more of the work that matters — not the ones using it to replace the thinking.</p>
+        <p>If you're trying to figure out where AI actually makes sense in your marketing program, that's a conversation worth having. <a href="/contact#hubspot-meetings">Book a call</a> and we'll give you a practical take based on what we're seeing work.</p>
+      </article>
+
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <p class="sidebar-eyebrow">About the Authors</p>
+          <p class="sidebar-body">Railshop is a boutique digital growth agency for service businesses. Everything we publish comes from direct experience managing paid media, SEO, and web programs for clients across HVAC, landscaping, home security, and more.</p>
+          <a href="/about" class="sidebar-link">Meet the team →</a>
+        </div>
+        <div class="sidebar-card">
+          <p class="sidebar-eyebrow sidebar-eyebrow--blue">Work With Us</p>
+          <p class="sidebar-body">Book a no-commitment call to discuss your digital program and see what's possible.</p>
+          <a href="/contact#hubspot-meetings" class="sidebar-btn-link">Book a Call</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <section class="cta-banner">
+    <div class="cta-glow" aria-hidden="true"></div>
+    <div class="container cta-inner">
+      <SectionTag label="Enjoyed This Post?" />
+      <h2 class="cta-title">See how we put this into practice.</h2>
+      <p class="cta-desc">Book a call to talk through your digital program.</p>
+      <div class="cta-buttons">
+        <Button href="/contact#hubspot-meetings" variant="primary">Book a Call</Button>
+        <Button href="/blog" variant="secondary">Read More Posts</Button>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .breadcrumb { border-bottom: 1px solid var(--border); background: var(--surface); }
+  .breadcrumb-inner { display: flex; align-items: center; gap: 8px; padding: 14px 24px; font-size: 13px; }
+  .breadcrumb-link { color: var(--text-3); transition: color 0.15s; }
+  .breadcrumb-link:hover { color: var(--text); }
+  .breadcrumb-sep { color: var(--border-2); }
+  .breadcrumb-current { color: var(--text-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 360px; }
+
+  .post-hero { padding: 64px 0 56px; border-bottom: 1px solid var(--border); }
+  .post-hero-meta { display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+
+  .post-cat-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--blue); background: var(--blue-glow); border: 1px solid var(--blue-border); border-radius: 999px; padding: 4px 10px; display: inline-flex; align-items: center; }
+  .post-date { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); }
+  .post-title { font-size: clamp(28px, 4vw, 48px); font-weight: 800; color: var(--text-2); letter-spacing: -0.02em; line-height: 1.15; max-width: 720px; margin-bottom: 16px; }
+  .post-byline { font-size: 14px; color: var(--text-3); }
+
+  .content-wrap { padding: 64px 0 80px; }
+  .content-grid { display: grid; grid-template-columns: 1fr 280px; gap: 64px; align-items: start; }
+
+  .post-body { font-size: 16px; color: var(--text-3); line-height: 1.85; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+  .post-body h2 { font-size: 22px; font-weight: 700; color: var(--text-2); margin-top: 24px; letter-spacing: -0.01em; }
+  .post-body p { font-size: 16px; color: var(--text-3); line-height: 1.85; }
+  .post-body a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
+
+  .sidebar { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 88px; }
+  .sidebar-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 12px; }
+  .sidebar-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-3); }
+  .sidebar-eyebrow--blue { color: var(--blue); }
+  .sidebar-body { font-size: 13px; color: var(--text-3); line-height: 1.7; }
+  .sidebar-link { font-size: 12px; font-weight: 600; color: var(--blue); text-decoration: none; }
+  .sidebar-link:hover { text-decoration: underline; }
+  .sidebar-btn-link { display: flex; align-items: center; justify-content: center; background: var(--blue); color: #111315; font-weight: 700; font-size: 14px; border-radius: 8px; padding: 10px 18px; transition: opacity 0.2s; text-decoration: none; margin-top: 4px; }
+  :global([data-theme="light"]) .sidebar-btn-link { color: #FFFFFF; }
+  .sidebar-btn-link:hover { opacity: 0.88; }
+
+  .cta-banner { position: relative; background: var(--surface); border-top: 1px solid var(--border); padding: 80px 0; overflow: hidden; }
+  .cta-glow { position: absolute; top: -80px; right: -80px; width: 500px; height: 400px; background: radial-gradient(ellipse, rgba(56, 182, 255, 0.07) 0%, transparent 70%); pointer-events: none; }
+  .cta-inner { position: relative; z-index: 1; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .cta-title { font-size: clamp(26px, 4vw, 40px); font-weight: 800; color: var(--text-2); letter-spacing: -0.02em; line-height: 1.2; max-width: 560px; }
+  .cta-desc { font-size: 16px; color: var(--text-3); max-width: 440px; line-height: 1.7; }
+  .cta-buttons { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+
+  @media (max-width: 900px) {
+    .content-grid { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+  }
+</style>

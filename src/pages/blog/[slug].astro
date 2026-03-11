@@ -182,8 +182,8 @@ const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--blue);
-    background: rgba(56, 182, 255, 0.1);
-    border: 1px solid rgba(56, 182, 255, 0.2);
+    background: var(--blue-glow);
+    border: 1px solid var(--blue-border);
     border-radius: 999px;
     padding: 4px 10px;
     display: inline-flex;
@@ -325,6 +325,8 @@ const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
     text-decoration: none;
     margin-top: 4px;
   }
+
+  :global([data-theme="light"]) .sidebar-btn-link { color: #FFFFFF; }
 
   .sidebar-btn-link:hover { opacity: 0.88; }
 

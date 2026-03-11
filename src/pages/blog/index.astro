@@ -7,6 +7,54 @@ let posts: any[] = [];
 try {
   posts = await getPosts(20);
 } catch (_) {}
+
+const displayPosts = posts.length > 0 ? posts : [
+  {
+    _id: '1',
+    title: 'Why Most Service Businesses Fail Online (And What Actually Works)',
+    excerpt: 'The common mistakes we see across every industry — and the framework we use to fix them.',
+    publishedAt: '2026-02-12',
+    category: 'Strategy',
+    slug: { current: 'why-service-businesses-fail-online' },
+    image: '/images/blog/service businesses fail.png',
+  },
+  {
+    _id: '2',
+    title: 'Why Most Google Ads Accounts Plateau After Month 3',
+    excerpt: 'The structural patterns we see in stalled accounts, and the levers that consistently move them.',
+    publishedAt: '2026-01-28',
+    category: 'Paid Ads',
+    slug: { current: 'google-ads-plateau' },
+    image: '/images/blog/google ads plateau after month 3.png',
+  },
+  {
+    _id: '3',
+    title: "Local SEO in 2026: What's Changed and What Still Works",
+    excerpt: 'The tactics that have faded and the fundamentals that keep driving rankings for service businesses.',
+    publishedAt: '2026-01-14',
+    category: 'SEO',
+    slug: { current: 'local-seo-2026' },
+    image: '/images/blog/local seo in 2026.png',
+  },
+  {
+    _id: '4',
+    title: 'What Makes a Service Business Website Actually Convert',
+    excerpt: "Speed, structure, and trust signals — the three things that separate websites that generate leads from ones that don't.",
+    publishedAt: '2025-12-18',
+    category: 'Web',
+    slug: { current: 'service-business-website-conversion' },
+    image: '/images/blog/what makes a service website convert.png',
+  },
+  {
+    _id: '5',
+    title: "How We're Using AI in Client Engagements Right Now",
+    excerpt: 'Practical applications, not hype. Where AI is actually saving time and improving output in our day-to-day work.',
+    publishedAt: '2025-12-03',
+    category: 'AI',
+    slug: { current: 'ai-in-client-engagements' },
+    image: '/images/blog/ai in client engagements.png',
+  },
+];
 ---
 
 <BaseLayout
@@ -29,18 +77,17 @@ try {
   <!-- Featured Post -->
   <section class="featured-section">
     <div class="container">
-      <a href="/blog/why-service-businesses-fail-online" class="featured-card">
+      <a href={`/blog/${displayPosts[0].slug.current}`} class="featured-card">
         <div class="featured-image">
-          <div class="featured-image-glow" aria-hidden="true"></div>
-          <span class="featured-image-label">Featured Post Image</span>
+          <img src={displayPosts[0].image} alt="" class="featured-image-img" />
         </div>
         <div class="featured-content">
           <div class="post-meta">
-            <span class="tag">Strategy</span>
-            <span class="post-date">February 12, 2026</span>
+            <span class="tag">{displayPosts[0].category}</span>
+            <span class="post-date">{new Date(displayPosts[0].publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
           </div>
-          <h2 class="featured-title">Why Most Service Businesses Fail Online (And What Actually Works)</h2>
-          <p class="featured-excerpt">The common mistakes we see across every industry — and the framework we use to fix them.</p>
+          <h2 class="featured-title">{displayPosts[0].title}</h2>
+          <p class="featured-excerpt">{displayPosts[0].excerpt}</p>
           <span class="post-link">Read post →</span>
         </div>
       </a>
@@ -67,71 +114,22 @@ try {
   <section class="posts-section">
     <div class="container">
       <div class="posts-grid" id="posts-grid">
-
-        <a href="/blog/google-ads-plateau" class="post-card" data-category="paid-ads">
-          <div class="post-image">
-            <div class="post-image-glow" aria-hidden="true"></div>
-            <span class="post-image-label">Post Image</span>
-          </div>
-          <div class="post-content">
-            <div class="post-meta">
-              <span class="tag">Paid Ads</span>
-              <span class="post-date">January 28, 2026</span>
+        {displayPosts.slice(1).map((post) => (
+          <a href={`/blog/${post.slug.current}`} class="post-card" data-category={post.category.toLowerCase().replace(' ', '-')}>
+            <div class="post-image">
+              <img src={post.image} alt="" class="post-image-img" />
             </div>
-            <h2 class="post-title">Why Most Google Ads Accounts Plateau After Month 3</h2>
-            <p class="post-excerpt">The structural patterns we see in stalled accounts, and the levers that consistently move them.</p>
-            <span class="post-link">Read post →</span>
-          </div>
-        </a>
-
-        <a href="/blog/local-seo-2026" class="post-card" data-category="seo">
-          <div class="post-image">
-            <div class="post-image-glow" aria-hidden="true"></div>
-            <span class="post-image-label">Post Image</span>
-          </div>
-          <div class="post-content">
-            <div class="post-meta">
-              <span class="tag">SEO</span>
-              <span class="post-date">January 14, 2026</span>
+            <div class="post-content">
+              <div class="post-meta">
+                <span class="tag">{post.category}</span>
+                <span class="post-date">{new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+              </div>
+              <h2 class="post-title">{post.title}</h2>
+              <p class="post-excerpt">{post.excerpt}</p>
+              <span class="post-link">Read post →</span>
             </div>
-            <h2 class="post-title">Local SEO in 2026: What's Changed and What Still Works</h2>
-            <p class="post-excerpt">The tactics that have faded and the fundamentals that keep driving rankings for service businesses.</p>
-            <span class="post-link">Read post →</span>
-          </div>
-        </a>
-
-        <a href="/blog/service-business-website-conversion" class="post-card" data-category="web">
-          <div class="post-image">
-            <div class="post-image-glow" aria-hidden="true"></div>
-            <span class="post-image-label">Post Image</span>
-          </div>
-          <div class="post-content">
-            <div class="post-meta">
-              <span class="tag">Web</span>
-              <span class="post-date">December 18, 2025</span>
-            </div>
-            <h2 class="post-title">What Makes a Service Business Website Actually Convert</h2>
-            <p class="post-excerpt">Speed, structure, and trust signals — the three things that separate websites that generate leads from ones that don't.</p>
-            <span class="post-link">Read post →</span>
-          </div>
-        </a>
-
-        <a href="/blog/ai-in-client-engagements" class="post-card" data-category="ai">
-          <div class="post-image">
-            <div class="post-image-glow" aria-hidden="true"></div>
-            <span class="post-image-label">Post Image</span>
-          </div>
-          <div class="post-content">
-            <div class="post-meta">
-              <span class="tag">AI</span>
-              <span class="post-date">December 3, 2025</span>
-            </div>
-            <h2 class="post-title">How We're Using AI in Client Engagements Right Now</h2>
-            <p class="post-excerpt">Practical applications, not hype. Where AI is actually saving time and improving output in our day-to-day work.</p>
-            <span class="post-link">Read post →</span>
-          </div>
-        </a>
-
+          </a>
+        ))}
       </div>
 
       <!-- Pagination -->
@@ -244,10 +242,14 @@ try {
     position: relative;
     height: 320px;
     background: var(--surface-2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     overflow: hidden;
+  }
+
+  .featured-image-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .featured-image-glow {
@@ -347,6 +349,11 @@ try {
     color: #111315;
   }
 
+  :global([data-theme="light"]) .filter-tab--active,
+  :global([data-theme="light"]) .filter-tab--active:hover {
+    color: #FFFFFF;
+  }
+
   /* ── Post Grid ── */
   .posts-section {
     padding: 48px 0 80px;
@@ -374,17 +381,14 @@ try {
     position: relative;
     height: 200px;
     background: var(--surface-2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     overflow: hidden;
   }
 
-  .post-image-glow {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at center, rgba(56, 182, 255, 0.05) 0%, transparent 65%);
-    pointer-events: none;
+  .post-image-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .post-image-label {
@@ -580,6 +584,10 @@ try {
     white-space: nowrap;
     transition: opacity 0.2s;
     flex-shrink: 0;
+  }
+
+  :global([data-theme="light"]) .newsletter-btn {
+    color: #FFFFFF;
   }
 
   .newsletter-btn:hover { opacity: 0.88; }
