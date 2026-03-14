@@ -1,0 +1,190 @@
+---
+import Button from './Button.astro';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  secondaryText?: string;
+  secondaryHref?: string;
+  /** 'link' = text link style, 'button' = secondary Button variant */
+  secondaryVariant?: 'link' | 'button';
+}
+
+const {
+  title,
+  subtitle,
+  secondaryText,
+  secondaryHref,
+  secondaryVariant = 'link',
+} = Astro.props;
+---
+
+<section class="cta-section">
+  <div class="cta-glow" aria-hidden="true"></div>
+  <div class="container cta-inner">
+    <div class="cta-status" aria-hidden="true">
+      <span class="cta-status-dot"></span>
+      Taking new clients
+    </div>
+    <h2 class="cta-title" set:html={title}></h2>
+    <p class="cta-sub">{subtitle}</p>
+    <div class="cta-btns">
+      <Button href="/contact#hubspot-meetings" variant="primary">
+        Book a Call
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </Button>
+      {secondaryText && secondaryHref && secondaryVariant === 'button' && (
+        <Button href={secondaryHref} variant="secondary">{secondaryText}</Button>
+      )}
+      {secondaryText && secondaryHref && secondaryVariant === 'link' && (
+        <a href={secondaryHref} class="cta-btn-text">
+          {secondaryText}
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      )}
+    </div>
+  </div>
+  <div class="container cta-rule-wrap">
+    <div class="cta-rule" aria-hidden="true">
+      <div class="cta-rule-line"></div>
+      <span class="cta-rule-label">// Launch with Confidence</span>
+      <div class="cta-rule-line"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-section {
+    position: relative;
+    background: var(--bg);
+    border-top: 3px solid var(--blue);
+    padding: 80px 0 40px;
+    overflow: hidden;
+  }
+
+  /* Subtle blue glow top-right */
+  .cta-glow {
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 500px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(56, 182, 255, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+
+  /* Pulsing "Taking new clients" pill */
+  .cta-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--green);
+  }
+
+  .cta-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: ctapulse 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes ctapulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.25; }
+  }
+
+  .cta-title {
+    font-size: clamp(32px, 4.5vw, 52px);
+    font-weight: 800;
+    color: var(--text-2);
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+  }
+
+  .cta-sub {
+    font-size: 17px;
+    color: var(--text-3);
+    line-height: 1.7;
+    max-width: 420px;
+  }
+
+  .cta-btns {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* Text-only secondary link */
+  .cta-btn-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--text-3);
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.15s ease, gap 0.15s ease;
+  }
+
+  .cta-btn-text:hover {
+    color: var(--text);
+    gap: 10px;
+  }
+
+  .cta-rule-wrap {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Closing rule with tagline — sits below content block, centered */
+  .cta-rule {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .cta-rule-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .cta-rule-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    opacity: 0.5;
+    white-space: nowrap;
+  }
+
+  /* Light mode: surface bg so block reads as distinct */
+  [data-theme="light"] .cta-section { background: var(--surface); }
+
+  @media (max-width: 640px) {
+    .cta-btns { flex-direction: column; align-items: center; }
+  }
+</style>

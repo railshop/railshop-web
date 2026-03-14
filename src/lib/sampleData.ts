@@ -233,7 +233,7 @@ export const serviceSamples: Record<string, ServiceSample> = {
   },
 
   'strategy': {
-    title: 'Strategy & Consulting',
+    title: 'Strategy Consulting',
     description:
       'Not sure where to start? We will assess what your business needs and build a clear, prioritised digital growth plan — so you invest in the right things, in the right order.',
     deliverables: [
@@ -283,7 +283,7 @@ export const serviceSamples: Record<string, ServiceSample> = {
   },
 
   'ai-integration': {
-    title: 'AI Integration & Consulting',
+    title: 'AI Integration',
     description:
       'Practical AI implementation that saves time, reduces cost, and gives your business a real edge. We cut through the hype and identify where AI actually creates value for service businesses.',
     deliverables: [
@@ -426,7 +426,7 @@ export const caseStudySamples: Record<string, CaseStudySample> = {
       'An excavation contractor relying entirely on referrals with no digital presence. We built their brand online — site, local SEO, and Google Ads — opening up a new inbound lead channel.',
     results: 'New inbound channel · 68% lower CPL vs. industry avg',
     duration: '18-month engagement',
-    services: ['Web Design & Development', 'SEO', 'Paid Ads', 'Strategy & Consulting'],
+    services: ['Web Design & Development', 'SEO', 'Paid Ads', 'Strategy Consulting'],
     challenge:
       'The contractor had a strong reputation locally but zero online presence — no website, not listed on Google, nothing. All work came through word-of-mouth and relationships with general contractors. The owner wanted to diversify lead sources and reduce dependence on any single referral network. The challenge was that excavation is a low-volume, high-value category — quality mattered more than volume, and the website and ads needed to filter for the right types of projects.',
     approach: [

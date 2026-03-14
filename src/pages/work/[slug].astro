@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import SectionTag from '../../components/ui/SectionTag.astro';
 import Button from '../../components/ui/Button.astro';
+import CtaBanner from '../../components/ui/CtaBanner.astro';
 import { getCaseStudyBySlug, getAllCaseStudySlugs } from '../../lib/sanity';
 import { caseStudySamples } from '../../lib/sampleData';
 
@@ -36,79 +36,159 @@ const cs = {
   outcomes:    sample?.outcomes   ?? [],
   testimonial: sample?.testimonial,
 };
+
+// Module ID from slug index
+const allSlugs = Object.keys(caseStudySamples);
+const slugIdx = allSlugs.indexOf(slug);
+const moduleId = `CS-${String(slugIdx + 1).padStart(3, '0')}`;
+const shortLabel = cs.industry ? cs.industry.toUpperCase() : 'CLIENT';
+
+// Industry icon paths (SVG inner paths)
+const industryIcons: Record<string, string> = {
+  'HVAC':         '<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
+  'LANDSCAPING':  '<path d="M12 22V12"/><path d="M5 4a9 9 0 0114 0"/><path d="M5 4c0 6 7 8 7 8s7-2 7-8"/>',
+  'EXCAVATION':   '<path d="M2 22 16 8"/><path d="M3.47 12.53 5 11l1.53 1.53a3.5 3.5 0 010 4.94L5 19l-1.53-1.53a3.5 3.5 0 010-4.94z"/><path d="M7.47 8.53 9 7l1.53 1.53a3.5 3.5 0 010 4.94L9 15l-1.53-1.53a3.5 3.5 0 010-4.94z"/>',
+  'ROOFING':      '<polyline points="3 9 12 2 21 9"/><polyline points="9 22 9 13 15 13 15 22"/><line x1="3" y1="9" x2="3" y2="22"/><line x1="21" y1="9" x2="21" y2="22"/>',
+  'PLUMBING':     '<path d="M20 7h-9a2 2 0 00-2 2v9a2 2 0 002 2h9a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M14 7V5a2 2 0 00-2-2H5a2 2 0 00-2 2v7a2 2 0 002 2h2"/>',
+};
+const industryKey = cs.industry?.toUpperCase();
+const iconPaths = industryIcons[industryKey] ?? '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>';
+
+// Testimonial initials
+const initials = cs.testimonial?.author
+  ? cs.testimonial.author.split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase()
+  : 'CL';
 ---
 
 <BaseLayout
   title={`${cs.title} — Railshop Work`}
   description={sanityCs?.seo?.metaDescription ?? cs.excerpt}
 >
-  <!-- Breadcrumb -->
-  <div class="breadcrumb">
-    <div class="container breadcrumb-inner">
-      <a href="/work" class="breadcrumb-link">Work</a>
-      <span class="breadcrumb-sep">/</span>
-      <span class="breadcrumb-current">{cs.title}</span>
-    </div>
-  </div>
 
-  <!-- Hero -->
-  <section class="case-hero">
+  <!-- ============================================================
+       1. HERO
+       ============================================================ -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <svg class="hero-grid-svg" viewBox="0 0 1400 480" fill="none" preserveAspectRatio="xMidYMid slice">
+        <!-- Vertical grid -->
+        <line class="grid-line" x1="350" y1="0" x2="350" y2="480"/>
+        <line class="grid-line" x1="700" y1="0" x2="700" y2="480"/>
+        <line class="grid-line" x1="1050" y1="0" x2="1050" y2="480"/>
+        <!-- Horizontal grid -->
+        <line class="grid-line" x1="0" y1="160" x2="1400" y2="160"/>
+        <line class="grid-line" x1="0" y1="320" x2="1400" y2="320"/>
+        <!-- Corner bracket — top left -->
+        <path class="corner-bracket" d="M 32 24 L 32 60 M 32 24 L 68 24"/>
+        <!-- Corner bracket — bottom right -->
+        <path class="corner-bracket" d="M 1368 456 L 1368 420 M 1368 456 L 1332 456"/>
+        <!-- Tick marks -->
+        <line class="tick-mark" x1="350" y1="468" x2="350" y2="480"/>
+        <line class="tick-mark" x1="700" y1="468" x2="700" y2="480"/>
+        <line class="tick-mark" x1="1050" y1="468" x2="1050" y2="480"/>
+      </svg>
+      <div class="hero-glow"></div>
+    </div>
+
+    <!-- Corner annotations -->
+    <div class="hero-annotation hero-annotation--tr" aria-hidden="true">
+      <span class="anno-code">SYS: CASE STUDIES</span>
+      <span class="anno-sep">·</span>
+      <span class="anno-coord">{moduleId}</span>
+    </div>
+    <div class="hero-annotation hero-annotation--bl" aria-hidden="true">
+      <span class="anno-code">// ENGAGEMENT DETAIL</span>
+    </div>
+
     <div class="container">
-      <div class="case-hero-meta">
-        {cs.industry && <span class="tag">{cs.industry}</span>}
-        {cs.services.map((svc) => <span class="tag">{svc}</span>)}
+      <!-- Breadcrumb inside hero -->
+      <div class="breadcrumb">
+        <a href="/work" class="breadcrumb-link">Work</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="breadcrumb-current">{cs.title}</span>
       </div>
-      <h1 class="case-title">{cs.title}</h1>
-      <p class="case-excerpt">{cs.excerpt}</p>
-      {cs.results && (
-        <div class="case-result">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
-            <polyline points="17 6 23 6 23 12"/>
-          </svg>
-          <span class="case-result-text">{cs.results}</span>
+
+      <div class="hero-inner">
+        <div class="hero-left">
+          <h1 class="hero-headline">{cs.title}</h1>
+          <p class="hero-sub">{cs.excerpt}</p>
+
+          {cs.results && (
+            <div class="result-pill">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                <polyline points="17 6 23 6 23 12"/>
+              </svg>
+              <span class="result-pill-text">{cs.results}</span>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   </section>
 
-  <!-- Outcomes bar -->
-  {cs.outcomes.length > 0 && (
-    <div class="outcomes-bar">
-      <div class="container outcomes-inner">
-        {cs.outcomes.map((o) => (
-          <div class="outcome-stat">
-            <span class="outcome-value">{o.value}</span>
-            <span class="outcome-label">{o.label}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  )}
 
-  <!-- Body -->
+  <!-- ============================================================
+       3. CONTENT — main + sidebar
+       ============================================================ -->
   <div class="content-wrap">
     <div class="container content-grid">
 
+      <!-- Main column -->
       <div class="main-col">
 
         <!-- Challenge -->
         {cs.challenge && (
-          <div class="content-section">
-            <h2 class="section-h2">The Challenge</h2>
+          <div class="content-block">
+            <div class="block-header">
+              <span class="block-label">// THE CHALLENGE</span>
+              <h2 class="block-title">The Challenge</h2>
+            </div>
             <p class="body-copy">{cs.challenge}</p>
+          </div>
+        )}
+
+        <!-- Key Results -->
+        {cs.outcomes.length > 0 && (
+          <div class="content-block">
+            <div class="block-header">
+              <span class="block-label">// KEY RESULTS</span>
+              <h2 class="block-title">Results</h2>
+            </div>
+            <div class="results-grid">
+              {cs.outcomes.map((o) => (
+                <div class="result-cell">
+                  <span class="result-value">{o.value}</span>
+                  <span class="result-label">{o.label}</span>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
         <!-- Photo grid -->
         {cs.challenge && (
-          <div class="photo-section">
-            <p class="photo-eyebrow">From the Engagement</p>
+          <div class="content-block">
+            <div class="block-header">
+              <span class="block-label">// CLIENT MEDIA</span>
+              <h2 class="block-title">From the Engagement</h2>
+            </div>
             <div class="photo-grid">
-              {[1,2,3,4].map(() => (
+              {[0,1,2,3].map((i) => (
                 <div class="photo-tile">
-                  <div class="photo-tile-glow" aria-hidden="true"></div>
-                  <span class="photo-tile-label">Client Photo</span>
+                  <div class="photo-tile-bg" aria-hidden="true"></div>
+                  <!-- Corner ticks -->
+                  <span class="tick tick--tl" aria-hidden="true"></span>
+                  <span class="tick tick--tr" aria-hidden="true"></span>
+                  <span class="tick tick--bl" aria-hidden="true"></span>
+                  <span class="tick tick--br" aria-hidden="true"></span>
+                  <!-- Crosshair -->
+                  <div class="crosshair" aria-hidden="true">
+                    <span class="crosshair-h"></span>
+                    <span class="crosshair-v"></span>
+                    <span class="crosshair-dot"></span>
+                  </div>
+                  <span class="photo-tile-label">// CLIENT MEDIA · {String(i + 1).padStart(2, '0')}</span>
                 </div>
               ))}
             </div>
@@ -117,13 +197,19 @@ const cs = {
 
         <!-- Approach -->
         {cs.approach.length > 0 && (
-          <div class="content-section">
-            <h2 class="section-h2">Our Approach</h2>
-            <div class="approach-blocks">
-              {cs.approach.map((block) => (
-                <div class="approach-block">
-                  <h3 class="approach-heading">{block.heading}</h3>
-                  <p class="body-copy">{block.body}</p>
+          <div class="content-block">
+            <div class="block-header">
+              <span class="block-label">// OUR APPROACH</span>
+              <h2 class="block-title">Our Approach</h2>
+            </div>
+            <div class="approach-steps">
+              {cs.approach.map((block, i) => (
+                <div class="approach-step">
+                  <div class="step-top">
+                    <span class="step-number">{String(i + 1).padStart(2, '0')}</span>
+                    <h3 class="step-heading">{block.heading}</h3>
+                  </div>
+                  <p class="step-detail">{block.body}</p>
                 </div>
               ))}
             </div>
@@ -132,18 +218,24 @@ const cs = {
 
         <!-- Testimonial -->
         {cs.testimonial && (
-          <blockquote class="testimonial">
-            <p class="testimonial-quote">"{cs.testimonial.quote}"</p>
-            <footer class="testimonial-footer">
-              <div class="testimonial-avatar" aria-hidden="true">
-                <span class="testimonial-initials">CL</span>
-              </div>
-              <div class="testimonial-attribution">
-                <span class="testimonial-author">{cs.testimonial.author}</span>
-                <span class="testimonial-role">{cs.testimonial.role}</span>
-              </div>
-            </footer>
-          </blockquote>
+          <div class="content-block">
+            <div class="block-header">
+              <span class="block-label">// CLIENT TESTIMONY</span>
+              <h2 class="block-title">In Their Words</h2>
+            </div>
+            <blockquote class="testimonial">
+              <p class="testimonial-quote">"{cs.testimonial.quote}"</p>
+              <footer class="testimonial-footer">
+                <div class="testimonial-avatar" aria-hidden="true">
+                  <span class="testimonial-initials">{initials}</span>
+                </div>
+                <div class="testimonial-attribution">
+                  <span class="testimonial-author">{cs.testimonial.author}</span>
+                  <span class="testimonial-role">{cs.testimonial.role}</span>
+                </div>
+              </footer>
+            </blockquote>
+          </div>
         )}
 
       </div>
@@ -153,25 +245,25 @@ const cs = {
 
         <!-- Project details card -->
         <div class="sidebar-card">
-          <p class="sidebar-eyebrow">Project Details</p>
+          <p class="sidebar-eyebrow">// PROJECT DETAILS</p>
           <div class="sidebar-details">
             {cs.client && (
               <div class="detail-row">
-                <span class="detail-label">Client</span>
+                <span class="detail-label">CLIENT</span>
                 <span class="detail-value">{cs.client}</span>
               </div>
             )}
-            {cs.duration && (
+            {cs.industry && (
               <div class="detail-row">
-                <span class="detail-label">Duration</span>
-                <span class="detail-value">{cs.duration}</span>
+                <span class="detail-label">INDUSTRY</span>
+                <span class="detail-value">{cs.industry}</span>
               </div>
             )}
             {cs.services.length > 0 && (
               <div class="detail-row">
-                <span class="detail-label">Services</span>
+                <span class="detail-label">SERVICES</span>
                 <div class="detail-tags">
-                  {cs.services.map((svc) => <span class="tag">{svc}</span>)}
+                  {cs.services.map((svc) => <span class="service-tag">{svc}</span>)}
                 </div>
               </div>
             )}
@@ -179,119 +271,193 @@ const cs = {
         </div>
 
         <!-- CTA card -->
-        <div class="sidebar-card">
-          <p class="sidebar-eyebrow sidebar-eyebrow--blue">Want Results Like This?</p>
-          <p class="sidebar-body">Book a call to discuss your program and see what's possible.</p>
-          <a href="/contact#hubspot-meetings" class="sidebar-btn-link">Book a Call</a>
+        <div class="sidebar-card sidebar-card--cta">
+          <div class="sidebar-cta-status">
+            <span class="sidebar-cta-dot"></span>
+            <span class="sidebar-cta-label">Taking new clients</span>
+          </div>
+          <p class="sidebar-cta-heading">Want results like these?</p>
+          <p class="sidebar-cta-body">Book a no-commitment call to discuss your program and see what's possible.</p>
+          <a href="/contact#hubspot-meetings" class="sidebar-cta-btn">
+            Book a Call
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
 
-        <a href="/work" class="sidebar-link">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Back link -->
+        <a href="/work" class="sidebar-back-link">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M19 12H5M12 5l-7 7 7 7"/>
           </svg>
           All case studies
         </a>
-      </aside>
 
+      </aside>
     </div>
   </div>
 
-  <!-- CTA Banner -->
-  <section class="cta-banner">
-    <div class="cta-glow" aria-hidden="true"></div>
-    <div class="container cta-inner">
-      <SectionTag label="Let's Talk" />
-      <h2 class="cta-title">Want results like these?</h2>
-      <p class="cta-desc">We take on a limited number of new clients each quarter. Book a call to see if we're the right fit.</p>
-      <div class="cta-buttons">
-        <Button href="/contact#hubspot-meetings" variant="primary">Book a Call</Button>
-        <Button href="/work" variant="secondary">All Case Studies</Button>
-      </div>
-    </div>
-  </section>
+  <!-- ============================================================
+       4. CTA BANNER
+       ============================================================ -->
+  <CtaBanner
+    title="Want results like these?"
+    subtitle="We take on a limited number of new clients each quarter. Book a call to see if we're the right fit."
+    secondaryText="All Case Studies"
+    secondaryHref="/work"
+    secondaryVariant="link"
+  />
+
 </BaseLayout>
 
 <style>
-  .breadcrumb { border-bottom: 1px solid var(--border); background: var(--surface); }
-  .breadcrumb-inner { display: flex; align-items: center; gap: 8px; padding: 14px 24px; font-size: 13px; }
-  .breadcrumb-link { color: var(--text-3); transition: color 0.15s; }
-  .breadcrumb-link:hover { color: var(--text); }
-  .breadcrumb-sep { color: var(--border-2); }
-  .breadcrumb-current { color: var(--text-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 360px; }
-
-  /* Hero */
-  .case-hero { padding: 64px 0 56px; border-bottom: 1px solid var(--border); }
-
-  .case-hero-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
-
-  .case-title {
-    font-size: clamp(28px, 4.5vw, 48px);
-    font-weight: 800;
-    color: var(--text-2);
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-    max-width: 800px;
-    margin-bottom: 18px;
+  /* ══════════════════════════════════════
+     1. HERO
+  ══════════════════════════════════════ */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
   }
 
-  .case-excerpt {
-    font-size: 17px;
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .hero-grid-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .grid-line {
+    stroke: var(--border);
+    stroke-width: 1;
+    opacity: 0.4;
+  }
+
+  .corner-bracket {
+    stroke: var(--border);
+    stroke-width: 1.5;
+    opacity: 0.35;
+  }
+
+  .tick-mark {
+    stroke: var(--border);
+    stroke-width: 1;
+    opacity: 0.5;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: -40px;
+    left: -5%;
+    width: 50%;
+    height: 100%;
+    background: radial-gradient(ellipse at 30% 40%, rgba(56, 182, 255, 0.04) 0%, transparent 65%);
+  }
+
+  /* Corner annotations */
+  .hero-annotation {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     color: var(--text-3);
-    max-width: 680px;
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .hero-annotation--tr { top: 20px; right: 32px; }
+  .hero-annotation--bl { bottom: 20px; left: 32px; }
+  .anno-code { color: var(--blue); opacity: 0.8; }
+  .anno-sep  { opacity: 0.3; }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 20px 0;
+    font-size: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .breadcrumb-link { color: var(--text-3); transition: color 0.15s; }
+  .breadcrumb-link:hover { color: var(--blue); }
+  .breadcrumb-sep { color: var(--border-2); }
+  .breadcrumb-current {
+    color: var(--text-3);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 420px;
+  }
+
+  /* Hero inner */
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    padding: 56px 0 64px;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  .hero-headline {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 800;
+    color: var(--text-2);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 18px;
+    max-width: 760px;
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    color: var(--text-3);
+    max-width: 580px;
     line-height: 1.75;
     margin-bottom: 28px;
   }
 
-  .case-result {
+  /* Result pill */
+  .result-pill {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     background: rgba(52, 211, 153, 0.06);
-    border: 1px solid rgba(52, 211, 153, 0.2);
-    border-radius: 8px;
-    padding: 10px 16px;
-    width: fit-content;
+    border: 1px solid rgba(52, 211, 153, 0.22);
+    border-radius: 2px;
+    padding: 8px 14px;
   }
 
-  .case-result-text {
+  .result-pill-text {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
+    font-size: 12px;
     color: var(--green);
     font-weight: 500;
+    letter-spacing: 0.04em;
   }
 
-  /* Outcomes bar */
-  .outcomes-bar { background: var(--surface); border-bottom: 1px solid var(--border); }
-
-  .outcomes-inner {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 32px 24px;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-
-  .outcome-stat { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-
-  .outcome-value {
-    font-size: 28px;
-    font-weight: 800;
-    color: var(--blue);
-    letter-spacing: -0.02em;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .outcome-label {
-    font-size: 11px;
-    color: var(--text-3);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    text-align: center;
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  /* Content layout */
+  /* ══════════════════════════════════════
+     2. CONTENT AREA
+  ══════════════════════════════════════ */
   .content-wrap { padding: 64px 0 80px; }
 
   .content-grid {
@@ -301,43 +467,98 @@ const cs = {
     align-items: start;
   }
 
-  .main-col { display: flex; flex-direction: column; gap: 56px; }
+  .main-col {
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
 
-  .content-section { display: flex; flex-direction: column; gap: 24px; }
+  /* Content blocks */
+  .content-block {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
 
-  .section-h2 {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--text-2);
-    padding-bottom: 14px;
+  .block-header {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-bottom: 16px;
     border-bottom: 1px solid var(--border);
   }
 
-  .body-copy { font-size: 15px; color: var(--text-3); line-height: 1.8; }
-
-  /* Photo grid */
-  .photo-section { display: flex; flex-direction: column; gap: 16px; }
-
-  .photo-eyebrow {
+  .block-label {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
+    font-size: 9px;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-3);
+    color: var(--blue);
+    opacity: 0.65;
   }
 
+  .block-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-2);
+    letter-spacing: -0.01em;
+  }
+
+  .body-copy {
+    font-size: 15px;
+    color: var(--text-3);
+    line-height: 1.8;
+  }
+
+  /* Key Results grid */
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .result-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 24px 20px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .result-cell:last-child { border-right: none; }
+
+  .result-value {
+    font-size: 34px;
+    font-weight: 800;
+    color: var(--blue);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .result-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* Photo grid */
   .photo-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 10px;
   }
 
   .photo-tile {
     position: relative;
-    height: 220px;
-    background: var(--surface-2);
+    height: 210px;
+    background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: 2px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -347,49 +568,168 @@ const cs = {
 
   .photo-tile:hover { border-color: var(--border-2); }
 
-  .photo-tile:hover .photo-tile-glow {
-    background: radial-gradient(ellipse at center, rgba(56, 182, 255, 0.06) 0%, transparent 70%);
-  }
-
-  .photo-tile-glow {
+  .photo-tile-bg {
     position: absolute;
     inset: 0;
-    pointer-events: none;
-    transition: background 0.2s;
+    background: radial-gradient(ellipse at center, rgba(56, 182, 255, 0.025) 0%, transparent 65%);
   }
 
-  .photo-tile-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-3);
+  /* Corner ticks */
+  .tick {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .tick--tl,
+  .tick--tr,
+  .tick--bl,
+  .tick--br {
+    width: 10px;
+    height: 10px;
+  }
+
+  .tick--tl {
+    top: 8px; left: 8px;
+    border-top: 1px solid var(--border-2);
+    border-left: 1px solid var(--border-2);
     opacity: 0.5;
+  }
+
+  .tick--tr {
+    top: 8px; right: 8px;
+    border-top: 1px solid var(--border-2);
+    border-right: 1px solid var(--border-2);
+    opacity: 0.5;
+  }
+
+  .tick--bl {
+    bottom: 8px; left: 8px;
+    border-bottom: 1px solid var(--border-2);
+    border-left: 1px solid var(--border-2);
+    opacity: 0.5;
+  }
+
+  .tick--br {
+    bottom: 8px; right: 8px;
+    border-bottom: 1px solid var(--border-2);
+    border-right: 1px solid var(--border-2);
+    opacity: 0.5;
+  }
+
+  /* Crosshair */
+  .crosshair {
     position: relative;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
     z-index: 1;
   }
 
-  /* Approach */
-  .approach-blocks { display: flex; flex-direction: column; gap: 36px; }
-
-  .approach-heading {
-    font-size: 17px;
-    font-weight: 700;
-    color: var(--text-2);
-    margin-bottom: 10px;
-    position: relative;
-    padding-left: 14px;
+  .crosshair-h {
+    position: absolute;
+    width: 24px;
+    height: 1px;
+    background: var(--border-2);
+    opacity: 0.4;
   }
 
-  .approach-heading::before {
+  .crosshair-v {
+    position: absolute;
+    width: 1px;
+    height: 24px;
+    background: var(--border-2);
+    opacity: 0.4;
+  }
+
+  .crosshair-dot {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--blue);
+    opacity: 0.35;
+  }
+
+  .photo-tile-label {
+    position: absolute;
+    bottom: 14px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-3);
+    opacity: 0.3;
+    z-index: 1;
+  }
+
+  /* Approach steps */
+  .approach-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .approach-step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+
+  .approach-step::before {
     content: '';
     position: absolute;
     left: 0;
-    top: 4px;
-    bottom: 4px;
+    top: 0;
+    bottom: 0;
     width: 3px;
     background: var(--blue);
-    border-radius: 2px;
+    opacity: 0.4;
+    border-radius: 2px 0 0 2px;
+    transition: opacity 0.2s;
+  }
+
+  .approach-step:hover { border-color: var(--border-2); }
+  .approach-step:hover::before { opacity: 1; }
+
+  .step-top {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+
+  .step-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--blue);
+    line-height: 1;
+    opacity: 0.35;
+    flex-shrink: 0;
+  }
+
+  .step-heading {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-2);
+  }
+
+  .step-detail {
+    font-size: 14px;
+    color: var(--text-3);
+    line-height: 1.75;
+    padding-left: 42px;
   }
 
   /* Testimonial */
@@ -397,17 +737,17 @@ const cs = {
     background: var(--surface);
     border: 1px solid var(--border);
     border-left: 3px solid var(--blue);
-    border-radius: 12px;
+    border-radius: 2px;
     padding: 28px 32px;
     margin: 0;
   }
 
   .testimonial-quote {
-    font-size: 16px;
+    font-size: 15px;
     color: var(--text);
-    line-height: 1.75;
+    line-height: 1.8;
     font-style: italic;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
   }
 
   .testimonial-footer {
@@ -417,11 +757,11 @@ const cs = {
   }
 
   .testimonial-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    border-radius: 2px;
     background: var(--surface-2);
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -430,141 +770,205 @@ const cs = {
 
   .testimonial-initials {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: var(--text-3);
+    font-size: 11px;
+    color: var(--blue);
     font-weight: 500;
+    letter-spacing: 0.08em;
   }
 
-  .testimonial-attribution { display: flex; flex-direction: column; gap: 2px; }
-  .testimonial-author { font-size: 14px; font-weight: 600; color: var(--text-2); }
-  .testimonial-role { font-size: 12px; color: var(--text-3); font-family: 'JetBrains Mono', monospace; }
+  .testimonial-attribution { display: flex; flex-direction: column; gap: 3px; }
+  .testimonial-author { font-size: 13px; font-weight: 600; color: var(--text-2); }
 
-  /* Sidebar */
-  .sidebar { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 88px; }
+  .testimonial-role {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
 
-  .sidebar-card {
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px;
+  /* ══════════════════════════════════════
+     SIDEBAR
+  ══════════════════════════════════════ */
+  .sidebar {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    position: sticky;
+    top: 88px;
+  }
+
+  .sidebar-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
   }
 
   .sidebar-eyebrow {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
+    font-size: 8px;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-3);
+    color: var(--blue);
+    opacity: 0.65;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
   }
 
-  .sidebar-eyebrow--blue { color: var(--blue); }
+  .sidebar-details {
+    display: flex;
+    flex-direction: column;
+  }
 
-  .sidebar-details { display: flex; flex-direction: column; gap: 16px; }
+  .detail-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+  }
 
-  .detail-row { display: flex; flex-direction: column; gap: 6px; }
+  .detail-row:last-child { border-bottom: none; }
 
   .detail-label {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
+    font-size: 8px;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
     color: var(--text-3);
+    opacity: 0.35;
   }
 
-  .detail-value { font-size: 13px; color: var(--text-2); font-weight: 500; line-height: 1.5; }
+  .detail-value {
+    font-size: 13px;
+    color: var(--text-2);
+    font-weight: 500;
+    line-height: 1.5;
+  }
 
-  .detail-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+  .detail-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px; }
 
-  .sidebar-body { font-size: 14px; color: var(--text-3); line-height: 1.65; }
+  .service-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 2px 6px;
+  }
 
-  .sidebar-btn-link {
+  /* CTA card */
+  .sidebar-card--cta {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--surface-2);
+  }
+
+  .sidebar-cta-status {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .sidebar-cta-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: ctapulse 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes ctapulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.25; }
+  }
+
+  .sidebar-cta-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green);
+    opacity: 0.8;
+  }
+
+  .sidebar-cta-heading {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-2);
+  }
+
+  .sidebar-cta-body {
+    font-size: 13px;
+    color: var(--text-3);
+    line-height: 1.65;
+  }
+
+  .sidebar-cta-btn {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 6px;
     background: var(--blue);
     color: #111315;
     font-weight: 700;
-    font-size: 14px;
-    border-radius: 8px;
-    padding: 10px 18px;
+    font-size: 13px;
+    border-radius: 2px;
+    padding: 10px 16px;
     transition: background 0.2s;
     text-decoration: none;
+    margin-top: 4px;
   }
 
-  :global([data-theme="light"]) .sidebar-btn-link { color: #FFFFFF; }
+  :global([data-theme="light"]) .sidebar-cta-btn { color: #FFFFFF; }
+  .sidebar-cta-btn:hover { background: var(--blue-dim, #2fa8e8); }
 
-  .sidebar-btn-link:hover { background: var(--blue-dim); }
-
-  .sidebar-link {
+  /* Back link */
+  .sidebar-back-link {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     color: var(--text-3);
-    padding: 8px 0;
-    transition: color 0.15s;
+    opacity: 0.45;
     text-decoration: none;
+    padding: 4px 0;
+    transition: opacity 0.15s, color 0.15s;
   }
 
-  .sidebar-link:hover { color: var(--text); }
+  .sidebar-back-link:hover { opacity: 1; color: var(--text-2); }
 
-  /* CTA Banner */
-  .cta-banner {
-    position: relative;
-    background: var(--surface);
-    border-top: 1px solid var(--border);
-    padding: 80px 0;
-    overflow: hidden;
-  }
-
-  .cta-glow {
-    position: absolute;
-    top: -80px;
-    right: -80px;
-    width: 500px;
-    height: 400px;
-    background: radial-gradient(ellipse, rgba(56, 182, 255, 0.07) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .cta-inner {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .cta-title {
-    font-size: clamp(28px, 4vw, 40px);
-    font-weight: 800;
-    color: var(--text-2);
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-  }
-
-  .cta-desc {
-    font-size: 16px;
-    color: var(--text-3);
-    max-width: 480px;
-    line-height: 1.7;
-  }
-
-  .cta-buttons {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 8px;
-  }
-
-  @media (max-width: 900px) {
+  /* ══════════════════════════════════════
+     RESPONSIVE
+  ══════════════════════════════════════ */
+  @media (max-width: 1024px) {
     .content-grid { grid-template-columns: 1fr; }
-    .sidebar { position: static; }
+    .sidebar {
+      position: static;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+    .sidebar-back-link { grid-column: 1 / -1; }
+  }
+
+  @media (max-width: 768px) {
+    .hero-annotation--tr,
+    .hero-annotation--bl { display: none; }
+    .sidebar { grid-template-columns: 1fr; }
+    .results-grid { grid-template-columns: 1fr 1fr; }
+    .step-detail { padding-left: 0; }
+    .photo-grid { grid-template-columns: 1fr; }
   }
 </style>

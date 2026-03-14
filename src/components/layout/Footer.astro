@@ -12,9 +12,16 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="footer">
+  <!-- Top accent line -->
+  <div class="footer-accent" aria-hidden="true">
+    <div class="footer-accent-line"></div>
+    <span class="footer-accent-label">RAILSHOP DIGITAL SYSTEMS</span>
+    <div class="footer-accent-line footer-accent-line--right"></div>
+  </div>
+
   <div class="container footer-inner">
     <div class="footer-top">
-      <!-- Brand -->
+      <!-- Brand col -->
       <div class="footer-brand">
         <a href="/" class="footer-logo">
           <img src="/logo-white.svg" alt="Railshop" class="logo-for-dark"  width="120" height="42" />
@@ -24,12 +31,10 @@ const year = new Date().getFullYear();
           Digital growth for service businesses.<br />
           Built on strategy. Delivered by practitioners.
         </p>
-        <div class="footer-address">
-          <address class="footer-address-text">
-            33 East Pittsburgh Street<br />
-            Greensburg, PA 15601
-          </address>
-        </div>
+        <address class="footer-address">
+          33 East Pittsburgh Street<br />
+          Greensburg, PA 15601
+        </address>
         <div class="footer-socials">
           <a
             href="https://linkedin.com/company/railshop"
@@ -38,7 +43,7 @@ const year = new Date().getFullYear();
             class="footer-social-icon"
             aria-label="Follow Railshop on LinkedIn"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
               <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/>
               <rect x="2" y="9" width="4" height="12"/>
               <circle cx="4" cy="4" r="2"/>
@@ -51,7 +56,7 @@ const year = new Date().getFullYear();
             class="footer-social-icon"
             aria-label="Follow Railshop on Instagram"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
               <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
               <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
@@ -60,29 +65,32 @@ const year = new Date().getFullYear();
         </div>
       </div>
 
-      <!-- Nav -->
+      <!-- Nav col -->
       <nav class="footer-nav" aria-label="Footer navigation">
-        <p class="footer-nav-heading">Navigation</p>
+        <p class="footer-col-heading">Navigate</p>
         {navLinks.map((link) => (
           <a href={link.href} class="footer-nav-link">{link.label}</a>
         ))}
       </nav>
 
-      <!-- CTA -->
-      <div class="footer-cta">
-        <p class="footer-nav-heading">Get Started</p>
+      <!-- CTA col -->
+      <div class="footer-cta-col">
+        <p class="footer-col-heading">Get Started</p>
         <p class="footer-cta-copy">
           Ready to see what the right digital partner can do for your business?
         </p>
-        <a href="/contact#hubspot-meetings" class="btn-primary" style="margin-top: 16px; display: inline-flex;">
+        <a href="/contact#hubspot-meetings" class="btn-primary footer-cta-btn">
           Book a Call
         </a>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <p class="footer-copy">&copy; {year} Railshop. All rights reserved.</p>
-      <a href="/privacy" class="footer-privacy">Privacy Policy</a>
+      <p class="footer-copy">&copy; {year} Railshop LLC. All rights reserved.</p>
+      <div class="footer-bottom-right">
+        <a href="/privacy" class="footer-privacy">Privacy Policy</a>
+        <span class="footer-coord">GRG · 40.29°N · 79.55°W</span>
+      </div>
     </div>
   </div>
 </footer>
@@ -94,26 +102,59 @@ const year = new Date().getFullYear();
     margin-top: 80px;
   }
 
+  /* Accent header bar */
+  .footer-accent {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 24px;
+    height: 36px;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .footer-accent-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-2));
+  }
+
+  .footer-accent-line--right {
+    background: linear-gradient(90deg, var(--border-2), transparent);
+  }
+
+  .footer-accent-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    opacity: 0.4;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
   .footer-inner {
-    padding: 64px 24px 32px;
+    padding: 56px 24px 28px;
   }
 
   .footer-top {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
-    gap: 48px;
+    gap: 56px;
     padding-bottom: 48px;
     border-bottom: 1px solid var(--border);
   }
 
+  /* Brand */
   .footer-logo {
     display: flex;
     align-items: center;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
   }
 
   .footer-logo img {
-    height: 36px;
+    height: 32px;
     width: auto;
     display: block;
   }
@@ -121,100 +162,161 @@ const year = new Date().getFullYear();
   .footer-tagline {
     font-size: 14px;
     color: var(--text-3);
-    line-height: 1.6;
+    line-height: 1.65;
     margin-bottom: 20px;
+  }
+
+  .footer-address {
+    font-size: 12px;
+    color: var(--text-3);
+    line-height: 1.7;
+    font-style: normal;
+    opacity: 0.7;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.02em;
   }
 
   .footer-socials {
     display: flex;
-    gap: 12px;
+    gap: 8px;
     align-items: center;
-    margin-top: 12px;
+    margin-top: 20px;
   }
 
   .footer-social-icon {
-    color: var(--text-3);
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.15s ease;
+    color: var(--text-3);
+    transition: color 0.15s, border-color 0.15s;
   }
 
   .footer-social-icon:hover {
     color: var(--blue);
+    border-color: var(--blue-border);
   }
 
-  .footer-address {
-    display: flex;
-    align-items: flex-start;
-    gap: 7px;
-    margin-top: 20px;
-  }
-
-  .footer-address-text {
-    font-size: 13px;
-    color: var(--text-3);
-    line-height: 1.6;
-    font-style: normal;
-  }
-
-  .footer-nav-heading {
-    font-family: 'JetBrains Mono', monospace;
+  /* Nav col */
+  .footer-col-heading {
+    font-family: 'Inter', system-ui, sans-serif;
     font-size: 10px;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     color: var(--text-3);
-    margin-bottom: 16px;
+    margin-bottom: 20px;
+    opacity: 0.6;
   }
 
   .footer-nav {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0;
   }
 
   .footer-nav-link {
     font-size: 14px;
     color: var(--text-3);
-    transition: color 0.15s ease;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    transition: color 0.15s ease, padding-left 0.15s ease;
+    display: block;
+  }
+
+  .footer-nav-link:first-of-type {
+    border-top: 1px solid var(--border);
   }
 
   .footer-nav-link:hover {
     color: var(--text);
+    padding-left: 6px;
+  }
+
+  /* CTA col */
+  .footer-cta-col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
   .footer-cta-copy {
     font-size: 14px;
     color: var(--text-3);
-    line-height: 1.6;
+    line-height: 1.65;
   }
 
+  .footer-cta-btn {
+    display: inline-flex;
+    align-self: flex-start;
+  }
+
+  /* Bottom bar */
   .footer-bottom {
-    padding-top: 24px;
+    padding-top: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
   }
 
   .footer-copy {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--text-3);
+    opacity: 0.55;
+  }
+
+  .footer-bottom-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
   }
 
   .footer-privacy {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--text-3);
-    transition: color 0.15s ease;
+    opacity: 0.55;
+    transition: color 0.15s, opacity 0.15s;
   }
 
   .footer-privacy:hover {
     color: var(--text);
+    opacity: 1;
+  }
+
+  .footer-coord {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+    opacity: 0.3;
+    text-transform: uppercase;
   }
 
   @media (max-width: 768px) {
     .footer-top {
       grid-template-columns: 1fr;
-      gap: 32px;
+      gap: 36px;
+    }
+
+    .footer-accent {
+      padding: 0 16px;
+    }
+
+    .footer-coord {
+      display: none;
     }
   }
+
+  /* ── Light mode overrides ── */
+  [data-theme="light"] .footer-accent-label { opacity: 0.55; }
+  [data-theme="light"] .footer-col-heading  { opacity: 0.75; }
+  [data-theme="light"] .footer-copy         { opacity: 0.7;  }
+  [data-theme="light"] .footer-privacy      { opacity: 0.7;  }
+  [data-theme="light"] .footer-coord        { opacity: 0.45; }
+  [data-theme="light"] .footer-address      { opacity: 0.85; }
 </style>
