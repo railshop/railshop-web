@@ -57,6 +57,22 @@
 }
 
 /* ============================================================
+   LOGO VISIBILITY
+   logo-for-light starts hidden via inline style="display:none".
+   In light mode, !important overrides that inline style instantly
+   when data-theme="light" is set before first paint.
+   ============================================================ */
+[data-theme="light"] .logo-for-dark  { display: none !important; }
+[data-theme="light"] .logo-for-light { display: block !important; }
+
+/* ============================================================
+   NAV — light mode background (global so scoping can't break it)
+   ============================================================ */
+[data-theme="light"] .nav-header {
+  background: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* ============================================================
    BASE RESETS
    ============================================================ */
 *, *::before, *::after {
@@ -108,19 +124,21 @@ a {
 /* ============================================================
    COMPONENT UTILITIES
    ============================================================ */
+
+/* Eyebrow: Inter for legibility, mono only for data annotations */
 .eyebrow {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  font-weight: 500;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: var(--blue);
 }
 
 .tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  font-weight: 400;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   border-radius: 4px;
@@ -148,7 +166,7 @@ a {
   background: var(--blue);
   color: #111315;
   font-weight: 700;
-  border-radius: 8px;
+  border-radius: 2px;
   padding: 10px 18px;
   display: inline-flex;
   align-items: center;
@@ -167,7 +185,7 @@ a {
   background: transparent;
   color: var(--text);
   font-weight: 600;
-  border-radius: 8px;
+  border-radius: 2px;
   padding: 10px 18px;
   display: inline-flex;
   align-items: center;

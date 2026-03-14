@@ -121,13 +121,13 @@ const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
       <!-- Sidebar -->
       <aside class="sidebar">
         <div class="sidebar-card">
-          <p class="sidebar-eyebrow">About the Authors</p>
+          <p class="sidebar-eyebrow">// About the Authors</p>
           <p class="sidebar-body">Railshop is a boutique digital growth agency for service businesses. Everything we publish comes from direct experience managing paid media, SEO, and web programs for clients across HVAC, landscaping, home security, and more.</p>
           <a href="/about" class="sidebar-link">Meet the team →</a>
         </div>
 
         <div class="sidebar-card">
-          <p class="sidebar-eyebrow sidebar-eyebrow--blue">Work With Us</p>
+          <p class="sidebar-eyebrow">// Work With Us</p>
           <p class="sidebar-body">Book a no-commitment call to discuss your digital program and see what's possible.</p>
           <a href="/contact#hubspot-meetings" class="sidebar-btn-link">Book a Call</a>
         </div>
@@ -287,14 +287,12 @@ const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
 
   .sidebar-eyebrow {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    font-weight: 500;
+    font-size: 9px;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-3);
+    color: var(--blue);
+    opacity: 0.65;
   }
-
-  .sidebar-eyebrow--blue { color: var(--blue); }
 
   .sidebar-body {
     font-size: 13px;

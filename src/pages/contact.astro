@@ -8,76 +8,114 @@ import SectionTag from '../components/ui/SectionTag.astro';
   description="Book a call with Railshop or send us a message. We respond within one business day."
 >
 
-  <!-- Hero -->
-  <section class="page-hero">
+  <!-- ============================================================
+       1. HERO
+       ============================================================ -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <svg class="hero-grid-svg" viewBox="0 0 1400 480" fill="none" preserveAspectRatio="xMidYMid slice">
+        <line class="grid-line" x1="350" y1="0" x2="350" y2="480"/>
+        <line class="grid-line" x1="700" y1="0" x2="700" y2="480"/>
+        <line class="grid-line" x1="1050" y1="0" x2="1050" y2="480"/>
+        <line class="grid-line" x1="0" y1="160" x2="1400" y2="160"/>
+        <line class="grid-line" x1="0" y1="320" x2="1400" y2="320"/>
+        <path class="corner-bracket" d="M 32 24 L 32 60 M 32 24 L 68 24"/>
+        <path class="corner-bracket" d="M 1368 456 L 1368 420 M 1368 456 L 1332 456"/>
+        <line class="tick-mark" x1="350" y1="468" x2="350" y2="480"/>
+        <line class="tick-mark" x1="700" y1="468" x2="700" y2="480"/>
+        <line class="tick-mark" x1="1050" y1="468" x2="1050" y2="480"/>
+        <!-- Signal pulse rings (decorative) -->
+        <circle class="signal-ring signal-ring--1" cx="1100" cy="220" r="60"/>
+        <circle class="signal-ring signal-ring--2" cx="1100" cy="220" r="110"/>
+        <circle class="signal-ring signal-ring--3" cx="1100" cy="220" r="160"/>
+        <circle class="signal-dot" cx="1100" cy="220" r="5"/>
+      </svg>
+      <div class="hero-glow"></div>
+    </div>
+
+    <div class="hero-annotation hero-annotation--tr" aria-hidden="true">
+      <span class="anno-code">SYS: CONTACT</span>
+      <span class="anno-sep">·</span>
+      <span class="anno-coord">CTR-001</span>
+    </div>
+    <div class="hero-annotation hero-annotation--bl" aria-hidden="true">
+      <span class="anno-code">// INBOUND SIGNAL OPEN</span>
+    </div>
+
     <div class="container">
-      <SectionTag label="Get in Touch" />
-      <h1 class="page-title">Let's talk.</h1>
-      <p class="page-desc">
-        Let's find out if we're the right fit. Book a call or send a message — we respond within one business day.
-      </p>
+      <div class="hero-inner">
+        <div class="hero-left">
+          <h1 class="hero-headline">
+            Ready to<br />
+            <span class="hero-accent">get to work.</span>
+          </h1>
+          <p class="hero-sub">
+            Book a 30-minute call or send a message — we'll tell you honestly
+            whether we're the right fit, and what working together would look like.
+          </p>
+
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Trust Bar -->
-  <div class="trust-bar">
-    <div class="container trust-inner">
-      <div class="trust-item">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-        <span>30-minute intro call</span>
-      </div>
-      <div class="trust-sep" aria-hidden="true"></div>
-      <div class="trust-item">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-        <span>No obligation, no sales pressure</span>
-      </div>
-      <div class="trust-sep" aria-hidden="true"></div>
-      <div class="trust-item">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-        <span>Response within one business day</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Two-column: Book a Call + Embed -->
-  <section class="contact-section">
+  <!-- ============================================================
+       2. BOOK A CALL
+       ============================================================ -->
+  <section class="contact-section" id="hubspot-meetings">
     <div class="container contact-grid">
 
-      <!-- Left (40%): Book a Call -->
+      <!-- Left: Call Brief -->
       <div class="book-col">
-        <h2 class="book-heading">Book a call.</h2>
+        <SectionTag label="Book a Call" />
+        <h2 class="book-heading">
+          An honest<br />30-minute call.
+        </h2>
         <p class="book-subhead">
-          Pick a time that works for you. Calls are 30 minutes — no sales pressure, just an honest conversation about your business.
+          No deck, no script. Just a direct conversation about your business,
+          where the opportunities are, and whether we're the right team to help.
         </p>
 
-        <div class="expect-card">
-          <p class="expect-eyebrow">What to Expect</p>
-          {[
-            'A quick look at your current digital presence',
-            'Honest assessment of where the opportunities are',
-            'A clear picture of what working together looks like',
-            'No obligation — if we\'re not the right fit, we\'ll say so',
-          ].map((item) => (
-            <div class="expect-item">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>{item}</span>
-            </div>
-          ))}
+        <!-- Call Agenda card -->
+        <div class="brief-card">
+          <div class="brief-header">
+            <span class="brief-label">// CALL AGENDA</span>
+            <span class="brief-duration">30 MIN</span>
+          </div>
+          <ol class="brief-steps">
+            {[
+              { code: '01', title: 'Your Business', desc: 'What you do, who you serve, and where you want to go.' },
+              { code: '02', title: 'Current Situation', desc: 'A quick look at your digital presence and what\'s working.' },
+              { code: '03', title: 'Opportunities', desc: 'Honest assessment of where the biggest wins are.' },
+              { code: '04', title: 'How We Could Help', desc: 'What working together would look like — no pressure either way.' },
+            ].map(step => (
+              <li class="brief-step">
+                <span class="brief-step-code">{step.code}</span>
+                <div class="brief-step-body">
+                  <span class="brief-step-title">{step.title}</span>
+                  <span class="brief-step-desc">{step.desc}</span>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <div class="brief-footer">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>If we're not the right fit, we'll say so — and point you somewhere better.</span>
+          </div>
         </div>
 
-        <div class="office-address">
-          <div class="office-address-text">
-            <span class="office-label">Our Office</span>
-            <address>
-              33 East Pittsburgh Street<br />
-              Greensburg, PA 15601
-            </address>
-          </div>
+        <!-- Office -->
+        <div class="office-block">
+          <span class="office-eyebrow">// Our Office</span>
+          <address class="office-addr">
+            33 East Pittsburgh Street<br />
+            Greensburg, PA 15601
+          </address>
         </div>
       </div>
 
-      <!-- Right (60%): HubSpot Meetings embed -->
-      <div id="hubspot-meetings" class="meetings-embed" aria-label="Book a meeting with Railshop">
+      <!-- Right: HubSpot Meetings embed -->
+      <div class="meetings-embed-col" aria-label="Book a meeting with Railshop">
         <div class="meetings-iframe-container" data-src="https://launch.railshop.co/meetings/andrew-opalinski?embed=true"></div>
         <script type="text/javascript" src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
       </div>
@@ -85,118 +123,127 @@ import SectionTag from '../components/ui/SectionTag.astro';
     </div>
   </section>
 
-  <!-- Collapsible: Send a Message -->
-  <div class="message-section">
-    <div class="container">
-      <div class="message-accordion" id="message-accordion">
-
-        <button class="message-toggle" id="message-toggle" aria-expanded="false" aria-controls="message-form-wrap">
-          <div class="toggle-left">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-              <polyline points="22,6 12,13 2,6"/>
-            </svg>
-            <div class="toggle-copy">
-              <span class="toggle-heading">Prefer to send a message instead?</span>
-              <span class="toggle-sub">We'll get back to you within one business day.</span>
-            </div>
-          </div>
-          <svg class="toggle-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="6 9 12 15 18 9"/>
-          </svg>
-        </button>
-
-        <div class="message-form-wrap" id="message-form-wrap">
-          <div class="message-divider" aria-hidden="true"></div>
-          <div class="message-form-inner">
-          <form
-            name="contact"
-            method="POST"
-            netlify
-            class="contact-form"
-          >
-            <input type="hidden" name="form-name" value="contact" />
-
-            <div class="field-row">
-              <div class="field-group">
-                <label class="field-label" for="name">Name</label>
-                <input id="name" type="text" name="name" placeholder="Your name" required class="field-input" />
-              </div>
-              <div class="field-group">
-                <label class="field-label" for="email">Email</label>
-                <input id="email" type="email" name="email" placeholder="Your email" required class="field-input" />
-              </div>
-            </div>
-
-            <div class="field-group">
-              <label class="field-label" for="phone">Phone</label>
-              <input id="phone" type="tel" name="phone" placeholder="Your phone number" class="field-input" />
-            </div>
-
-            <div class="field-group">
-              <label class="field-label">What are you interested in?</label>
-              <div class="pill-group" id="pill-group">
-                {[
-                  { label: 'Web Design & Development', value: 'web-design' },
-                  { label: 'Paid Ads',                 value: 'paid-ads' },
-                  { label: 'SEO',                      value: 'seo' },
-                  { label: 'Content Creation',         value: 'content-creation' },
-                  { label: 'Strategy & Consulting',    value: 'strategy' },
-                  { label: 'AI Integration & Consulting', value: 'ai-integration' },
-                ].map((opt) => (
-                  <button type="button" class="pill" data-value={opt.value}>{opt.label}</button>
-                ))}
-              </div>
-              <input type="hidden" name="interests" id="interests-input" />
-            </div>
-
-            <div class="field-group">
-              <label class="field-label" for="source">How did you hear about us?</label>
-              <select id="source" name="source" class="field-input field-select">
-                <option value="" disabled selected>Select an option</option>
-                <option value="google-search">Google Search</option>
-                <option value="referral">Referral</option>
-                <option value="linkedin">LinkedIn</option>
-                <option value="instagram">Instagram</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-
-            <div class="field-group">
-              <label class="field-label" for="message">Message</label>
-              <textarea
-                id="message"
-                name="message"
-                rows="5"
-                placeholder="Tell us about your business, your goals, and anything that would help us prepare for our call."
-                class="field-input field-textarea"
-              ></textarea>
-            </div>
-
-            <p class="social-proof">Most of our best client relationships started with a single conversation.</p>
-            <button type="submit" class="submit-btn">Send Message</button>
-          </form>
-        </div><!-- /message-form-inner -->
-        </div><!-- /message-form-wrap -->
-
-      </div><!-- /message-accordion -->
-    </div>
+  <!-- ============================================================
+       3. SEND A MESSAGE
+       ============================================================ -->
+  <div class="section-rule" aria-hidden="true">
+    <div class="section-rule-line"></div>
+    <span class="section-rule-label">// SEND A MESSAGE · MSG-001</span>
+    <div class="section-rule-line"></div>
   </div>
+
+  <section class="message-section" id="message-accordion">
+    <div class="container">
+      <div class="message-header">
+        <div class="message-header-left">
+          <SectionTag label="Send a Message" />
+          <h2 class="message-heading">Prefer to write it out?</h2>
+          <p class="message-sub">
+            Tell us about your business and what you're trying to achieve. We'll
+            review it and follow up within one business day.
+          </p>
+        </div>
+        <div class="message-header-right" aria-hidden="true">
+          <div class="response-stat">
+            <span class="response-stat-num">~4h</span>
+            <span class="response-stat-label">Avg. response time</span>
+          </div>
+          <div class="response-divider"></div>
+          <div class="response-stat">
+            <span class="response-stat-num">100%</span>
+            <span class="response-stat-label">Responses sent</span>
+          </div>
+        </div>
+      </div>
+
+      <form
+        name="contact"
+        method="POST"
+        netlify
+        class="contact-form"
+        id="contact-form"
+      >
+        <input type="hidden" name="form-name" value="contact" />
+
+        <!-- Row 1: Name + Email -->
+        <div class="form-grid form-grid--2">
+          <div class="field-group">
+            <label class="field-label" for="name">Name <span class="field-required">*</span></label>
+            <input id="name" type="text" name="name" placeholder="Your name" required class="field-input" />
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="email">Email <span class="field-required">*</span></label>
+            <input id="email" type="email" name="email" placeholder="Your email" required class="field-input" />
+          </div>
+        </div>
+
+        <!-- Row 2: Phone + Source -->
+        <div class="form-grid form-grid--2">
+          <div class="field-group">
+            <label class="field-label" for="phone">Phone</label>
+            <input id="phone" type="tel" name="phone" placeholder="Your phone number" class="field-input" />
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="source">How did you hear about us?</label>
+            <select id="source" name="source" class="field-input field-select">
+              <option value="" disabled selected>Select an option</option>
+              <option value="google-search">Google Search</option>
+              <option value="referral">Referral</option>
+              <option value="linkedin">LinkedIn</option>
+              <option value="instagram">Instagram</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Interests -->
+        <div class="field-group">
+          <label class="field-label">What are you interested in?</label>
+          <div class="pill-group" id="pill-group">
+            {[
+              { label: 'Web Design & Development', value: 'web-design' },
+              { label: 'Paid Ads',                 value: 'paid-ads' },
+              { label: 'SEO',                      value: 'seo' },
+              { label: 'Content Creation',         value: 'content-creation' },
+              { label: 'Strategy Consulting',      value: 'strategy' },
+              { label: 'AI Integration',           value: 'ai-integration' },
+            ].map((opt) => (
+              <button type="button" class="pill" data-value={opt.value}>{opt.label}</button>
+            ))}
+          </div>
+          <input type="hidden" name="interests" id="interests-input" />
+        </div>
+
+        <!-- Message -->
+        <div class="field-group">
+          <label class="field-label" for="message">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="6"
+            placeholder="Tell us about your business, your goals, and anything that would help us prepare for a call."
+            class="field-input field-textarea"
+          ></textarea>
+        </div>
+
+        <div class="form-footer">
+          <p class="social-proof">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            Most of our best client relationships started with a single message.
+          </p>
+          <button type="submit" class="submit-btn">
+            Send Message
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </section>
 
 </BaseLayout>
 
 <script>
-  // ── Collapsible form ──
-  const toggle   = document.getElementById('message-toggle') as HTMLButtonElement;
-  const wrap     = document.getElementById('message-form-wrap') as HTMLElement;
-  const accordion = document.getElementById('message-accordion') as HTMLElement;
-
-  toggle?.addEventListener('click', () => {
-    const isOpen = wrap.classList.toggle('message-form-wrap--open');
-    accordion.classList.toggle('message-accordion--open', isOpen);
-    toggle.setAttribute('aria-expanded', String(isOpen));
-  });
-
   // ── Pill selection ──
   const pills = document.querySelectorAll<HTMLButtonElement>('#pill-group .pill');
   const interestsInput = document.getElementById('interests-input') as HTMLInputElement;
@@ -215,302 +262,440 @@ import SectionTag from '../components/ui/SectionTag.astro';
       interestsInput.value = Array.from(selected).join(', ');
     });
   });
+
 </script>
 
 <style>
-  /* ── Hero ── */
-  .page-hero {
-    padding: 80px 0 56px;
+  /* ══════════════════════════════════════
+     1. HERO
+  ══════════════════════════════════════ */
+  .hero {
+    position: relative;
+    overflow: hidden;
     border-bottom: 1px solid var(--border);
   }
 
-  .page-title {
-    font-size: clamp(36px, 5vw, 56px);
-    font-weight: 800;
-    color: var(--text-2);
-    margin-top: 16px;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
   }
 
-  .page-desc {
+  .hero-grid-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .grid-line {
+    stroke: var(--border);
+    stroke-width: 1;
+    opacity: 0.4;
+  }
+
+  .corner-bracket {
+    stroke: var(--border);
+    stroke-width: 1.5;
+    opacity: 0.35;
+  }
+
+  .tick-mark {
+    stroke: var(--border);
+    stroke-width: 1;
+    opacity: 0.5;
+  }
+
+  /* Signal rings — decorative concentric circles */
+  .signal-ring {
+    fill: none;
+    stroke: var(--blue);
+  }
+
+  .signal-ring--1 { opacity: 0.12; stroke-width: 1; }
+  .signal-ring--2 { opacity: 0.07; stroke-width: 1; }
+  .signal-ring--3 { opacity: 0.04; stroke-width: 1; }
+
+  .signal-dot {
+    fill: var(--blue);
+    opacity: 0.3;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: -40px;
+    left: -5%;
+    width: 50%;
+    height: 80%;
+    background: radial-gradient(ellipse at 30% 40%, rgba(56, 182, 255, 0.04) 0%, transparent 65%);
+  }
+
+  /* Corner annotations */
+  .hero-annotation {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .hero-annotation--tr { top: 20px; right: 32px; }
+  .hero-annotation--bl { bottom: 20px; left: 32px; }
+
+  .anno-code { color: var(--blue); opacity: 0.8; }
+  .anno-sep  { opacity: 0.3; }
+
+  /* Hero content */
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    padding: 56px 0 64px;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 600px;
+  }
+
+  .hero-headline {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 800;
+    line-height: 1.05;
+    color: var(--text-2);
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+
+  .hero-accent { color: var(--blue); }
+
+  .hero-sub {
     font-size: 17px;
     color: var(--text-3);
-    max-width: 520px;
     line-height: 1.75;
-    margin-top: 12px;
+    max-width: 480px;
   }
 
-  /* ── Trust Bar ── */
-  .trust-bar {
-    background: var(--surface);
-    border-top: 1px solid var(--border);
+
+  /* ══════════════════════════════════════
+     SHARED: SECTION RULE DIVIDER
+  ══════════════════════════════════════ */
+  .section-rule {
+    display: flex;
+    align-items: center;
+    height: 32px;
     border-bottom: 1px solid var(--border);
-    padding: 20px 0;
+    padding: 0 24px;
+    overflow: hidden;
   }
 
-  .trust-inner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .trust-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    color: var(--text-3);
-    padding: 4px 32px;
-  }
-
-  .trust-sep {
-    width: 1px;
-    height: 16px;
+  .section-rule-line {
+    flex: 1;
+    height: 1px;
     background: var(--border);
-    flex-shrink: 0;
   }
 
-  /* ── Two-column layout ── */
+  .section-rule-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    opacity: 0.35;
+    padding: 0 16px;
+    white-space: nowrap;
+  }
+
+  /* ══════════════════════════════════════
+     2. BOOK A CALL
+  ══════════════════════════════════════ */
   .contact-section {
-    padding: 64px 0 56px;
+    padding: 64px 0 72px;
+    border-bottom: 1px solid var(--border);
+    scroll-margin-top: 72px;
   }
 
   .contact-grid {
     display: grid;
-    grid-template-columns: 40fr 60fr;
-    gap: 56px;
+    grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
+    gap: 64px;
     align-items: start;
   }
 
-  /* ── Left: Book a Call ── */
+  /* Left column */
+  .book-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+
   .book-heading {
-    font-size: clamp(28px, 3vw, 36px);
+    font-size: clamp(26px, 3vw, 38px);
     font-weight: 800;
     color: var(--text-2);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
     line-height: 1.1;
+    margin-top: 18px;
+    margin-bottom: 12px;
   }
 
   .book-subhead {
     font-size: 15px;
     color: var(--text-3);
     line-height: 1.75;
-    margin-top: 12px;
+    margin-bottom: 28px;
   }
 
-  .expect-card {
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px;
-    margin-top: 28px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .expect-eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--blue);
-    margin-bottom: 4px;
-  }
-
-  .expect-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 14px;
-    color: var(--text-3);
-    line-height: 1.55;
-  }
-
-  .expect-item svg { flex-shrink: 0; margin-top: 2px; }
-
-  /* ── Office address ── */
-  .office-address {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin-top: 24px;
-  }
-
-  .office-address-text {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .office-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-3);
-  }
-
-  .office-address address {
-    font-size: 14px;
-    color: var(--text-3);
-    line-height: 1.6;
-    font-style: normal;
-  }
-
-  /* ── Right: Meetings embed ── */
-  .meetings-embed {
-    min-height: 520px;
-  }
-
-  .meetings-placeholder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    min-height: 520px;
-    background: var(--surface);
-    padding: 40px;
-    text-align: center;
-  }
-
-  .meetings-placeholder-title {
-    font-weight: 700;
-    color: var(--text-2);
-    font-size: 16px;
-  }
-
-  .meetings-placeholder-desc {
-    font-size: 13px;
-    color: var(--text-3);
-    line-height: 1.7;
-    max-width: 320px;
-  }
-
-  .meetings-placeholder-desc code {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    background: var(--surface-2);
-    padding: 2px 6px;
-    border-radius: 4px;
-    color: var(--blue);
-  }
-
-  /* ── Collapsible message section ── */
-  .message-section {
-    padding-bottom: 80px;
-  }
-
-  .message-accordion {
-    margin-top: 32px;
+  /* Call Agenda card */
+  .brief-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 2px;
     overflow: hidden;
-    transition: border-color 0.2s ease;
+    margin-bottom: 24px;
   }
 
-  .message-accordion:hover,
-  .message-accordion--open {
-    border-color: var(--blue);
-  }
-
-  .message-toggle {
+  .brief-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
-    padding: 20px 24px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-family: inherit;
-    text-align: left;
-    transition: background 0.2s;
-  }
-
-  .message-accordion:hover .message-toggle,
-  .message-accordion--open .message-toggle {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
     background: var(--surface-2);
   }
 
-  .toggle-left {
-    display: flex;
-    align-items: center;
-    gap: 14px;
+  .brief-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--blue);
+    opacity: 0.8;
   }
 
-  .toggle-left svg { flex-shrink: 0; }
+  .brief-duration {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    opacity: 0.5;
+    background: var(--surface-3);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 2px 8px;
+  }
 
-  .toggle-copy {
+  .brief-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .brief-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s ease;
+  }
+
+  .brief-step:last-child { border-bottom: none; }
+  .brief-step:hover { background: var(--surface-2); }
+
+  .brief-step-code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: var(--blue);
+    opacity: 0.5;
+    flex-shrink: 0;
+    width: 18px;
+    margin-top: 2px;
+  }
+
+  .brief-step-body {
     display: flex;
     flex-direction: column;
     gap: 3px;
   }
 
-  .toggle-heading {
-    font-size: 16px;
-    font-weight: 500;
+  .brief-step-title {
+    font-size: 13px;
+    font-weight: 600;
     color: var(--text-2);
   }
 
-  .toggle-sub {
+  .brief-step-desc {
+    font-size: 12px;
+    color: var(--text-3);
+    line-height: 1.55;
+  }
+
+  .brief-footer {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 20px;
+    border-top: 1px solid var(--border);
+    background: rgba(52, 211, 153, 0.04);
+  }
+
+  .brief-footer svg { flex-shrink: 0; margin-top: 1px; }
+
+  .brief-footer span {
+    font-size: 12px;
+    color: var(--text-3);
+    line-height: 1.55;
+    font-style: italic;
+  }
+
+  .office-block {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .office-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--blue);
+    opacity: 0.65;
+  }
+
+  .office-addr {
     font-size: 13px;
     color: var(--text-3);
+    line-height: 1.6;
+    font-style: normal;
   }
 
-  .toggle-chevron {
+
+
+  /* ── HubSpot embed alignment ── */
+  .meetings-embed-col {
+    padding-top: 46px;
+  }
+
+  /* ══════════════════════════════════════
+     3. SEND A MESSAGE
+  ══════════════════════════════════════ */
+  .message-section {
+    padding: 64px 0 96px;
+    scroll-margin-top: 72px;
+  }
+
+  .message-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 48px;
+    align-items: end;
+    margin-bottom: 48px;
+  }
+
+  .message-header-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  .message-heading {
+    font-size: clamp(26px, 3vw, 38px);
+    font-weight: 800;
+    color: var(--text-2);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-top: 18px;
+    margin-bottom: 10px;
+  }
+
+  .message-sub {
+    font-size: 15px;
+    color: var(--text-3);
+    line-height: 1.7;
+    max-width: 420px;
+  }
+
+  /* Response stats */
+  .message-header-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
     flex-shrink: 0;
-    transition: transform 0.3s ease;
+    padding-bottom: 4px;
   }
 
-  .message-accordion--open .toggle-chevron {
-    transform: rotate(180deg);
+  .response-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
   }
 
-  /* Collapse animation */
-  .message-form-wrap {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.35s ease;
+  .response-stat-num {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--blue);
+    letter-spacing: -0.03em;
+    line-height: 1;
   }
 
-  .message-form-wrap--open {
-    max-height: 1200px;
+  .response-stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    opacity: 0.5;
+    text-align: center;
+    white-space: nowrap;
   }
 
-  .message-divider {
-    height: 1px;
+  .response-divider {
+    width: 1px;
+    height: 36px;
     background: var(--border);
-  }
-
-  .message-form-inner {
-    padding: 24px;
+    flex-shrink: 0;
   }
 
   /* ── Contact Form ── */
   .contact-form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    max-width: 680px;
+    gap: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 40px;
   }
 
-  .field-row {
+  .form-grid {
     display: grid;
+    gap: 20px;
+  }
+
+  .form-grid--2 {
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
   }
 
   .field-group {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
   }
 
   .field-label {
@@ -522,22 +707,31 @@ import SectionTag from '../components/ui/SectionTag.astro';
     color: var(--text-3);
   }
 
+  .field-required {
+    color: var(--blue);
+    opacity: 0.7;
+  }
+
   .field-input {
     background: var(--surface-2);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px 16px;
+    border-radius: 6px;
+    padding: 13px 16px;
     font-size: 14px;
     color: var(--text);
     font-family: inherit;
     outline: none;
-    transition: border-color 0.15s;
+    transition: border-color 0.15s, box-shadow 0.15s;
     width: 100%;
     box-sizing: border-box;
   }
 
-  .field-input::placeholder { color: var(--text-3); opacity: 0.7; }
-  .field-input:focus { border-color: var(--blue); }
+  .field-input::placeholder { color: var(--text-3); opacity: 0.5; }
+
+  .field-input:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(56, 182, 255, 0.08);
+  }
 
   .field-select {
     appearance: none;
@@ -550,8 +744,8 @@ import SectionTag from '../components/ui/SectionTag.astro';
 
   .field-textarea {
     resize: vertical;
-    min-height: 120px;
-    line-height: 1.6;
+    min-height: 140px;
+    line-height: 1.65;
   }
 
   /* ── Pill group ── */
@@ -564,13 +758,15 @@ import SectionTag from '../components/ui/SectionTag.astro';
   .pill {
     background: var(--surface-2);
     border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 8px 16px;
-    font-size: 13px;
-    font-family: inherit;
+    border-radius: 4px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.04em;
     color: var(--text-3);
     cursor: pointer;
     transition: background 0.15s, border-color 0.15s, color 0.15s;
+    text-transform: none;
   }
 
   .pill:hover { border-color: var(--blue); color: var(--text-2); }
@@ -581,39 +777,80 @@ import SectionTag from '../components/ui/SectionTag.astro';
     color: var(--blue);
   }
 
-  /* ── Social proof + submit ── */
+  /* ── Form footer ── */
+  .form-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
   .social-proof {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 13px;
     color: var(--text-3);
     font-style: italic;
-    text-align: center;
-    margin-bottom: -4px;
+    opacity: 0.8;
   }
 
+  .social-proof svg { flex-shrink: 0; }
+
   .submit-btn {
-    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     background: var(--blue);
     color: #111315;
     font-weight: 700;
-    font-size: 15px;
+    font-size: 14px;
     font-family: inherit;
     border: none;
-    border-radius: 8px;
-    padding: 14px;
+    border-radius: 6px;
+    padding: 13px 28px;
     cursor: pointer;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s, transform 0.15s;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   :global([data-theme="light"]) .submit-btn { color: #FFFFFF; }
 
-  .submit-btn:hover { opacity: 0.88; }
+  .submit-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+  .submit-btn:active { transform: translateY(0); }
 
-  /* ── Responsive ── */
-  @media (max-width: 900px) {
-    .contact-grid { grid-template-columns: 1fr; }
-    .trust-sep { display: none; }
-    .trust-inner { flex-direction: column; gap: 12px; align-items: flex-start; padding: 0 24px; }
-    .trust-item { padding: 0; }
-    .field-row { grid-template-columns: 1fr; }
+  /* ══════════════════════════════════════
+     RESPONSIVE
+  ══════════════════════════════════════ */
+  @media (max-width: 1024px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .meetings-col { min-height: 600px; }
+    .message-header { grid-template-columns: 1fr; gap: 24px; }
+    .message-header-right { justify-content: flex-start; }
+  }
+
+  @media (max-width: 768px) {
+    .hero-annotation--tr,
+    .hero-annotation--bl { display: none; }
+
+    .form-grid--2 { grid-template-columns: 1fr; }
+
+    .contact-form { padding: 28px 20px; }
+
+    .form-footer { flex-direction: column; align-items: flex-start; }
+    .submit-btn { width: 100%; justify-content: center; }
+
+  }
+
+  @media (max-width: 640px) {
+    .section-rule { display: none; }
+    .office-row { flex-direction: column; align-items: flex-start; }
   }
 </style>

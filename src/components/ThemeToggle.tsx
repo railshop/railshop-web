@@ -43,9 +43,11 @@ export default function ThemeToggle() {
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
       style={{
         background: 'none',
-        border: '1px solid var(--border-2)',
-        borderRadius: '8px',
-        padding: '7px 10px',
+        border: '1px solid var(--border)',
+        borderRadius: '4px',
+        padding: '0',
+        width: '32px',
+        height: '32px',
         cursor: 'pointer',
         color: 'var(--text-3)',
         display: 'flex',
@@ -54,11 +56,11 @@ export default function ThemeToggle() {
         transition: 'border-color 0.15s ease, color 0.15s ease',
       }}
       onMouseEnter={(e) => {
-        (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--blue-border)';
-        (e.currentTarget as HTMLButtonElement).style.color = 'var(--blue)';
+        (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--border-2)';
+        (e.currentTarget as HTMLButtonElement).style.color = 'var(--text)';
       }}
       onMouseLeave={(e) => {
-        (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--border-2)';
+        (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--border)';
         (e.currentTarget as HTMLButtonElement).style.color = 'var(--text-3)';
       }}
     >
