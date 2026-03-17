@@ -10,16 +10,17 @@ module.exports = {
       },
       colors: {
         blue: {
-          DEFAULT: '#38B6FF',
-          dim: '#1A9FE8',
+          DEFAULT: 'var(--blue)',
+          dim: 'var(--blue-dim)',
+          glow: 'var(--blue-glow)',
+          border: 'var(--blue-border)',
         },
-        green: '#34D399',
-        gold: '#FBBF24',
-        red: '#F87171',
+        green: 'var(--green)',
+        gold: 'var(--gold)',
+        red: 'var(--red)',
       },
       borderRadius: {
         card: '12px',
-        btn: '8px',
         tag: '4px',
       },
       keyframes: {

@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import SectionTag from '../components/ui/SectionTag.astro';
 ---
 
 <BaseLayout
@@ -46,12 +45,11 @@ import SectionTag from '../components/ui/SectionTag.astro';
       <div class="hero-inner">
         <div class="hero-left">
           <h1 class="hero-headline">
-            Ready to<br />
-            <span class="hero-accent">get to work.</span>
+            Let's talk about<br />
+            <span class="hero-accent">your business.</span>
           </h1>
           <p class="hero-sub">
-            Book a 30-minute call or send a message — we'll tell you honestly
-            whether we're the right fit, and what working together would look like.
+            No pitch, no pressure. Just a straightforward conversation about where you're trying to go and whether we're the right team to help you get there.
           </p>
 
         </div>
@@ -67,27 +65,25 @@ import SectionTag from '../components/ui/SectionTag.astro';
 
       <!-- Left: Call Brief -->
       <div class="book-col">
-        <SectionTag label="Book a Call" />
         <h2 class="book-heading">
-          An honest<br />30-minute call.
+          Book a Call
         </h2>
         <p class="book-subhead">
-          No deck, no script. Just a direct conversation about your business,
-          where the opportunities are, and whether we're the right team to help.
+          Pick a time that works for you. We'll come prepared.
         </p>
 
         <!-- Call Agenda card -->
         <div class="brief-card">
           <div class="brief-header">
-            <span class="brief-label">// CALL AGENDA</span>
+            <span class="brief-label">// WHAT TO EXPECT</span>
             <span class="brief-duration">30 MIN</span>
           </div>
           <ol class="brief-steps">
             {[
-              { code: '01', title: 'Your Business', desc: 'What you do, who you serve, and where you want to go.' },
-              { code: '02', title: 'Current Situation', desc: 'A quick look at your digital presence and what\'s working.' },
-              { code: '03', title: 'Opportunities', desc: 'Honest assessment of where the biggest wins are.' },
-              { code: '04', title: 'How We Could Help', desc: 'What working together would look like — no pressure either way.' },
+              { code: '01', title: 'A straight read on where your digital presence stands', desc: '' },
+              { code: '02', title: 'Honest perspective on what we\'d prioritize first', desc: '' },
+              { code: '03', title: 'No obligation — we\'ll tell you if we\'re not the right fit', desc: '' },
+              { code: '04', title: 'If it\'s a match, a clear path to getting started', desc: '' },
             ].map(step => (
               <li class="brief-step">
                 <span class="brief-step-code">{step.code}</span>
@@ -136,8 +132,7 @@ import SectionTag from '../components/ui/SectionTag.astro';
     <div class="container">
       <div class="message-header">
         <div class="message-header-left">
-          <SectionTag label="Send a Message" />
-          <h2 class="message-heading">Prefer to write it out?</h2>
+          <h2 class="message-heading">Prefer to send a message instead?</h2>
           <p class="message-sub">
             Tell us about your business and what you're trying to achieve. We'll
             review it and follow up within one business day.
@@ -366,15 +361,6 @@ import SectionTag from '../components/ui/SectionTag.astro';
     max-width: 600px;
   }
 
-  .hero-headline {
-    font-size: clamp(28px, 4vw, 48px);
-    font-weight: 800;
-    line-height: 1.05;
-    color: var(--text-2);
-    letter-spacing: -0.03em;
-    margin-bottom: 20px;
-  }
-
   .hero-accent { color: var(--blue); }
 
   .hero-sub {
@@ -444,7 +430,6 @@ import SectionTag from '../components/ui/SectionTag.astro';
     color: var(--text-2);
     letter-spacing: -0.03em;
     line-height: 1.1;
-    margin-top: 18px;
     margin-bottom: 12px;
   }
 
@@ -619,7 +604,6 @@ import SectionTag from '../components/ui/SectionTag.astro';
     color: var(--text-2);
     letter-spacing: -0.03em;
     line-height: 1.1;
-    margin-top: 18px;
     margin-bottom: 10px;
   }
 

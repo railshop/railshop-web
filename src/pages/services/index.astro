@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import SectionTag from '../../components/ui/SectionTag.astro';
 import Button from '../../components/ui/Button.astro';
 import CtaBanner from '../../components/ui/CtaBanner.astro';
 import { getServices } from '../../lib/sanity';
@@ -11,12 +10,12 @@ try {
 } catch (_) {}
 
 const displayServices = services.length > 0 ? services : [
-  { _id: '1', title: 'Web Design & Development', description: 'Fast, conversion-focused websites built for service businesses. We design and build sites that look the part, load fast, and turn visitors into leads.', slug: { current: 'web-design' } },
-  { _id: '2', title: 'Paid Ads', description: 'Google, Meta, and beyond — campaigns built to drive leads, not just clicks. We manage paid advertising end-to-end for service businesses that need a reliable lead pipeline.', slug: { current: 'paid-ads' } },
-  { _id: '3', title: 'SEO', description: 'Sustainable organic growth through technical SEO and content that ranks. We build search visibility that compounds over time and drives leads without paying for every click.', slug: { current: 'seo' } },
-  { _id: '4', title: 'Content Creation', description: 'Video and photo content that builds authority and keeps your brand visible between campaigns. Content that works across your website, ads, and social channels.', slug: { current: 'content-creation' } },
-  { _id: '5', title: 'Strategy Consulting', description: "Not sure where to start? We'll assess what your business needs and build a clear, prioritised digital growth plan — so you invest in the right things, in the right order.", slug: { current: 'strategy' } },
-  { _id: '6', title: 'AI Integration', description: 'Practical AI implementation that saves time, reduces cost, and gives your business a real edge. We cut through the hype and identify where AI actually creates value.', slug: { current: 'ai-integration' } },
+  { _id: '1', title: 'Web Design & Development', description: 'High-converting websites built for service businesses. Strategy-first, not template-first.', slug: { current: 'web-design' } },
+  { _id: '2', title: 'Paid Ads', description: 'Google Ads, LSA, and Meta campaigns built around your cost-per-lead goals — not vanity metrics.', slug: { current: 'paid-ads' } },
+  { _id: '3', title: 'SEO', description: 'Local and technical SEO that compounds over time and reduces your reliance on paid.', slug: { current: 'seo' } },
+  { _id: '4', title: 'Content Creation', description: 'Video and photo content that builds authority and keeps your brand visible between campaigns.', slug: { current: 'content-creation' } },
+  { _id: '5', title: 'Strategy Consulting', description: "Not sure where to start? We'll audit your full digital presence and build a prioritized plan.", slug: { current: 'strategy' } },
+  { _id: '6', title: 'AI Integration', description: 'Practical AI implementation that reduces cost, saves time, and gives your business a real edge.', slug: { current: 'ai-integration' } },
 ];
 
 const serviceIcons = [
@@ -73,8 +72,8 @@ const phaseCodes = ['ASSESS', 'BUILD', 'GROW'];
           </h1>
           <p class="hero-sub">
             We build what service businesses need to compete online — websites, paid
-            ads, SEO, content, and AI integration. Senior practitioners only,
-            no hand-offs, no black boxes.
+            ads, SEO, content, and AI integration. Senior-level experience on every
+            engagement — no hand-offs, no black boxes.
           </p>
         </div>
       </div>
@@ -88,11 +87,10 @@ const phaseCodes = ['ASSESS', 'BUILD', 'GROW'];
     <div class="container">
       <div class="services-header">
         <div class="services-header-left">
-          <SectionTag label="What We Do" />
-          <h2 class="services-title">Six ways we grow<br />your business online.</h2>
+          <h2 class="services-title">Services built for<br />measurable growth</h2>
         </div>
         <p class="services-intro">
-          Every engagement starts with your goals — not a default package. We build the right combination, then execute it with senior-level precision.
+          Six ways we help service businesses compete and grow online. Every engagement starts with your goals — not a default package.
         </p>
       </div>
 
@@ -128,7 +126,6 @@ const phaseCodes = ['ASSESS', 'BUILD', 'GROW'];
 
     <div class="container">
       <div class="approach-header">
-        <SectionTag label="How We Work" />
         <h2 class="approach-title">A process built for<br />measurable outcomes.</h2>
         <p class="approach-sub">Every engagement follows the same north star — find what works, build on it, and grow.</p>
       </div>
@@ -149,9 +146,9 @@ const phaseCodes = ['ASSESS', 'BUILD', 'GROW'];
             </svg>
           </div>
           <h3 class="phase-title">Assess</h3>
-          <p class="phase-desc">We start by understanding your business, your market, and where the real opportunities are. No assumptions, no default playbooks.</p>
+          <p class="phase-desc">We start with an honest audit of where you stand — website, paid media, SEO, and competitive position. No assumptions, no default packages.</p>
           <div class="phase-deliverables">
-            <span class="phase-d-label">// Deliverables</span>
+            <span class="phase-d-label">Deliverables</span>
             <ul class="phase-d-list">
               <li>Market & competitor audit</li>
               <li>Channel opportunity analysis</li>
@@ -183,9 +180,9 @@ const phaseCodes = ['ASSESS', 'BUILD', 'GROW'];
             </svg>
           </div>
           <h3 class="phase-title">Build</h3>
-          <p class="phase-desc">We construct the right strategy and execute it — whether that's a new website, a paid campaign, an SEO foundation, or all of the above.</p>
+          <p class="phase-desc">We build or rebuild the foundation your growth depends on. Conversion-focused websites, properly structured campaigns, and the tracking to know what's actually working.</p>
           <div class="phase-deliverables">
-            <span class="phase-d-label">// Deliverables</span>
+            <span class="phase-d-label">Deliverables</span>
             <ul class="phase-d-list">
               <li>Channel setup & configuration</li>
               <li>Creative & asset production</li>
@@ -217,9 +214,9 @@ const phaseCodes = ['ASSESS', 'BUILD', 'GROW'];
             </svg>
           </div>
           <h3 class="phase-title">Grow</h3>
-          <p class="phase-desc">We measure what matters, optimize continuously, and scale what's working. You always know where your budget is going and why.</p>
+          <p class="phase-desc">With the foundation right, we scale what's working and cut what isn't. Month over month, we're driving toward your revenue goals — not just maintaining the status quo.</p>
           <div class="phase-deliverables">
-            <span class="phase-d-label">// Deliverables</span>
+            <span class="phase-d-label">Deliverables</span>
             <ul class="phase-d-list">
               <li>Performance reporting</li>
               <li>Continuous optimisation</li>
@@ -236,7 +233,7 @@ const phaseCodes = ['ASSESS', 'BUILD', 'GROW'];
        ============================================================ -->
   <CtaBanner
     title="Not sure where to start?"
-    subtitle="Most of our best client relationships started with a single conversation. Book a no-commitment call — we'll map out what makes sense for your business."
+    subtitle="Most clients begin with a 30-minute call. We'll tell you exactly where we'd focus first — no pitch, no pressure."
     secondaryText="Send a Message"
     secondaryHref="/contact#message-accordion"
   />
@@ -328,15 +325,6 @@ const phaseCodes = ['ASSESS', 'BUILD', 'GROW'];
     align-items: flex-start;
   }
 
-  .hero-headline {
-    font-size: clamp(28px, 4vw, 48px);
-    font-weight: 800;
-    line-height: 1.1;
-    color: var(--text-2);
-    letter-spacing: -0.03em;
-    margin-bottom: 18px;
-  }
-
   .hero-accent { color: var(--blue); }
 
   .hero-sub {
@@ -402,7 +390,6 @@ const phaseCodes = ['ASSESS', 'BUILD', 'GROW'];
     color: var(--text-2);
     letter-spacing: -0.03em;
     line-height: 1.1;
-    margin-top: 18px;
   }
 
   .services-intro {
@@ -676,26 +663,24 @@ const phaseCodes = ['ASSESS', 'BUILD', 'GROW'];
   /* Connector between phase cards */
   .phase-connector {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     width: 48px;
     flex-shrink: 0;
     gap: 4px;
     position: relative;
-    top: -8px;
   }
 
   .connector-line {
-    width: 1px;
-    height: 20px;
-    border-left: 1px dashed var(--border-2);
+    width: 20px;
+    height: 1px;
+    border-top: 1px dashed var(--border-2);
     opacity: 0.5;
   }
 
   .connector-arrow {
     opacity: 0.4;
-    transform: rotate(90deg);
     flex-shrink: 0;
   }
 
@@ -709,15 +694,12 @@ const phaseCodes = ['ASSESS', 'BUILD', 'GROW'];
       padding-bottom: 40px;
     }
     .svc-row {
-      grid-template-columns: 1fr auto;
+      grid-template-columns: 1fr 1fr auto;
       gap: 24px;
     }
-    .svc-desc { display: none; }
   }
 
   @media (max-width: 768px) {
-    .hero { padding: 96px 0 72px; }
-
     .hero-annotation--tr,
     .hero-annotation--bl { display: none; }
 
@@ -727,22 +709,21 @@ const phaseCodes = ['ASSESS', 'BUILD', 'GROW'];
     }
 
     .phase-connector {
-      flex-direction: row;
-      width: auto;
-      height: 32px;
-      top: 0;
+      flex-direction: column;
+      width: 48px;
+      height: auto;
       justify-content: center;
     }
 
     .connector-line {
-      width: 20px;
-      height: 1px;
-      border-left: none;
-      border-top: 1px dashed var(--border-2);
+      width: 1px;
+      height: 20px;
+      border-top: none;
+      border-left: 1px dashed var(--border-2);
     }
 
     .connector-arrow {
-      transform: rotate(0deg);
+      transform: rotate(90deg);
     }
 
     .svc-row {

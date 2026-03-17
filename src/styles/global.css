@@ -201,6 +201,26 @@ a {
   color: var(--blue);
 }
 
+.btn-outline {
+  background: transparent;
+  color: var(--blue);
+  font-weight: 700;
+  border-radius: 2px;
+  padding: 10px 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  border: 1px solid var(--blue-border);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-outline:hover {
+  background: var(--blue-glow);
+  border-color: var(--blue);
+}
+
 .section {
   padding: 80px 0;
 }
@@ -209,6 +229,16 @@ a {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
+}
+
+/* Hero headline — interior page default. Homepage and blog posts override via scoped styles. */
+.hero-headline {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--text-2);
+  letter-spacing: -0.03em;
+  margin-bottom: 18px;
 }
 
 /* Stagger animation helpers */
