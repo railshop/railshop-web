@@ -114,7 +114,7 @@ const displayTeam = teamMembers.length > 0 ? teamMembers : [
 
       <div class="story-photo-wrap">
         <div class="story-photo">
-          <img src="/images/office.jpg" alt="Railshop office" class="story-photo-img" />
+          <img src="/images/office.jpg" alt="Railshop office" class="story-photo-img" loading="lazy" decoding="async" />
           <div class="story-photo-overlay" aria-hidden="true">
             <span class="story-photo-label">// RAILSHOP HQ</span>
           </div>
@@ -140,11 +140,11 @@ const displayTeam = teamMembers.length > 0 ? teamMembers : [
 
       <div class="team-grid">
         {displayTeam.map((member: any, i: number) => {
-          const photoSrc = member.photo ? urlForImage(member.photo) : member._fallbackImg;
+          const photoSrc = member.photo ? urlForImage(member.photo).url() : member._fallbackImg;
           return (
             <div class="team-card">
               <div class="team-photo-wrap">
-                {photoSrc && <img src={photoSrc} alt={member.name} class="team-photo-img" />}
+                {photoSrc && <img src={photoSrc} alt={member.name} class="team-photo-img" loading="lazy" decoding="async" />}
                 <div class="team-photo-overlay" aria-hidden="true"></div>
               </div>
               <div class="team-info">
@@ -182,16 +182,16 @@ const displayTeam = teamMembers.length > 0 ? teamMembers : [
       </div>
       <div class="logos-row">
         <div class="logo-tile">
-          <img src="/images/logos/window nation logo.png" alt="Window Nation" class="logo-img logo-window-nation" />
+          <img src="/images/logos/window nation logo.png" alt="Window Nation" class="logo-img logo-window-nation" loading="lazy" decoding="async" />
         </div>
         <div class="logo-tile">
-          <img src="/images/logos/vector security logo.svg" alt="Vector Security" class="logo-img logo-vector-security" />
+          <img src="/images/logos/vector security logo.svg" alt="Vector Security" class="logo-img logo-vector-security" loading="lazy" decoding="async" />
         </div>
         <div class="logo-tile">
-          <img src="/images/logos/fire and ice logo.png" alt="Fire &amp; Ice" class="logo-img logo-fire-ice" />
+          <img src="/images/logos/fire and ice logo.png" alt="Fire &amp; Ice" class="logo-img logo-fire-ice" loading="lazy" decoding="async" />
         </div>
         <div class="logo-tile">
-          <img src="/images/logos/jp operations logo.svg" alt="JP Operations" class="logo-img logo-jp-operations" />
+          <img src="/images/logos/jp operations logo.svg" alt="JP Operations" class="logo-img logo-jp-operations" loading="lazy" decoding="async" />
         </div>
         <div class="logo-tile logo-tile--placeholder"></div>
         <div class="logo-tile logo-tile--placeholder"></div>

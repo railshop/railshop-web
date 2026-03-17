@@ -141,7 +141,7 @@ const categoryColorMap: Record<string, string> = {
 
         <!-- Image -->
         <div class="featured-image">
-          <img src={resolvePostImage(featuredPost)} alt="" class="featured-image-img" loading="eager" decoding="async" />
+          <img src={resolvePostImage(featuredPost)} alt={featuredPost.title} class="featured-image-img" loading="eager" decoding="async" />
           <!-- HUD overlay -->
           <div class="card-hud" aria-hidden="true">
             <span class="hud-id">POST-001</span>
@@ -198,7 +198,7 @@ const categoryColorMap: Record<string, string> = {
           >
             <!-- Image -->
             <div class="post-image">
-              <img src={resolvePostImage(post)} alt="" class="post-image-img" loading="lazy" decoding="async" />
+              <img src={resolvePostImage(post)} alt={post.title} class="post-image-img" loading="lazy" decoding="async" />
               <!-- HUD overlay -->
               <div class="card-hud" aria-hidden="true">
                 <span class="hud-id">POST-{String(i + 2).padStart(3, '0')}</span>
@@ -246,7 +246,9 @@ const categoryColorMap: Record<string, string> = {
       >
         <input type="hidden" name="form-name" value="newsletter-signup" />
         <div class="newsletter-row">
+          <label for="newsletter-email" class="sr-only">Email address</label>
           <input
+            id="newsletter-email"
             type="email"
             name="email"
             placeholder="Your email address"
@@ -851,5 +853,14 @@ const categoryColorMap: Record<string, string> = {
   @media (max-width: 768px) {
     .posts-grid { grid-template-columns: 1fr; }
     .filter-count { display: none; }
+  }
+
+  @media (max-width: 480px) {
+    .newsletter-row {
+      flex-direction: column;
+    }
+    .newsletter-btn {
+      width: 100%;
+    }
   }
 </style>
