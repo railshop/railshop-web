@@ -227,10 +227,10 @@ import ThemeToggle from '../components/ThemeToggle.tsx';
           <div class="ds-type-meta">
             <code class="ds-token-name">--fs-label</code>
             <span class="ds-token-value">11px</span>
-            <span class="ds-type-role">Eyebrow / status label</span>
+            <span class="ds-type-role">Status label — availability signals</span>
           </div>
           <div class="ds-type-sample ds-type-sample--label">
-            TAKING NEW CLIENTS
+            <span style="color: var(--green);">● TAKING NEW CLIENTS</span>
           </div>
         </div>
 
@@ -242,6 +242,17 @@ import ThemeToggle from '../components/ThemeToggle.tsx';
           </div>
           <div class="ds-type-sample">
             <span class="tag">SEO</span>
+          </div>
+        </div>
+
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <code class="ds-token-name">--fs-micro</code>
+            <span class="ds-token-value">9px</span>
+            <span class="ds-type-role">Section eyebrow (SectionTag)</span>
+          </div>
+          <div class="ds-type-sample ds-type-sample--eyebrow">
+            // Digital Growth Partner
           </div>
         </div>
 
@@ -762,7 +773,8 @@ import ThemeToggle from '../components/ThemeToggle.tsx';
   .ds-type-sample--h3        { font-size: var(--fs-h3);         letter-spacing: var(--ls-snug);    }
   .ds-type-sample--body      { font-size: var(--fs-body);       font-weight: var(--fw-regular); line-height: var(--lh-body); letter-spacing: var(--ls-normal); color: var(--text-3); }
   .ds-type-sample--body-sm   { font-size: var(--fs-body-sm);    font-weight: var(--fw-regular); line-height: var(--lh-body); letter-spacing: var(--ls-normal); color: var(--text-3); }
-  .ds-type-sample--label     { font-size: var(--fs-label);      font-weight: var(--fw-bold);    text-transform: uppercase; letter-spacing: var(--ls-wider); color: var(--blue); }
+  .ds-type-sample--label     { font-size: var(--fs-label);  font-weight: var(--fw-bold);    text-transform: uppercase; letter-spacing: var(--ls-wider); color: var(--blue); }
+  .ds-type-sample--eyebrow   { font-family: 'JetBrains Mono', monospace; font-size: var(--fs-micro); letter-spacing: var(--ls-widest); text-transform: uppercase; color: var(--blue); opacity: 0.65; font-weight: var(--fw-medium); }
   .ds-type-sample--micro     { font-family: 'JetBrains Mono', monospace; font-size: var(--fs-micro); letter-spacing: var(--ls-wide); color: var(--text-3); }
 
   /* ── Font weights ────────────────────────────────────────────── */
