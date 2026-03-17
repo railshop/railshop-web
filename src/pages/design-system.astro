@@ -1,0 +1,889 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeader from '../components/ui/SectionHeader.astro';
+import ThemeToggle from '../components/ThemeToggle.tsx';
+---
+
+<BaseLayout title="Design System — Railshop">
+  <main class="ds-page">
+
+    <!-- ── Page header ────────────────────────────────────────── -->
+    <header class="ds-header">
+      <div class="ds-header-top">
+        <div>
+          <p class="eyebrow">Internal Reference</p>
+          <h1 class="ds-title">Design System</h1>
+          <p class="ds-subtitle">The visual foundation for all Railshop web properties — colours, type scale, spacing, and components.</p>
+        </div>
+        <div class="ds-theme-toggle">
+          <span class="ds-token-name">Theme</span>
+          <ThemeToggle client:load />
+        </div>
+      </div>
+      <div class="ds-meta">
+        <span class="ds-token-name">v1.0 — Railshop Web</span>
+        <span class="ds-token-name">·</span>
+        <span class="ds-token-name">c:/railshop-web/src/styles/global.css</span>
+      </div>
+    </header>
+
+    <!-- ── Colour ─────────────────────────────────────────────── -->
+    <section class="ds-section">
+      <div class="ds-section-label">
+        <span class="ds-token-name">01 — COLOUR</span>
+      </div>
+
+      <div class="ds-colour-groups">
+
+        <div class="ds-colour-group">
+          <p class="ds-group-label">Backgrounds</p>
+          <div class="ds-swatches">
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: var(--bg); border: 1px solid var(--border-2);"></div>
+              <code class="ds-token-name">--bg</code>
+              <span class="ds-swatch-hex">#111315</span>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: var(--surface); border: 1px solid var(--border-2);"></div>
+              <code class="ds-token-name">--surface</code>
+              <span class="ds-swatch-hex">#191C1E</span>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: var(--surface-2); border: 1px solid var(--border-2);"></div>
+              <code class="ds-token-name">--surface-2</code>
+              <span class="ds-swatch-hex">#202427</span>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: var(--surface-3); border: 1px solid var(--border-2);"></div>
+              <code class="ds-token-name">--surface-3</code>
+              <span class="ds-swatch-hex">#272C30</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ds-colour-group">
+          <p class="ds-group-label">Borders</p>
+          <div class="ds-swatches">
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: var(--border);"></div>
+              <code class="ds-token-name">--border</code>
+              <span class="ds-swatch-hex">#2A2F33</span>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: var(--border-2);"></div>
+              <code class="ds-token-name">--border-2</code>
+              <span class="ds-swatch-hex">#353C42</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ds-colour-group">
+          <p class="ds-group-label">Text</p>
+          <div class="ds-swatches">
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: var(--text);"></div>
+              <code class="ds-token-name">--text</code>
+              <span class="ds-swatch-hex">#F8FAFC</span>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: var(--text-2);"></div>
+              <code class="ds-token-name">--text-2</code>
+              <span class="ds-swatch-hex">#FFFFFF</span>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: var(--text-3);"></div>
+              <code class="ds-token-name">--text-3</code>
+              <span class="ds-swatch-hex">#7A8A96</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ds-colour-group">
+          <p class="ds-group-label">Accents</p>
+          <div class="ds-swatches">
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: var(--blue);"></div>
+              <code class="ds-token-name">--blue</code>
+              <span class="ds-swatch-hex">#38B6FF</span>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: var(--green);"></div>
+              <code class="ds-token-name">--green</code>
+              <span class="ds-swatch-hex">#34D399</span>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: var(--gold);"></div>
+              <code class="ds-token-name">--gold</code>
+              <span class="ds-swatch-hex">#FBBF24</span>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-block" style="background: var(--red);"></div>
+              <code class="ds-token-name">--red</code>
+              <span class="ds-swatch-hex">#F87171</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── Typography scale ───────────────────────────────────── -->
+    <section class="ds-section">
+      <div class="ds-section-label">
+        <span class="ds-token-name">02 — TYPOGRAPHY SCALE</span>
+      </div>
+
+      <div class="ds-type-rows">
+
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <code class="ds-token-name">--fs-display</code>
+            <span class="ds-token-value">clamp(44px, 5.5vw, 68px)</span>
+            <span class="ds-type-role">Display / Home hero</span>
+          </div>
+          <div class="ds-type-sample ds-type-sample--display">
+            Built to grow the businesses America runs on.
+          </div>
+        </div>
+
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <code class="ds-token-name">--fs-h1</code>
+            <span class="ds-token-value">clamp(40px, 5vw, 60px)</span>
+            <span class="ds-type-role">Page hero (H1)</span>
+          </div>
+          <div class="ds-type-sample ds-type-sample--h1">
+            What we do best.
+          </div>
+        </div>
+
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <code class="ds-token-name">--fs-h1-article</code>
+            <span class="ds-token-value">clamp(28px, 4vw, 50px)</span>
+            <span class="ds-type-role">Article title (H1)</span>
+          </div>
+          <div class="ds-type-sample ds-type-sample--h1-article">
+            The quiet power of consistent marketing
+          </div>
+        </div>
+
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <code class="ds-token-name">--fs-h2</code>
+            <span class="ds-token-value">clamp(26px, 3.5vw, 42px)</span>
+            <span class="ds-type-role">Section heading (H2)</span>
+          </div>
+          <div class="ds-type-sample ds-type-sample--h2">
+            Our approach to every engagement
+          </div>
+        </div>
+
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <code class="ds-token-name">--fs-h2-cta</code>
+            <span class="ds-token-value">clamp(26px, 3.5vw, 40px)</span>
+            <span class="ds-type-role">CTA / callout heading</span>
+          </div>
+          <div class="ds-type-sample ds-type-sample--h2-cta">
+            Ready to grow? Let's talk.
+          </div>
+        </div>
+
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <code class="ds-token-name">--fs-h3</code>
+            <span class="ds-token-value">18px</span>
+            <span class="ds-type-role">Card / block title (H3)</span>
+          </div>
+          <div class="ds-type-sample ds-type-sample--h3">
+            Paid Search
+          </div>
+        </div>
+
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <code class="ds-token-name">--fs-body</code>
+            <span class="ds-token-value">16px</span>
+            <span class="ds-type-role">Standard body</span>
+          </div>
+          <div class="ds-type-sample ds-type-sample--body">
+            We work with service businesses that are serious about growth. No vanity metrics, no black boxes.
+          </div>
+        </div>
+
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <code class="ds-token-name">--fs-body-sm</code>
+            <span class="ds-token-value">14px</span>
+            <span class="ds-type-role">Secondary / card body</span>
+          </div>
+          <div class="ds-type-sample ds-type-sample--body-sm">
+            Secondary body copy for cards and supporting text.
+          </div>
+        </div>
+
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <code class="ds-token-name">--fs-label</code>
+            <span class="ds-token-value">11px</span>
+            <span class="ds-type-role">Eyebrow / status label</span>
+          </div>
+          <div class="ds-type-sample ds-type-sample--label">
+            TAKING NEW CLIENTS
+          </div>
+        </div>
+
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <code class="ds-token-name">--fs-tag</code>
+            <span class="ds-token-value">10px</span>
+            <span class="ds-type-role">Tag / filter chip</span>
+          </div>
+          <div class="ds-type-sample">
+            <span class="tag">SEO</span>
+          </div>
+        </div>
+
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <code class="ds-token-name">--fs-micro</code>
+            <span class="ds-token-value">9px</span>
+            <span class="ds-type-role">Index / annotation / date</span>
+          </div>
+          <div class="ds-type-sample ds-type-sample--micro">
+            01 — 2024-03-15 — RAILSHOP
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── Font weights ───────────────────────────────────────── -->
+    <section class="ds-section">
+      <div class="ds-section-label">
+        <span class="ds-token-name">03 — FONT WEIGHTS</span>
+      </div>
+
+      <div class="ds-weights">
+        <div class="ds-weight-row">
+          <div class="ds-weight-meta">
+            <code class="ds-token-name">--fw-black</code>
+            <span class="ds-token-value">800</span>
+          </div>
+          <span class="ds-weight-sample" style="font-weight: 800;">Railshop Performance Marketing</span>
+        </div>
+        <div class="ds-weight-row">
+          <div class="ds-weight-meta">
+            <code class="ds-token-name">--fw-bold</code>
+            <span class="ds-token-value">700</span>
+          </div>
+          <span class="ds-weight-sample" style="font-weight: 700;">Railshop Performance Marketing</span>
+        </div>
+        <div class="ds-weight-row">
+          <div class="ds-weight-meta">
+            <code class="ds-token-name">--fw-semi</code>
+            <span class="ds-token-value">600</span>
+          </div>
+          <span class="ds-weight-sample" style="font-weight: 600;">Railshop Performance Marketing</span>
+        </div>
+        <div class="ds-weight-row">
+          <div class="ds-weight-meta">
+            <code class="ds-token-name">--fw-medium</code>
+            <span class="ds-token-value">500</span>
+          </div>
+          <span class="ds-weight-sample" style="font-weight: 500;">Railshop Performance Marketing</span>
+        </div>
+        <div class="ds-weight-row">
+          <div class="ds-weight-meta">
+            <code class="ds-token-name">--fw-regular</code>
+            <span class="ds-token-value">400</span>
+          </div>
+          <span class="ds-weight-sample" style="font-weight: 400;">Railshop Performance Marketing</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Spacing scale ──────────────────────────────────────── -->
+    <section class="ds-section">
+      <div class="ds-section-label">
+        <span class="ds-token-name">04 — SPACING SCALE</span>
+      </div>
+
+      <div class="ds-spacing">
+        {[
+          { name: '--space-1',  px: '4px'   },
+          { name: '--space-2',  px: '8px'   },
+          { name: '--space-3',  px: '12px'  },
+          { name: '--space-4',  px: '16px'  },
+          { name: '--space-5',  px: '20px'  },
+          { name: '--space-6',  px: '24px'  },
+          { name: '--space-8',  px: '32px'  },
+          { name: '--space-10', px: '40px'  },
+          { name: '--space-12', px: '48px'  },
+          { name: '--space-14', px: '56px'  },
+          { name: '--space-16', px: '64px'  },
+          { name: '--space-20', px: '80px'  },
+          { name: '--space-24', px: '96px'  },
+          { name: '--space-32', px: '128px' },
+        ].map(({ name, px }) => (
+          <div class="ds-space-row">
+            <div class="ds-space-meta">
+              <code class="ds-token-name">{name}</code>
+              <span class="ds-token-value">{px}</span>
+            </div>
+            <div class="ds-space-bar-track">
+              <div class="ds-space-bar" style={`width: ${px}; max-width: 100%;`}></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ── Border radius ──────────────────────────────────────── -->
+    <section class="ds-section">
+      <div class="ds-section-label">
+        <span class="ds-token-name">05 — BORDER RADIUS</span>
+      </div>
+
+      <div class="ds-radii">
+        <div class="ds-radius-item">
+          <div class="ds-radius-box" style="border-radius: var(--radius-sm);"></div>
+          <code class="ds-token-name">--radius-sm</code>
+          <span class="ds-token-value">2px — Buttons</span>
+        </div>
+        <div class="ds-radius-item">
+          <div class="ds-radius-box" style="border-radius: var(--radius-md);"></div>
+          <code class="ds-token-name">--radius-md</code>
+          <span class="ds-token-value">4px — Tags</span>
+        </div>
+        <div class="ds-radius-item">
+          <div class="ds-radius-box" style="border-radius: var(--radius-lg);"></div>
+          <code class="ds-token-name">--radius-lg</code>
+          <span class="ds-token-value">12px — Cards</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Buttons ────────────────────────────────────────────── -->
+    <section class="ds-section">
+      <div class="ds-section-label">
+        <span class="ds-token-name">06 — BUTTONS</span>
+      </div>
+
+      <div class="ds-buttons">
+        <div class="ds-btn-item">
+          <button class="btn-primary">
+            Book a Call
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          <code class="ds-token-name">.btn-primary</code>
+          <span class="ds-token-value">Primary CTA</span>
+        </div>
+        <div class="ds-btn-item">
+          <button class="btn-secondary">
+            View Our Work
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          <code class="ds-token-name">.btn-secondary</code>
+          <span class="ds-token-value">Secondary action</span>
+        </div>
+        <div class="ds-btn-item">
+          <button class="btn-outline">
+            Learn More
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          <code class="ds-token-name">.btn-outline</code>
+          <span class="ds-token-value">Tertiary / ghost</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Components ─────────────────────────────────────────── -->
+    <section class="ds-section">
+      <div class="ds-section-label">
+        <span class="ds-token-name">07 — COMPONENTS</span>
+      </div>
+
+      <div class="ds-components">
+
+        <div class="ds-component-row">
+          <div class="ds-component-label">
+            <code class="ds-token-name">.eyebrow</code>
+            <span class="ds-token-value">Global utility class</span>
+          </div>
+          <div class="ds-component-preview">
+            <p class="eyebrow">Performance Marketing</p>
+          </div>
+        </div>
+
+        <div class="ds-component-row">
+          <div class="ds-component-label">
+            <code class="ds-token-name">.tag</code>
+            <span class="ds-token-value">Global utility class</span>
+          </div>
+          <div class="ds-component-preview ds-component-preview--row">
+            <span class="tag">SEO</span>
+            <span class="tag">Paid Ads</span>
+            <span class="tag">Web</span>
+            <span class="tag">Content</span>
+          </div>
+        </div>
+
+        <div class="ds-component-row">
+          <div class="ds-component-label">
+            <code class="ds-token-name">.card</code>
+            <span class="ds-token-value">Global utility class</span>
+          </div>
+          <div class="ds-component-preview">
+            <div class="card" style="max-width: 320px;">
+              <p class="eyebrow" style="margin-bottom: var(--space-3);">Paid Search</p>
+              <h3 style="font-size: var(--fs-h3); font-weight: var(--fw-bold); color: var(--text-2); margin: 0 0 var(--space-2);">Revenue-focused SEM</h3>
+              <p style="font-size: var(--fs-body-sm); color: var(--text-3); line-height: var(--lh-body); margin: 0;">Google and Microsoft Ads managed for conversion, not impressions. We build campaigns that pay for themselves.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── SectionHeader component ───────────────────────────── -->
+    <section class="ds-section">
+      <div class="ds-section-label">
+        <span class="ds-token-name">08 — SECTIONHEADER COMPONENT</span>
+      </div>
+      <p class="ds-component-desc">
+        <code class="ds-inline-code">src/components/ui/SectionHeader.astro</code> — Props: <code class="ds-inline-code">eyebrow?</code>, <code class="ds-inline-code">heading</code>, <code class="ds-inline-code">subhead?</code>, <code class="ds-inline-code">align?: 'left' | 'center'</code>, <code class="ds-inline-code">headingLevel?: 'h2' | 'h3'</code>
+      </p>
+
+      <div class="ds-section-header-examples">
+
+        <div class="ds-sh-example">
+          <p class="ds-sh-label ds-token-name">Left-aligned with eyebrow</p>
+          <div class="ds-sh-preview">
+            <SectionHeader
+              eyebrow="Our Services"
+              heading="Built for what service businesses need"
+              subhead="Senior-level strategy on every engagement. No junior hand-offs, no black boxes."
+              align="left"
+            />
+          </div>
+        </div>
+
+        <div class="ds-sh-example">
+          <p class="ds-sh-label ds-token-name">Left-aligned, no eyebrow</p>
+          <div class="ds-sh-preview">
+            <SectionHeader
+              heading="The work we're proud of"
+              subhead="Numbers matter. So does context. Here's what we've built — and why it worked."
+              align="left"
+            />
+          </div>
+        </div>
+
+        <div class="ds-sh-example">
+          <p class="ds-sh-label ds-token-name">Center-aligned with eyebrow</p>
+          <div class="ds-sh-preview ds-sh-preview--center">
+            <SectionHeader
+              eyebrow="The Team"
+              heading="Two operators, no overhead"
+              subhead="Drew and Sean have spent a decade growing service businesses. You get both of them."
+              align="center"
+            />
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── Footer rule ────────────────────────────────────────── -->
+    <div class="ds-footer-rule">
+      <div class="ds-rule-line"></div>
+      <span class="ds-token-name">// END DESIGN SYSTEM — RAILSHOP WEB</span>
+      <div class="ds-rule-line"></div>
+    </div>
+
+  </main>
+</BaseLayout>
+
+<style>
+  /* ── Page shell ──────────────────────────────────────────────── */
+  .ds-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: var(--space-10) var(--space-6) var(--space-24);
+  }
+
+  /* ── Shared token label styles ───────────────────────────────── */
+  .ds-token-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--fs-micro);
+    color: var(--text-3);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+  }
+
+  .ds-token-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--fs-micro);
+    color: var(--text-3);
+    opacity: 0.55;
+  }
+
+  .ds-inline-code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--fs-micro);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 2px 5px;
+    color: var(--blue);
+  }
+
+  /* ── Page header ─────────────────────────────────────────────── */
+  .ds-header {
+    padding-bottom: var(--space-10);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: var(--space-10);
+  }
+
+  .ds-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-6);
+    margin-bottom: var(--space-4);
+  }
+
+  .ds-title {
+    font-size: var(--fs-display);
+    font-weight: var(--fw-black);
+    line-height: var(--lh-display);
+    letter-spacing: var(--ls-display);
+    color: var(--text-2);
+    margin: var(--space-3) 0 var(--space-4);
+  }
+
+  .ds-subtitle {
+    font-size: var(--fs-body);
+    color: var(--text-3);
+    line-height: var(--lh-body);
+    max-width: 560px;
+    margin: 0;
+  }
+
+  .ds-theme-toggle {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-2);
+    flex-shrink: 0;
+    padding-top: var(--space-3);
+  }
+
+  .ds-meta {
+    display: flex;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+
+  /* ── Section shell ───────────────────────────────────────────── */
+  .ds-section {
+    padding: var(--space-10) 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ds-section-label {
+    margin-bottom: var(--space-8);
+  }
+
+  .ds-group-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--fs-micro);
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: var(--ls-wider);
+    margin: 0 0 var(--space-4);
+  }
+
+  /* ── Colour ──────────────────────────────────────────────────── */
+  .ds-colour-groups {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .ds-swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .ds-swatch {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .ds-swatch-block {
+    width: 80px;
+    height: 56px;
+    border-radius: var(--radius-md);
+  }
+
+  .ds-swatch-hex {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--fs-micro);
+    color: var(--text-3);
+    opacity: 0.5;
+  }
+
+  /* ── Typography ──────────────────────────────────────────────── */
+  .ds-type-rows {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ds-type-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--space-8);
+    align-items: start;
+    padding: var(--space-6) 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ds-type-row:last-child {
+    border-bottom: none;
+  }
+
+  .ds-type-meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding-top: var(--space-2);
+  }
+
+  .ds-type-role {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--fs-micro);
+    color: var(--text-3);
+    opacity: 0.4;
+  }
+
+  .ds-type-sample { color: var(--text-2); font-weight: var(--fw-black); line-height: var(--lh-heading); }
+  .ds-type-sample--display   { font-size: var(--fs-display);    letter-spacing: var(--ls-display); }
+  .ds-type-sample--h1        { font-size: var(--fs-h1);         letter-spacing: var(--ls-heading); }
+  .ds-type-sample--h1-article{ font-size: var(--fs-h1-article); letter-spacing: var(--ls-heading); }
+  .ds-type-sample--h2        { font-size: var(--fs-h2);         letter-spacing: var(--ls-heading); }
+  .ds-type-sample--h2-cta    { font-size: var(--fs-h2-cta);     letter-spacing: var(--ls-heading); }
+  .ds-type-sample--h3        { font-size: var(--fs-h3);         letter-spacing: var(--ls-snug);    }
+  .ds-type-sample--body      { font-size: var(--fs-body);       font-weight: var(--fw-regular); line-height: var(--lh-body); letter-spacing: var(--ls-normal); color: var(--text-3); }
+  .ds-type-sample--body-sm   { font-size: var(--fs-body-sm);    font-weight: var(--fw-regular); line-height: var(--lh-body); letter-spacing: var(--ls-normal); color: var(--text-3); }
+  .ds-type-sample--label     { font-size: var(--fs-label);      font-weight: var(--fw-bold);    text-transform: uppercase; letter-spacing: var(--ls-wider); color: var(--blue); }
+  .ds-type-sample--micro     { font-family: 'JetBrains Mono', monospace; font-size: var(--fs-micro); letter-spacing: var(--ls-wide); color: var(--text-3); }
+
+  /* ── Font weights ────────────────────────────────────────────── */
+  .ds-weights {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .ds-weight-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--space-8);
+    align-items: center;
+    padding: var(--space-5) 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ds-weight-row:last-child { border-bottom: none; }
+
+  .ds-weight-meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .ds-weight-sample {
+    font-size: 20px;
+    color: var(--text-2);
+    letter-spacing: -0.02em;
+  }
+
+  /* ── Spacing ─────────────────────────────────────────────────── */
+  .ds-spacing {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .ds-space-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: var(--space-6);
+    align-items: center;
+  }
+
+  .ds-space-meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .ds-space-bar-track {
+    flex: 1;
+  }
+
+  .ds-space-bar {
+    height: 12px;
+    background: var(--blue);
+    opacity: 0.25;
+    border-radius: 2px;
+    min-width: 4px;
+  }
+
+  /* ── Border radius ───────────────────────────────────────────── */
+  .ds-radii {
+    display: flex;
+    gap: var(--space-10);
+    flex-wrap: wrap;
+  }
+
+  .ds-radius-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .ds-radius-box {
+    width: 80px;
+    height: 80px;
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+  }
+
+  /* ── Buttons ─────────────────────────────────────────────────── */
+  .ds-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-8);
+    align-items: flex-start;
+  }
+
+  .ds-btn-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  /* ── Components ──────────────────────────────────────────────── */
+  .ds-components {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .ds-component-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: var(--space-8);
+    align-items: start;
+    padding: var(--space-6) 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ds-component-row:last-child { border-bottom: none; }
+
+  .ds-component-label {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding-top: var(--space-1);
+  }
+
+  .ds-component-preview {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ds-component-preview--row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .ds-component-desc {
+    font-size: var(--fs-body-sm);
+    color: var(--text-3);
+    line-height: var(--lh-body);
+    margin: 0 0 var(--space-8);
+  }
+
+  /* ── SectionHeader examples ──────────────────────────────────── */
+  .ds-section-header-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .ds-sh-example {
+    padding: var(--space-8) 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ds-sh-example:last-child { border-bottom: none; }
+
+  .ds-sh-label {
+    margin: 0 0 var(--space-5);
+  }
+
+  .ds-sh-preview {
+    padding: var(--space-6);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .ds-sh-preview--center {
+    display: flex;
+    justify-content: center;
+  }
+
+  /* ── Footer rule ─────────────────────────────────────────────── */
+  .ds-footer-rule {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding-top: var(--space-10);
+  }
+
+  .ds-rule-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── Responsive ──────────────────────────────────────────────── */
+  @media (max-width: 700px) {
+    .ds-type-row,
+    .ds-weight-row,
+    .ds-component-row,
+    .ds-space-row {
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+    }
+
+    .ds-header-top {
+      flex-direction: column;
+    }
+
+    .ds-theme-toggle {
+      align-items: flex-start;
+    }
+  }
+</style>

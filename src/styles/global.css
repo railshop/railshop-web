@@ -10,6 +10,7 @@
    CSS CUSTOM PROPERTIES — DARK (DEFAULT)
    ============================================================ */
 :root {
+  /* ── Colour ───────────────────────────────────────────────── */
   --bg:          #111315;
   --surface:     #191C1E;
   --surface-2:   #202427;
@@ -27,6 +28,63 @@
   --green:       #34D399;
   --gold:        #FBBF24;
   --red:         #F87171;
+
+  /* ── Type scale ───────────────────────────────────────────── */
+  --fs-display:    clamp(44px, 5.5vw, 68px); /* Home hero H1          */
+  --fs-h1:         clamp(40px, 5vw, 60px);   /* Interior page heroes  */
+  --fs-h1-article: clamp(28px, 4vw, 50px);  /* Blog / article titles  */
+  --fs-h2:         clamp(26px, 3.5vw, 42px); /* Section headings      */
+  --fs-h2-cta:     clamp(26px, 3.5vw, 40px); /* CTA / callout blocks  */
+  --fs-h3:         18px;                      /* Card / block titles   */
+  --fs-body:       16px;                      /* Standard body         */
+  --fs-body-sm:    14px;                      /* Secondary / card body */
+  --fs-label:      11px;                      /* Eyebrows, status      */
+  --fs-tag:        10px;                      /* Tags, filters         */
+  --fs-micro:      9px;                       /* Indices, annotations  */
+
+  /* ── Font weights ─────────────────────────────────────────── */
+  --fw-black:   800;
+  --fw-bold:    700;
+  --fw-semi:    600;
+  --fw-medium:  500;
+  --fw-regular: 400;
+
+  /* ── Letter spacing ───────────────────────────────────────── */
+  --ls-display: -0.04em;
+  --ls-heading: -0.03em;
+  --ls-snug:    -0.01em;
+  --ls-normal:  0;
+  --ls-wide:    0.08em;
+  --ls-wider:   0.12em;
+  --ls-widest:  0.18em;
+
+  /* ── Line heights ─────────────────────────────────────────── */
+  --lh-display: 1.05;
+  --lh-heading: 1.1;
+  --lh-title:   1.2;
+  --lh-body:    1.75;
+  --lh-relaxed: 1.85;
+
+  /* ── Spacing scale (base 4px) ─────────────────────────────── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-14: 56px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  /* ── Border radius ────────────────────────────────────────── */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 12px;
 }
 
 /* ============================================================
@@ -128,20 +186,20 @@ a {
 /* Eyebrow: Inter for legibility, mono only for data annotations */
 .eyebrow {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 11px;
-  font-weight: 700;
+  font-size: var(--fs-label);
+  font-weight: var(--fw-bold);
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--ls-wider);
   color: var(--blue);
 }
 
 .tag {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 10px;
-  font-weight: 600;
+  font-size: var(--fs-tag);
+  font-weight: var(--fw-semi);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  border-radius: 4px;
+  letter-spacing: var(--ls-wide);
+  border-radius: var(--radius-md);
   padding: 3px 8px;
   display: inline-block;
   border: 1px solid var(--border);
@@ -152,8 +210,8 @@ a {
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 24px;
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
   transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
@@ -165,16 +223,16 @@ a {
 .btn-primary {
   background: var(--blue);
   color: #111315;
-  font-weight: 700;
-  border-radius: 2px;
+  font-weight: var(--fw-bold);
+  border-radius: var(--radius-sm);
   padding: 10px 18px;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-2);
   transition: background 0.2s ease, opacity 0.2s ease;
   border: none;
   cursor: pointer;
-  font-size: 14px;
+  font-size: var(--fs-body-sm);
 }
 
 .btn-primary:hover {
@@ -184,16 +242,16 @@ a {
 .btn-secondary {
   background: transparent;
   color: var(--text);
-  font-weight: 600;
-  border-radius: 2px;
+  font-weight: var(--fw-semi);
+  border-radius: var(--radius-sm);
   padding: 10px 18px;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-2);
   transition: border-color 0.2s ease, color 0.2s ease;
   border: 1px solid var(--border-2);
   cursor: pointer;
-  font-size: 14px;
+  font-size: var(--fs-body-sm);
 }
 
 .btn-secondary:hover {
@@ -204,16 +262,16 @@ a {
 .btn-outline {
   background: transparent;
   color: var(--blue);
-  font-weight: 700;
-  border-radius: 2px;
+  font-weight: var(--fw-bold);
+  border-radius: var(--radius-sm);
   padding: 10px 18px;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-2);
   transition: background 0.15s ease, border-color 0.15s ease;
   border: 1px solid var(--blue-border);
   cursor: pointer;
-  font-size: 14px;
+  font-size: var(--fs-body-sm);
 }
 
 .btn-outline:hover {
@@ -222,23 +280,23 @@ a {
 }
 
 .section {
-  padding: 80px 0;
+  padding: var(--space-20) 0;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 var(--space-6);
 }
 
 /* Hero headline — interior page default. Homepage and blog posts override via scoped styles. */
 .hero-headline {
-  font-size: clamp(40px, 5vw, 60px);
-  font-weight: 800;
-  line-height: 1.1;
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-black);
+  line-height: var(--lh-heading);
   color: var(--text-2);
-  letter-spacing: -0.03em;
-  margin-bottom: 18px;
+  letter-spacing: var(--ls-heading);
+  margin-bottom: var(--space-5);
 }
 
 /* Screen-reader only utility */
