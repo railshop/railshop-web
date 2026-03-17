@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/ui/Button.astro';
 import CtaBanner from '../../components/ui/CtaBanner.astro';
-import { getCaseStudyBySlug, getAllCaseStudySlugs } from '../../lib/sanity';
+import { getCaseStudyBySlug, getAllCaseStudySlugs, urlForImage } from '../../lib/sanity';
 import { caseStudySamples } from '../../lib/sampleData';
 
 export async function getStaticPaths() {
@@ -66,6 +66,9 @@ const testimonialRole   = cs.testimonial?.role ?? '';
 const initials = testimonialAuthor
   ? testimonialAuthor.split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase()
   : 'CL';
+const testimonialPhotoUrl = sanityCs?.testimonial?.photo?.asset
+  ? urlForImage(sanityCs.testimonial.photo).width(72).height(72).url()
+  : null;
 ---
 
 <BaseLayout
@@ -149,7 +152,6 @@ const initials = testimonialAuthor
         {cs.challenge && (
           <div class="content-block">
             <div class="block-header">
-              <span class="block-label">// THE CHALLENGE</span>
               <h2 class="block-title">The Challenge</h2>
             </div>
             <p class="body-copy">{cs.challenge}</p>
@@ -160,7 +162,6 @@ const initials = testimonialAuthor
         {cs.outcomes.length > 0 && (
           <div class="content-block">
             <div class="block-header">
-              <span class="block-label">// KEY RESULTS</span>
               <h2 class="block-title">Results</h2>
             </div>
             <div class="results-grid">
@@ -178,7 +179,6 @@ const initials = testimonialAuthor
         {cs.challenge && (
           <div class="content-block">
             <div class="block-header">
-              <span class="block-label">// CLIENT MEDIA</span>
               <h2 class="block-title">From the Engagement</h2>
             </div>
             <div class="photo-grid">
@@ -207,7 +207,6 @@ const initials = testimonialAuthor
         {cs.approach.length > 0 && (
           <div class="content-block">
             <div class="block-header">
-              <span class="block-label">// OUR APPROACH</span>
               <h2 class="block-title">Our Approach</h2>
             </div>
             <div class="approach-steps">
@@ -228,14 +227,16 @@ const initials = testimonialAuthor
         {cs.testimonial && (
           <div class="content-block">
             <div class="block-header">
-              <span class="block-label">// CLIENT TESTIMONY</span>
               <h2 class="block-title">In Their Words</h2>
             </div>
             <blockquote class="testimonial">
               <p class="testimonial-quote">"{cs.testimonial.quote}"</p>
               <footer class="testimonial-footer">
                 <div class="testimonial-avatar" aria-hidden="true">
-                  <span class="testimonial-initials">{initials}</span>
+                  {testimonialPhotoUrl
+                    ? <img src={testimonialPhotoUrl} alt={testimonialAuthor} class="testimonial-photo" />
+                    : <span class="testimonial-initials">{initials}</span>
+                  }
                 </div>
                 <div class="testimonial-attribution">
                   <span class="testimonial-author">{testimonialAuthor}</span>
@@ -486,15 +487,6 @@ const initials = testimonialAuthor
     gap: 6px;
     padding-bottom: 16px;
     border-bottom: 1px solid var(--border);
-  }
-
-  .block-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--blue);
-    opacity: 0.65;
   }
 
   .block-title {
@@ -774,6 +766,13 @@ const initials = testimonialAuthor
     color: var(--blue);
     font-weight: 500;
     letter-spacing: 0.08em;
+  }
+
+  .testimonial-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1px;
   }
 
   .testimonial-attribution { display: flex; flex-direction: column; gap: 3px; }
