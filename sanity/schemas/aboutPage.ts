@@ -31,9 +31,16 @@ export const aboutPage = defineType({
       type: 'object',
       fields: [
         {
+          name: 'image',
+          title: 'Section Photo',
+          description: 'The single photo shown to the right of the story text',
+          type: 'image',
+          options: { hotspot: true },
+        },
+        {
           name: 'blocks',
           title: 'Content Blocks',
-          description: 'Two-column content blocks (text + photo)',
+          description: 'Text blocks shown on the left side of the section',
           type: 'array',
           of: [
             defineArrayMember({
@@ -42,14 +49,6 @@ export const aboutPage = defineType({
                 { name: 'eyebrow', title: 'Eyebrow', type: 'string' },
                 { name: 'heading', title: 'Heading', type: 'string' },
                 { name: 'body', title: 'Body', type: 'text', rows: 4 },
-                { name: 'image', title: 'Photo', type: 'image', options: { hotspot: true } },
-                {
-                  name: 'imagePosition',
-                  title: 'Image Position',
-                  type: 'string',
-                  options: { list: ['left', 'right'], layout: 'radio' },
-                  initialValue: 'right',
-                },
               ],
             }),
           ],

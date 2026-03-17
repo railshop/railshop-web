@@ -83,6 +83,21 @@ export const homePage = defineType({
       ],
     }),
     defineField({
+      name: 'proofStats',
+      title: 'Social Proof Stats',
+      description: 'Up to 4 stats shown in the proof bar below the hero',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          fields: [
+            { name: 'value', title: 'Value', type: 'string' },
+            { name: 'label', title: 'Label', type: 'string' },
+          ],
+        }),
+      ],
+    }),
+    defineField({
       name: 'ctaBanner',
       title: 'CTA Banner',
       type: 'object',

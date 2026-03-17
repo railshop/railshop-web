@@ -5,7 +5,7 @@
  */
 
 import { createClient } from '@sanity/client';
-import { readFileSync } from 'fs';
+import { readFileSync, createReadStream } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -64,16 +64,53 @@ async function upsert(doc) {
   console.log(`  —\"  ${doc._type.padEnd(22)} ${doc._id}`);
 }
 
+// Upload a local image file and return a Sanity image reference object
+async function uploadImage(relativePath, filename) {
+  const fullPath = join(__dirname, '../public', relativePath);
+  try {
+    const stream = createReadStream(fullPath);
+    const asset = await client.assets.upload('image', stream, { filename });
+    console.log(`  ↑  image uploaded         ${filename}`);
+    return { _type: 'image', asset: { _type: 'reference', _ref: asset._id } };
+  } catch (err) {
+    console.warn(`  ⚠  image upload skipped   ${filename} (${err.message})`);
+    return undefined;
+  }
+}
+
 // —\"——\"——\"— Seed —\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"—
 async function seed() {
   console.log('\n🌱  Seeding Railshop Sanity dataset...\n');
+
+  // —\"——\"— UPLOAD IMAGES —\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"—
+  console.log('  — Uploading images —\"');
+  const [
+    imgDrew, imgSean, imgDrewSean, imgOffice,
+    imgBlogFail, imgBlogGoogleAds, imgBlogLocalSEO, imgBlogConvert, imgBlogAI,
+    imgLogoWindowNation, imgLogoVectorSecurity, imgLogoFireIce, imgLogoJPOps,
+  ] = await Promise.all([
+    uploadImage('images/drew 169 cropped.jpg',                     'drew-opalinski.jpg'),
+    uploadImage('images/sean 169 cropped.jpg',                     'sean-connelly.jpg'),
+    uploadImage('images/drew_sean.jpg',                            'drew-sean.jpg'),
+    uploadImage('images/office.jpg',                               'office.jpg'),
+    uploadImage('images/blog/why services businesses fail online.png', 'blog-why-service-businesses-fail.png'),
+    uploadImage('images/blog/google ads plateau after month 3.png',   'blog-google-ads-plateau.png'),
+    uploadImage('images/blog/local seo in 2026.png',                  'blog-local-seo-2026.png'),
+    uploadImage('images/blog/what makes a service website convert.png','blog-service-website-convert.png'),
+    uploadImage('images/blog/ai in client engagements.png',           'blog-ai-in-client-engagements.png'),
+    uploadImage('images/logos/window nation logo.png',                'logo-window-nation.png'),
+    uploadImage('images/logos/vector security logo.svg',              'logo-vector-security.svg'),
+    uploadImage('images/logos/fire and ice logo.png',                 'logo-fire-and-ice.png'),
+    uploadImage('images/logos/jp operations logo.svg',                'logo-jp-operations.svg'),
+  ]);
 
   // —\"——\"— SITE SETTINGS —\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"—
   await upsert({
     _id: 'siteSettings',
     _type: 'siteSettings',
-    siteName: 'Railshop',
-    tagline: 'Digital growth for service businesses.',
+    siteTitle: 'Railshop',
+    siteDescription: 'Digital growth for service businesses.',
+    siteUrl: 'https://railshop.co',
     footerTagline: "Digital growth for service businesses. Built on strategy. Delivered by people who've done it at scale.",
     address: '33 East Pittsburgh Street\nGreensburg, PA 15601',
     hubspotMeetingsUrl: 'https://launch.railshop.co/meetings/andrew-opalinski?embed=true',
@@ -83,12 +120,6 @@ async function seed() {
     instagramUrl: 'https://instagram.com/railshop',
     footerCtaHeading: 'Get Started',
     footerCtaCopy: 'Ready to see what the right digital partner can do for your business?',
-    stats: [
-      { _key: key(), value: '$100M+', label: 'Ad Spend Managed' },
-      { _key: key(), value: '8x',     label: 'Avg Blended ROAS' },
-      { _key: key(), value: '5+ Yrs', label: 'Avg Client Tenure' },
-      { _key: key(), value: '9+',     label: 'Industries Served' },
-    ],
   });
 
   // —\"——\"— HOME PAGE —\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"—
@@ -126,6 +157,12 @@ async function seed() {
       title: 'Straight talk on digital marketing.',
       intro: "No noise, no vanity metrics —\" just honest perspective on what's working for service businesses online.",
     },
+    proofStats: [
+      { _key: key(), value: '$100M+', label: 'Ad Spend Managed' },
+      { _key: key(), value: '8x',     label: 'Avg Blended ROAS' },
+      { _key: key(), value: '5+ Yrs', label: 'Avg Client Tenure' },
+      { _key: key(), value: '9+',     label: 'Industries Served' },
+    ],
     ctaBanner: {
       title: 'Ready to grow your service business online?',
       subtitle: "We take on a limited number of new clients. Book a call to see if we're the right fit.",
@@ -146,20 +183,19 @@ async function seed() {
       subhead: 'We started Railshop because great service businesses deserve better than what most agencies offer.',
     },
     ourStory: {
+      ...(imgOffice && { image: imgOffice }),
       blocks: [
         {
           _key: key(),
           eyebrow: '// Origin Story',
           heading: 'Why we started',
-          body: "Between us, we bring backgrounds on opposite sides of digital. One side is performance marketing —\" paid media, SEO, and web programs built and scaled at national service brands, with tens of millions in ad spend managed directly. The other side is product and software —\" leading development at scale, building the systems that make sure strategy actually ships. Most agencies don't have both. We thought it was worth building something that does.",
-          imagePosition: 'right',
+          body: "Between us, we bring backgrounds on opposite sides of digital. One side is performance marketing — paid media, SEO, and web programs built and scaled at national service brands, with tens of millions in ad spend managed directly. The other side is product and software — leading development at scale, building the systems that make sure strategy actually ships. Most agencies don't have both. We thought it was worth building something that does.",
         },
         {
           _key: key(),
           eyebrow: '// The Difference',
           heading: 'The Railshop difference',
-          body: "We kept seeing the same pattern: service businesses with real growth potential being handed off to junior account managers at agencies that barely understood their industry. Generic campaigns. Vanity reporting. Businesses left wondering why the phone wasn't ringing at the rate the dashboards suggested it should be. We knew we could do better —\" so we built a model where senior experience is the baseline, not the upsell. Strategy and execution, from people who've done it at scale.",
-          imagePosition: 'left',
+          body: "We kept seeing the same pattern: service businesses with real growth potential being handed off to junior account managers at agencies that barely understood their industry. Generic campaigns. Vanity reporting. Businesses left wondering why the phone wasn't ringing at the rate the dashboards suggested it should be. We knew we could do better — so we built a model where senior experience is the baseline, not the upsell. Strategy and execution, from people who've done it at scale.",
         },
       ],
     },
@@ -173,6 +209,12 @@ async function seed() {
         { _key: key(), eyebrow: '04', heading: 'Long-Term Thinking',    body: "We're not optimizing for the next 30 days. We're building programs that compound." },
       ],
     },
+    clientLogos: [
+      ...(imgLogoWindowNation  ? [{ _key: key(), name: 'Window Nation',    logo: imgLogoWindowNation }]  : []),
+      ...(imgLogoVectorSecurity ? [{ _key: key(), name: 'Vector Security',  logo: imgLogoVectorSecurity }] : []),
+      ...(imgLogoFireIce        ? [{ _key: key(), name: 'Fire & Ice',       logo: imgLogoFireIce }]        : []),
+      ...(imgLogoJPOps          ? [{ _key: key(), name: 'JP Operations',    logo: imgLogoJPOps }]          : []),
+    ],
     ctaBanner: {
       title: 'Senior experience. No hand-offs.',
       subtitle: "We take on a limited number of new clients. Book a call to see if we're the right fit.",
@@ -614,6 +656,7 @@ async function seed() {
     bio: "Former Head of Digital Marketing at Window Nation and Vector Security, where he built and scaled paid media, SEO, and web programs across national markets. Drew brings that enterprise playbook directly to growing service businesses.",
     linkedinUrl: 'https://linkedin.com/in/drewrailshop',
     order: 1,
+    ...(imgDrew && { photo: imgDrew }),
   });
 
   await upsert({
@@ -623,6 +666,7 @@ async function seed() {
     bio: "VP of Product at Momentive Software, where he leads product development and systems thinking at scale. Sean brings that same discipline to every Railshop engagement —\" making sure strategy translates into execution that actually ships.",
     linkedinUrl: 'https://linkedin.com/in/seanrailshop',
     order: 2,
+    ...(imgSean && { photo: imgSean }),
   });
 
   // —\"——\"— BLOG POSTS —\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"——\"—
@@ -748,12 +792,20 @@ async function seed() {
     },
   ];
 
-  for (const { slug, ...post } of posts) {
-    await upsert({ ...post, _type: 'post', slug: { current: slug } });
+  // Attach cover images by index order matching the posts array
+  const coverImages = [imgBlogFail, imgBlogGoogleAds, imgBlogLocalSEO, imgBlogConvert, imgBlogAI];
+  for (let i = 0; i < posts.length; i++) {
+    const { slug, ...post } = posts[i];
+    const coverImage = coverImages[i];
+    await upsert({
+      ...post,
+      _type: 'post',
+      slug: { current: slug },
+      ...(coverImage && { coverImage }),
+    });
   }
 
   console.log('\n✅  Seed complete —\" all documents created/updated.\n');
-  console.log('   Note: images (coverImage, photo) must be uploaded manually in Studio.\n');
 }
 
 seed().catch((err) => {

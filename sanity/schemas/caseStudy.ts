@@ -6,6 +6,15 @@ export const caseStudy = defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'seo',
+      title: 'SEO',
+      type: 'object',
+      fields: [
+        { name: 'metaTitle', title: 'Meta Title', type: 'string' },
+        { name: 'metaDescription', title: 'Meta Description', type: 'text', rows: 2 },
+      ],
+    }),
+    defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
@@ -112,6 +121,7 @@ export const caseStudy = defineType({
         { name: 'quote', title: 'Quote', type: 'text', rows: 3 },
         { name: 'name', title: 'Name', type: 'string' },
         { name: 'role', title: 'Role / Title', type: 'string' },
+        { name: 'photo', title: 'Photo', type: 'image', options: { hotspot: true } },
       ],
     }),
     defineField({
@@ -136,15 +146,6 @@ export const caseStudy = defineType({
       title: 'Cover Image',
       type: 'image',
       options: { hotspot: true },
-    }),
-    defineField({
-      name: 'seo',
-      title: 'SEO',
-      type: 'object',
-      fields: [
-        { name: 'metaTitle', title: 'Meta Title', type: 'string' },
-        { name: 'metaDescription', title: 'Meta Description', type: 'text', rows: 2 },
-      ],
     }),
   ],
 });

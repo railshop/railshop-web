@@ -11,9 +11,23 @@ export const sanityClient = createClient({
 // IMAGE URL BUILDER
 // ============================================================
 export function urlForImage(source: { asset?: { _ref?: string } }) {
-  if (!source?.asset?._ref) return '';
+  const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID ?? 'your-project-id';
+  if (!source?.asset?._ref) {
+    const empty = { width: () => empty, height: () => empty, url: () => '' };
+    return empty;
+  }
   const [, id, dimensions, format] = source.asset._ref.split('-');
-  return `https://cdn.sanity.io/images/${import.meta.env.PUBLIC_SANITY_PROJECT_ID ?? 'your-project-id'}/production/${id}-${dimensions}.${format}`;
+  const base = `https://cdn.sanity.io/images/${projectId}/production/${id}-${dimensions}.${format}`;
+  const params: Record<string, string> = {};
+  const builder = {
+    width(w: number) { params['w'] = String(w); return builder; },
+    height(h: number) { params['h'] = String(h); return builder; },
+    url() {
+      const qs = new URLSearchParams(params).toString();
+      return qs ? `${base}?${qs}` : base;
+    },
+  };
+  return builder;
 }
 
 // ============================================================

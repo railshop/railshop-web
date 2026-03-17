@@ -48,8 +48,8 @@ const displayPosts = posts.length > 0 ? posts : [
   { _id: '3', title: 'What Makes a Service Business Website Actually Convert', excerpt: 'Speed, structure, and trust signals — the three things that separate websites that generate leads from ones that don\'t.', publishedAt: '2025-12-18', slug: { current: 'service-business-website-conversion' } },
 ];
 
-// Proof bar stats — from siteSettings, fallback to hardcoded
-const proofStats = (settings?.stats?.length > 0 ? settings.stats : [
+// Proof bar stats — from homePage, fallback to hardcoded
+const proofStats = (homePage?.proofStats?.length > 0 ? homePage.proofStats : [
   { value: '$100M+', label: 'Ad Spend Managed' },
   { value: '8x',     label: 'Avg Blended ROAS' },
   { value: '5+ Yrs', label: 'Avg Client Tenure' },

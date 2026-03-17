@@ -6,6 +6,15 @@ export const post = defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'seo',
+      title: 'SEO',
+      type: 'object',
+      fields: [
+        { name: 'metaTitle', title: 'Meta Title', type: 'string' },
+        { name: 'metaDescription', title: 'Meta Description', type: 'text', rows: 2 },
+      ],
+    }),
+    defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
@@ -59,15 +68,6 @@ export const post = defineType({
       name: 'author',
       title: 'Author',
       type: 'string',
-    }),
-    defineField({
-      name: 'seo',
-      title: 'SEO',
-      type: 'object',
-      fields: [
-        { name: 'metaTitle', title: 'Meta Title', type: 'string' },
-        { name: 'metaDescription', title: 'Meta Description', type: 'text', rows: 2 },
-      ],
     }),
   ],
   orderings: [

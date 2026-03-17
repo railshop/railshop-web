@@ -6,6 +6,15 @@ export const service = defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'seo',
+      title: 'SEO',
+      type: 'object',
+      fields: [
+        { name: 'metaTitle', title: 'Meta Title', type: 'string' },
+        { name: 'metaDescription', title: 'Meta Description', type: 'text', rows: 2 },
+      ],
+    }),
+    defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
@@ -74,15 +83,6 @@ export const service = defineType({
       name: 'order',
       title: 'Display Order',
       type: 'number',
-    }),
-    defineField({
-      name: 'seo',
-      title: 'SEO',
-      type: 'object',
-      fields: [
-        { name: 'metaTitle', title: 'Meta Title', type: 'string' },
-        { name: 'metaDescription', title: 'Meta Description', type: 'text', rows: 2 },
-      ],
     }),
   ],
   orderings: [

@@ -1,4 +1,4 @@
-import { defineType, defineField, defineArrayMember } from 'sanity';
+import { defineType, defineField } from 'sanity';
 
 export const siteSettings = defineType({
   name: 'siteSettings',
@@ -26,6 +26,12 @@ export const siteSettings = defineType({
       name: 'logo',
       title: 'Logo',
       type: 'image',
+    }),
+    defineField({
+      name: 'favicon',
+      title: 'Favicon',
+      type: 'image',
+      description: 'Upload a PNG or SVG — recommended size 32×32 or 64×64px',
     }),
     defineField({
       name: 'ogImage',
@@ -80,31 +86,6 @@ export const siteSettings = defineType({
       title: 'Footer CTA Copy',
       type: 'text',
       rows: 2,
-    }),
-    defineField({
-      name: 'heroHeadline',
-      title: 'Hero Headline',
-      type: 'string',
-    }),
-    defineField({
-      name: 'heroSubhead',
-      title: 'Hero Subheadline',
-      type: 'text',
-      rows: 2,
-    }),
-    defineField({
-      name: 'stats',
-      title: 'Social Proof Stats',
-      type: 'array',
-      of: [
-        defineArrayMember({
-          type: 'object',
-          fields: [
-            { name: 'value', title: 'Value', type: 'string' },
-            { name: 'label', title: 'Label', type: 'string' },
-          ],
-        }),
-      ],
     }),
   ],
 });
