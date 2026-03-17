@@ -20,7 +20,6 @@ export const blogPage = defineType({
       title: 'Hero',
       type: 'object',
       fields: [
-        { name: 'eyebrow', title: 'Eyebrow', type: 'string' },
         { name: 'headline', title: 'Headline', type: 'string' },
         { name: 'subhead', title: 'Subheadline', type: 'text', rows: 2 },
       ],

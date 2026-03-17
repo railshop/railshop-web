@@ -233,7 +233,7 @@ a {
 
 /* Hero headline — interior page default. Homepage and blog posts override via scoped styles. */
 .hero-headline {
-  font-size: clamp(28px, 4vw, 48px);
+  font-size: clamp(40px, 5vw, 60px);
   font-weight: 800;
   line-height: 1.1;
   color: var(--text-2);
