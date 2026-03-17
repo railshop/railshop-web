@@ -24,17 +24,23 @@ try {
 
 const sample = caseStudySamples[slug];
 const cs = {
-  title:       sanityCs?.title    ?? sample?.title    ?? 'Case Study',
-  client:      sanityCs?.client   ?? sample?.client   ?? 'Confidential Client',
-  industry:    sanityCs?.industry ?? sample?.industry ?? '',
-  excerpt:     sanityCs?.excerpt  ?? sample?.excerpt  ?? '',
-  results:     sanityCs?.results  ?? sample?.results  ?? '',
-  duration:    sample?.duration   ?? '',
-  services:    sample?.services   ?? [],
-  challenge:   sample?.challenge  ?? '',
-  approach:    sample?.approach   ?? [],
-  outcomes:    sample?.outcomes   ?? [],
-  testimonial: sample?.testimonial,
+  title:       sanityCs?.title       ?? sample?.title    ?? 'Case Study',
+  client:      sanityCs?.client      ?? sample?.client   ?? 'Confidential Client',
+  industry:    sanityCs?.industry    ?? sample?.industry ?? '',
+  excerpt:     sanityCs?.excerpt     ?? sample?.excerpt  ?? '',
+  // stats replaces old `results` string — use Sanity stats array, fall back to sample outcomes
+  outcomes:    sanityCs?.stats?.length > 0
+                 ? sanityCs.stats
+                 : sample?.outcomes ?? [],
+  duration:    sample?.duration      ?? '',
+  services:    sanityCs?.services?.length > 0
+                 ? sanityCs.services
+                 : sample?.services ?? [],
+  challenge:   sanityCs?.challenge   ?? sample?.challenge  ?? '',
+  approach:    sanityCs?.approach?.length > 0
+                 ? sanityCs.approach
+                 : sample?.approach ?? [],
+  testimonial: sanityCs?.testimonial ?? sample?.testimonial,
 };
 
 // Module ID from slug index
@@ -54,9 +60,11 @@ const industryIcons: Record<string, string> = {
 const industryKey = cs.industry?.toUpperCase();
 const iconPaths = industryIcons[industryKey] ?? '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>';
 
-// Testimonial initials
-const initials = cs.testimonial?.author
-  ? cs.testimonial.author.split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase()
+// Testimonial — supports both Sanity (name/role) and sampleData (author/role) shapes
+const testimonialAuthor = cs.testimonial?.name ?? cs.testimonial?.author ?? '';
+const testimonialRole   = cs.testimonial?.role ?? '';
+const initials = testimonialAuthor
+  ? testimonialAuthor.split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase()
   : 'CL';
 ---
 
@@ -113,13 +121,13 @@ const initials = cs.testimonial?.author
           <h1 class="hero-headline">{cs.title}</h1>
           <p class="hero-sub">{cs.excerpt}</p>
 
-          {cs.results && (
+          {cs.outcomes.length > 0 && (
             <div class="result-pill">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
                 <polyline points="17 6 23 6 23 12"/>
               </svg>
-              <span class="result-pill-text">{cs.results}</span>
+              <span class="result-pill-text">{cs.outcomes[0].value} {cs.outcomes[0].label}</span>
             </div>
           )}
         </div>
@@ -230,8 +238,8 @@ const initials = cs.testimonial?.author
                   <span class="testimonial-initials">{initials}</span>
                 </div>
                 <div class="testimonial-attribution">
-                  <span class="testimonial-author">{cs.testimonial.author}</span>
-                  <span class="testimonial-role">{cs.testimonial.role}</span>
+                  <span class="testimonial-author">{testimonialAuthor}</span>
+                  <span class="testimonial-role">{testimonialRole}</span>
                 </div>
               </footer>
             </blockquote>

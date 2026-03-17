@@ -2,7 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionTag from '../../components/ui/SectionTag.astro';
 import Button from '../../components/ui/Button.astro';
-import { getPostBySlug, getAllPostSlugs } from '../../lib/sanity';
+import PortableText from '../../components/ui/PortableText.astro';
+import { getPostBySlug, getAllPostSlugs, estimateReadTime } from '../../lib/sanity';
 
 export async function getStaticPaths() {
   try {
@@ -50,6 +51,8 @@ const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
   day: 'numeric',
   year: 'numeric',
 });
+
+const readTime = post.body ? estimateReadTime(post.body) : null;
 ---
 
 <BaseLayout
@@ -73,6 +76,7 @@ const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
           <span class="post-cat-tag">{cat.title}</span>
         ))}
         <span class="post-date">{formattedDate}</span>
+        {readTime && <span class="post-date">{readTime}</span>}
       </div>
       <h1 class="post-title">{post.title}</h1>
       <p class="post-byline">By the Railshop Team</p>
@@ -86,35 +90,9 @@ const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
       <!-- Main -->
       <article class="post-body">
         {post.body ? (
-          <p>Post content from Sanity will render here with a Portable Text renderer.</p>
+          <PortableText value={post.body} />
         ) : (
-          <div class="placeholder-body">
-            <p>Most service businesses are not failing because their work is bad. They are failing online because the strategies they are running were designed for companies with six-figure ad budgets, in-house marketing teams, and the patience to wait eighteen months for results. That is not the reality for most owner-operators.</p>
-
-            <hr />
-
-            <h2>What We See Happening</h2>
-            <p>The pattern is consistent across industries. A business invests in a website, runs some Google Ads, maybe hires an SEO vendor — and then waits. Traffic ticks up, but leads do not follow proportionally. The agency sends a report full of impressions and click-through rates. The owner is left wondering why the phone is not ringing at the same rate the dashboards suggest it should be.</p>
-            <p>The disconnect is almost never about budget. It is about fit. The channels, the messaging, and the targeting are all being optimised for the wrong outcome. Clicks are easy to generate. Qualified calls from people ready to book are significantly harder — and require a fundamentally different approach.</p>
-
-            <hr />
-
-            <h2>Why It Happens</h2>
-            <p>Generic agencies are built to serve as many clients as possible with the same playbook. That playbook was developed for e-commerce or lead generation at scale, not for the specific conversion dynamics of a service business where trust, timing, and geography all matter in ways that are difficult to systematise.</p>
-            <p>Service businesses also tend to underestimate how much their reputation, response time, and follow-up process affect digital performance. A campaign can generate twenty qualified leads a month and still produce zero revenue if the back-end is not ready to handle them. Digital performance and operational performance are more connected than most owners realise.</p>
-
-            <hr />
-
-            <h2>What Actually Works</h2>
-            <p>What we have found, across HVAC, landscaping, home security, and adjacent trades, is that the highest-performing programs share a few common characteristics. They are tightly geo-targeted, with messaging that reflects the specific market — not boilerplate copy pasted from a national template. They run fewer channels but run them properly. And they are connected directly to how the business handles inbound inquiry.</p>
-            <p>The businesses that grow consistently are not the ones spending the most. They are the ones with the tightest feedback loop between what their marketing says and what their sales process delivers. If you want to discuss how this applies to your situation specifically, <a href="/contact#hubspot-meetings">book a call</a> and we will walk through it.</p>
-
-            <hr />
-
-            <h2>The Takeaway</h2>
-            <p>Stop measuring inputs. Impressions, clicks, and rankings are proxy metrics. They matter only insofar as they produce qualified inquiries at a cost the business can sustain. Build your program around that outcome and you will make much better decisions about where to invest — and where to stop.</p>
-            <p>If you found this useful, <a href="/blog">browse the rest of the blog</a> for more direct takes on paid media, SEO, and web strategy for service businesses.</p>
-          </div>
+          <p class="no-content">Post content coming soon.</p>
         )}
       </article>
 
@@ -231,20 +209,12 @@ const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
     min-width: 0;
   }
 
-  .placeholder-body {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  .no-content {
+    color: var(--text-3);
+    font-style: italic;
   }
 
-  .placeholder-body hr {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 16px 0;
-  }
-
-  .post-body h2,
-  .placeholder-body h2 {
+  .post-body :global(h2) {
     font-size: 22px;
     font-weight: 700;
     color: var(--text-2);
@@ -252,18 +222,37 @@ const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
     letter-spacing: -0.01em;
   }
 
-  .post-body p,
-  .placeholder-body p {
+  .post-body :global(p) {
     font-size: 16px;
     color: var(--text-3);
     line-height: 1.85;
   }
 
-  .post-body a,
-  .placeholder-body a {
+  .post-body :global(a) {
     color: var(--blue);
     text-decoration: underline;
     text-underline-offset: 3px;
+  }
+
+  .post-body :global(hr) {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 24px 0;
+  }
+
+  .post-body :global(ul),
+  .post-body :global(ol) {
+    padding-left: 1.5em;
+    color: var(--text-3);
+    line-height: 1.85;
+  }
+
+  .post-body :global(blockquote) {
+    border-left: 3px solid var(--blue);
+    padding-left: 1.25em;
+    margin: 0;
+    color: var(--text-3);
+    font-style: italic;
   }
 
   /* ── Sidebar ── */

@@ -5,18 +5,24 @@ import Card from '../components/ui/Card.astro';
 import Button from '../components/ui/Button.astro';
 import CtaBanner from '../components/ui/CtaBanner.astro';
 import {
+  getSiteSettings,
+  getHomePage,
   getServices,
   getFeaturedCaseStudy,
   getPosts,
 } from '../lib/sanity';
 
 // Fetch data at build time
+let settings: any = null;
+let homePage: any = null;
 let services: any[] = [];
 let featuredCase: any = null;
 let posts: any[] = [];
 
 try {
-  [services, featuredCase, posts] = await Promise.all([
+  [settings, homePage, services, featuredCase, posts] = await Promise.all([
+    getSiteSettings(),
+    getHomePage(),
     getServices(),
     getFeaturedCaseStudy(),
     getPosts(3),
@@ -42,7 +48,46 @@ const displayPosts = posts.length > 0 ? posts : [
   { _id: '3', title: 'What Makes a Service Business Website Actually Convert', excerpt: 'Speed, structure, and trust signals — the three things that separate websites that generate leads from ones that don\'t.', publishedAt: '2025-12-18', slug: { current: 'service-business-website-conversion' } },
 ];
 
-const industries = ['Concrete & Hardscape', 'Construction', 'Excavation', 'Home & Business Security', 'HVAC', 'Landscaping', 'Plumbing', 'Roofing', 'Windows & Doors'];
+// Proof bar stats — from siteSettings, fallback to hardcoded
+const proofStats = (settings?.stats?.length > 0 ? settings.stats : [
+  { value: '$100M+', label: 'Ad Spend Managed' },
+  { value: '8x',     label: 'Avg Blended ROAS' },
+  { value: '5+ Yrs', label: 'Avg Client Tenure' },
+  { value: '9+',     label: 'Industries Served' },
+]).map((s: any, i: number) => ({ ...s, idx: String(i + 1).padStart(2, '0') }));
+
+// Singleton content with fallbacks
+const heroHeadline = homePage?.hero?.headline ?? null;
+const heroSubhead  = homePage?.hero?.subhead  ?? null;
+const servicesSectionTitle = homePage?.servicesSection?.title ?? 'Services built for measurable growth';
+const servicesSectionIntro = homePage?.servicesSection?.intro ?? 'Six ways we help service businesses compete and grow online. Every engagement starts with your goals — not a default package.';
+const whoTitle     = homePage?.whoWeServe?.headline ?? 'Built for service businesses ready to grow.';
+const whoBody      = homePage?.whoWeServe?.body ?? "You run a great operation. Your digital presence should reflect that — and drive real leads. Whether you're a local landscaping company or a regional security provider, we build what your business needs to compete and win online.";
+const whoCtaLabel  = homePage?.whoWeServe?.ctaLabel ?? 'See If We\'re a Fit';
+const industries   = homePage?.whoWeServe?.industries?.length > 0
+  ? homePage.whoWeServe.industries
+  : ['Concrete & Hardscape', 'Construction', 'Excavation', 'Home & Business Security', 'HVAC', 'Landscaping', 'Plumbing', 'Roofing', 'Windows & Doors'];
+const aboutTitle   = homePage?.aboutTeaser?.title ?? 'Enterprise experience.\nBoutique delivery.';
+const aboutBody    = homePage?.aboutTeaser?.body ?? "Railshop is a digital growth partner co-founded by a corporate marketing leader and a product management leader in software. We spent years at the senior level inside national brands — building and scaling the kinds of digital programs most agencies only claim to understand. We started Railshop to bring that experience directly to growing service businesses, without the overhead.";
+const aboutCards   = homePage?.aboutTeaser?.cards?.length > 0 ? homePage.aboutTeaser.cards : [
+  { eyebrow: '01', heading: 'Senior-Only Team',              body: 'Every engagement is led by us directly — no coordinators, no junior hires.' },
+  { eyebrow: '02', heading: 'The Right People, Every Time',  body: 'When a project needs a specialist, we know exactly who to call and why. No guesswork, no overhead.' },
+  { eyebrow: '03', heading: 'Built to Partner',              body: "We're built for long-term partnerships — the kind where strategy compounds and results keep growing." },
+];
+const blogTitle    = homePage?.blogTeaser?.title ?? 'Straight talk on digital marketing.';
+const blogIntro    = homePage?.blogTeaser?.intro ?? "No noise, no vanity metrics — just honest perspective on what's working for service businesses online.";
+const ctaTitle     = homePage?.ctaBanner?.title ?? 'Ready to grow your<br />service business online?';
+const ctaSubtitle  = homePage?.ctaBanner?.subtitle ?? 'We take on a limited number of new clients. Book a call to see if we\'re the right fit.';
+
+// Featured case study content
+const caseQuote = featuredCase?.homepagePullQuote ?? 'From local HVAC company to regional market leader.';
+const caseBody  = featuredCase?.homepageBody ?? "A family-owned HVAC business ready to scale but stuck on word-of-mouth and slow seasons. We built their digital foundation — web, paid search, SEO, and content — and grew with them for five years. The result: 4x revenue growth and an 8x blended return on ad spend.";
+const caseStats = featuredCase?.stats?.length > 0 ? featuredCase.stats : [
+  { value: '8x',  label: 'Blended ROAS' },
+  { value: '4x',  label: 'Revenue Growth' },
+  { value: '5yr', label: 'Partnership' },
+];
+const caseStatColors = ['cs-green', 'cs-blue', 'cs-gold'];
 
 const serviceIcons = [
   `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
@@ -55,8 +100,8 @@ const serviceIcons = [
 ---
 
 <BaseLayout
-  title="Railshop | Digital Marketing for Home & Consumer Service Businesses"
-  description="Railshop is a boutique digital growth agency for home and consumer service businesses. We build websites, run paid ads, and drive SEO — delivered by senior leaders who've done it at scale."
+  title={homePage?.seo?.metaTitle ?? 'Railshop | Digital Marketing for Home & Consumer Service Businesses'}
+  description={homePage?.seo?.metaDescription ?? 'Railshop is a boutique digital growth agency for home and consumer service businesses. We build websites, run paid ads, and drive SEO — delivered by senior leaders who\'ve done it at scale.'}
 >
   <!-- ============================================================
        1. HERO
@@ -93,15 +138,18 @@ const serviceIcons = [
         <SectionTag label="Digital Growth Partner" />
       </div>
 
-      <h1 class="hero-headline">
-        We help service<br />
-        businesses grow<br />
-        <em class="hero-accent">revenue online.</em>
-      </h1>
+      {heroHeadline ? (
+        <h1 class="hero-headline" set:html={heroHeadline.replace(/\n/g, '<br />')} />
+      ) : (
+        <h1 class="hero-headline">
+          We help service<br />
+          businesses grow<br />
+          <em class="hero-accent">revenue online.</em>
+        </h1>
+      )}
 
       <p class="hero-sub">
-        Railshop is a boutique growth partner for home and consumer service brands.
-        We build what your business needs — and nothing it doesn't.
+        {heroSubhead ?? 'Railshop is a boutique growth partner for home and consumer service brands. We build what your business needs — and nothing it doesn\'t.'}
       </p>
 
       <div class="hero-ctas">
@@ -127,12 +175,7 @@ const serviceIcons = [
     </div>
     <div class="container">
     <div class="proof-grid">
-      {[
-        { value: '$100M+', label: 'Ad Spend Managed', idx: '01' },
-        { value: '8x',     label: 'Avg Blended ROAS', idx: '02' },
-        { value: '5+ Yrs', label: 'Avg Client Tenure', idx: '03' },
-        { value: '9+',     label: 'Industries Served', idx: '04' },
-      ].map((stat) => (
+      {proofStats.map((stat: any) => (
         <div class="proof-stat">
           <span class="proof-idx">{stat.idx}</span>
           <div class="proof-data">
@@ -152,11 +195,9 @@ const serviceIcons = [
     <div class="container">
       <div class="services-header">
         <div class="services-header-left">
-          <h2 class="services-title">Services built for<br />measurable growth</h2>
+          <h2 class="services-title" set:html={servicesSectionTitle.replace(/\n/g, '<br />')} />
         </div>
-        <p class="services-intro">
-          Six ways we help service businesses compete and grow online. Every engagement starts with your goals — not a default package.
-        </p>
+        <p class="services-intro">{servicesSectionIntro}</p>
       </div>
       <div class="services-grid">
         {displayServices.map((svc, i) => (
@@ -183,13 +224,9 @@ const serviceIcons = [
   <section class="who-section">
     <div class="container who-inner">
       <div class="who-copy">
-        <h2 class="who-title">Built for service businesses ready to grow.</h2>
-        <p class="who-desc">
-          You run a great operation. Your digital presence should reflect that — and drive real leads.
-          Whether you're a local landscaping company or a regional security provider, we build what
-          your business needs to compete and win online.
-        </p>
-        <Button href="/contact" variant="primary">See If We're a Fit</Button>
+        <h2 class="who-title">{whoTitle}</h2>
+        <p class="who-desc">{whoBody}</p>
+        <Button href="/contact" variant="primary">{whoCtaLabel}</Button>
       </div>
       <div class="who-tags-col">
         <p class="who-tags-heading">Industries Served</p>
@@ -216,27 +253,15 @@ const serviceIcons = [
           <div class="case-meta">
             <SectionTag label="Client Results" />
           </div>
-          <h2 class="case-quote">
-            From local HVAC company to regional market leader.
-          </h2>
-          <p class="case-body">
-            A family-owned HVAC business ready to scale but stuck on word-of-mouth and slow seasons.
-            We built their digital foundation — web, paid search, SEO, and content — and grew with
-            them for five years. The result: 4x revenue growth and an 8x blended return on ad spend.
-          </p>
+          <h2 class="case-quote">{caseQuote}</h2>
+          <p class="case-body">{caseBody}</p>
           <div class="case-stats">
-            <div class="case-stat">
-              <span class="cs-val cs-green">8x</span>
-              <span class="cs-lbl">Blended ROAS</span>
-            </div>
-            <div class="case-stat">
-              <span class="cs-val cs-blue">4x</span>
-              <span class="cs-lbl">Revenue Growth</span>
-            </div>
-            <div class="case-stat">
-              <span class="cs-val cs-gold">5yr</span>
-              <span class="cs-lbl">Partnership</span>
-            </div>
+            {caseStats.map((stat: any, i: number) => (
+              <div class="case-stat">
+                <span class={`cs-val ${caseStatColors[i] ?? 'cs-green'}`}>{stat.value}</span>
+                <span class="cs-lbl">{stat.label}</span>
+              </div>
+            ))}
           </div>
           <Button href={featuredCase ? `/work/${featuredCase.slug.current}` : '/work/hvac-market-leader'} variant="secondary">
             Read the Case Study
@@ -263,39 +288,20 @@ const serviceIcons = [
   <section class="about-section">
     <div class="container about-inner">
       <div class="about-copy">
-        <h2 class="about-title">Enterprise experience.<br />Boutique delivery.</h2>
-        <p class="about-body">
-          Railshop is a digital growth partner co-founded by a corporate marketing leader and a product management leader in software. We spent years at the senior level inside national brands — building and scaling the kinds of digital programs most agencies only claim to understand. We started Railshop to bring that experience directly to growing service businesses, without the overhead.
-        </p>
+        <h2 class="about-title" set:html={aboutTitle.replace(/\n/g, '<br />')} />
+        <p class="about-body">{aboutBody}</p>
         <Button href="/about" variant="primary">
           Our Story
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </Button>
       </div>
       <div class="about-cards">
-        {[
-          {
-            icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>`,
-            label: 'Senior-Only Team',
-            desc: 'Every engagement is led by us directly — no coordinators, no junior hires.',
-          },
-          {
-            icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>`,
-            label: 'The Right People, Every Time',
-            desc: 'When a project needs a specialist, we know exactly who to call and why. No guesswork, no overhead.',
-          },
-          {
-            icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>`,
-            label: 'Built to Partner',
-            desc: 'We\'re built for long-term partnerships — the kind where strategy compounds and results keep growing.',
-          },
-        ].map((card, i) => (
+        {aboutCards.map((card: any, i: number) => (
           <div class="about-card">
-            <div class="about-card-num">0{i + 1}</div>
-            <div class="about-card-icon" set:html={card.icon} />
+            <div class="about-card-num">{String(i + 1).padStart(2, '0')}</div>
             <div>
-              <p class="about-card-label">{card.label}</p>
-              <p class="about-card-desc">{card.desc}</p>
+              <p class="about-card-label">{card.heading ?? card.label}</p>
+              <p class="about-card-desc">{card.body ?? card.desc}</p>
             </div>
           </div>
         ))}
@@ -311,9 +317,9 @@ const serviceIcons = [
       <div class="blog-header">
         <div>
           <SectionTag label="From the Blog" />
-          <h2 class="blog-title">Straight talk on<br />digital marketing.</h2>
+          <h2 class="blog-title" set:html={blogTitle.replace(/\n/g, '<br />')} />
         </div>
-        <p class="blog-intro">No noise, no vanity metrics — just honest perspective on what's working for service businesses online.</p>
+        <p class="blog-intro">{blogIntro}</p>
       </div>
 
       <div class="blog-list">
@@ -345,8 +351,8 @@ const serviceIcons = [
        8. CTA BANNER
        ============================================================ -->
   <CtaBanner
-    title="Ready to grow your<br />service business online?"
-    subtitle="We take on a limited number of new clients. Book a call to see if we're the right fit."
+    title={ctaTitle}
+    subtitle={ctaSubtitle}
     secondaryText="Send a Message"
     secondaryHref="/contact#message-accordion"
   />

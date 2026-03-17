@@ -1,4 +1,6 @@
 ---
+import { getSiteSettings } from '../../lib/sanity';
+
 const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'Services', href: '/services' },
@@ -9,6 +11,16 @@ const navLinks = [
 ];
 
 const year = new Date().getFullYear();
+
+let settings: any = null;
+try { settings = await getSiteSettings(); } catch (_) {}
+
+const tagline = settings?.footerTagline ?? 'Digital growth for service businesses.\nBuilt on strategy. Delivered by people who\'ve done it at scale.';
+const address = settings?.address ?? '33 East Pittsburgh Street\nGreensburg, PA 15601';
+const linkedIn = settings?.linkedIn ?? 'https://linkedin.com/company/railshop';
+const instagramUrl = settings?.instagramUrl ?? 'https://instagram.com/railshop';
+const ctaHeading = settings?.footerCtaHeading ?? 'Get Started';
+const ctaCopy = settings?.footerCtaCopy ?? 'Ready to see what the right digital partner can do for your business?';
 ---
 
 <footer class="footer">
@@ -27,17 +39,11 @@ const year = new Date().getFullYear();
           <img src="/logo-white.svg" alt="Railshop" class="logo-for-dark"  width="120" height="42" />
           <img src="/logo-dark.svg"  alt="Railshop" class="logo-for-light" width="120" height="42" style="display:none" />
         </a>
-        <p class="footer-tagline">
-          Digital growth for service businesses.<br />
-          Built on strategy. Delivered by people who've done it at scale.
-        </p>
-        <address class="footer-address">
-          33 East Pittsburgh Street<br />
-          Greensburg, PA 15601
-        </address>
+        <p class="footer-tagline" set:html={tagline.replace(/\n/g, '<br />')} />
+        <address class="footer-address" set:html={address.replace(/\n/g, '<br />')} />
         <div class="footer-socials">
           <a
-            href="https://linkedin.com/company/railshop"
+            href={linkedIn}
             target="_blank"
             rel="noopener noreferrer"
             class="footer-social-icon"
@@ -50,7 +56,7 @@ const year = new Date().getFullYear();
             </svg>
           </a>
           <a
-            href="https://instagram.com/railshop"
+            href={instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
             class="footer-social-icon"
@@ -75,10 +81,8 @@ const year = new Date().getFullYear();
 
       <!-- CTA col -->
       <div class="footer-cta-col">
-        <p class="footer-col-heading">Get Started</p>
-        <p class="footer-cta-copy">
-          Ready to see what the right digital partner can do for your business?
-        </p>
+        <p class="footer-col-heading">{ctaHeading}</p>
+        <p class="footer-cta-copy">{ctaCopy}</p>
         <a href="/contact#hubspot-meetings" class="btn-primary footer-cta-btn">
           Book a Call
         </a>

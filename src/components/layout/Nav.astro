@@ -1,5 +1,6 @@
 ---
 import ThemeToggle from '../ThemeToggle';
+import { getSiteSettings } from '../../lib/sanity';
 
 const navLinks = [
   { label: 'Home', href: '/' },
@@ -10,6 +11,12 @@ const navLinks = [
 ];
 
 const currentPath = Astro.url.pathname;
+
+let settings: any = null;
+try { settings = await getSiteSettings(); } catch (_) {}
+
+const clientLoginUrl = settings?.clientLoginUrl ?? 'https://launchpad.railshop.co';
+const takingNewClients = settings?.takingNewClients ?? true;
 ---
 
 <header class="nav-header">
@@ -37,7 +44,7 @@ const currentPath = Astro.url.pathname;
     <div class="nav-right">
       <ThemeToggle client:load />
       <a
-        href="https://launchpad.railshop.co"
+        href={clientLoginUrl}
         target="_blank"
         rel="noopener noreferrer"
         class="nav-client-login"
@@ -85,7 +92,7 @@ const currentPath = Astro.url.pathname;
       </a>
     ))}
     <a
-      href="https://launchpad.railshop.co"
+      href={clientLoginUrl}
       target="_blank"
       rel="noopener noreferrer"
       class="nav-mobile-link nav-mobile-link--secondary"
@@ -102,10 +109,12 @@ const currentPath = Astro.url.pathname;
     <a href="/contact#hubspot-meetings" class="btn-primary nav-mobile-cta">
       Book a Call
     </a>
-    <p class="nav-mobile-status">
-      <span class="status-dot"></span>
-      Taking new clients
-    </p>
+    {takingNewClients && (
+      <p class="nav-mobile-status">
+        <span class="status-dot"></span>
+        Taking new clients
+      </p>
+    )}
   </div>
 </div>
 

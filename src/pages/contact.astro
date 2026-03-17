@@ -1,10 +1,56 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getContactPage, getSiteSettings, getServices } from '../lib/sanity';
+
+let contactPage: any = null;
+let settings: any = null;
+let services: any[] = [];
+try {
+  [contactPage, settings, services] = await Promise.all([
+    getContactPage(), getSiteSettings(), getServices(),
+  ]);
+} catch (_) {}
+
+// Singleton content with fallbacks
+const heroHeadline   = contactPage?.hero?.headline ?? null;
+const heroSubhead    = contactPage?.hero?.subhead  ?? null;
+const bookHeading    = contactPage?.bookACall?.heading  ?? 'Book a Call';
+const bookSubhead    = contactPage?.bookACall?.subhead  ?? 'Pick a time that works for you. We\'ll come prepared.';
+const agendaItems    = contactPage?.bookACall?.agendaItems?.length > 0
+  ? contactPage.bookACall.agendaItems
+  : [
+      "A straight read on where your digital presence stands",
+      "Honest perspective on what we'd prioritize first",
+      "No obligation — we'll tell you if we're not the right fit",
+      "If it's a match, a clear path to getting started",
+    ];
+const briefFooter    = contactPage?.bookACall?.briefFooter ?? "If we're not the right fit, we'll say so — and point you somewhere better.";
+const msgHeading     = contactPage?.sendAMessage?.heading ?? 'Prefer to send a message instead?';
+const msgSub         = contactPage?.sendAMessage?.sub     ?? 'Tell us about your business and what you\'re trying to achieve. We\'ll review it and follow up within one business day.';
+const stat1Value     = contactPage?.sendAMessage?.responseStat1Value ?? '~4h';
+const stat1Label     = contactPage?.sendAMessage?.responseStat1Label ?? 'Avg. response time';
+const stat2Value     = contactPage?.sendAMessage?.responseStat2Value ?? '100%';
+const stat2Label     = contactPage?.sendAMessage?.responseStat2Label ?? 'Responses sent';
+const socialProof    = contactPage?.sendAMessage?.socialProofText ?? 'Most of our best client relationships started with a single message.';
+const hubspotUrl     = settings?.hubspotMeetingsUrl ?? 'https://launch.railshop.co/meetings/andrew-opalinski?embed=true';
+const address        = settings?.address ?? '33 East Pittsburgh Street\nGreensburg, PA 15601';
+
+// Service pills — from Sanity or fallback
+const servicePills = services.length > 0
+  ? services.map((s: any) => ({ label: s.title, value: s.slug.current }))
+  : [
+      { label: 'Web Design & Development', value: 'web-design' },
+      { label: 'Paid Ads',                 value: 'paid-ads' },
+      { label: 'SEO',                      value: 'seo' },
+      { label: 'Content Creation',         value: 'content-creation' },
+      { label: 'Strategy Consulting',      value: 'strategy' },
+      { label: 'AI Integration',           value: 'ai-integration' },
+    ];
 ---
 
 <BaseLayout
-  title="Contact — Railshop"
-  description="Book a call with Railshop or send us a message. We respond within one business day."
+  title={contactPage?.seo?.metaTitle ?? 'Contact — Railshop'}
+  description={contactPage?.seo?.metaDescription ?? 'Book a call with Railshop or send us a message. We respond within one business day.'}
 >
 
   <!-- ============================================================
@@ -44,12 +90,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="container">
       <div class="hero-inner">
         <div class="hero-left">
-          <h1 class="hero-headline">
-            Let's talk about<br />
-            <span class="hero-accent">your business.</span>
-          </h1>
+          {heroHeadline ? (
+            <h1 class="hero-headline" set:html={heroHeadline.replace(/\n/g, '<br />')} />
+          ) : (
+            <h1 class="hero-headline">
+              Let's talk about<br />
+              <span class="hero-accent">your business.</span>
+            </h1>
+          )}
           <p class="hero-sub">
-            No pitch, no pressure. Just a straightforward conversation about where you're trying to go and whether we're the right team to help you get there.
+            {heroSubhead ?? "No pitch, no pressure. Just a straightforward conversation about where you're trying to go and whether we're the right team to help you get there."}
           </p>
 
         </div>
@@ -65,12 +115,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
       <!-- Left: Call Brief -->
       <div class="book-col">
-        <h2 class="book-heading">
-          Book a Call
-        </h2>
-        <p class="book-subhead">
-          Pick a time that works for you. We'll come prepared.
-        </p>
+        <h2 class="book-heading">{bookHeading}</h2>
+        <p class="book-subhead">{bookSubhead}</p>
 
         <!-- Call Agenda card -->
         <div class="brief-card">
@@ -79,40 +125,31 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <span class="brief-duration">30 MIN</span>
           </div>
           <ol class="brief-steps">
-            {[
-              { code: '01', title: 'A straight read on where your digital presence stands', desc: '' },
-              { code: '02', title: 'Honest perspective on what we\'d prioritize first', desc: '' },
-              { code: '03', title: 'No obligation — we\'ll tell you if we\'re not the right fit', desc: '' },
-              { code: '04', title: 'If it\'s a match, a clear path to getting started', desc: '' },
-            ].map(step => (
+            {agendaItems.map((title: string, i: number) => (
               <li class="brief-step">
-                <span class="brief-step-code">{step.code}</span>
+                <span class="brief-step-code">{String(i + 1).padStart(2, '0')}</span>
                 <div class="brief-step-body">
-                  <span class="brief-step-title">{step.title}</span>
-                  <span class="brief-step-desc">{step.desc}</span>
+                  <span class="brief-step-title">{title}</span>
                 </div>
               </li>
             ))}
           </ol>
           <div class="brief-footer">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>If we're not the right fit, we'll say so — and point you somewhere better.</span>
+            <span>{briefFooter}</span>
           </div>
         </div>
 
         <!-- Office -->
         <div class="office-block">
           <span class="office-eyebrow">// Our Office</span>
-          <address class="office-addr">
-            33 East Pittsburgh Street<br />
-            Greensburg, PA 15601
-          </address>
+          <address class="office-addr" set:html={address.replace(/\n/g, '<br />')} />
         </div>
       </div>
 
       <!-- Right: HubSpot Meetings embed -->
       <div class="meetings-embed-col" aria-label="Book a meeting with Railshop">
-        <div class="meetings-iframe-container" data-src="https://launch.railshop.co/meetings/andrew-opalinski?embed=true"></div>
+        <div class="meetings-iframe-container" data-src={hubspotUrl}></div>
         <script type="text/javascript" src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
       </div>
 
@@ -132,21 +169,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="container">
       <div class="message-header">
         <div class="message-header-left">
-          <h2 class="message-heading">Prefer to send a message instead?</h2>
-          <p class="message-sub">
-            Tell us about your business and what you're trying to achieve. We'll
-            review it and follow up within one business day.
-          </p>
+          <h2 class="message-heading">{msgHeading}</h2>
+          <p class="message-sub">{msgSub}</p>
         </div>
         <div class="message-header-right" aria-hidden="true">
           <div class="response-stat">
-            <span class="response-stat-num">~4h</span>
-            <span class="response-stat-label">Avg. response time</span>
+            <span class="response-stat-num">{stat1Value}</span>
+            <span class="response-stat-label">{stat1Label}</span>
           </div>
           <div class="response-divider"></div>
           <div class="response-stat">
-            <span class="response-stat-num">100%</span>
-            <span class="response-stat-label">Responses sent</span>
+            <span class="response-stat-num">{stat2Value}</span>
+            <span class="response-stat-label">{stat2Label}</span>
           </div>
         </div>
       </div>
@@ -195,14 +229,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="field-group">
           <label class="field-label">What are you interested in?</label>
           <div class="pill-group" id="pill-group">
-            {[
-              { label: 'Web Design & Development', value: 'web-design' },
-              { label: 'Paid Ads',                 value: 'paid-ads' },
-              { label: 'SEO',                      value: 'seo' },
-              { label: 'Content Creation',         value: 'content-creation' },
-              { label: 'Strategy Consulting',      value: 'strategy' },
-              { label: 'AI Integration',           value: 'ai-integration' },
-            ].map((opt) => (
+            {servicePills.map((opt: { label: string; value: string }) => (
               <button type="button" class="pill" data-value={opt.value}>{opt.label}</button>
             ))}
           </div>
@@ -224,7 +251,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="form-footer">
           <p class="social-proof">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-            Most of our best client relationships started with a single message.
+            {socialProof}
           </p>
           <button type="submit" class="submit-btn">
             Send Message

@@ -1,11 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CtaBanner from '../../components/ui/CtaBanner.astro';
-import { getPosts } from '../../lib/sanity';
+import { getPosts, getBlogPage, urlForImage } from '../../lib/sanity';
 
 let posts: any[] = [];
+let blogPage: any = null;
 try {
-  posts = await getPosts(20);
+  [posts, blogPage] = await Promise.all([getPosts(20), getBlogPage()]);
 } catch (_) {}
 
 const displayPosts = posts.length > 0 ? posts : [
@@ -56,6 +57,20 @@ const displayPosts = posts.length > 0 ? posts : [
   },
 ];
 
+const heroHeadline = blogPage?.hero?.headline ?? null;
+const heroSub = blogPage?.hero?.sub ?? null;
+const newsletterTitle = blogPage?.newsletter?.title ?? null;
+const newsletterDesc = blogPage?.newsletter?.description ?? null;
+
+function resolvePostImage(post: any): string {
+  if (post.coverImage?.asset) return urlForImage(post.coverImage).width(800).url();
+  return post.image ?? '';
+}
+
+function resolvePostCategory(post: any): string {
+  return post.category ?? post.categories?.[0]?.title ?? '';
+}
+
 const featuredPost = displayPosts[0];
 const gridPosts = displayPosts.slice(1);
 
@@ -70,8 +85,8 @@ const categoryColorMap: Record<string, string> = {
 ---
 
 <BaseLayout
-  title="Blog — Railshop"
-  description="Straight talk on digital marketing for service businesses. No noise — honest perspective from practitioners who live in the accounts."
+  title={blogPage?.seo?.metaTitle ?? 'Blog — Railshop'}
+  description={blogPage?.seo?.metaDescription ?? 'Straight talk on digital marketing for service businesses. No noise — honest perspective from practitioners who live in the accounts.'}
 >
 
   <!-- Hero -->
@@ -105,12 +120,9 @@ const categoryColorMap: Record<string, string> = {
     <div class="container">
       <div class="hero-inner">
         <div class="hero-left">
-          <h1 class="hero-headline">
-            Straight talk on<br />
-            <span class="hero-accent">digital marketing.</span>
-          </h1>
+          <h1 class="hero-headline" set:html={heroHeadline ?? 'Straight talk on<br /><span class="hero-accent">digital marketing.</span>'} />
           <p class="hero-sub">
-            No noise, no vanity metrics — just honest perspective on what's working for service businesses online.
+            {heroSub ?? "No noise, no vanity metrics — just honest perspective on what's working for service businesses online."}
           </p>
         </div>
       </div>
@@ -129,11 +141,11 @@ const categoryColorMap: Record<string, string> = {
 
         <!-- Image -->
         <div class="featured-image">
-          <img src={featuredPost.image} alt="" class="featured-image-img" loading="eager" decoding="async" />
+          <img src={resolvePostImage(featuredPost)} alt="" class="featured-image-img" loading="eager" decoding="async" />
           <!-- HUD overlay -->
           <div class="card-hud" aria-hidden="true">
             <span class="hud-id">POST-001</span>
-            <span class="hud-cat">{featuredPost.category}</span>
+            <span class="hud-cat">{resolvePostCategory(featuredPost)}</span>
           </div>
           <!-- Corner brackets -->
           <span class="img-corner img-corner--tl" aria-hidden="true"></span>
@@ -182,15 +194,15 @@ const categoryColorMap: Record<string, string> = {
           <a
             href={`/blog/${post.slug.current}`}
             class="post-card"
-            data-category={post.category.toLowerCase().replace(' ', '-')}
+            data-category={resolvePostCategory(post).toLowerCase().replace(' ', '-')}
           >
             <!-- Image -->
             <div class="post-image">
-              <img src={post.image} alt="" class="post-image-img" loading="lazy" decoding="async" />
+              <img src={resolvePostImage(post)} alt="" class="post-image-img" loading="lazy" decoding="async" />
               <!-- HUD overlay -->
               <div class="card-hud" aria-hidden="true">
                 <span class="hud-id">POST-{String(i + 2).padStart(3, '0')}</span>
-                <span class="hud-cat">{post.category}</span>
+                <span class="hud-cat">{resolvePostCategory(post)}</span>
               </div>
               <!-- Corner brackets -->
               <span class="img-corner img-corner--tl" aria-hidden="true"></span>
@@ -224,8 +236,8 @@ const categoryColorMap: Record<string, string> = {
         <span class="newsletter-status-dot"></span>
         New posts weekly
       </div>
-      <h2 class="newsletter-title">Get it in your inbox.</h2>
-      <p class="newsletter-desc">New posts, no spam. Practical marketing perspective for service business owners and marketing leaders.</p>
+      <h2 class="newsletter-title">{newsletterTitle ?? 'Get it in your inbox.'}</h2>
+      <p class="newsletter-desc">{newsletterDesc ?? 'New posts, no spam. Practical marketing perspective for service business owners and marketing leaders.'}</p>
       <form
         name="newsletter-signup"
         method="POST"

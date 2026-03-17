@@ -25,12 +25,19 @@ try {
 // Fall back to sample data
 const sample = serviceSamples[slug];
 const data = {
-  title:        service?.title        ?? sample?.title        ?? slug,
-  description:  service?.description  ?? sample?.description  ?? '',
-  deliverables: sample?.deliverables  ?? [],
-  approach:     sample?.approach      ?? [],
-  whoFor:       sample?.whoFor        ?? [],
-  relatedSlugs: sample?.relatedSlugs  ?? [],
+  title:        service?.title           ?? sample?.title        ?? slug,
+  description:  service?.description     ?? sample?.description  ?? '',
+  deliverables: service?.whatIsIncluded?.length > 0
+                  ? service.whatIsIncluded
+                  : sample?.deliverables ?? [],
+  approach:     service?.approach?.length > 0
+                  ? service.approach
+                  : sample?.approach ?? [],
+  whoFor:       service?.whoThisIsFor?.length > 0
+                  ? service.whoThisIsFor
+                  : sample?.whoFor ?? [],
+  ctaHeadline:  service?.ctaHeadline ?? null,
+  relatedSlugs: sample?.relatedSlugs ?? [],
 };
 
 const serviceIcons: Record<string, string> = {
@@ -244,7 +251,7 @@ const allServices = [
        3. CTA BANNER
        ============================================================ -->
   <CtaBanner
-    title={`Ready to put ${data.title} to work for your business?`}
+    title={data.ctaHeadline ?? `Ready to put ${data.title} to work for your business?`}
     subtitle="We take on a limited number of new clients. Let's talk about whether we're the right fit."
     secondaryText="All Services"
     secondaryHref="/services"

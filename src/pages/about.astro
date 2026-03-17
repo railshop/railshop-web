@@ -2,11 +2,31 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/ui/Button.astro';
 import CtaBanner from '../components/ui/CtaBanner.astro';
+import { getAboutPage, getTeamMembers, urlForImage } from '../lib/sanity';
+
+let aboutPage: any = null;
+let teamMembers: any[] = [];
+try {
+  [aboutPage, teamMembers] = await Promise.all([getAboutPage(), getTeamMembers()]);
+} catch (_) {}
+
+// Fallbacks
+const heroEyebrow  = aboutPage?.hero?.eyebrow  ?? null;
+const heroHeadline = aboutPage?.hero?.headline ?? null;
+const heroSubhead  = aboutPage?.hero?.subhead  ?? null;
+const ctaTitle     = aboutPage?.ctaBanner?.title    ?? 'Senior experience. No hand-offs.';
+const ctaSubtitle  = aboutPage?.ctaBanner?.subtitle ?? "We take on a limited number of new clients. Book a call to see if we're the right fit.";
+
+// Team members — from Sanity or fallback
+const displayTeam = teamMembers.length > 0 ? teamMembers : [
+  { name: 'Andrew Opalinski', role: 'Co-Founder · Head of Digital Strategy', bio: 'Former Head of Digital Marketing at Window Nation and Vector Security, where he built and scaled paid media, SEO, and web programs across national markets. Drew brings that enterprise playbook directly to growing service businesses.', photo: null, linkedinUrl: 'https://linkedin.com/in/drewrailshop', _fallbackImg: '/images/drew 169 cropped.jpg' },
+  { name: 'Sean Connelly', role: 'Co-Founder · Head of Product & Operations', bio: 'VP of Product at Momentive Software, where he leads product development and systems thinking at scale. Sean brings that same discipline to every Railshop engagement — making sure strategy translates into execution that actually ships.', photo: null, linkedinUrl: 'https://linkedin.com/in/seanrailshop', _fallbackImg: '/images/sean 169 cropped.jpg' },
+];
 ---
 
 <BaseLayout
-  title="About — Railshop"
-  description="Railshop is a boutique performance marketing agency. Senior practitioners, no account managers, no black boxes."
+  title={aboutPage?.seo?.metaTitle ?? 'About — Railshop'}
+  description={aboutPage?.seo?.metaDescription ?? 'Railshop is a boutique performance marketing agency. Senior practitioners, no account managers, no black boxes.'}
 >
 
   <!-- ============================================================
@@ -41,12 +61,16 @@ import CtaBanner from '../components/ui/CtaBanner.astro';
     <div class="container">
       <div class="hero-inner">
         <div class="hero-left">
-          <h1 class="hero-headline">
-            Built different<br />
-            <span class="hero-accent">on purpose.</span>
-          </h1>
+          {heroHeadline ? (
+            <h1 class="hero-headline" set:html={heroHeadline.replace(/\n/g, '<br />')} />
+          ) : (
+            <h1 class="hero-headline">
+              Built different<br />
+              <span class="hero-accent">on purpose.</span>
+            </h1>
+          )}
           <p class="hero-sub">
-            We started Railshop because great service businesses deserve better than what most agencies offer.
+            {heroSubhead ?? 'We started Railshop because great service businesses deserve better than what most agencies offer.'}
           </p>
         </div>
       </div>
@@ -115,53 +139,35 @@ import CtaBanner from '../components/ui/CtaBanner.astro';
       </div>
 
       <div class="team-grid">
-
-        <div class="team-card">
-          <div class="team-photo-wrap">
-            <img src="/images/drew 169 cropped.jpg" alt="Andrew Opalinski" class="team-photo-img" />
-            <div class="team-photo-overlay" aria-hidden="true"></div>
-          </div>
-          <div class="team-info">
-            <div class="team-meta">
-              <span class="team-idx">01</span>
-              <span class="team-role">Co-Founder · Head of Digital Strategy</span>
+        {displayTeam.map((member: any, i: number) => {
+          const photoSrc = member.photo ? urlForImage(member.photo) : member._fallbackImg;
+          return (
+            <div class="team-card">
+              <div class="team-photo-wrap">
+                {photoSrc && <img src={photoSrc} alt={member.name} class="team-photo-img" />}
+                <div class="team-photo-overlay" aria-hidden="true"></div>
+              </div>
+              <div class="team-info">
+                <div class="team-meta">
+                  <span class="team-idx">{String(i + 1).padStart(2, '0')}</span>
+                  <span class="team-role">{member.role}</span>
+                </div>
+                <p class="team-name">{member.name}</p>
+                <p class="team-bio">{member.bio}</p>
+                {member.linkedinUrl && (
+                  <a href={member.linkedinUrl} class="linkedin-link" target="_blank" rel="noopener noreferrer">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/>
+                      <rect x="2" y="9" width="4" height="12"/>
+                      <circle cx="4" cy="4" r="2"/>
+                    </svg>
+                    LinkedIn
+                  </a>
+                )}
+              </div>
             </div>
-            <p class="team-name">Andrew Opalinski</p>
-            <p class="team-bio">Former Head of Digital Marketing at Window Nation and Vector Security, where he built and scaled paid media, SEO, and web programs across national markets. Drew brings that enterprise playbook directly to growing service businesses.</p>
-            <a href="https://linkedin.com/in/drewrailshop" class="linkedin-link" target="_blank" rel="noopener noreferrer">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/>
-                <rect x="2" y="9" width="4" height="12"/>
-                <circle cx="4" cy="4" r="2"/>
-              </svg>
-              LinkedIn
-            </a>
-          </div>
-        </div>
-
-        <div class="team-card">
-          <div class="team-photo-wrap">
-            <img src="/images/sean 169 cropped.jpg" alt="Sean Connelly" class="team-photo-img" />
-            <div class="team-photo-overlay" aria-hidden="true"></div>
-          </div>
-          <div class="team-info">
-            <div class="team-meta">
-              <span class="team-idx">02</span>
-              <span class="team-role">Co-Founder · Head of Product &amp; Operations</span>
-            </div>
-            <p class="team-name">Sean Connelly</p>
-            <p class="team-bio">VP of Product at Momentive Software, where he leads product development and systems thinking at scale. Sean brings that same discipline to every Railshop engagement — making sure strategy translates into execution that actually ships.</p>
-            <a href="https://linkedin.com/in/seanrailshop" class="linkedin-link" target="_blank" rel="noopener noreferrer">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/>
-                <rect x="2" y="9" width="4" height="12"/>
-                <circle cx="4" cy="4" r="2"/>
-              </svg>
-              LinkedIn
-            </a>
-          </div>
-        </div>
-
+          );
+        })}
       </div>
     </div>
   </section>
@@ -262,8 +268,8 @@ import CtaBanner from '../components/ui/CtaBanner.astro';
        6. CTA BANNER
        ============================================================ -->
   <CtaBanner
-    title="Senior experience. No hand-offs."
-    subtitle="We take on a limited number of new clients. Book a call to see if we're the right fit."
+    title={ctaTitle}
+    subtitle={ctaSubtitle}
     secondaryText="See Our Work"
     secondaryHref="/work"
     secondaryVariant="link"

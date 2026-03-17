@@ -1,9 +1,10 @@
-import { defineType, defineField } from 'sanity';
+import { defineType, defineField, defineArrayMember } from 'sanity';
 
 export const siteSettings = defineType({
   name: 'siteSettings',
   title: 'Site Settings',
   type: 'document',
+  preview: { select: {}, prepare: () => ({ title: 'Site Settings' }) },
   fields: [
     defineField({
       name: 'siteTitle',
@@ -37,6 +38,50 @@ export const siteSettings = defineType({
       type: 'url',
     }),
     defineField({
+      name: 'instagramUrl',
+      title: 'Instagram URL',
+      type: 'url',
+    }),
+    defineField({
+      name: 'footerTagline',
+      title: 'Footer Tagline',
+      type: 'string',
+    }),
+    defineField({
+      name: 'address',
+      title: 'Office Address',
+      type: 'text',
+      rows: 2,
+    }),
+    defineField({
+      name: 'hubspotMeetingsUrl',
+      title: 'HubSpot Meetings URL',
+      description: 'Full embed URL for the Book a Call widget',
+      type: 'url',
+    }),
+    defineField({
+      name: 'clientLoginUrl',
+      title: 'Client Login URL',
+      type: 'url',
+    }),
+    defineField({
+      name: 'takingNewClients',
+      title: 'Taking New Clients?',
+      type: 'boolean',
+      initialValue: true,
+    }),
+    defineField({
+      name: 'footerCtaHeading',
+      title: 'Footer CTA Heading',
+      type: 'string',
+    }),
+    defineField({
+      name: 'footerCtaCopy',
+      title: 'Footer CTA Copy',
+      type: 'text',
+      rows: 2,
+    }),
+    defineField({
       name: 'heroHeadline',
       title: 'Hero Headline',
       type: 'string',
@@ -52,13 +97,13 @@ export const siteSettings = defineType({
       title: 'Social Proof Stats',
       type: 'array',
       of: [
-        {
+        defineArrayMember({
           type: 'object',
           fields: [
             { name: 'value', title: 'Value', type: 'string' },
             { name: 'label', title: 'Label', type: 'string' },
           ],
-        },
+        }),
       ],
     }),
   ],

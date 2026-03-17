@@ -1,0 +1,119 @@
+---
+/**
+ * Server-side Portable Text renderer for Sanity block content.
+ * Supports: paragraphs, headings (h2–h4), lists (bullet/number),
+ * marks (strong, em, underline, code, link), and inline images.
+ */
+
+interface Props {
+  value: any[];
+  class?: string;
+}
+
+const { value, class: className = '' } = Astro.props;
+
+function renderMark(text: string, markDefs: any[], marks: string[]): string {
+  let result = escapeHtml(text);
+  for (const mark of marks) {
+    if (mark === 'strong') result = `<strong>${result}</strong>`;
+    else if (mark === 'em') result = `<em>${result}</em>`;
+    else if (mark === 'underline') result = `<span style="text-decoration:underline">${result}</span>`;
+    else if (mark === 'code') result = `<code>${result}</code>`;
+    else {
+      // Check markDefs for link
+      const def = markDefs?.find((d: any) => d._key === mark);
+      if (def?._type === 'link') {
+        const rel = def.href?.startsWith('http') ? ' rel="noopener noreferrer" target="_blank"' : '';
+        result = `<a href="${escapeHtml(def.href ?? '')}"${rel}>${result}</a>`;
+      }
+    }
+  }
+  return result;
+}
+
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function renderBlock(block: any): string {
+  if (block._type === 'image') {
+    if (!block.asset?._ref) return '';
+    const [, id, dimensions, format] = block.asset._ref.split('-');
+    const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID ?? 'your-project-id';
+    const url = `https://cdn.sanity.io/images/${projectId}/production/${id}-${dimensions}.${format}`;
+    return `<figure class="pt-block-image"><img src="${url}" alt="${escapeHtml(block.alt ?? '')}" loading="lazy" /></figure>`;
+  }
+
+  if (block._type !== 'block') return '';
+
+  const markDefs = block.markDefs ?? [];
+  const children = (block.children ?? [])
+    .map((span: any) => renderMark(span.text ?? '', markDefs, span.marks ?? []))
+    .join('');
+
+  const style = block.style ?? 'normal';
+  const listItem = block.listItem;
+  const level = block.level ?? 1;
+
+  if (listItem) {
+    // List items are wrapped in <ul>/<ol> by the list grouping logic
+    return `<li data-list="${listItem}" data-level="${level}">${children}</li>`;
+  }
+
+  switch (style) {
+    case 'h2': return `<h2>${children}</h2>`;
+    case 'h3': return `<h3>${children}</h3>`;
+    case 'h4': return `<h4>${children}</h4>`;
+    case 'blockquote': return `<blockquote>${children}</blockquote>`;
+    default: return children ? `<p>${children}</p>` : '';
+  }
+}
+
+// Group consecutive list items into <ul>/<ol> wrappers
+function groupBlocks(blocks: any[]): string {
+  let html = '';
+  let i = 0;
+  while (i < blocks.length) {
+    const block = blocks[i];
+    if (block._type === 'block' && block.listItem) {
+      const tag = block.listItem === 'number' ? 'ol' : 'ul';
+      html += `<${tag}>`;
+      while (i < blocks.length && blocks[i]._type === 'block' && blocks[i].listItem === block.listItem) {
+        html += renderBlock(blocks[i]);
+        i++;
+      }
+      html += `</${tag}>`;
+    } else {
+      html += renderBlock(block);
+      i++;
+    }
+  }
+  return html;
+}
+
+const html = Array.isArray(value) ? groupBlocks(value) : '';
+---
+
+<div class={`portable-text ${className}`} set:html={html} />
+
+<style>
+  .portable-text :global(p) { margin-bottom: 1em; }
+  .portable-text :global(h2) { font-size: 22px; font-weight: 700; color: var(--text-2); margin: 1.5em 0 0.5em; letter-spacing: -0.01em; }
+  .portable-text :global(h3) { font-size: 18px; font-weight: 700; color: var(--text-2); margin: 1.25em 0 0.4em; }
+  .portable-text :global(h4) { font-size: 16px; font-weight: 700; color: var(--text-2); margin: 1em 0 0.3em; }
+  .portable-text :global(ul), .portable-text :global(ol) { padding-left: 1.5em; margin-bottom: 1em; }
+  .portable-text :global(li) { margin-bottom: 0.35em; }
+  .portable-text :global(ul) { list-style: disc; }
+  .portable-text :global(ol) { list-style: decimal; }
+  .portable-text :global(strong) { font-weight: 700; color: var(--text-2); }
+  .portable-text :global(em) { font-style: italic; }
+  .portable-text :global(code) { font-family: 'JetBrains Mono', monospace; font-size: 0.875em; background: var(--surface-2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px; }
+  .portable-text :global(blockquote) { border-left: 3px solid var(--blue); padding-left: 1em; color: var(--text-3); font-style: italic; margin: 1.25em 0; }
+  .portable-text :global(a) { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
+  .portable-text :global(.pt-block-image) { margin: 1.5em 0; }
+  .portable-text :global(.pt-block-image img) { width: 100%; border-radius: 8px; }
+</style>

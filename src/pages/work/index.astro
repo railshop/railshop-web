@@ -3,12 +3,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionTag from '../../components/ui/SectionTag.astro';
 import Button from '../../components/ui/Button.astro';
 import CtaBanner from '../../components/ui/CtaBanner.astro';
-import { getCaseStudies } from '../../lib/sanity';
+import { getCaseStudies, getWorkPage } from '../../lib/sanity';
 
 let caseStudies: any[] = [];
+let workPage: any = null;
 try {
-  caseStudies = await getCaseStudies();
+  [caseStudies, workPage] = await Promise.all([getCaseStudies(), getWorkPage()]);
 } catch (_) {}
+
+// Position-based stat colors
+const statColors = ['green', 'blue', 'gold'];
 
 const displayCases = caseStudies.length > 0 ? caseStudies : [
   {
@@ -17,8 +21,8 @@ const displayCases = caseStudies.length > 0 ? caseStudies : [
     title: 'From local HVAC company to regional market leader.',
     excerpt: 'Five years. Full digital buildout. 8x blended ROAS and 4x revenue growth.',
     stats: [
-      { label: '8x Blended ROAS', color: 'green' },
-      { label: '4x Revenue Growth', color: 'blue' },
+      { value: '8x',  label: 'Blended ROAS' },
+      { value: '4x',  label: 'Revenue Growth' },
     ],
     slug: { current: 'hvac-market-leader' },
   },
@@ -28,8 +32,8 @@ const displayCases = caseStudies.length > 0 ? caseStudies : [
     title: 'From zero digital presence to fully booked seasons.',
     excerpt: 'Built from the ground up — web, SEO, and paid ads. First page rankings in 90 days.',
     stats: [
-      { label: '3.2x ROAS', color: 'green' },
-      { label: 'First Page Rankings in 90 Days', color: 'blue' },
+      { value: '3.2x',    label: 'ROAS' },
+      { value: '90 days', label: 'First Page Rankings' },
     ],
     slug: { current: 'landscaping-digital-presence' },
   },
@@ -39,8 +43,7 @@ const displayCases = caseStudies.length > 0 ? caseStudies : [
     title: 'Building a digital foundation for a growing excavation company.',
     excerpt: 'A new inbound channel from scratch. 68% lower cost-per-lead than their previous efforts.',
     stats: [
-      { label: 'New Inbound Channel', color: 'gold' },
-      { label: '68% Lower CPL vs. Industry Avg', color: 'green' },
+      { value: '68%',  label: 'Lower CPL vs. Industry Avg' },
     ],
     slug: { current: 'excavation-digital-foundation' },
   },
@@ -50,15 +53,24 @@ const displayCases = caseStudies.length > 0 ? caseStudies : [
     title: 'Scaling a home security brand beyond door-to-door.',
     excerpt: '2.8x lead volume. 47% lower CPL. A program built to run without constant intervention.',
     stats: [
-      { label: '2.8x Lead Volume', color: 'green' },
-      { label: '47% Lower CPL', color: 'blue' },
+      { value: '2.8x', label: 'Lead Volume' },
+      { value: '47%',  label: 'Lower CPL' },
     ],
     slug: { current: 'home-security-digital-acquisition' },
   },
 ];
+
+// Singleton content with fallbacks
+const heroHeadline = workPage?.hero?.headline ?? null;
+const heroSubhead  = workPage?.hero?.subhead  ?? null;
+const ctaTitle     = workPage?.ctaBanner?.title    ?? 'Want results like these?';
+const ctaSubtitle  = workPage?.ctaBanner?.subtitle ?? "We take on a limited number of new clients. Book a call to see if we're the right fit.";
 ---
 
-<BaseLayout title="Work — Railshop" description="Case studies from Railshop. See how we've helped service businesses build their digital presence and drive real growth.">
+<BaseLayout
+  title={workPage?.seo?.metaTitle ?? 'Work — Railshop'}
+  description={workPage?.seo?.metaDescription ?? "Case studies from Railshop. See how we've helped service businesses build their digital presence and drive real growth."}
+>
 
   <!-- Hero -->
   <section class="hero">
@@ -91,12 +103,16 @@ const displayCases = caseStudies.length > 0 ? caseStudies : [
     <div class="container">
       <div class="hero-inner">
         <div class="hero-left">
-          <h1 class="hero-headline">
-            Real results for<br />
-            <span class="hero-accent">service businesses.</span>
-          </h1>
+          {heroHeadline ? (
+            <h1 class="hero-headline" set:html={heroHeadline.replace(/\n/g, '<br />')} />
+          ) : (
+            <h1 class="hero-headline">
+              Real results for<br />
+              <span class="hero-accent">service businesses.</span>
+            </h1>
+          )}
           <p class="hero-sub">
-            Numbers matter. So does context. These are some of the programs we're proud of — and why they worked.
+            {heroSubhead ?? 'Numbers matter. So does context. These are some of the programs we\'re proud of — and why they worked.'}
           </p>
         </div>
       </div>
@@ -154,8 +170,10 @@ const displayCases = caseStudies.length > 0 ? caseStudies : [
               <p class="card-excerpt">{cs.excerpt}</p>
               <div class="card-footer">
                 <div class="card-metrics">
-                  {(cs.stats ?? []).map((stat: { label: string; color: string }) => (
-                    <span class={`metric metric--${stat.color}`}>{stat.label}</span>
+                  {(cs.stats ?? []).map((stat: { value: string; label: string }, si: number) => (
+                    <span class={`metric metric--${statColors[si] ?? 'blue'}`}>
+                      {stat.value} {stat.label}
+                    </span>
                   ))}
                 </div>
                 <span class="card-cta">
@@ -174,8 +192,8 @@ const displayCases = caseStudies.length > 0 ? caseStudies : [
 
   <!-- CTA -->
   <CtaBanner
-    title="Want results like these?"
-    subtitle="We take on a limited number of new clients. Book a call to see if we're the right fit."
+    title={ctaTitle}
+    subtitle={ctaSubtitle}
     secondaryText="Send a Message"
     secondaryHref="/contact#message-accordion"
   />

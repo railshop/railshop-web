@@ -1,4 +1,4 @@
-import { defineType, defineField } from 'sanity';
+import { defineType, defineField, defineArrayMember } from 'sanity';
 
 export const service = defineType({
   name: 'service',
@@ -34,6 +34,41 @@ export const service = defineType({
       title: 'Full Body Content',
       type: 'array',
       of: [{ type: 'block' }],
+    }),
+    defineField({
+      name: 'whatIsIncluded',
+      title: 'What Is Included',
+      description: 'List of deliverables / inclusions',
+      type: 'array',
+      of: [defineArrayMember({ type: 'string' })],
+    }),
+    defineField({
+      name: 'approach',
+      title: 'Our Approach',
+      description: 'Step-by-step approach for this service',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          fields: [
+            { name: 'step', title: 'Step Name', type: 'string' },
+            { name: 'detail', title: 'Step Detail', type: 'text', rows: 2 },
+          ],
+        }),
+      ],
+    }),
+    defineField({
+      name: 'whoThisIsFor',
+      title: 'Who This Is For',
+      description: 'List of ideal client descriptors',
+      type: 'array',
+      of: [defineArrayMember({ type: 'string' })],
+    }),
+    defineField({
+      name: 'ctaHeadline',
+      title: 'CTA Headline',
+      description: 'Headline shown in the page-level CTA banner',
+      type: 'string',
     }),
     defineField({
       name: 'order',

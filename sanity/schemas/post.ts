@@ -19,6 +19,13 @@ export const post = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'featured',
+      title: 'Featured Post',
+      description: 'Pin to the top of the blog index',
+      type: 'boolean',
+      initialValue: false,
+    }),
+    defineField({
       name: 'excerpt',
       title: 'Excerpt',
       type: 'text',

@@ -2,12 +2,23 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/ui/Button.astro';
 import CtaBanner from '../../components/ui/CtaBanner.astro';
-import { getServices } from '../../lib/sanity';
+import { getServices, getServicesPage } from '../../lib/sanity';
 
 let services: any[] = [];
+let servicesPage: any = null;
 try {
-  services = await getServices();
+  [services, servicesPage] = await Promise.all([getServices(), getServicesPage()]);
 } catch (_) {}
+
+// Singleton content with fallbacks
+const heroHeadline    = servicesPage?.hero?.headline ?? null;
+const heroSubhead     = servicesPage?.hero?.subhead  ?? null;
+const manifestTitle   = servicesPage?.manifest?.title ?? 'Services built for measurable growth';
+const manifestIntro   = servicesPage?.manifest?.intro ?? 'Six ways we help service businesses compete and grow online. Every engagement starts with your goals — not a default package.';
+const approachTitle   = servicesPage?.approach?.title ?? 'A process built for measurable outcomes.';
+const approachSub     = servicesPage?.approach?.sub   ?? 'Every engagement follows the same north star — find what works, build on it, and grow.';
+const ctaTitle        = servicesPage?.ctaBanner?.title    ?? 'Not sure where to start?';
+const ctaSubtitle     = servicesPage?.ctaBanner?.subtitle ?? "Most clients begin with a 30-minute call. We'll tell you exactly where we'd focus first — no pitch, no pressure.";
 
 const displayServices = services.length > 0 ? services : [
   { _id: '1', title: 'Web Design & Development', description: 'High-converting websites built for service businesses. Strategy-first, not template-first.', slug: { current: 'web-design' } },
@@ -30,7 +41,10 @@ const serviceIcons = [
 const phaseCodes = ['ASSESS', 'BUILD', 'GROW'];
 ---
 
-<BaseLayout title="Services — Railshop" description="Digital growth services for service businesses — web design, paid ads, SEO, content, strategy, and AI integration.">
+<BaseLayout
+  title={servicesPage?.seo?.metaTitle ?? 'Services — Railshop'}
+  description={servicesPage?.seo?.metaDescription ?? 'Digital growth services for service businesses — web design, paid ads, SEO, content, strategy, and AI integration.'}
+>
 
   <!-- ============================================================
        1. HERO
@@ -66,14 +80,16 @@ const phaseCodes = ['ASSESS', 'BUILD', 'GROW'];
     <div class="container">
       <div class="hero-inner">
         <div class="hero-left">
-          <h1 class="hero-headline">
-            What we<br />
-            <span class="hero-accent">do best.</span>
-          </h1>
+          {heroHeadline ? (
+            <h1 class="hero-headline" set:html={heroHeadline.replace(/\n/g, '<br />')} />
+          ) : (
+            <h1 class="hero-headline">
+              What we<br />
+              <span class="hero-accent">do best.</span>
+            </h1>
+          )}
           <p class="hero-sub">
-            We build what service businesses need to compete online — websites, paid
-            ads, SEO, content, and AI integration. Senior-level experience on every
-            engagement — no hand-offs, no black boxes.
+            {heroSubhead ?? 'We build what service businesses need to compete online — websites, paid ads, SEO, content, and AI integration. Senior-level experience on every engagement — no hand-offs, no black boxes.'}
           </p>
         </div>
       </div>
@@ -87,11 +103,9 @@ const phaseCodes = ['ASSESS', 'BUILD', 'GROW'];
     <div class="container">
       <div class="services-header">
         <div class="services-header-left">
-          <h2 class="services-title">Services built for<br />measurable growth</h2>
+          <h2 class="services-title" set:html={manifestTitle.replace(/\n/g, '<br />')} />
         </div>
-        <p class="services-intro">
-          Six ways we help service businesses compete and grow online. Every engagement starts with your goals — not a default package.
-        </p>
+        <p class="services-intro">{manifestIntro}</p>
       </div>
 
       <div class="services-manifest">
@@ -126,8 +140,8 @@ const phaseCodes = ['ASSESS', 'BUILD', 'GROW'];
 
     <div class="container">
       <div class="approach-header">
-        <h2 class="approach-title">A process built for<br />measurable outcomes.</h2>
-        <p class="approach-sub">Every engagement follows the same north star — find what works, build on it, and grow.</p>
+        <h2 class="approach-title" set:html={approachTitle.replace(/\n/g, '<br />')} />
+        <p class="approach-sub">{approachSub}</p>
       </div>
 
       <div class="phases">
@@ -232,8 +246,8 @@ const phaseCodes = ['ASSESS', 'BUILD', 'GROW'];
        4. CTA BANNER
        ============================================================ -->
   <CtaBanner
-    title="Not sure where to start?"
-    subtitle="Most clients begin with a 30-minute call. We'll tell you exactly where we'd focus first — no pitch, no pressure."
+    title={ctaTitle}
+    subtitle={ctaSubtitle}
     secondaryText="Send a Message"
     secondaryHref="/contact#message-accordion"
   />
