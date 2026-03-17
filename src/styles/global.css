@@ -183,7 +183,19 @@ a {
    COMPONENT UTILITIES
    ============================================================ */
 
-/* Eyebrow: Inter for legibility, mono only for data annotations */
+/*
+ * Section eyebrow — the "// Label" pattern above H1/H2 headings.
+ * Rendered by SectionTag.astro. JetBrains Mono, micro size, blue, 65% opacity.
+ * Usage: <SectionTag label="Digital Growth Partner" />
+ * Output: // Digital Growth Partner
+ */
+
+/*
+ * Status label — uppercase inline label for status/availability signals.
+ * Used for: "TAKING NEW CLIENTS", "AVAILABLE FOR PROJECTS", etc.
+ * Applied via: .status-label (alias: .eyebrow for back-compat)
+ */
+.status-label,
 .eyebrow {
   font-family: 'Inter', system-ui, sans-serif;
   font-size: var(--fs-label);
@@ -191,6 +203,32 @@ a {
   text-transform: uppercase;
   letter-spacing: var(--ls-wider);
   color: var(--blue);
+}
+
+/*
+ * Text link button — inline "Learn more →" / "Read →" / "View all →" pattern.
+ * Usage: <a class="btn-text">Learn more <svg …/></a>
+ * Modifier: .btn-text--sm for 12px compact variant (card CTAs, row arrows)
+ */
+.btn-text {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-body-sm);
+  font-weight: var(--fw-semi);
+  color: var(--text-3);
+  text-decoration: none;
+  transition: color 0.15s ease, gap 0.15s ease;
+}
+
+.btn-text:hover {
+  color: var(--blue);
+  gap: var(--space-3);
+}
+
+.btn-text--sm {
+  font-size: 12px;
+  font-weight: var(--fw-bold);
 }
 
 .tag {

@@ -11,7 +11,7 @@ import ThemeToggle from '../components/ThemeToggle.tsx';
     <header class="ds-header">
       <div class="ds-header-top">
         <div>
-          <p class="eyebrow">Internal Reference</p>
+          <span class="ds-page-eyebrow">// Internal Reference</span>
           <h1 class="ds-title">Design System</h1>
           <p class="ds-subtitle">The visual foundation for all Railshop web properties — colours, type scale, spacing, and components.</p>
         </div>
@@ -396,6 +396,22 @@ import ThemeToggle from '../components/ThemeToggle.tsx';
           <code class="ds-token-name">.btn-outline</code>
           <span class="ds-token-value">Tertiary / ghost</span>
         </div>
+        <div class="ds-btn-item">
+          <a href="#" class="btn-text">
+            View all case studies
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <code class="ds-token-name">.btn-text</code>
+          <span class="ds-token-value">Text link (14px)</span>
+        </div>
+        <div class="ds-btn-item">
+          <a href="#" class="btn-text btn-text--sm">
+            Learn more
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <code class="ds-token-name">.btn-text.btn-text--sm</code>
+          <span class="ds-token-value">Text link small (12px)</span>
+        </div>
       </div>
     </section>
 
@@ -409,18 +425,31 @@ import ThemeToggle from '../components/ThemeToggle.tsx';
 
         <div class="ds-component-row">
           <div class="ds-component-label">
-            <code class="ds-token-name">.eyebrow</code>
-            <span class="ds-token-value">Global utility class</span>
+            <code class="ds-token-name">SectionTag.astro</code>
+            <span class="ds-token-value">Section eyebrow — above H1/H2</span>
+            <span class="ds-token-value">JetBrains Mono · 9px · --blue 65%</span>
           </div>
           <div class="ds-component-preview">
-            <p class="eyebrow">Performance Marketing</p>
+            <span class="ds-eyebrow-sample">// Digital Growth Partner</span>
+          </div>
+        </div>
+
+        <div class="ds-component-row">
+          <div class="ds-component-label">
+            <code class="ds-token-name">.status-label</code>
+            <span class="ds-token-value">Status / availability label</span>
+            <span class="ds-token-value">Inter · 11px · uppercase · --blue</span>
+          </div>
+          <div class="ds-component-preview ds-component-preview--row">
+            <span class="status-label">Taking New Clients</span>
+            <span class="status-label" style="color: var(--green);">Available</span>
           </div>
         </div>
 
         <div class="ds-component-row">
           <div class="ds-component-label">
             <code class="ds-token-name">.tag</code>
-            <span class="ds-token-value">Global utility class</span>
+            <span class="ds-token-value">Category / filter chip</span>
           </div>
           <div class="ds-component-preview ds-component-preview--row">
             <span class="tag">SEO</span>
@@ -433,13 +462,17 @@ import ThemeToggle from '../components/ThemeToggle.tsx';
         <div class="ds-component-row">
           <div class="ds-component-label">
             <code class="ds-token-name">.card</code>
-            <span class="ds-token-value">Global utility class</span>
+            <span class="ds-token-value">Surface card with border + hover</span>
           </div>
           <div class="ds-component-preview">
-            <div class="card" style="max-width: 320px;">
-              <p class="eyebrow" style="margin-bottom: var(--space-3);">Paid Search</p>
-              <h3 style="font-size: var(--fs-h3); font-weight: var(--fw-bold); color: var(--text-2); margin: 0 0 var(--space-2);">Revenue-focused SEM</h3>
-              <p style="font-size: var(--fs-body-sm); color: var(--text-3); line-height: var(--lh-body); margin: 0;">Google and Microsoft Ads managed for conversion, not impressions. We build campaigns that pay for themselves.</p>
+            <div class="card" style="max-width: 300px;">
+              <span class="ds-card-eyebrow">// Paid Search</span>
+              <h3 class="ds-card-title">Revenue-focused SEM</h3>
+              <p class="ds-card-body">Google and Microsoft Ads managed for conversion, not impressions.</p>
+              <a href="#" class="btn-text btn-text--sm">
+                Learn more
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
             </div>
           </div>
         </div>
@@ -507,6 +540,55 @@ import ThemeToggle from '../components/ThemeToggle.tsx';
 </BaseLayout>
 
 <style>
+  /* ── Page eyebrow (SectionTag style) ────────────────────────── */
+  .ds-page-eyebrow {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--fs-micro);
+    letter-spacing: var(--ls-widest);
+    text-transform: uppercase;
+    color: var(--blue);
+    opacity: 0.65;
+    margin-bottom: var(--space-3);
+  }
+
+  /* ── Component preview helpers ───────────────────────────────── */
+  .ds-eyebrow-sample {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--fs-micro);
+    letter-spacing: var(--ls-widest);
+    text-transform: uppercase;
+    color: var(--blue);
+    opacity: 0.65;
+  }
+
+  .ds-card-eyebrow {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--fs-micro);
+    letter-spacing: var(--ls-widest);
+    text-transform: uppercase;
+    color: var(--blue);
+    opacity: 0.65;
+    margin-bottom: var(--space-4);
+  }
+
+  .ds-card-title {
+    font-size: var(--fs-h3);
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--ls-snug);
+    line-height: var(--lh-title);
+    color: var(--text-2);
+    margin: 0 0 var(--space-3);
+  }
+
+  .ds-card-body {
+    font-size: var(--fs-body-sm);
+    color: var(--text-3);
+    line-height: var(--lh-body);
+    margin: 0 0 var(--space-5);
+  }
+
   /* ── Page shell ──────────────────────────────────────────────── */
   .ds-page {
     max-width: 1100px;
