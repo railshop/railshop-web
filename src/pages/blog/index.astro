@@ -62,8 +62,8 @@ const heroSub = blogPage?.hero?.sub ?? null;
 const newsletterTitle = blogPage?.newsletter?.title ?? null;
 const newsletterDesc = blogPage?.newsletter?.description ?? null;
 
-function resolvePostImage(post: any): string {
-  if (post.coverImage?.asset) return urlForImage(post.coverImage).width(800).url();
+function resolvePostImage(post: any, featured = false): string {
+  if (post.coverImage?.asset) return urlForImage(post.coverImage).width(featured ? 1400 : 800).url();
   return post.image ?? '';
 }
 
@@ -141,7 +141,7 @@ const categoryColorMap: Record<string, string> = {
 
         <!-- Image -->
         <div class="featured-image">
-          <img src={resolvePostImage(featuredPost)} alt={featuredPost.title} class="featured-image-img" loading="eager" decoding="async" />
+          <img src={resolvePostImage(featuredPost, true)} alt={featuredPost.title} class="featured-image-img" loading="eager" decoding="async" />
           <!-- HUD overlay -->
           <div class="card-hud" aria-hidden="true">
             <span class="hud-id">POST-001</span>

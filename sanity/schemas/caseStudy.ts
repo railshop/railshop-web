@@ -143,7 +143,7 @@ export const caseStudy = defineType({
     }),
     defineField({
       name: 'coverImage',
-      title: 'Cover Image',
+      title: 'Cover Image — recommended 1280×720px (16:9)',
       type: 'image',
       options: { hotspot: true },
     }),
