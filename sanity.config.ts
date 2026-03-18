@@ -4,7 +4,7 @@ import { visionTool } from '@sanity/vision';
 import { media } from 'sanity-plugin-media';
 import { schemaTypes } from './sanity/schemas';
 
-const singletons = ['siteSettings', 'homePage', 'aboutPage', 'servicesPage', 'workPage', 'contactPage', 'blogPage'];
+const singletons = ['siteSettings', 'homePage', 'aboutPage', 'servicesPage', 'workPage', 'contactPage', 'blogPage', 'thankYouPage'];
 
 export default defineConfig({
   name: 'railshop-web',
@@ -46,6 +46,10 @@ export default defineConfig({
               .title('Blog Page')
               .id('blogPage')
               .child(S.document().schemaType('blogPage').documentId('blogPage')),
+            S.listItem()
+              .title('Thank You Page')
+              .id('thankYouPage')
+              .child(S.document().schemaType('thankYouPage').documentId('thankYouPage')),
             S.divider(),
             // Collections
             S.documentTypeListItem('service').title('Services'),
