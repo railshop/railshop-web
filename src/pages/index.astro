@@ -34,8 +34,8 @@ try {
 // Placeholder services if Sanity is empty
 const displayServices = services.length > 0 ? services : [
   { _id: '1', title: 'Web Design & Development', description: 'High-converting websites built for service businesses. Strategy-first, not template-first.', slug: { current: 'web-design' } },
-  { _id: '2', title: 'Paid Ads', description: 'Google Ads, LSA, and Meta campaigns built around your cost-per-lead goals — not vanity metrics.', slug: { current: 'paid-ads' } },
-  { _id: '3', title: 'SEO', description: 'Local and technical SEO that compounds over time and reduces your reliance on paid.', slug: { current: 'seo' } },
+  { _id: '2', title: 'Paid Ads', description: 'Google Ads, LSA, and Meta campaigns built around your cost-per-lead goals. Not vanity metrics.', slug: { current: 'paid-ads' } },
+  { _id: '3', title: 'SEO', description: 'Local and technical SEO that compounds over time and reduces your reliance on paid ads.', slug: { current: 'seo' } },
   { _id: '4', title: 'Content Creation', description: 'Video and photo content that builds authority and keeps your brand visible between campaigns.', slug: { current: 'content-creation' } },
   { _id: '5', title: 'Strategy Consulting', description: 'Not sure where to start? We\'ll audit your full digital presence and build a prioritized plan.', slug: { current: 'strategy' } },
   { _id: '6', title: 'AI Integration', description: 'Practical AI implementation that reduces cost, saves time, and gives your business a real edge.', slug: { current: 'ai-integration' } },
@@ -43,9 +43,9 @@ const displayServices = services.length > 0 ? services : [
 
 // Placeholder posts if Sanity is empty
 const displayPosts = posts.length > 0 ? posts : [
-  { _id: '1', title: 'Why Most Service Businesses Fail Online (And What Actually Works)', excerpt: 'The common mistakes we see across every industry — and the framework we use to fix them.', publishedAt: '2026-02-12', slug: { current: 'why-service-businesses-fail-online' } },
+  { _id: '1', title: 'Why Most Service Businesses Fail Online (And What Actually Works)', excerpt: 'The common mistakes we see across every industry, and the framework we use to fix them.', publishedAt: '2026-02-12', slug: { current: 'why-service-businesses-fail-online' } },
   { _id: '2', title: 'Local SEO in 2026: What\'s Changed and What Still Works', excerpt: 'The tactics that have faded and the fundamentals that keep driving rankings for service businesses.', publishedAt: '2026-01-14', slug: { current: 'local-seo-2026' } },
-  { _id: '3', title: 'What Makes a Service Business Website Actually Convert', excerpt: 'Speed, structure, and trust signals — the three things that separate websites that generate leads from ones that don\'t.', publishedAt: '2025-12-18', slug: { current: 'service-business-website-conversion' } },
+  { _id: '3', title: 'What Makes a Service Business Website Actually Convert', excerpt: 'Speed, structure, and trust signals: the three things that separate websites that generate leads from ones that don\'t.', publishedAt: '2025-12-18', slug: { current: 'service-business-website-conversion' } },
 ];
 
 // Proof bar stats — from homePage, fallback to hardcoded
@@ -60,28 +60,28 @@ const proofStats = (homePage?.proofStats?.length > 0 ? homePage.proofStats : [
 const heroHeadline = homePage?.hero?.headline ?? null;
 const heroSubhead  = homePage?.hero?.subhead  ?? null;
 const servicesSectionTitle = homePage?.servicesSection?.title ?? 'Services built for measurable growth';
-const servicesSectionIntro = homePage?.servicesSection?.intro ?? 'Six ways we help service businesses compete and grow online. Every engagement starts with your goals — not a default package.';
+const servicesSectionIntro = homePage?.servicesSection?.intro ?? 'Six ways we help service businesses compete and grow online. Every engagement starts with your goals, not a default package.';
 const whoTitle     = homePage?.whoWeServe?.headline ?? 'Built for service businesses ready to grow.';
-const whoBody      = homePage?.whoWeServe?.body ?? "You run a great operation. Your digital presence should reflect that — and drive real leads. Whether you're a local landscaping company or a regional security provider, we build what your business needs to compete and win online.";
+const whoBody      = homePage?.whoWeServe?.body ?? "You run a great operation. Your digital presence should reflect that and drive real leads. Whether you're a local landscaping company or a regional security provider, we build what your business needs to compete and win online.";
 const whoCtaLabel  = homePage?.whoWeServe?.ctaLabel ?? 'See If We\'re a Fit';
 const industries   = homePage?.whoWeServe?.industries?.length > 0
   ? homePage.whoWeServe.industries
   : ['Concrete & Hardscape', 'Construction', 'Excavation', 'Home & Business Security', 'HVAC', 'Landscaping', 'Plumbing', 'Roofing', 'Windows & Doors'];
 const aboutTitle   = homePage?.aboutTeaser?.title ?? 'Enterprise experience.\nBoutique delivery.';
-const aboutBody    = homePage?.aboutTeaser?.body ?? "Railshop is a digital growth partner co-founded by a corporate marketing leader and a product management leader in software. We spent years at the senior level inside national brands — building and scaling the kinds of digital programs most agencies only claim to understand. We started Railshop to bring that experience directly to growing service businesses, without the overhead.";
+const aboutBody    = homePage?.aboutTeaser?.body ?? "Railshop is a digital growth partner co-founded by a corporate marketing leader and a product management leader in software. We spent years at the senior level inside national brands, building and scaling the kinds of digital programs most agencies only claim to understand. We started Railshop to bring that experience directly to growing service businesses, without the overhead.";
 const aboutCards   = homePage?.aboutTeaser?.cards?.length > 0 ? homePage.aboutTeaser.cards : [
-  { eyebrow: '01', heading: 'Senior-Only Team',              body: 'Every engagement is led by us directly — no coordinators, no junior hires.' },
-  { eyebrow: '02', heading: 'The Right People, Every Time',  body: 'When a project needs a specialist, we know exactly who to call and why. No guesswork, no overhead.' },
-  { eyebrow: '03', heading: 'Built to Partner',              body: "We're built for long-term partnerships — the kind where strategy compounds and results keep growing." },
+  { eyebrow: '01', heading: 'Senior-Only Team',              body: 'Every engagement is led by us directly. Senior work start to finish, not handed down the line.' },
+  { eyebrow: '02', heading: 'The Right People, Every Time',  body: 'When a project needs a specialist, we know exactly who to call and why.' },
+  { eyebrow: '03', heading: 'Built to Partner',              body: "We're built for long-term partnerships where each program builds on the last." },
 ];
 const blogTitle    = homePage?.blogTeaser?.title ?? 'Straight talk on digital marketing.';
-const blogIntro    = homePage?.blogTeaser?.intro ?? "No noise, no vanity metrics — just honest perspective on what's working for service businesses online.";
+const blogIntro    = homePage?.blogTeaser?.intro ?? "Written by practitioners running live campaigns. What's working, what's changed, and what to ignore.";
 const ctaTitle     = homePage?.ctaBanner?.title ?? 'Ready to grow your<br />service business online?';
 const ctaSubtitle  = homePage?.ctaBanner?.subtitle ?? 'We take on a limited number of new clients. Book a call to see if we\'re the right fit.';
 
 // Featured case study content
 const caseQuote = featuredCase?.homepagePullQuote ?? 'From local HVAC company to regional market leader.';
-const caseBody  = featuredCase?.homepageBody ?? "A family-owned HVAC business ready to scale but stuck on word-of-mouth and slow seasons. We built their digital foundation — web, paid search, SEO, and content — and grew with them for five years. The result: 4x revenue growth and an 8x blended return on ad spend.";
+const caseBody  = featuredCase?.homepageBody ?? "A family-owned HVAC business ready to scale but stuck on word-of-mouth and slow seasons. We built their full digital program and grew with them for five years. The result: 4x revenue growth and an 8x blended return on ad spend.";
 const caseStats = featuredCase?.stats?.length > 0 ? featuredCase.stats : [
   { value: '8x',  label: 'Blended ROAS' },
   { value: '4x',  label: 'Revenue Growth' },
@@ -101,7 +101,7 @@ const serviceIcons = [
 
 <BaseLayout
   title={homePage?.seo?.metaTitle ?? 'Railshop | Digital Marketing for Home & Consumer Service Businesses'}
-  description={homePage?.seo?.metaDescription ?? 'Railshop is a boutique digital growth agency for home and consumer service businesses. We build websites, run paid ads, and drive SEO — delivered by senior leaders who\'ve done it at scale.'}
+  description={homePage?.seo?.metaDescription ?? 'Railshop is a boutique digital growth agency for home and consumer service businesses. We build websites, run paid ads, and drive SEO. Delivered by senior practitioners with national brand experience.'}
 >
   <!-- ============================================================
        1. HERO
@@ -149,7 +149,7 @@ const serviceIcons = [
       )}
 
       <p class="hero-sub">
-        {heroSubhead ?? 'Railshop is a boutique growth partner for home and consumer service brands. We build what your business needs — and nothing it doesn\'t.'}
+        {heroSubhead ?? 'Railshop is a boutique growth partner for home and consumer service brands. We build what your business needs and nothing it doesn\'t.'}
       </p>
 
       <div class="hero-ctas">

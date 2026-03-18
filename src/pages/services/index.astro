@@ -14,15 +14,15 @@ try {
 const heroHeadline    = servicesPage?.hero?.headline ?? null;
 const heroSubhead     = servicesPage?.hero?.subhead  ?? null;
 const manifestTitle   = servicesPage?.manifest?.title ?? 'Services built for measurable growth';
-const manifestIntro   = servicesPage?.manifest?.intro ?? 'Six ways we help service businesses compete and grow online. Every engagement starts with your goals — not a default package.';
+const manifestIntro   = servicesPage?.manifest?.intro ?? 'Six ways we help service businesses compete and grow online. Every engagement starts with your goals, not a default package.';
 const approachTitle   = servicesPage?.approach?.title ?? 'A process built for measurable outcomes.';
-const approachSub     = servicesPage?.approach?.sub   ?? 'Every engagement follows the same north star — find what works, build on it, and grow.';
+const approachSub     = servicesPage?.approach?.sub   ?? 'Every engagement follows the same principle: find what works, build on it, and grow.';
 const ctaTitle        = servicesPage?.ctaBanner?.title    ?? 'Not sure where to start?';
-const ctaSubtitle     = servicesPage?.ctaBanner?.subtitle ?? "Most clients begin with a 30-minute call. We'll tell you exactly where we'd focus first — no pitch, no pressure.";
+const ctaSubtitle     = servicesPage?.ctaBanner?.subtitle ?? "Most clients begin with a 30-minute call. We'll tell you exactly where we'd focus first. Come with questions. Leave with a clear picture.";
 
 const displayServices = services.length > 0 ? services : [
   { _id: '1', title: 'Web Design & Development', description: 'High-converting websites built for service businesses. Strategy-first, not template-first.', slug: { current: 'web-design' } },
-  { _id: '2', title: 'Paid Ads', description: 'Google Ads, LSA, and Meta campaigns built around your cost-per-lead goals — not vanity metrics.', slug: { current: 'paid-ads' } },
+  { _id: '2', title: 'Paid Ads', description: 'Google Ads, LSA, and Meta campaigns built around your cost-per-lead goals. Not vanity metrics.', slug: { current: 'paid-ads' } },
   { _id: '3', title: 'SEO', description: 'Local and technical SEO that compounds over time and reduces your reliance on paid.', slug: { current: 'seo' } },
   { _id: '4', title: 'Content Creation', description: 'Video and photo content that builds authority and keeps your brand visible between campaigns.', slug: { current: 'content-creation' } },
   { _id: '5', title: 'Strategy Consulting', description: "Not sure where to start? We'll audit your full digital presence and build a prioritized plan.", slug: { current: 'strategy' } },
@@ -43,7 +43,7 @@ const phaseCodes = ['ASSESS', 'BUILD', 'GROW'];
 
 <BaseLayout
   title={servicesPage?.seo?.metaTitle ?? 'Services — Railshop'}
-  description={servicesPage?.seo?.metaDescription ?? 'Digital growth services for service businesses — web design, paid ads, SEO, content, strategy, and AI integration.'}
+  description={servicesPage?.seo?.metaDescription ?? 'Digital growth services for service businesses: web design, paid ads, SEO, content, strategy, and AI integration.'}
 >
 
   <!-- ============================================================
@@ -89,7 +89,7 @@ const phaseCodes = ['ASSESS', 'BUILD', 'GROW'];
             </h1>
           )}
           <p class="hero-sub">
-            {heroSubhead ?? 'We build what service businesses need to compete online — websites, paid ads, SEO, content, and AI integration. Senior-level experience on every engagement — no hand-offs, no black boxes.'}
+            {heroSubhead ?? 'We build what service businesses need to compete online: websites, paid ads, SEO, content, and AI integration. Senior-level experience on every engagement. You work directly with the people doing the work.'}
           </p>
         </div>
       </div>
@@ -160,7 +160,7 @@ const phaseCodes = ['ASSESS', 'BUILD', 'GROW'];
             </svg>
           </div>
           <h3 class="phase-title">Assess</h3>
-          <p class="phase-desc">We start with an honest audit of where you stand — website, paid media, SEO, and competitive position. No assumptions, no default packages.</p>
+          <p class="phase-desc">We start with an honest audit of where you stand: website, paid media, SEO, and competitive position. No assumptions, no default packages.</p>
           <div class="phase-deliverables">
             <span class="phase-d-label">Deliverables</span>
             <ul class="phase-d-list">
@@ -228,7 +228,7 @@ const phaseCodes = ['ASSESS', 'BUILD', 'GROW'];
             </svg>
           </div>
           <h3 class="phase-title">Grow</h3>
-          <p class="phase-desc">With the foundation right, we scale what's working and cut what isn't. Month over month, we're driving toward your revenue goals — not just maintaining the status quo.</p>
+          <p class="phase-desc">With the foundation right, we scale what's working and cut what isn't. Month over month, we're driving toward your revenue goals, not just maintaining the status quo.</p>
           <div class="phase-deliverables">
             <span class="phase-d-label">Deliverables</span>
             <ul class="phase-d-list">

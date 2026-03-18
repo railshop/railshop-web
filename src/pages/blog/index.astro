@@ -13,7 +13,7 @@ const displayPosts = posts.length > 0 ? posts : [
   {
     _id: '1',
     title: 'Why Most Service Businesses Fail Online (And What Actually Works)',
-    excerpt: 'The common mistakes we see across every industry — and the framework we use to fix them.',
+    excerpt: 'The common mistakes we see across every industry, and the framework we use to fix them.',
     publishedAt: '2026-02-12',
     category: 'Strategy',
     slug: { current: 'why-service-businesses-fail-online' },
@@ -40,7 +40,7 @@ const displayPosts = posts.length > 0 ? posts : [
   {
     _id: '4',
     title: 'What Makes a Service Business Website Actually Convert',
-    excerpt: "Speed, structure, and trust signals — the three things that separate websites that generate leads from ones that don't.",
+    excerpt: "Speed, structure, and trust signals: the three things that separate websites that generate leads from ones that don't.",
     publishedAt: '2025-12-18',
     category: 'Web',
     slug: { current: 'service-business-website-conversion' },
@@ -86,7 +86,7 @@ const categoryColorMap: Record<string, string> = {
 
 <BaseLayout
   title={blogPage?.seo?.metaTitle ?? 'Blog — Railshop'}
-  description={blogPage?.seo?.metaDescription ?? 'Straight talk on digital marketing for service businesses. No noise — honest perspective from practitioners who live in the accounts.'}
+  description={blogPage?.seo?.metaDescription ?? 'Straight talk on digital marketing for service businesses. No noise. Honest perspective from practitioners who live in the accounts.'}
 >
 
   <!-- Hero -->
@@ -122,7 +122,7 @@ const categoryColorMap: Record<string, string> = {
         <div class="hero-left">
           <h1 class="hero-headline" set:html={heroHeadline ?? 'Straight talk on<br /><span class="hero-accent">digital marketing.</span>'} />
           <p class="hero-sub">
-            {heroSub ?? "No noise, no vanity metrics — just honest perspective on what's working for service businesses online."}
+            {heroSub ?? "Written by practitioners running live campaigns. What's working, what's changed, and what to ignore."}
           </p>
         </div>
       </div>

@@ -15,14 +15,14 @@ try {
 
 // Hero
 const heroHeadline  = page?.hero?.headline  ?? "We've got it.";
-const heroSubhead   = page?.hero?.subhead   ?? "Your message is in. We review every inquiry personally and will follow up within one business day — usually sooner.";
+const heroSubhead   = page?.hero?.subhead   ?? "Your message is in. We review every inquiry personally and will follow up within one business day, usually sooner.";
 const badgeLabel    = page?.hero?.badgeLabel ?? "Message received";
 
 // Steps
 const defaultSteps = [
-  { title: 'We review your message',     body: 'Our team reads every inquiry. No auto-replies, no canned responses — just a real person looking at what you sent.',                                     statusLabel: 'In progress' },
+  { title: 'We review your message',     body: 'Our team reads every inquiry. No auto-replies, no canned responses. Just a real person looking at what you sent.',                                     statusLabel: 'In progress' },
   { title: 'You hear from us directly',  body: 'Expect a reply within one business day. We\'ll acknowledge what you\'re working on and suggest the most useful next step.',                            statusLabel: 'Up next'     },
-  { title: 'We talk (if it\'s a fit)',   body: 'If it makes sense, we\'ll set up a quick call — no pitch, no pressure. Just a straight conversation about what you\'re building.',                    statusLabel: 'Pending'     },
+  { title: 'We talk (if it\'s a fit)',   body: 'If it makes sense, we\'ll set up a quick call. No pitch, no pressure. Just a straight conversation about what you\'re building.',                    statusLabel: 'Pending'     },
 ];
 const steps = page?.nextSteps?.steps?.length > 0 ? page.nextSteps.steps : defaultSteps;
 
@@ -156,14 +156,14 @@ const ctaBody    = page?.ctaCard?.body    ?? 'Skip the back-and-forth and pick a
           <a href="/work" class="explore-card">
             <div class="explore-card-inner">
               <span class="explore-card-title">Our Work</span>
-              <p class="explore-card-desc">Case studies from real client engagements — results, process, and what we learned.</p>
+              <p class="explore-card-desc">Case studies from real client engagements: results, process, and what we learned.</p>
             </div>
             <svg class="explore-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
           <a href="/services" class="explore-card">
             <div class="explore-card-inner">
               <span class="explore-card-title">Services</span>
-              <p class="explore-card-desc">What we do and how we do it — paid media, SEO, web, content, strategy, and AI integration.</p>
+              <p class="explore-card-desc">What we do and how we do it: paid media, SEO, web, content, strategy, and AI integration.</p>
             </div>
             <svg class="explore-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>

@@ -21,10 +21,10 @@ const agendaItems    = contactPage?.bookACall?.agendaItems?.length > 0
   : [
       "A straight read on where your digital presence stands",
       "Honest perspective on what we'd prioritize first",
-      "No obligation — we'll tell you if we're not the right fit",
+      "No obligation. We'll tell you if we're not the right fit",
       "If it's a match, a clear path to getting started",
     ];
-const briefFooter    = contactPage?.bookACall?.briefFooter ?? "If we're not the right fit, we'll say so — and point you somewhere better.";
+const briefFooter    = contactPage?.bookACall?.briefFooter ?? "If we're not the right fit, we'll say so and point you somewhere better.";
 const msgHeading     = contactPage?.sendAMessage?.heading ?? 'Prefer to send a message instead?';
 const msgSub         = contactPage?.sendAMessage?.sub     ?? 'Tell us about your business and what you\'re trying to achieve. We\'ll review it and follow up within one business day.';
 const stat1Value     = contactPage?.sendAMessage?.responseStat1Value ?? '~4h';
@@ -99,7 +99,7 @@ const servicePills = services.length > 0
             </h1>
           )}
           <p class="hero-sub">
-            {heroSubhead ?? "No pitch, no pressure. Just a straightforward conversation about where you're trying to go and whether we're the right team to help you get there."}
+            {heroSubhead ?? "A straightforward conversation about where you're trying to go and whether we're the right team to help you get there."}
           </p>
 
         </div>
