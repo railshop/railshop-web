@@ -1311,46 +1311,6 @@ const serviceIcons = [
   .arc-star-4pt  { fill: rgba(56,182,255,0.14); stroke: none; }
 
   /* ══════════════════════════════════════
-     LIGHT MODE OVERRIDES
-  ══════════════════════════════════════ */
-
-  /* Hero arc SVG — shift to light-mode blue */
-  [data-theme="light"] .arc-main      { stroke: rgba(3,105,161,0.14); }
-  [data-theme="light"] .arc-secondary { stroke: rgba(3,105,161,0.07); }
-  [data-theme="light"] .arc-crosshair { stroke: rgba(3,105,161,0.28); }
-  [data-theme="light"] .arc-star      { fill: rgba(3,105,161,0.20); }
-  [data-theme="light"] .arc-star-4pt  { fill: rgba(3,105,161,0.15); }
-
-  /* Hero glow — very subtle on light bg */
-  [data-theme="light"] .hero-glow {
-    background: radial-gradient(ellipse at 30% 40%, rgba(3,105,161,0.04) 0%, transparent 65%);
-  }
-
-  /* Hero annotations — slightly more opaque so they're legible on light bg */
-  [data-theme="light"] .hero-annotation { opacity: 0.65; }
-  [data-theme="light"] .anno-code       { opacity: 1; }
-
-  /* Proof bar rule label — was nearly invisible at 0.35 on light */
-  [data-theme="light"] .proof-rule-label { opacity: 0.55; }
-
-  /* Industries heading — boost from 0.65 */
-  [data-theme="light"] .who-tags-heading { opacity: 0.85; }
-
-  /* Services/blog/about index numbers — increase from 0.3 */
-  [data-theme="light"] .svc-idx,
-  [data-theme="light"] .proof-idx,
-  [data-theme="light"] .blog-row-num,
-  [data-theme="light"] .about-card-num  { opacity: 0.45; }
-
-  /* Service row arrow — increase from 0.4 */
-  [data-theme="light"] .svc-arrow,
-  [data-theme="light"] .blog-row-arrow  { opacity: 0.55; }
-
-  /* About section — white card on surface: swap to surface-2 for definition */
-  [data-theme="light"] .about-card { background: var(--surface-2); }
-  [data-theme="light"] .about-card:hover { background: var(--surface-3); }
-
-  /* ══════════════════════════════════════
      RESPONSIVE
   ══════════════════════════════════════ */
   @media (max-width: 1024px) {

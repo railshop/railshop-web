@@ -109,17 +109,6 @@ const globalSchema = {
 
     <slot name="head" />
 
-    <!-- Theme init: read localStorage before paint to avoid flash -->
-    <script is:inline>
-      (function () {
-        try {
-          const stored = localStorage.getItem('theme');
-          if (stored === 'light') {
-            document.documentElement.setAttribute('data-theme', 'light');
-          }
-        } catch (_) {}
-      })();
-    </script>
   </head>
   <body>
     <Nav />

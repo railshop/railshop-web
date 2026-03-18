@@ -167,6 +167,7 @@ const ctaCopy = settings?.footerCtaCopy ?? 'Ready to see what the right digital 
     color: var(--text-3);
     line-height: 1.65;
     margin-bottom: 20px;
+    max-width: 260px;
   }
 
   .footer-address {
@@ -315,11 +316,4 @@ const ctaCopy = settings?.footerCtaCopy ?? 'Ready to see what the right digital 
     }
   }
 
-  /* ── Light mode overrides ── */
-  [data-theme="light"] .footer-accent-label { opacity: 0.55; }
-  [data-theme="light"] .footer-col-heading  { opacity: 0.75; }
-  [data-theme="light"] .footer-copy         { opacity: 0.7;  }
-  [data-theme="light"] .footer-privacy      { opacity: 0.7;  }
-  [data-theme="light"] .footer-coord        { opacity: 0.45; }
-  [data-theme="light"] .footer-address      { opacity: 0.85; }
 </style>

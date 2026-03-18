@@ -87,48 +87,6 @@
   --radius-lg: 12px;
 }
 
-/* ============================================================
-   CSS CUSTOM PROPERTIES — LIGHT MODE
-   ============================================================ */
-[data-theme="light"] {
-  --bg:          #FFFFFF;
-  --surface:     #F0F4F8;
-  --surface-2:   #E2EBF2;
-  --surface-3:   #D5E0E8;
-  --border:      #CBD5E1;
-  --border-2:    #B0BFCC;
-  --text:        #0F172A;
-  --text-2:      #334155;
-  --text-3:      #475569;
-
-  --blue:        #0369A1;
-  --blue-dim:    #025E8F;
-  --blue-glow:   rgba(3, 105, 161, 0.08);
-  --blue-border: rgba(3, 105, 161, 0.25);
-  --green:       #047857;
-  --gold:        #B45309;
-  --red:         #DC2626;
-}
-
-[data-theme="light"] .btn-primary {
-  color: #FFFFFF;
-}
-
-/* ============================================================
-   LOGO VISIBILITY
-   logo-for-light starts hidden via inline style="display:none".
-   In light mode, !important overrides that inline style instantly
-   when data-theme="light" is set before first paint.
-   ============================================================ */
-[data-theme="light"] .logo-for-dark  { display: none !important; }
-[data-theme="light"] .logo-for-light { display: block !important; }
-
-/* ============================================================
-   NAV — light mode background (global so scoping can't break it)
-   ============================================================ */
-[data-theme="light"] .nav-header {
-  background: rgba(255, 255, 255, 0.92) !important;
-}
 
 /* ============================================================
    BASE RESETS

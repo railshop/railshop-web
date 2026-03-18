@@ -116,12 +116,8 @@ const contactSchema = {
     (function () {
       var el = document.querySelector('.calendly-inline-widget');
       if (!el) return;
-      var isDark = document.documentElement.getAttribute('data-theme') !== 'light';
       var base = 'https://calendly.com/drew-railshop/30min?hide_gdpr_banner=1';
-      el.setAttribute('data-url', isDark
-        ? base + '&background_color=111315&text_color=f8fafc&primary_color=38b6ff'
-        : base + '&background_color=ffffff&text_color=0f172a&primary_color=0369a1'
-      );
+      el.setAttribute('data-url', base + '&background_color=111315&text_color=f8fafc&primary_color=38b6ff');
     })();
   </script>
   <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
@@ -573,9 +569,7 @@ const contactSchema = {
     flex-shrink: 0;
   }
 
-  :global([data-theme="light"]) .submit-btn { color: #FFFFFF; }
-
-  .submit-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+.submit-btn:hover { opacity: 0.88; transform: translateY(-1px); }
   .submit-btn:active { transform: translateY(0); }
 
   /* ══════════════════════════════════════
