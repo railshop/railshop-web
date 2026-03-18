@@ -65,12 +65,37 @@ const heroHeadline = workPage?.hero?.headline ?? null;
 const heroSubhead  = workPage?.hero?.subhead  ?? null;
 const ctaTitle     = workPage?.ctaBanner?.title    ?? 'Want results like these?';
 const ctaSubtitle  = workPage?.ctaBanner?.subtitle ?? "We take on a limited number of new clients. Book a call to see if we're the right fit.";
+
+const workIndexSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      'name': 'Work — Railshop',
+      'url': 'https://railshop.co/work',
+      'isPartOf': { '@id': 'https://railshop.co/#website' },
+    },
+    {
+      '@type': 'ItemList',
+      'name': 'Railshop Case Studies',
+      'itemListElement': displayCases.map((c: any, i: number) => ({
+        '@type': 'ListItem',
+        'position': i + 1,
+        'name': c.title,
+        'url': `https://railshop.co/work/${c.slug.current}`,
+      })),
+    },
+  ],
+};
 ---
 
 <BaseLayout
   title={workPage?.seo?.metaTitle ?? 'Work — Railshop'}
   description={workPage?.seo?.metaDescription ?? "Case studies from Railshop. See how we've helped service businesses build their digital presence and drive real growth."}
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(workIndexSchema)} />
+  </Fragment>
 
   <!-- Hero -->
   <section class="hero">

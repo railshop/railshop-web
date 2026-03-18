@@ -6,6 +6,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   title="Privacy Policy — Railshop"
   description="Railshop's privacy policy. Learn how we collect, use, and protect your information."
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      'name': 'Privacy Policy — Railshop',
+      'url': 'https://railshop.co/privacy',
+      'isPartOf': { '@id': 'https://railshop.co/#website' },
+    })} />
+  </Fragment>
 
   <!-- ============================================================
        HERO

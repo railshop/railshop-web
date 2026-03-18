@@ -82,12 +82,39 @@ const categoryColorMap: Record<string, string> = {
   'AI': 'green',
   'Content': 'gold',
 };
+
+const blogIndexSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Blog',
+      'name': 'Railshop Blog',
+      'description': 'Straight talk on digital marketing for service businesses.',
+      'url': 'https://railshop.co/blog',
+      'isPartOf': { '@id': 'https://railshop.co/#website' },
+      'publisher': { '@id': 'https://railshop.co/#organization' },
+    },
+    {
+      '@type': 'ItemList',
+      'name': 'Recent Blog Posts',
+      'itemListElement': displayPosts.map((post: any, i: number) => ({
+        '@type': 'ListItem',
+        'position': i + 1,
+        'name': post.title,
+        'url': `https://railshop.co/blog/${post.slug.current}`,
+      })),
+    },
+  ],
+};
 ---
 
 <BaseLayout
   title={blogPage?.seo?.metaTitle ?? 'Blog — Railshop'}
   description={blogPage?.seo?.metaDescription ?? 'Straight talk on digital marketing for service businesses. No noise. Honest perspective from practitioners who live in the accounts.'}
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(blogIndexSchema)} />
+  </Fragment>
 
   <!-- Hero -->
   <section class="hero">

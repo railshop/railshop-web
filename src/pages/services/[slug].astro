@@ -72,12 +72,38 @@ const allServices = [
   { slug: 'strategy',         title: 'Strategy Consulting' },
   { slug: 'ai-integration',   title: 'AI Integration' },
 ];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      'name': data.title,
+      'description': data.description,
+      'provider': { '@id': 'https://railshop.co/#organization' },
+      'serviceType': 'Digital Marketing',
+      'areaServed': { '@type': 'Country', 'name': 'United States' },
+      'url': `https://railshop.co/services/${slug}`,
+    },
+    {
+      '@type': 'BreadcrumbList',
+      'itemListElement': [
+        { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://railshop.co' },
+        { '@type': 'ListItem', 'position': 2, 'name': 'Services', 'item': 'https://railshop.co/services' },
+        { '@type': 'ListItem', 'position': 3, 'name': data.title, 'item': `https://railshop.co/services/${slug}` },
+      ],
+    },
+  ],
+};
 ---
 
 <BaseLayout
   title={`${data.title} — Railshop`}
   description={service?.seo?.metaDescription ?? data.description}
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  </Fragment>
 
   <!-- ============================================================
        1. HERO

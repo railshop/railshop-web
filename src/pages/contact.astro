@@ -39,6 +39,14 @@ const servicePills = services.length > 0
       { label: 'Strategy Consulting',      value: 'strategy' },
       { label: 'AI Integration',           value: 'ai-integration' },
     ];
+
+const contactSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  'name': 'Contact Railshop',
+  'url': 'https://railshop.co/contact',
+  'isPartOf': { '@id': 'https://railshop.co/#website' },
+};
 ---
 
 <BaseLayout
@@ -49,6 +57,7 @@ const servicePills = services.length > 0
     <link rel="preconnect" href="https://calendly.com" />
     <link rel="preconnect" href="https://assets.calendly.com" />
     <link rel="dns-prefetch" href="https://calendly.com" />
+    <script type="application/ld+json" set:html={JSON.stringify(contactSchema)} />
   </Fragment>
 
   <!-- ============================================================

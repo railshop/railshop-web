@@ -19,12 +19,50 @@ const {
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 
 let faviconUrl = '/favicon.svg';
+let orgName = 'Railshop';
+let orgDescription = 'Boutique digital growth agency for home and consumer service businesses.';
+let orgLogoUrl = '';
+const orgSameAs: string[] = [];
+
 try {
   const settings = await getSiteSettings();
-  if (settings?.favicon?.asset?._ref) {
-    faviconUrl = urlForImage(settings.favicon).url();
-  }
+  if (settings?.favicon?.asset?._ref) faviconUrl = urlForImage(settings.favicon).url();
+  if (settings?.siteTitle) orgName = settings.siteTitle;
+  if (settings?.siteDescription) orgDescription = settings.siteDescription;
+  if (settings?.logo?.asset?._ref) orgLogoUrl = urlForImage(settings.logo).url();
+  if (settings?.linkedIn) orgSameAs.push(settings.linkedIn);
+  if (settings?.instagramUrl) orgSameAs.push(settings.instagramUrl);
 } catch (_) {}
+
+const orgNode: Record<string, unknown> = {
+  '@type': ['Organization', 'ProfessionalService'],
+  '@id': 'https://railshop.co/#organization',
+  'name': orgName,
+  'url': 'https://railshop.co',
+  'description': orgDescription,
+  'address': {
+    '@type': 'PostalAddress',
+    'addressLocality': 'Pittsburgh',
+    'addressRegion': 'PA',
+    'addressCountry': 'US',
+  },
+};
+if (orgLogoUrl) orgNode.logo = { '@type': 'ImageObject', 'url': orgLogoUrl };
+if (orgSameAs.length > 0) orgNode.sameAs = orgSameAs;
+
+const globalSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    orgNode,
+    {
+      '@type': 'WebSite',
+      '@id': 'https://railshop.co/#website',
+      'name': orgName,
+      'url': 'https://railshop.co',
+      'publisher': { '@id': 'https://railshop.co/#organization' },
+    },
+  ],
+};
 ---
 
 <!DOCTYPE html>
@@ -65,6 +103,9 @@ try {
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <title>{title}</title>
+
+    <!-- Global structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify(globalSchema)} />
 
     <slot name="head" />
 

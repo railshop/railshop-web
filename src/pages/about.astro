@@ -10,6 +10,30 @@ try {
   [aboutPage, teamMembers] = await Promise.all([getAboutPage(), getTeamMembers()]);
 } catch (_) {}
 
+const aboutSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'AboutPage',
+      'name': 'About Railshop',
+      'description': 'Railshop is a boutique performance marketing agency. Senior practitioners, direct client relationships, no hand-offs.',
+      'url': 'https://railshop.co/about',
+      'isPartOf': { '@id': 'https://railshop.co/#website' },
+    },
+    ...((teamMembers.length > 0 ? teamMembers : [
+      { name: 'Andrew Opalinski', role: 'Co-Founder · Head of Digital Strategy', bio: 'Former Head of Digital Marketing at Window Nation and Vector Security.', linkedinUrl: 'https://linkedin.com/in/drewrailshop' },
+      { name: 'Sean Connelly', role: 'Co-Founder · Head of Product & Operations', bio: 'VP of Product at Momentive Software.', linkedinUrl: 'https://linkedin.com/in/seanrailshop' },
+    ]).map((m: any) => ({
+      '@type': 'Person',
+      'name': m.name,
+      'jobTitle': m.role,
+      'description': m.bio,
+      'worksFor': { '@id': 'https://railshop.co/#organization' },
+      ...(m.linkedinUrl ? { 'sameAs': m.linkedinUrl } : {}),
+    }))),
+  ],
+};
+
 // Fallbacks
 const heroEyebrow  = aboutPage?.hero?.eyebrow  ?? null;
 const heroHeadline = aboutPage?.hero?.headline ?? null;
@@ -28,6 +52,9 @@ const displayTeam = teamMembers.length > 0 ? teamMembers : [
   title={aboutPage?.seo?.metaTitle ?? 'About — Railshop'}
   description={aboutPage?.seo?.metaDescription ?? 'Railshop is a boutique performance marketing agency. Senior practitioners, direct client relationships, no hand-offs.'}
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(aboutSchema)} />
+  </Fragment>
 
   <!-- ============================================================
        1. HERO

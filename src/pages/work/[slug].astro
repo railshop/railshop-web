@@ -43,6 +43,47 @@ const cs = {
   testimonial: sanityCs?.testimonial ?? sample?.testimonial,
 };
 
+const caseStudyGraphNodes: Record<string, unknown>[] = [
+  {
+    '@type': 'Article',
+    'articleSection': 'Case Study',
+    'headline': cs.title,
+    'description': cs.excerpt,
+    'url': `https://railshop.co/work/${slug}`,
+    'author': { '@id': 'https://railshop.co/#organization' },
+    'publisher': { '@id': 'https://railshop.co/#organization' },
+    'isPartOf': { '@id': 'https://railshop.co/#website' },
+    ...(cs.industry ? { 'about': { '@type': 'Thing', 'name': cs.industry } } : {}),
+  },
+  {
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://railshop.co' },
+      { '@type': 'ListItem', 'position': 2, 'name': 'Work', 'item': 'https://railshop.co/work' },
+      { '@type': 'ListItem', 'position': 3, 'name': cs.title, 'item': `https://railshop.co/work/${slug}` },
+    ],
+  },
+];
+
+const testimonialQuote = cs.testimonial?.quote ?? '';
+if (testimonialQuote && testimonialAuthor) {
+  caseStudyGraphNodes.push({
+    '@type': 'Review',
+    'reviewBody': testimonialQuote,
+    'author': {
+      '@type': 'Person',
+      'name': testimonialAuthor,
+      ...(testimonialRole ? { 'jobTitle': testimonialRole } : {}),
+    },
+    'itemReviewed': { '@id': 'https://railshop.co/#organization' },
+  });
+}
+
+const caseStudySchema = {
+  '@context': 'https://schema.org',
+  '@graph': caseStudyGraphNodes,
+};
+
 // Module ID from slug index
 const allSlugs = Object.keys(caseStudySamples);
 const slugIdx = allSlugs.indexOf(slug);
@@ -75,6 +116,9 @@ const testimonialPhotoUrl = sanityCs?.testimonial?.photo?.asset
   title={`${cs.title} — Railshop Work`}
   description={sanityCs?.seo?.metaDescription ?? cs.excerpt}
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(caseStudySchema)} />
+  </Fragment>
 
   <!-- ============================================================
        1. HERO

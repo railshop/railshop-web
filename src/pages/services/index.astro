@@ -39,12 +39,37 @@ const serviceIcons = [
 ];
 
 const phaseCodes = ['ASSESS', 'BUILD', 'GROW'];
+
+const servicesIndexSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      'name': 'Services — Railshop',
+      'url': 'https://railshop.co/services',
+      'isPartOf': { '@id': 'https://railshop.co/#website' },
+    },
+    {
+      '@type': 'ItemList',
+      'name': 'Railshop Services',
+      'itemListElement': displayServices.map((svc: any, i: number) => ({
+        '@type': 'ListItem',
+        'position': i + 1,
+        'name': svc.title,
+        'url': `https://railshop.co/services/${svc.slug.current}`,
+      })),
+    },
+  ],
+};
 ---
 
 <BaseLayout
   title={servicesPage?.seo?.metaTitle ?? 'Services — Railshop'}
   description={servicesPage?.seo?.metaDescription ?? 'Digital growth services for service businesses: web design, paid ads, SEO, content, strategy, and AI integration.'}
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(servicesIndexSchema)} />
+  </Fragment>
 
   <!-- ============================================================
        1. HERO
