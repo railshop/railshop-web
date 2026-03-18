@@ -66,6 +66,8 @@ try {
 
     <title>{title}</title>
 
+    <slot name="head" />
+
     <!-- Theme init: read localStorage before paint to avoid flash -->
     <script is:inline>
       (function () {

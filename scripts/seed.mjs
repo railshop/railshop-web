@@ -266,25 +266,20 @@ async function seed() {
     _id: 'contactPage',
     _type: 'contactPage',
     seo: {
-      metaTitle: 'Contact - Railshop',
+      metaTitle: 'Contact — Railshop',
       metaDescription: "Book a free 30-minute discovery call with Railshop. No pitch. Honest perspective on what's holding your marketing back.",
     },
-    hero: {
-      eyebrow: '// Contact',
-      headline: "Let's talk about your business.",
-      subhead: "A straightforward conversation about where you're trying to go and whether we're the right team to help you get there.",
+    openSection: {
+      eyebrow: 'Free · 30 Min Discovery Call',
+      headline: "What's holding your marketing back?",
+      sub: "Pick a time below. We'll come prepared with a straight read on your situation.",
     },
-    bookACall: {
-      heading: 'Book a Call',
-      subhead: "Pick a time that works for you. We'll come prepared.",
-      agendaItems: [
-        'A straight read on where your digital presence stands',
-        "Honest perspective on what we'd prioritize first",
-        "No obligation. We'll tell you if we're not the right fit",
-        "If it's a match, a clear path to getting started",
-      ],
-      briefFooter: "If we're not the right fit, we'll say so and point you somewhere better.",
-    },
+    clientLogos: [
+      ...(imgLogoWindowNation  ? [{ _key: key(), name: 'Window Nation',   logo: imgLogoWindowNation  }] : []),
+      ...(imgLogoVectorSecurity ? [{ _key: key(), name: 'Vector Security', logo: imgLogoVectorSecurity }] : []),
+      ...(imgLogoFireIce        ? [{ _key: key(), name: 'Fire & Ice',      logo: imgLogoFireIce        }] : []),
+      ...(imgLogoJPOps          ? [{ _key: key(), name: 'JP Operations',   logo: imgLogoJPOps          }] : []),
+    ],
     sendAMessage: {
       heading: 'Not ready to book? Send us a note.',
       sub: "Tell us about your business and what you're trying to achieve. We'll review it and follow up within one business day.",

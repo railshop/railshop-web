@@ -1,18 +1,22 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getContactPage, getSiteSettings, getServices, getAboutPage, urlForImage } from '../lib/sanity';
+import { getContactPage, getSiteSettings, getServices, urlForImage } from '../lib/sanity';
 
 let contactPage: any = null;
 let settings: any = null;
 let services: any[] = [];
-let aboutPage: any = null;
 try {
-  [contactPage, settings, services, aboutPage] = await Promise.all([
-    getContactPage(), getSiteSettings(), getServices(), getAboutPage(),
+  [contactPage, settings, services] = await Promise.all([
+    getContactPage(), getSiteSettings(), getServices(),
   ]);
 } catch (_) {}
 
-// Content with fallbacks
+// Open section
+const openEyebrow = contactPage?.openSection?.eyebrow  ?? 'Free · 30 Min Discovery Call';
+const openHeading = contactPage?.openSection?.headline ?? "What's holding your marketing back?";
+const openSub     = contactPage?.openSection?.sub      ?? "Pick a time below. We'll come prepared with a straight read on your situation.";
+
+// Send a Message section
 const msgHeading  = contactPage?.sendAMessage?.heading ?? 'Not ready to book? Send us a note.';
 const msgSub      = contactPage?.sendAMessage?.sub     ?? 'Tell us about your business and what you\'re trying to achieve. We\'ll review it and follow up within one business day.';
 const stat1Value  = contactPage?.sendAMessage?.responseStat1Value ?? '~4h';
@@ -22,7 +26,7 @@ const stat2Label  = contactPage?.sendAMessage?.responseStat2Label ?? 'Responses 
 const socialProof = contactPage?.sendAMessage?.socialProofText ?? 'Most of our best client relationships started with a single message.';
 
 // Client logos for trust strip
-const clientLogos: any[] = aboutPage?.clientLogos ?? [];
+const clientLogos: any[] = contactPage?.clientLogos ?? [];
 
 // Service pills — from Sanity or fallback
 const servicePills = services.length > 0
@@ -41,6 +45,11 @@ const servicePills = services.length > 0
   title={contactPage?.seo?.metaTitle ?? 'Contact — Railshop'}
   description={contactPage?.seo?.metaDescription ?? 'Book a free 30-minute discovery call with Railshop. No pitch. Honest perspective on what\'s holding your marketing back.'}
 >
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://calendly.com" />
+    <link rel="preconnect" href="https://assets.calendly.com" />
+    <link rel="dns-prefetch" href="https://calendly.com" />
+  </Fragment>
 
   <!-- ============================================================
        1. OPEN — tight, conversion-focused
@@ -64,9 +73,9 @@ const servicePills = services.length > 0
     </div>
     <div class="container">
       <div class="open-inner">
-        <span class="open-eyebrow">// Free · 30 Min Discovery Call</span>
-        <h1 class="open-heading">What's holding your marketing back?</h1>
-        <p class="open-sub">Pick a time below. We'll come prepared with a straight read on your situation.</p>
+        <span class="open-eyebrow">// {openEyebrow}</span>
+        <h1 class="open-heading">{openHeading}</h1>
+        <p class="open-sub">{openSub}</p>
       </div>
     </div>
   </section>
@@ -415,6 +424,7 @@ const servicePills = services.length > 0
     display: block;
     width: 100%;
   }
+
 
   /* ══════════════════════════════════════
      SHARED: SECTION RULE DIVIDER
