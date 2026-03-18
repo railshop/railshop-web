@@ -165,34 +165,7 @@ const displayTeam = teamMembers.length > 0 ? teamMembers : [
   </section>
 
   <!-- ============================================================
-       4. CLIENT LOGOS
-       ============================================================ -->
-  <section class="logos-section">
-    <div class="container">
-      <div class="logos-header">
-        <h2 class="section-headline">Brands we've worked with.</h2>
-      </div>
-      <div class="logos-row">
-        <div class="logo-tile">
-          <img src="/images/logos/window nation logo.png" alt="Window Nation" class="logo-img logo-window-nation" loading="lazy" decoding="async" />
-        </div>
-        <div class="logo-tile">
-          <img src="/images/logos/vector security logo.svg" alt="Vector Security" class="logo-img logo-vector-security" loading="lazy" decoding="async" />
-        </div>
-        <div class="logo-tile">
-          <img src="/images/logos/fire and ice logo.png" alt="Fire &amp; Ice" class="logo-img logo-fire-ice" loading="lazy" decoding="async" />
-        </div>
-        <div class="logo-tile">
-          <img src="/images/logos/jp operations logo.svg" alt="JP Operations" class="logo-img logo-jp-operations" loading="lazy" decoding="async" />
-        </div>
-        <div class="logo-tile logo-tile--placeholder"></div>
-        <div class="logo-tile logo-tile--placeholder"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       5. VALUES
+       4. VALUES
        ============================================================ -->
   <section class="values-section">
     <div class="container">
@@ -543,67 +516,7 @@ const displayTeam = teamMembers.length > 0 ? teamMembers : [
   .linkedin-link:hover { opacity: 1; color: var(--blue); }
 
   /* ══════════════════════════════════════
-     4. LOGOS
-  ══════════════════════════════════════ */
-  .logos-section {
-    padding: 64px 0;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .logos-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    text-align: center;
-    margin-bottom: 40px;
-  }
-
-  .logos-subhead {
-    font-size: 13px;
-    color: var(--text-3);
-    opacity: 0.5;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.08em;
-  }
-
-  .logos-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .logo-tile {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    width: 176px;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0.5;
-    transition: opacity 0.2s, border-color 0.2s;
-  }
-
-  .logo-tile:hover { opacity: 0.85; border-color: var(--border-2); }
-
-  .logo-img {
-    width: 120px;
-    height: 44px;
-    object-fit: contain;
-    display: block;
-    filter: brightness(0) invert(1);
-  }
-
-  .logo-window-nation  { width: 170px; height: 70px; }
-  .logo-vector-security { width: 144px; height: 56px; }
-
-  /* ══════════════════════════════════════
-     5. VALUES
+     4. VALUES
   ══════════════════════════════════════ */
   .values-section {
     padding: 80px 0;
@@ -678,7 +591,5 @@ const displayTeam = teamMembers.length > 0 ? teamMembers : [
   @media (max-width: 768px) {
     .team-grid   { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
     .values-grid { grid-template-columns: 1fr; }
-    .logos-row   { gap: 6px; }
-    .logo-tile   { width: 140px; height: 64px; }
   }
 </style>
