@@ -540,6 +540,221 @@ import ThemeToggle from '../components/ThemeToggle.tsx';
       </div>
     </section>
 
+    <!-- ── 09 — PageHero Illustrations ──────────────────────────── -->
+    <section class="ds-section">
+      <div class="ds-section-label">
+        <span class="ds-token-name">09 — PAGEHERO ILLUSTRATIONS</span>
+      </div>
+      <p class="ds-component-desc">
+        <code class="ds-inline-code">src/components/ui/PageHero.astro</code> — Pass <code class="ds-inline-code">illustration="..."</code> to render a per-page SVG. All illustrations use <code class="ds-inline-code">currentColor</code> via <code class="ds-inline-code">phi-*</code> CSS classes. Color is set by <code class="ds-inline-code">color: var(--blue)</code> on the wrapper; opacity at <code class="ds-inline-code">0.82</code>. Float animation: <code class="ds-inline-code">ph-float</code> 7s ease-in-out.
+      </p>
+
+      <div class="ds-illus-grid">
+
+        <!-- targeting -->
+        <div class="ds-illus-card">
+          <div class="ds-illus-preview">
+            <svg class="ds-illus-svg" viewBox="0 0 200 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path class="phi-stroke phi-thin" d="M 162 18 L 162 34 M 162 18 L 178 18"/>
+              <circle class="phi-stroke phi-thin phi-dashed" cx="100" cy="90" r="78"/>
+              <circle class="phi-stroke phi-thick" cx="100" cy="90" r="60"/>
+              <line class="phi-stroke" x1="100" y1="22"  x2="100" y2="70"/>
+              <line class="phi-stroke" x1="100" y1="110" x2="100" y2="158"/>
+              <line class="phi-stroke" x1="32"  y1="90"  x2="80"  y2="90"/>
+              <line class="phi-stroke" x1="120" y1="90"  x2="168" y2="90"/>
+              <line class="phi-stroke phi-thin" x1="142" y1="48"  x2="147" y2="43"/>
+              <line class="phi-stroke phi-thin" x1="142" y1="132" x2="147" y2="137"/>
+              <line class="phi-stroke phi-thin" x1="58"  y1="132" x2="53"  y2="137"/>
+              <line class="phi-stroke phi-thin" x1="58"  y1="48"  x2="53"  y2="43"/>
+              <circle class="phi-stroke phi-thin" cx="100" cy="90" r="38"/>
+              <path class="phi-stroke phi-thin phi-dashed" d="M 138 90 A 38 38 0 0 0 100 52"/>
+              <circle class="phi-stroke" cx="100" cy="90" r="20"/>
+              <circle class="phi-stroke phi-thick" cx="100" cy="90" r="6"/>
+              <circle class="phi-dot" cx="100" cy="90" r="2.5"/>
+              <text class="phi-text" x="28" y="178">SVC-001</text>
+              <circle class="phi-dot" cx="24" cy="30" r="2"/>
+              <circle class="phi-dot" cx="180" cy="54" r="1.5"/>
+              <path class="phi-fill" d="M 176 100 L 177.5 103.5 L 181 105 L 177.5 106.5 L 176 110 L 174.5 106.5 L 171 105 L 174.5 103.5 Z"/>
+            </svg>
+          </div>
+          <div class="ds-illus-meta">
+            <code class="ds-inline-code">illustration="targeting"</code>
+            <span class="ds-token-name">Services index · viewBox 200×190</span>
+            <span class="ds-token-name">Concentric lock rings + crosshair</span>
+          </div>
+        </div>
+
+        <!-- planet -->
+        <div class="ds-illus-card">
+          <div class="ds-illus-preview">
+            <svg class="ds-illus-svg" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path class="phi-stroke phi-thin" d="M 16 18 L 16 34 M 16 18 L 32 18"/>
+              <ellipse class="phi-stroke phi-thin phi-dashed" cx="100" cy="118" rx="86" ry="26" transform="rotate(-18 100 118)"/>
+              <circle class="phi-stroke phi-thick" cx="100" cy="118" r="52"/>
+              <path class="phi-stroke phi-thin" d="M 54 106 Q 100 120 146 106"/>
+              <path class="phi-stroke phi-thin" d="M 58 128 Q 100 142 142 128"/>
+              <path class="phi-stroke phi-thin" d="M 60 90  Q 100 100 140 90"/>
+              <ellipse class="phi-stroke" cx="100" cy="118" rx="80" ry="20" transform="rotate(-15 100 118)"/>
+              <circle class="phi-stroke phi-thick" cx="176" cy="68" r="11"/>
+              <path class="phi-stroke phi-thin" d="M 167 65 Q 176 71 185 65"/>
+              <text class="phi-text" x="148" y="56">WRK-001</text>
+              <circle class="phi-dot" cx="22" cy="42" r="2"/>
+              <circle class="phi-dot" cx="174" cy="30" r="1.5"/>
+              <path class="phi-fill" d="M 38 202 L 39.5 205.5 L 43 207 L 39.5 208.5 L 38 212 L 36.5 208.5 L 33 207 L 36.5 205.5 Z"/>
+            </svg>
+          </div>
+          <div class="ds-illus-meta">
+            <code class="ds-inline-code">illustration="planet"</code>
+            <span class="ds-token-name">Work index · viewBox 200×260</span>
+            <span class="ds-token-name">Planet + orbital ring + moon</span>
+          </div>
+        </div>
+
+        <!-- astronaut -->
+        <div class="ds-illus-card">
+          <div class="ds-illus-preview">
+            <svg class="ds-illus-svg" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path class="phi-stroke phi-thin" d="M 182 242 L 182 226 M 182 242 L 166 242"/>
+              <circle class="phi-stroke" cx="22" cy="34" r="11"/>
+              <ellipse class="phi-stroke phi-thin" cx="22" cy="34" rx="17" ry="5" transform="rotate(-15 22 34)"/>
+              <g opacity="0.55">
+                <circle class="phi-stroke phi-thick" cx="148" cy="64" r="12"/>
+                <path class="phi-visor" d="M 138 61 Q 138 76 148 76 Q 158 76 158 61 Q 155 55 148 55 Q 141 55 138 61 Z"/>
+                <path class="phi-stroke phi-thick" d="M 141 79 Q 138 79 138 83 L 138 112 Q 138 115 141 115 L 155 115 Q 158 115 158 112 L 158 83 Q 158 79 155 79 Z"/>
+                <path class="phi-stroke phi-thick" d="M 138 86 Q 128 90 124 99"/>
+                <ellipse class="phi-stroke" cx="123" cy="101" rx="4" ry="2.8"/>
+                <path class="phi-stroke phi-thick" d="M 158 86 Q 168 91 171 100"/>
+                <ellipse class="phi-stroke" cx="172" cy="101" rx="4" ry="2.8"/>
+                <path class="phi-stroke phi-thick" d="M 142 115 Q 140 122 139 129"/>
+                <ellipse class="phi-stroke" cx="139" cy="131" rx="5.5" ry="3"/>
+                <path class="phi-stroke phi-thick" d="M 154 115 Q 156 122 157 129"/>
+                <ellipse class="phi-stroke" cx="157" cy="131" rx="5.5" ry="3"/>
+              </g>
+              <path class="phi-stroke phi-thin phi-dashed" d="M 140 112 Q 118 134 108 152"/>
+              <circle class="phi-stroke phi-thick" cx="82" cy="118" r="22"/>
+              <path class="phi-visor" d="M 63 113 Q 63 140 82 140 Q 101 140 101 113 Q 97 103 82 103 Q 67 103 63 113 Z"/>
+              <path class="phi-stroke phi-thick" d="M 68 145 Q 62 145 62 151 L 62 196 Q 62 200 68 200 L 96 200 Q 102 200 102 196 L 102 151 Q 102 145 96 145 Z"/>
+              <path class="phi-stroke phi-thick" d="M 62 156 Q 47 163 40 175"/>
+              <ellipse class="phi-stroke" cx="38" cy="177" rx="7" ry="4.5"/>
+              <path class="phi-stroke phi-thick" d="M 102 156 Q 119 140 127 123"/>
+              <ellipse class="phi-stroke" cx="129" cy="120" rx="7" ry="4.5" transform="rotate(-25 129 120)"/>
+              <path class="phi-stroke phi-thin" d="M 134 113 Q 141 107 138 99"/>
+              <path class="phi-stroke phi-thin" d="M 137 121 Q 145 115 143 107"/>
+              <path class="phi-stroke phi-thick" d="M 70 200 Q 67 211 65 221"/>
+              <ellipse class="phi-stroke" cx="64" cy="223" rx="9" ry="5"/>
+              <path class="phi-stroke phi-thick" d="M 94 200 Q 97 211 99 221"/>
+              <ellipse class="phi-stroke" cx="100" cy="223" rx="9" ry="5"/>
+              <text class="phi-text" x="52" y="246">CREW: 02</text>
+              <circle class="phi-dot" cx="184" cy="46" r="2"/>
+              <path class="phi-fill" d="M 174 72 L 175.5 75.5 L 179 77 L 175.5 78.5 L 174 82 L 172.5 78.5 L 169 77 L 172.5 75.5 Z"/>
+            </svg>
+          </div>
+          <div class="ds-illus-meta">
+            <code class="ds-inline-code">illustration="astronaut"</code>
+            <span class="ds-token-name">About · viewBox 200×260</span>
+            <span class="ds-token-name">Two-crew depth composition</span>
+          </div>
+        </div>
+
+        <!-- broadcast -->
+        <div class="ds-illus-card">
+          <div class="ds-illus-preview">
+            <svg class="ds-illus-svg" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path class="phi-stroke phi-thin" d="M 18 220 L 18 240 M 18 220 L 38 220"/>
+              <path class="phi-stroke phi-thin phi-dashed" d="M 85 52 A 18 18 0 0 0 115 52"/>
+              <path class="phi-stroke phi-thin phi-dashed" d="M 76 38 A 32 32 0 0 0 124 38"/>
+              <path class="phi-stroke phi-thin phi-dashed" d="M 65 22 A 48 48 0 0 0 135 22"/>
+              <circle class="phi-stroke phi-thick" cx="100" cy="60" r="6"/>
+              <circle class="phi-dot" cx="100" cy="60" r="2.5"/>
+              <line class="phi-stroke" x1="100" y1="66" x2="100" y2="85"/>
+              <path class="phi-stroke phi-thick" d="M 84 76 Q 100 88 116 76"/>
+              <rect class="phi-stroke phi-thick" x="76" y="96" width="48" height="48" rx="3"/>
+              <line class="phi-stroke phi-thin" x1="76" y1="96"  x2="124" y2="144"/>
+              <line class="phi-stroke phi-thin" x1="124" y1="96" x2="76"  y2="144"/>
+              <rect class="phi-stroke" x="12" y="108" width="60" height="24" rx="2"/>
+              <line class="phi-stroke phi-thin" x1="32" y1="108" x2="32" y2="132"/>
+              <line class="phi-stroke phi-thin" x1="52" y1="108" x2="52" y2="132"/>
+              <line class="phi-stroke phi-thin" x1="12" y1="120" x2="72" y2="120"/>
+              <line class="phi-stroke" x1="72" y1="120" x2="76" y2="120"/>
+              <rect class="phi-stroke" x="128" y="108" width="60" height="24" rx="2"/>
+              <line class="phi-stroke phi-thin" x1="148" y1="108" x2="148" y2="132"/>
+              <line class="phi-stroke phi-thin" x1="168" y1="108" x2="168" y2="132"/>
+              <line class="phi-stroke phi-thin" x1="128" y1="120" x2="188" y2="120"/>
+              <line class="phi-stroke" x1="124" y1="120" x2="128" y2="120"/>
+              <text class="phi-text" x="66" y="175">BLG-001</text>
+              <circle class="phi-dot" cx="30" cy="30" r="2"/>
+              <path class="phi-fill" d="M 162 158 L 163.5 161.5 L 167 163 L 163.5 164.5 L 162 168 L 160.5 164.5 L 157 163 L 160.5 161.5 Z"/>
+            </svg>
+          </div>
+          <div class="ds-illus-meta">
+            <code class="ds-inline-code">illustration="broadcast"</code>
+            <span class="ds-token-name">Blog index · viewBox 200×260</span>
+            <span class="ds-token-name">Broadcast satellite + signal arcs</span>
+          </div>
+        </div>
+
+        <!-- launch -->
+        <div class="ds-illus-card">
+          <div class="ds-illus-preview">
+            <svg class="ds-illus-svg" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path class="phi-stroke phi-thin" d="M 164 18 L 164 34 M 164 18 L 180 18"/>
+              <circle class="phi-stroke phi-thin phi-dashed" cx="100" cy="116" r="72"/>
+              <circle class="phi-stroke" cx="100" cy="116" r="54"/>
+              <line class="phi-stroke phi-thin" x1="22" y1="116" x2="40" y2="116"/>
+              <line class="phi-stroke phi-thin" x1="160" y1="116" x2="178" y2="116"/>
+              <line class="phi-stroke phi-thin" x1="100" y1="36" x2="100" y2="54"/>
+              <line class="phi-stroke phi-thin" x1="100" y1="178" x2="100" y2="196"/>
+              <path class="phi-stroke phi-thick" d="M 86 78 Q 100 36 114 78"/>
+              <line class="phi-stroke phi-thick" x1="86" y1="78" x2="86" y2="158"/>
+              <line class="phi-stroke phi-thick" x1="114" y1="78" x2="114" y2="158"/>
+              <line class="phi-stroke phi-thin" x1="86" y1="124" x2="114" y2="124"/>
+              <line class="phi-stroke phi-thin" x1="86" y1="140" x2="114" y2="140"/>
+              <circle class="phi-stroke" cx="100" cy="100" r="8"/>
+              <circle class="phi-dot" cx="100" cy="100" r="3"/>
+              <path class="phi-stroke phi-thick" d="M 86 140 Q 70 156 62 176 L 86 170"/>
+              <path class="phi-stroke phi-thick" d="M 114 140 Q 130 156 138 176 L 114 170"/>
+              <path class="phi-stroke phi-thick" d="M 86 158 L 90 168 L 110 168 L 114 158"/>
+              <path class="phi-stroke phi-thin" d="M 90 168 Q 100 174 110 168"/>
+              <line class="phi-stroke phi-thin" x1="64" y1="184" x2="136" y2="184"/>
+              <line class="phi-stroke phi-thin" x1="86" y1="172" x2="76" y2="184"/>
+              <line class="phi-stroke phi-thin" x1="114" y1="172" x2="124" y2="184"/>
+              <line class="phi-stroke phi-thin" x1="70" y1="184" x2="66" y2="196"/>
+              <line class="phi-stroke phi-thin" x1="130" y1="184" x2="134" y2="196"/>
+              <path class="phi-stroke phi-thin" d="M 66 196 L 66 202 L 134 202 L 134 196"/>
+              <path class="phi-stroke phi-thin phi-dashed" d="M 94 174 Q 84 192 76 210"/>
+              <path class="phi-stroke phi-thin phi-dashed" d="M 100 174 Q 100 194 100 214"/>
+              <path class="phi-stroke phi-thin phi-dashed" d="M 106 174 Q 116 192 124 210"/>
+              <text class="phi-text" x="34" y="246">T-MINUS: 00</text>
+              <circle class="phi-dot" cx="18" cy="54" r="1.5"/>
+              <circle class="phi-dot" cx="186" cy="70" r="2"/>
+              <path class="phi-fill" d="M 168 46 L 169.5 49.5 L 173 51 L 169.5 52.5 L 168 56 L 166.5 52.5 L 163 51 L 166.5 49.5 Z"/>
+            </svg>
+          </div>
+          <div class="ds-illus-meta">
+            <code class="ds-inline-code">illustration="launch"</code>
+            <span class="ds-token-name">Contact · viewBox 200×260</span>
+            <span class="ds-token-name">Rocket on pad + lock rings</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CSS class reference -->
+      <div class="ds-illus-classes">
+        <p class="ds-token-name" style="margin-bottom: 12px;">phi-* CSS CLASS REFERENCE</p>
+        <div class="ds-illus-class-grid">
+          <div class="ds-illus-class-row"><code class="ds-inline-code">.phi-stroke</code><span>Base stroke — currentColor, fill: none, round caps, sw 1.6</span></div>
+          <div class="ds-illus-class-row"><code class="ds-inline-code">.phi-thick</code><span>stroke-width: 2.2</span></div>
+          <div class="ds-illus-class-row"><code class="ds-inline-code">.phi-thin</code><span>stroke-width: 1, stroke-opacity: 0.55</span></div>
+          <div class="ds-illus-class-row"><code class="ds-inline-code">.phi-dashed</code><span>stroke-dasharray: 5 4</span></div>
+          <div class="ds-illus-class-row"><code class="ds-inline-code">.phi-fill</code><span>fill: currentColor, no stroke, opacity: 0.85 — used for star bursts</span></div>
+          <div class="ds-illus-class-row"><code class="ds-inline-code">.phi-dot</code><span>fill: currentColor, opacity: 0.45 — used for dot stars and center points</span></div>
+          <div class="ds-illus-class-row"><code class="ds-inline-code">.phi-visor</code><span>fill: currentColor at 0.12 opacity + matching stroke — helmet visors</span></div>
+          <div class="ds-illus-class-row"><code class="ds-inline-code">.phi-text</code><span>JetBrains Mono 7px, fill-opacity: 0.60 — HUD labels inside SVG</span></div>
+        </div>
+      </div>
+    </section>
+
     <!-- ── Footer rule ────────────────────────────────────────── -->
     <div class="ds-footer-rule">
       <div class="ds-rule-line"></div>
@@ -979,5 +1194,103 @@ import ThemeToggle from '../components/ThemeToggle.tsx';
     .ds-theme-toggle {
       align-items: flex-start;
     }
+  }
+
+  /* ── Section 09: PageHero Illustrations ── */
+  .ds-illus-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .ds-illus-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .ds-illus-preview {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--blue);
+    opacity: 0.82;
+  }
+
+  .ds-illus-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ds-illus-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .ds-illus-classes {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px 24px;
+  }
+
+  .ds-illus-class-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ds-illus-class-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--text-3);
+    line-height: 1.6;
+  }
+
+  /* phi-* classes for rendering illustrations outside PageHero.astro */
+  .phi-stroke {
+    stroke: currentColor;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.6;
+  }
+  .phi-thick  { stroke-width: 2.2; }
+  .phi-thin   { stroke-width: 1; stroke-opacity: 0.55; }
+  .phi-dashed { stroke-dasharray: 5 4; }
+  .phi-fill   { fill: currentColor; stroke: none; opacity: 0.85; }
+  .phi-dot    { fill: currentColor; opacity: 0.45; }
+  .phi-visor  {
+    fill: currentColor;
+    fill-opacity: 0.12;
+    stroke: currentColor;
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .phi-text {
+    fill: currentColor;
+    fill-opacity: 0.60;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7px;
+    letter-spacing: 0.10em;
+  }
+
+  @media (max-width: 1024px) {
+    .ds-illus-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .ds-illus-grid { grid-template-columns: repeat(2, 1fr); }
+    .ds-illus-class-row { grid-template-columns: 1fr; gap: 2px; }
   }
 </style>
