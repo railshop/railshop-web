@@ -106,7 +106,7 @@ const postRef = (post._id ?? slug).slice(-6).toUpperCase();
         <div class="hero-left">
           <div class="post-meta">
             {post.categories?.map((cat: any) => (
-              <span class="post-cat">{cat.title}</span>
+              <span class="tag">{cat.title}</span>
             ))}
             {post.categories?.length > 0 && <span class="post-meta-sep">·</span>}
             <span class="post-date">{formattedDate}</span>
@@ -340,18 +340,6 @@ const postRef = (post._id ?? slug).slice(-6).toUpperCase();
     flex-wrap: wrap;
   }
 
-  .post-cat {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--blue);
-    background: rgba(56, 182, 255, 0.08);
-    border: 1px solid rgba(56, 182, 255, 0.2);
-    border-radius: 2px;
-    padding: 3px 8px;
-  }
 
   .post-meta-sep {
     font-family: 'JetBrains Mono', monospace;

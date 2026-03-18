@@ -272,7 +272,7 @@ const testimonialPhotoUrl = sanityCs?.testimonial?.photo?.asset
               <div class="detail-row">
                 <span class="detail-label">SERVICES</span>
                 <div class="detail-tags">
-                  {cs.services.map((svc) => <span class="service-tag">{svc}</span>)}
+                  {cs.services.map((svc) => <span class="tag">{svc}</span>)}
                 </div>
               </div>
             )}
@@ -856,17 +856,6 @@ const testimonialPhotoUrl = sanityCs?.testimonial?.photo?.asset
 
   .detail-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px; }
 
-  .service-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-3);
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    padding: 2px 6px;
-  }
 
   /* CTA card */
   .sidebar-card--cta {
