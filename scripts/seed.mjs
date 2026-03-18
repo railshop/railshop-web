@@ -225,8 +225,8 @@ async function seed() {
     },
     hero: {
       eyebrow: '// Services',
-      headline: 'What we do best.',
-      subhead: 'We build what service businesses need to compete online: websites, paid ads, SEO, content, and AI integration. Senior-level experience on every engagement. You work directly with the people doing the work.',
+      headline: 'What we do and how we do it.',
+      subhead: 'Websites, paid ads, SEO, and content — senior-level work on every engagement, start to finish.',
     },
     manifest: {
       title: 'Services built for measurable growth',
@@ -252,8 +252,8 @@ async function seed() {
     },
     hero: {
       eyebrow: '// Work',
-      headline: 'Real results for service businesses.',
-      subhead: "Numbers matter. So does context. These are some of the programs we're proud of, and why they worked.",
+      headline: 'A look at the work we\'re proud of.',
+      subhead: "Numbers matter. So does context. Here's some of the work we've done and why it worked.",
     },
     ctaBanner: {
       title: 'Want results like these?',
@@ -302,7 +302,7 @@ async function seed() {
     hero: {
       eyebrow: '// Blog',
       headline: 'Straight talk on digital marketing.',
-      subhead: "No noise, no vanity metrics. Just honest perspective on what's working for service businesses online.",
+      subhead: "No noise, no vanity metrics. Honest perspective on what's working for service businesses online.",
     },
     newsletter: {
       title: 'Get it in your inbox.',
