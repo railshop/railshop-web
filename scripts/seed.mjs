@@ -92,7 +92,7 @@ async function seed() {
     uploadImage('images/sean 169 cropped.jpg',                     'sean-connelly.jpg'),
     uploadImage('images/drew_sean.jpg',                            'drew-sean.jpg'),
     uploadImage('images/office.jpg',                               'office.jpg'),
-    uploadImage('images/logos/window nation logo.png',                'logo-window-nation.png'),
+    uploadImage('images/logos/window nation logo_cropped.png',        'logo-window-nation.png'),
     uploadImage('images/logos/vector security logo.svg',              'logo-vector-security.svg'),
     uploadImage('images/logos/fire and ice logo.png',                 'logo-fire-and-ice.png'),
     uploadImage('images/logos/jp operations logo.svg',                'logo-jp-operations.svg'),

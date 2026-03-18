@@ -120,8 +120,6 @@ const contactSchema = {
       el.setAttribute('data-url', base + '&background_color=111315&text_color=f8fafc&primary_color=38b6ff');
     })();
   </script>
-  <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-
   <!-- ============================================================
        4. SEND A MESSAGE — secondary path
        ============================================================ -->
@@ -226,6 +224,9 @@ const contactSchema = {
     </div>
   </section>
 
+  <Fragment slot="body-end">
+    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  </Fragment>
 </BaseLayout>
 
 <script>

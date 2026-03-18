@@ -142,7 +142,7 @@ export async function getPosts(limit = 10) {
       _id, title, slug, excerpt, publishedAt, featured, coverImage,
       "categories": categories[]->{ title, slug }
     }`,
-    { limit: limit - 1 }
+    { limit }
   );
 }
 
