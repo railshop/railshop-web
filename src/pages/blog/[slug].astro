@@ -134,16 +134,20 @@ const postRef = (post._id ?? slug).slice(-6).toUpperCase();
         )}
 
         <!-- Inline subscribe -->
-        <div class="inline-subscribe">
+        <div class="inline-subscribe" id="newsletter-block">
           <div class="inline-subscribe-copy">
             <p class="inline-subscribe-prompt">Posts like this, weekly.</p>
             <span class="inline-subscribe-helper">No spam. Unsubscribe anytime.</span>
           </div>
-          <form name="newsletter-signup" method="POST" netlify class="inline-subscribe-form">
+          <form name="newsletter-signup" method="POST" data-netlify="true" class="inline-subscribe-form" id="newsletter-form">
             <input type="hidden" name="form-name" value="newsletter-signup" />
-            <input type="email" name="email" placeholder="your@email.com" required class="inline-subscribe-input" />
-            <button type="submit" class="inline-subscribe-btn">Subscribe</button>
+            <input type="email" name="email" placeholder="your@email.com" required class="inline-subscribe-input" id="newsletter-email" />
+            <button type="submit" class="inline-subscribe-btn" id="newsletter-btn">Subscribe</button>
           </form>
+          <div class="inline-subscribe-success" id="newsletter-success" aria-live="polite">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>You're in. Talk soon.</span>
+          </div>
         </div>
       </article>
 
@@ -151,9 +155,9 @@ const postRef = (post._id ?? slug).slice(-6).toUpperCase();
       <aside class="sidebar">
 
         <div class="sidebar-card">
-          <p class="sidebar-eyebrow">// ABOUT THE AUTHORS</p>
+          <p class="sidebar-eyebrow">// ABOUT RAILSHOP</p>
           <div class="sidebar-body-wrap">
-            <p class="sidebar-body">Drew and Sean co-founded Railshop after years leading digital marketing and product at national service brands. This is the stuff they wish someone had told them sooner.</p>
+            <p class="sidebar-body">Railshop is a performance marketing agency for service businesses. Our team spent years leading digital programs at national brands — this is what we learned.</p>
             <a href="/about" class="sidebar-text-link">
               Meet the team
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -236,6 +240,32 @@ const postRef = (post._id ?? slug).slice(-6).toUpperCase();
       </div>
     </section>
   )}
+
+<script>
+  const form = document.getElementById('newsletter-form') as HTMLFormElement | null;
+  const success = document.getElementById('newsletter-success') as HTMLElement | null;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('newsletter-btn') as HTMLButtonElement;
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    try {
+      const data = new FormData(form);
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(data as any).toString(),
+      });
+      form.style.display = 'none';
+      if (success) success.style.display = 'flex';
+    } catch {
+      btn.disabled = false;
+      btn.textContent = 'Subscribe';
+    }
+  });
+</script>
 
 </BaseLayout>
 
@@ -603,6 +633,17 @@ const postRef = (post._id ?? slug).slice(-6).toUpperCase();
 
   :global([data-theme="light"]) .inline-subscribe-btn { color: #FFFFFF; }
   .inline-subscribe-btn:hover { opacity: 0.88; }
+
+  .inline-subscribe-success {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
 
   /* ── Related Posts ────────────────────────────── */
   .related-section {

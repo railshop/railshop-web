@@ -1,0 +1,665 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPosts, getSiteSettings, getThankYouPage } from '../lib/sanity';
+
+let recentPosts: any[] = [];
+let takingNewClients = true;
+let page: any = null;
+
+try {
+  const [posts, settings, ty] = await Promise.all([getPosts(3), getSiteSettings(), getThankYouPage()]);
+  recentPosts = posts ?? [];
+  if (settings?.takingNewClients !== undefined) takingNewClients = settings.takingNewClients;
+  page = ty;
+} catch (_) {}
+
+// Hero
+const heroHeadline  = page?.hero?.headline  ?? "We've got it.";
+const heroSubhead   = page?.hero?.subhead   ?? "Your message is in. We review every inquiry personally and will follow up within one business day — usually sooner.";
+const badgeLabel    = page?.hero?.badgeLabel ?? "Message received";
+
+// Steps
+const defaultSteps = [
+  { title: 'We review your message',     body: 'Our team reads every inquiry. No auto-replies, no canned responses — just a real person looking at what you sent.',                                     statusLabel: 'In progress' },
+  { title: 'You hear from us directly',  body: 'Expect a reply within one business day. We\'ll acknowledge what you\'re working on and suggest the most useful next step.',                            statusLabel: 'Up next'     },
+  { title: 'We talk (if it\'s a fit)',   body: 'If it makes sense, we\'ll set up a quick call — no pitch, no pressure. Just a straight conversation about what you\'re building.',                    statusLabel: 'Pending'     },
+];
+const steps = page?.nextSteps?.steps?.length > 0 ? page.nextSteps.steps : defaultSteps;
+
+// CTA card
+const ctaHeading = page?.ctaCard?.heading ?? 'Prefer to just book a call?';
+const ctaBody    = page?.ctaCard?.body    ?? 'Skip the back-and-forth and pick a time directly on our calendar. 30 minutes, no obligation.';
+---
+
+<BaseLayout
+  title={page?.seo?.metaTitle ?? 'Message Received — Railshop'}
+  description={page?.seo?.metaDescription ?? 'We received your message and will follow up within one business day.'}
+>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <svg class="hero-grid-svg" viewBox="0 0 1400 560" fill="none" preserveAspectRatio="xMidYMid slice">
+        <line class="grid-line" x1="350" y1="0" x2="350" y2="560"/>
+        <line class="grid-line" x1="700" y1="0" x2="700" y2="560"/>
+        <line class="grid-line" x1="1050" y1="0" x2="1050" y2="560"/>
+        <line class="grid-line" x1="0" y1="186" x2="1400" y2="186"/>
+        <line class="grid-line" x1="0" y1="373" x2="1400" y2="373"/>
+        <path class="corner-bracket" d="M 32 24 L 32 64 M 32 24 L 72 24"/>
+        <path class="corner-bracket" d="M 1368 536 L 1368 496 M 1368 536 L 1328 536"/>
+        <line class="tick-mark" x1="350" y1="548" x2="350" y2="560"/>
+        <line class="tick-mark" x1="700" y1="548" x2="700" y2="560"/>
+        <line class="tick-mark" x1="1050" y1="548" x2="1050" y2="560"/>
+        <!-- Transmission rings -->
+        <circle class="tx-ring tx-ring--1" cx="700" cy="280" r="80"/>
+        <circle class="tx-ring tx-ring--2" cx="700" cy="280" r="140"/>
+        <circle class="tx-ring tx-ring--3" cx="700" cy="280" r="210"/>
+        <circle class="tx-dot" cx="700" cy="280" r="6"/>
+      </svg>
+      <div class="hero-glow"></div>
+    </div>
+
+    <div class="hero-annotation hero-annotation--tr" aria-hidden="true">
+      <span class="anno-code">SYS: CONFIRM</span>
+      <span class="anno-sep">·</span>
+      <span class="anno-coord">MSG-ACK</span>
+    </div>
+    <div class="hero-annotation hero-annotation--bl" aria-hidden="true">
+      <span class="anno-code">// TRANSMISSION RECEIVED</span>
+    </div>
+
+    <div class="container">
+      <div class="hero-inner">
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          <span class="badge-label">{badgeLabel}</span>
+        </div>
+        <h1 class="hero-headline">{heroHeadline}</h1>
+        <p class="hero-sub">{heroSubhead}</p>
+        <div class="hero-actions">
+          <a href="/" class="btn-primary">
+            Back to home
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="/blog" class="btn-secondary">Read the blog</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What happens next -->
+  <section class="next-section">
+    <div class="container">
+      <div class="section-label-row">
+        <span class="section-eyebrow">// WHAT HAPPENS NEXT</span>
+        <div class="label-rule"></div>
+      </div>
+
+      <div class="steps-grid">
+        {steps.map((step: any, i: number) => (
+          <div class="step-card">
+            <div class="step-header">
+              <span class="step-num">{String(i + 1).padStart(2, '0')}</span>
+              <span class={`step-status${i === 0 ? ' step-status--active' : ''}`}>{step.statusLabel}</span>
+            </div>
+            <h3 class="step-title">{step.title}</h3>
+            <p class="step-body">{step.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="section-rule" aria-hidden="true">
+    <div class="section-rule-line"></div>
+    <span class="section-rule-label">// WHILE YOU WAIT</span>
+    <div class="section-rule-line"></div>
+  </div>
+
+  <!-- While you wait -->
+  <section class="while-section">
+    <div class="container while-grid">
+
+      <!-- Recent posts -->
+      {recentPosts.length > 0 && (
+        <div class="while-col">
+          <p class="while-col-label">// RECENT FROM THE BLOG</p>
+          <div class="post-list">
+            {recentPosts.map((p: any) => {
+              const date = p.publishedAt
+                ? new Date(p.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                : '';
+              const cat = p.categories?.[0]?.title ?? '';
+              return (
+                <a href={`/blog/${p.slug?.current}`} class="post-row">
+                  <div class="post-row-meta">
+                    {cat && <span class="tag">{cat}</span>}
+                    {date && <span class="post-row-date">{date}</span>}
+                  </div>
+                  <p class="post-row-title">{p.title}</p>
+                </a>
+              );
+            })}
+          </div>
+          <a href="/blog" class="text-link">
+            All posts
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      )}
+
+      <!-- Explore links -->
+      <div class="while-col">
+        <p class="while-col-label">// EXPLORE RAILSHOP</p>
+        <div class="explore-list">
+          <a href="/work" class="explore-card">
+            <div class="explore-card-inner">
+              <span class="explore-card-title">Our Work</span>
+              <p class="explore-card-desc">Case studies from real client engagements — results, process, and what we learned.</p>
+            </div>
+            <svg class="explore-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="/services" class="explore-card">
+            <div class="explore-card-inner">
+              <span class="explore-card-title">Services</span>
+              <p class="explore-card-desc">What we do and how we do it — paid media, SEO, web, content, strategy, and AI integration.</p>
+            </div>
+            <svg class="explore-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="/about" class="explore-card">
+            <div class="explore-card-inner">
+              <span class="explore-card-title">About Us</span>
+              <p class="explore-card-desc">Who we are, where we came from, and why we built Railshop the way we did.</p>
+            </div>
+            <svg class="explore-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Book a call CTA -->
+      {takingNewClients && (
+        <div class="while-col">
+          <p class="while-col-label">// SKIP THE QUEUE</p>
+          <div class="cta-card">
+            <div class="cta-card-status">
+              <span class="cta-dot"></span>
+              <span class="cta-dot-label">Taking new clients</span>
+            </div>
+            <h3 class="cta-card-heading">{ctaHeading}</h3>
+            <p class="cta-card-body">{ctaBody}</p>
+            <a href="/contact#hubspot-meetings" class="btn-primary btn-primary--full">
+              Book a Call
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      )}
+
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ── Hero ────────────────────────────────── */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .hero-grid-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .grid-line     { stroke: var(--border); stroke-width: 1; opacity: 0.4; }
+  .corner-bracket { stroke: var(--border); stroke-width: 1.5; opacity: 0.35; }
+  .tick-mark     { stroke: var(--border); stroke-width: 1; opacity: 0.5; }
+
+  .tx-ring { fill: none; stroke: var(--blue); }
+  .tx-ring--1 { opacity: 0.10; stroke-width: 1; animation: txpulse 3s ease-in-out infinite; }
+  .tx-ring--2 { opacity: 0.06; stroke-width: 1; animation: txpulse 3s ease-in-out 0.4s infinite; }
+  .tx-ring--3 { opacity: 0.03; stroke-width: 1; animation: txpulse 3s ease-in-out 0.8s infinite; }
+  .tx-dot { fill: var(--blue); opacity: 0.25; }
+
+  @keyframes txpulse {
+    0%, 100% { opacity: var(--base-op, 0.10); }
+    50%       { opacity: 0; }
+  }
+  .tx-ring--1 { --base-op: 0.10; }
+  .tx-ring--2 { --base-op: 0.06; }
+  .tx-ring--3 { --base-op: 0.03; }
+
+  .hero-glow {
+    position: absolute;
+    top: -40px;
+    left: -5%;
+    width: 55%;
+    height: 100%;
+    background: radial-gradient(ellipse at 30% 50%, rgba(56, 182, 255, 0.05) 0%, transparent 65%);
+  }
+
+  .hero-annotation {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .hero-annotation--tr { top: 20px; right: 32px; }
+  .hero-annotation--bl { bottom: 20px; left: 32px; }
+  .anno-code { color: var(--blue); opacity: 0.8; }
+  .anno-sep  { opacity: 0.3; }
+
+  /* Status badge */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(52, 211, 153, 0.08);
+    border: 1px solid rgba(52, 211, 153, 0.2);
+    border-radius: 3px;
+    padding: 5px 12px;
+    margin-bottom: 24px;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    flex-shrink: 0;
+    animation: statusblink 2s ease-in-out infinite;
+  }
+
+  @keyframes statusblink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.2; }
+  }
+
+  .badge-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+
+  /* Hero content */
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    padding: 72px 0 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 640px;
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    color: var(--text-3);
+    line-height: 1.75;
+    max-width: 480px;
+    margin-bottom: 36px;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary--full { width: 100%; justify-content: center; }
+
+  /* ── What Happens Next ───────────────────── */
+  .next-section {
+    padding: 64px 0 72px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-label-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .section-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--blue);
+    opacity: 0.65;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .label-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .step-card {
+    background: var(--surface);
+    padding: 28px 28px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: background 0.15s;
+  }
+
+  .step-card:hover { background: var(--surface-2); }
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+
+  .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--blue);
+    opacity: 0.6;
+  }
+
+  .step-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    opacity: 0.4;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 2px 7px;
+  }
+
+  .step-status--active {
+    color: var(--green);
+    opacity: 1;
+    background: rgba(52, 211, 153, 0.08);
+    border-color: rgba(52, 211, 153, 0.25);
+  }
+
+  .step-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-2);
+    line-height: 1.3;
+  }
+
+  .step-body {
+    font-size: 13px;
+    color: var(--text-3);
+    line-height: 1.7;
+  }
+
+  /* ── Section Rule ────────────────────────── */
+  .section-rule {
+    display: flex;
+    align-items: center;
+    height: 32px;
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    overflow: hidden;
+  }
+
+  .section-rule-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .section-rule-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    opacity: 0.35;
+    padding: 0 16px;
+    white-space: nowrap;
+  }
+
+  /* ── While You Wait ──────────────────────── */
+  .while-section {
+    padding: 64px 0 96px;
+  }
+
+  .while-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    align-items: start;
+  }
+
+  .while-col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .while-col-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blue);
+    opacity: 0.6;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Post list */
+  .post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .post-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+
+  .post-row:first-child { padding-top: 0; }
+
+  .post-row-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .post-row-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-3);
+    opacity: 0.5;
+  }
+
+  .post-row-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-2);
+    line-height: 1.4;
+    transition: color 0.15s;
+  }
+
+  .post-row:hover .post-row-title { color: var(--blue); }
+
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--blue);
+    text-decoration: none;
+    transition: gap 0.15s;
+  }
+
+  .text-link:hover { gap: 9px; }
+
+  /* Explore cards */
+  .explore-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .explore-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    transition: padding-left 0.15s;
+  }
+
+  .explore-card:first-child { padding-top: 0; }
+  .explore-card:hover { padding-left: 4px; }
+
+  .explore-card-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .explore-card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-2);
+    transition: color 0.15s;
+  }
+
+  .explore-card:hover .explore-card-title { color: var(--blue); }
+
+  .explore-card-desc {
+    font-size: 12px;
+    color: var(--text-3);
+    line-height: 1.5;
+  }
+
+  .explore-arrow {
+    color: var(--text-3);
+    flex-shrink: 0;
+    transition: color 0.15s, transform 0.15s;
+  }
+
+  .explore-card:hover .explore-arrow { color: var(--blue); transform: translateX(3px); }
+
+  /* CTA card */
+  .cta-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cta-card-status {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .cta-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--green);
+    flex-shrink: 0;
+    animation: statusblink 2s ease-in-out infinite;
+  }
+
+  .cta-dot-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green);
+    opacity: 0.8;
+  }
+
+  .cta-card-heading {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-2);
+    line-height: 1.3;
+  }
+
+  .cta-card-body {
+    font-size: 13px;
+    color: var(--text-3);
+    line-height: 1.65;
+  }
+
+  /* ── Responsive ──────────────────────────── */
+  @media (max-width: 1024px) {
+    .while-grid { grid-template-columns: 1fr 1fr; }
+    .while-grid > :last-child { grid-column: 1 / -1; }
+  }
+
+  @media (max-width: 768px) {
+    .hero-annotation--tr,
+    .hero-annotation--bl { display: none; }
+    .steps-grid { grid-template-columns: 1fr; }
+    .while-grid { grid-template-columns: 1fr; }
+    .while-grid > :last-child { grid-column: auto; }
+    .hero-inner { padding: 56px 0 64px; }
+    .section-rule { display: none; }
+  }
+</style>

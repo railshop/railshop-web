@@ -5,6 +5,7 @@ import { servicesPage } from './servicesPage';
 import { workPage } from './workPage';
 import { contactPage } from './contactPage';
 import { blogPage } from './blogPage';
+import { thankYouPage } from './thankYouPage';
 import { service } from './service';
 import { caseStudy } from './caseStudy';
 import { post } from './post';
@@ -20,6 +21,7 @@ export const schemaTypes = [
   workPage,
   contactPage,
   blogPage,
+  thankYouPage,
   // Collections
   service,
   caseStudy,

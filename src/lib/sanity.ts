@@ -78,6 +78,10 @@ export async function getBlogPage() {
   return sanityClient.fetch(`*[_type == "blogPage" && _id == "blogPage"][0]`);
 }
 
+export async function getThankYouPage() {
+  return sanityClient.fetch(`*[_type == "thankYouPage" && _id == "thankYouPage"][0]`);
+}
+
 // ============================================================
 // GROQ QUERIES — COLLECTIONS
 // ============================================================
