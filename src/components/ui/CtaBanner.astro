@@ -21,6 +21,39 @@ const {
 
 <section class="cta-section">
   <div class="cta-glow" aria-hidden="true"></div>
+  <svg class="cta-bg-svg" viewBox="0 0 1400 300" fill="none" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <!-- Sweeping dashed arc -->
+    <path class="cb-arc" d="M -60 320 Q 380 60 840 180 Q 1080 250 1460 110"/>
+
+    <!-- Corner brackets -->
+    <path class="cb-bracket" d="M 30 18 L 30 52 M 30 18 L 64 18"/>
+    <path class="cb-bracket" d="M 1370 18 L 1370 52 M 1370 18 L 1336 18"/>
+    <path class="cb-bracket" d="M 30 282 L 30 248 M 30 282 L 64 282"/>
+    <path class="cb-bracket" d="M 1370 282 L 1370 248 M 1370 282 L 1336 282"/>
+
+    <!-- Dot stars -->
+    <circle class="cb-star" cx="85"  cy="35"  r="1.5"/>
+    <circle class="cb-star" cx="320" cy="22"  r="1"/>
+    <circle class="cb-star" cx="680" cy="48"  r="1.5"/>
+    <circle class="cb-star" cx="1080" cy="25" r="1"/>
+    <circle class="cb-star" cx="1255" cy="52" r="2"/>
+    <circle class="cb-star" cx="1355" cy="30" r="1.5"/>
+    <circle class="cb-star" cx="42"  cy="155" r="1"/>
+    <circle class="cb-star" cx="1342" cy="140" r="1.5"/>
+    <circle class="cb-star" cx="148" cy="265" r="1"/>
+    <circle class="cb-star" cx="1222" cy="268" r="1.5"/>
+    <circle class="cb-star" cx="485" cy="275" r="1"/>
+    <circle class="cb-star" cx="925" cy="278" r="2"/>
+    <circle class="cb-star" cx="55"  cy="92"  r="1.5"/>
+    <circle class="cb-star" cx="1368" cy="248" r="1"/>
+    <circle class="cb-star" cx="760" cy="20"  r="1"/>
+
+    <!-- 4-pointed star accents -->
+    <path class="cb-star-4pt" d="M 280 42 L 281.8 46.2 L 286 48 L 281.8 49.8 L 280 54 L 278.2 49.8 L 274 48 L 278.2 46.2 Z"/>
+    <path class="cb-star-4pt" d="M 1160 46 L 1161.5 49.5 L 1165 51 L 1161.5 52.5 L 1160 56 L 1158.5 52.5 L 1155 51 L 1158.5 49.5 Z"/>
+    <path class="cb-star-4pt" d="M 165 238 L 166.5 241.5 L 170 243 L 166.5 244.5 L 165 248 L 163.5 244.5 L 160 243 L 163.5 241.5 Z"/>
+    <path class="cb-star-4pt" d="M 1262 232 L 1263.8 236.2 L 1268 238 L 1263.8 239.8 L 1262 244 L 1260.2 239.8 L 1256 238 L 1260.2 236.2 Z"/>
+  </svg>
   <div class="container cta-inner">
     <div class="cta-status" aria-hidden="true">
       <span class="cta-status-dot"></span>
@@ -44,13 +77,6 @@ const {
       )}
     </div>
   </div>
-  <div class="container cta-rule-wrap">
-    <div class="cta-rule" aria-hidden="true">
-      <div class="cta-rule-line"></div>
-      <span class="cta-rule-label">// Launch with Confidence</span>
-      <div class="cta-rule-line"></div>
-    </div>
-  </div>
 </section>
 
 <style>
@@ -58,20 +84,54 @@ const {
     position: relative;
     background: var(--bg);
     border-top: 3px solid var(--blue);
-    padding: 80px 0 40px;
+    padding: 72px 0;
     overflow: hidden;
   }
 
-  /* Subtle blue glow top-right */
+  /* Glow centered behind heading */
   .cta-glow {
     position: absolute;
-    top: -80px;
-    right: -80px;
-    width: 500px;
-    height: 400px;
-    background: radial-gradient(ellipse, rgba(56, 182, 255, 0.06) 0%, transparent 70%);
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 640px;
+    height: 360px;
+    background: radial-gradient(ellipse, rgba(56, 182, 255, 0.07) 0%, transparent 68%);
     pointer-events: none;
   }
+
+  /* Background SVG */
+  .cta-bg-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .cb-arc {
+    stroke: rgba(56, 182, 255, 0.08);
+    fill: none;
+    stroke-linecap: round;
+    stroke-dasharray: 8 6;
+    stroke-width: 1;
+  }
+
+  .cb-bracket {
+    stroke: rgba(56, 182, 255, 0.40);
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1;
+  }
+
+  .cb-star     { fill: rgba(56, 182, 255, 0.18); }
+  .cb-star-4pt { fill: rgba(56, 182, 255, 0.14); }
+
+  [data-theme="light"] .cb-arc      { stroke: rgba(3, 105, 161, 0.10); }
+  [data-theme="light"] .cb-bracket  { stroke: rgba(3, 105, 161, 0.38); }
+  [data-theme="light"] .cb-star     { fill: rgba(3, 105, 161, 0.20); }
+  [data-theme="light"] .cb-star-4pt { fill: rgba(3, 105, 161, 0.15); }
 
   .cta-inner {
     position: relative;
@@ -81,7 +141,6 @@ const {
     align-items: center;
     text-align: center;
     gap: 24px;
-    margin-bottom: 24px;
   }
 
   /* Pulsing "Taking new clients" pill */
@@ -149,36 +208,6 @@ const {
   .cta-btn-text:hover {
     color: var(--text);
     gap: 10px;
-  }
-
-  .cta-rule-wrap {
-    position: relative;
-    z-index: 1;
-  }
-
-  /* Closing rule with tagline — sits below content block, centered */
-  .cta-rule {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    max-width: 480px;
-    margin: 0 auto;
-  }
-
-  .cta-rule-line {
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .cta-rule-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--text-3);
-    opacity: 0.5;
-    white-space: nowrap;
   }
 
   /* Light mode: surface bg so block reads as distinct */

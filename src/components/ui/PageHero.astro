@@ -1,0 +1,457 @@
+---
+interface Props {
+  headline: string;
+  sub: string;
+  annoCode?: string;
+  annoExtra?: string;
+  annoModule?: string;
+  illustration?: 'targeting' | 'planet' | 'astronaut' | 'broadcast';
+}
+const { headline, sub, annoCode, annoExtra, annoModule, illustration } = Astro.props;
+---
+
+<section class="page-hero">
+
+  <!-- Background -->
+  <div class="ph-bg" aria-hidden="true">
+    <svg class="ph-bg-svg" viewBox="0 0 1400 480" fill="none" preserveAspectRatio="xMidYMid slice">
+      <path class="ph-arc-main"      d="M -80 520 Q 380 40 860 260 Q 1060 390 1480 180" stroke-width="1" fill="none"/>
+      <path class="ph-arc-secondary" d="M -80 560 Q 360 60 830 290 Q 1030 420 1480 220" stroke-width="1" fill="none"/>
+      <!-- Starfield -->
+      <circle class="ph-bg-star" cx="885"  cy="44"  r="1.5"/>
+      <circle class="ph-bg-star" cx="1102" cy="29"  r="1"/>
+      <circle class="ph-bg-star" cx="1248" cy="74"  r="2"/>
+      <circle class="ph-bg-star" cx="1342" cy="42"  r="1.5"/>
+      <circle class="ph-bg-star" cx="1064" cy="142" r="1"/>
+      <circle class="ph-bg-star" cx="1285" cy="184" r="1.5"/>
+      <circle class="ph-bg-star" cx="950"  cy="244" r="1"/>
+      <circle class="ph-bg-star" cx="1380" cy="260" r="2"/>
+      <circle class="ph-bg-star" cx="822"  cy="352" r="1"/>
+      <circle class="ph-bg-star" cx="1154" cy="384" r="1.5"/>
+      <circle class="ph-bg-star" cx="684"  cy="80"  r="1"/>
+      <path class="ph-bg-star-4pt" d="M 1022 56 L 1023.8 60.2 L 1028 62 L 1023.8 63.8 L 1022 68 L 1020.2 63.8 L 1016 62 L 1020.2 60.2 Z"/>
+      <path class="ph-bg-star-4pt" d="M 1220 146 L 1221.5 149.5 L 1225 151 L 1221.5 152.5 L 1220 156 L 1218.5 152.5 L 1215 151 L 1218.5 149.5 Z"/>
+      <path class="ph-bg-star-4pt" d="M 870 316 L 871.8 320.2 L 876 322 L 871.8 323.8 L 870 328 L 868.2 323.8 L 864 322 L 868.2 320.2 Z"/>
+    </svg>
+    <div class="ph-glow"></div>
+  </div>
+
+  <!-- Corner annotations -->
+  {(annoCode || annoExtra) && (
+    <div class="ph-annotation ph-annotation--tr" aria-hidden="true">
+      {annoCode  && <span class="ph-anno-code">{annoCode}</span>}
+      {annoExtra && <span class="ph-anno-sep">·</span>}
+      {annoExtra && <span>{annoExtra}</span>}
+    </div>
+  )}
+  {annoModule && (
+    <div class="ph-annotation ph-annotation--bl" aria-hidden="true">
+      <span class="ph-anno-code">{annoModule}</span>
+    </div>
+  )}
+
+  <!-- Content -->
+  <div class="container">
+    <div class={`ph-inner${illustration ? ' ph-inner--illustrated' : ''}`}>
+      <div class="ph-content">
+        <h1 class="ph-headline" set:html={headline} />
+        <p class="ph-sub">{sub}</p>
+      </div>
+
+      {illustration && (
+        <div class="ph-illustration" aria-hidden="true">
+
+          <!-- ── TARGETING RETICLE (Services) ── -->
+          {illustration === 'targeting' && (
+            <svg class="ph-svg" viewBox="0 0 200 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Corner bracket upper right -->
+              <path class="phi-stroke phi-thin" d="M 162 18 L 162 34 M 162 18 L 178 18"/>
+              <!-- Background dashed outer ring -->
+              <circle class="phi-stroke phi-thin phi-dashed" cx="100" cy="90" r="78"/>
+              <!-- Outer targeting ring -->
+              <circle class="phi-stroke phi-thick" cx="100" cy="90" r="60"/>
+              <!-- Crosshair arms (run from outside the outer ring through to inner ring, creating gap at center) -->
+              <line class="phi-stroke" x1="100" y1="22"  x2="100" y2="70"/>
+              <line class="phi-stroke" x1="100" y1="110" x2="100" y2="158"/>
+              <line class="phi-stroke" x1="32"  y1="90"  x2="80"  y2="90"/>
+              <line class="phi-stroke" x1="120" y1="90"  x2="168" y2="90"/>
+              <!-- 45° diagonal tick marks on outer ring edge -->
+              <line class="phi-stroke phi-thin" x1="142" y1="48"  x2="147" y2="43"/>
+              <line class="phi-stroke phi-thin" x1="142" y1="132" x2="147" y2="137"/>
+              <line class="phi-stroke phi-thin" x1="58"  y1="132" x2="53"  y2="137"/>
+              <line class="phi-stroke phi-thin" x1="58"  y1="48"  x2="53"  y2="43"/>
+              <!-- Middle ring -->
+              <circle class="phi-stroke phi-thin" cx="100" cy="90" r="38"/>
+              <!-- Scanning arc (upper-right quadrant of middle ring) -->
+              <path class="phi-stroke phi-thin phi-dashed" d="M 138 90 A 38 38 0 0 0 100 52"/>
+              <!-- Inner ring -->
+              <circle class="phi-stroke" cx="100" cy="90" r="20"/>
+              <!-- Center lock circle + dot -->
+              <circle class="phi-stroke phi-thick" cx="100" cy="90" r="6"/>
+              <circle class="phi-dot" cx="100" cy="90" r="2.5"/>
+              <!-- Label -->
+              <text class="phi-text" x="28" y="178">SVC-001</text>
+              <!-- Dot stars -->
+              <circle class="phi-dot" cx="24"  cy="30"  r="2"/>
+              <circle class="phi-dot" cx="180" cy="54"  r="1.5"/>
+              <circle class="phi-dot" cx="20"  cy="150" r="1.5"/>
+              <circle class="phi-dot" cx="174" cy="160" r="2"/>
+              <circle class="phi-dot" cx="110" cy="178" r="1"/>
+              <!-- 4-pointed stars -->
+              <path class="phi-fill" d="M 176 100 L 177.5 103.5 L 181 105 L 177.5 106.5 L 176 110 L 174.5 106.5 L 171 105 L 174.5 103.5 Z"/>
+              <path class="phi-fill" d="M 22 70 L 23.5 73.5 L 27 75 L 23.5 76.5 L 22 80 L 20.5 76.5 L 17 75 L 20.5 73.5 Z"/>
+            </svg>
+          )}
+
+          <!-- ── PLANET WITH RING (Work) ── -->
+          {illustration === 'planet' && (
+            <svg class="ph-svg" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Corner bracket -->
+              <path class="phi-stroke phi-thin" d="M 16 18 L 16 34 M 16 18 L 32 18"/>
+              <!-- Orbit path (dashed ellipse) -->
+              <ellipse class="phi-stroke phi-thin phi-dashed" cx="100" cy="118" rx="86" ry="26" transform="rotate(-18 100 118)"/>
+              <!-- Planet -->
+              <circle class="phi-stroke phi-thick" cx="100" cy="118" r="52"/>
+              <!-- Surface bands -->
+              <path class="phi-stroke phi-thin" d="M 54 106 Q 100 120 146 106"/>
+              <path class="phi-stroke phi-thin" d="M 58 128 Q 100 142 142 128"/>
+              <path class="phi-stroke phi-thin" d="M 60 90  Q 100 100 140 90"/>
+              <!-- Ring (full ellipse) -->
+              <ellipse class="phi-stroke" cx="100" cy="118" rx="80" ry="20" transform="rotate(-15 100 118)"/>
+              <!-- Small moon -->
+              <circle class="phi-stroke phi-thick" cx="176" cy="68" r="11"/>
+              <path class="phi-stroke phi-thin" d="M 167 65 Q 176 71 185 65"/>
+              <!-- Annotation -->
+              <text class="phi-text" x="148" y="56">WRK-001</text>
+              <!-- Dot stars -->
+              <circle class="phi-dot" cx="22"  cy="42"  r="2"/>
+              <circle class="phi-dot" cx="174" cy="30"  r="1.5"/>
+              <circle class="phi-dot" cx="18"  cy="180" r="1.5"/>
+              <circle class="phi-dot" cx="186" cy="198" r="2"/>
+              <circle class="phi-dot" cx="108" cy="232" r="1.5"/>
+              <!-- 4-pointed stars -->
+              <path class="phi-fill" d="M 38 202 L 39.5 205.5 L 43 207 L 39.5 208.5 L 38 212 L 36.5 208.5 L 33 207 L 36.5 205.5 Z"/>
+              <path class="phi-fill" d="M 160 238 L 161.5 241.5 L 165 243 L 161.5 244.5 L 160 248 L 158.5 244.5 L 155 243 L 158.5 241.5 Z"/>
+            </svg>
+          )}
+
+          <!-- ── TWO ASTRONAUTS — DEPTH COMPOSITION (About) ── -->
+          {illustration === 'astronaut' && (
+            <svg class="ph-svg" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Corner bracket lower right -->
+              <path class="phi-stroke phi-thin" d="M 182 242 L 182 226 M 182 242 L 166 242"/>
+              <!-- Small planet upper left -->
+              <circle class="phi-stroke" cx="22" cy="34" r="11"/>
+              <ellipse class="phi-stroke phi-thin" cx="22" cy="34" rx="17" ry="5" transform="rotate(-15 22 34)"/>
+
+              <!-- ── Background Astronaut (smaller, faded — depth) ── -->
+              <g opacity="0.55">
+                <!-- Helmet -->
+                <circle class="phi-stroke phi-thick" cx="148" cy="64" r="12"/>
+                <!-- Visor -->
+                <path class="phi-visor" d="M 138 61 Q 138 76 148 76 Q 158 76 158 61 Q 155 55 148 55 Q 141 55 138 61 Z"/>
+                <!-- Visor reflection -->
+                <line class="phi-stroke phi-thin" x1="141" y1="57" x2="146" y2="53"/>
+                <!-- Neck ring -->
+                <path class="phi-stroke phi-thin" d="M 139 77 L 139 79 L 157 79 L 157 77"/>
+                <!-- Body -->
+                <path class="phi-stroke phi-thick" d="M 141 79 Q 138 79 138 83 L 138 112 Q 138 115 141 115 L 155 115 Q 158 115 158 112 L 158 83 Q 158 79 155 79 Z"/>
+                <!-- Belt -->
+                <line class="phi-stroke phi-thin" x1="138" y1="102" x2="158" y2="102"/>
+                <!-- Chest badge -->
+                <circle class="phi-stroke" cx="148" cy="94" r="4"/>
+                <circle class="phi-dot" cx="148" cy="94" r="1.5"/>
+                <!-- PLSS -->
+                <path class="phi-stroke" d="M 158 82 L 164 82 L 164 106 L 158 106"/>
+                <!-- Left arm (relaxed) -->
+                <path class="phi-stroke phi-thick" d="M 138 86 Q 128 90 124 99"/>
+                <ellipse class="phi-stroke" cx="123" cy="101" rx="4" ry="2.8"/>
+                <!-- Right arm (relaxed) -->
+                <path class="phi-stroke phi-thick" d="M 158 86 Q 168 91 171 100"/>
+                <ellipse class="phi-stroke" cx="172" cy="101" rx="4" ry="2.8"/>
+                <!-- Legs + boots -->
+                <path class="phi-stroke phi-thick" d="M 142 115 Q 140 122 139 129"/>
+                <ellipse class="phi-stroke" cx="139" cy="131" rx="5.5" ry="3"/>
+                <path class="phi-stroke phi-thick" d="M 154 115 Q 156 122 157 129"/>
+                <ellipse class="phi-stroke" cx="157" cy="131" rx="5.5" ry="3"/>
+              </g>
+
+              <!-- Tether (loose arc between the two suits) -->
+              <path class="phi-stroke phi-thin phi-dashed" d="M 140 112 Q 118 134 108 152"/>
+
+              <!-- ── Foreground Astronaut (larger, waving) ── -->
+              <!-- Helmet -->
+              <circle class="phi-stroke phi-thick" cx="82" cy="118" r="22"/>
+              <!-- Visor -->
+              <path class="phi-visor" d="M 63 113 Q 63 140 82 140 Q 101 140 101 113 Q 97 103 82 103 Q 67 103 63 113 Z"/>
+              <!-- Visor reflection -->
+              <line class="phi-stroke phi-thin" x1="69" y1="107" x2="76" y2="101"/>
+              <!-- Neck ring -->
+              <path class="phi-stroke phi-thin" d="M 64 141 L 64 145 L 100 145 L 100 141"/>
+              <!-- Body -->
+              <path class="phi-stroke phi-thick" d="M 68 145 Q 62 145 62 151 L 62 196 Q 62 200 68 200 L 96 200 Q 102 200 102 196 L 102 151 Q 102 145 96 145 Z"/>
+              <!-- Belt -->
+              <line class="phi-stroke phi-thin" x1="62" y1="182" x2="102" y2="182"/>
+              <!-- Chest badge -->
+              <circle class="phi-stroke" cx="82" cy="165" r="6.5"/>
+              <circle class="phi-dot" cx="82" cy="165" r="2.5"/>
+              <!-- PLSS -->
+              <path class="phi-stroke" d="M 102 151 L 112 151 L 112 187 L 102 187"/>
+              <!-- Left arm (neutral) -->
+              <path class="phi-stroke phi-thick" d="M 62 156 Q 47 163 40 175"/>
+              <ellipse class="phi-stroke" cx="38" cy="177" rx="7" ry="4.5"/>
+              <!-- Right arm (waving up) -->
+              <path class="phi-stroke phi-thick" d="M 102 156 Q 119 140 127 123"/>
+              <ellipse class="phi-stroke" cx="129" cy="120" rx="7" ry="4.5" transform="rotate(-25 129 120)"/>
+              <!-- Wave motion arcs -->
+              <path class="phi-stroke phi-thin" d="M 134 113 Q 141 107 138 99"/>
+              <path class="phi-stroke phi-thin" d="M 137 121 Q 145 115 143 107"/>
+              <!-- Legs + boots -->
+              <path class="phi-stroke phi-thick" d="M 70 200 Q 67 211 65 221"/>
+              <ellipse class="phi-stroke" cx="64" cy="223" rx="9" ry="5"/>
+              <path class="phi-stroke phi-thick" d="M 94 200 Q 97 211 99 221"/>
+              <ellipse class="phi-stroke" cx="100" cy="223" rx="9" ry="5"/>
+
+              <!-- Label -->
+              <text class="phi-text" x="52" y="246">CREW: 02</text>
+              <!-- Dot stars -->
+              <circle class="phi-dot" cx="16"  cy="80"  r="1.5"/>
+              <circle class="phi-dot" cx="184" cy="46"  r="2"/>
+              <circle class="phi-dot" cx="186" cy="192" r="1.5"/>
+              <circle class="phi-dot" cx="14"  cy="234" r="1"/>
+              <circle class="phi-dot" cx="168" cy="242" r="1"/>
+              <!-- 4-pointed stars -->
+              <path class="phi-fill" d="M 174 72 L 175.5 75.5 L 179 77 L 175.5 78.5 L 174 82 L 172.5 78.5 L 169 77 L 172.5 75.5 Z"/>
+              <path class="phi-fill" d="M 18 198 L 19.5 201.5 L 23 203 L 19.5 204.5 L 18 208 L 16.5 204.5 L 13 203 L 16.5 201.5 Z"/>
+            </svg>
+          )}
+
+          <!-- ── BROADCAST SATELLITE (Blog) ── -->
+          {illustration === 'broadcast' && (
+            <svg class="ph-svg" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Corner bracket -->
+              <path class="phi-stroke phi-thin" d="M 18 220 L 18 240 M 18 220 L 38 220"/>
+              <!-- Signal waves (dashed arcs, upward fan) -->
+              <path class="phi-stroke phi-thin phi-dashed" d="M 85 52 A 18 18 0 0 0 115 52"/>
+              <path class="phi-stroke phi-thin phi-dashed" d="M 76 38 A 32 32 0 0 0 124 38"/>
+              <path class="phi-stroke phi-thin phi-dashed" d="M 65 22 A 48 48 0 0 0 135 22"/>
+              <!-- Focal point -->
+              <circle class="phi-stroke phi-thick" cx="100" cy="60" r="6"/>
+              <circle class="phi-dot" cx="100" cy="60" r="2.5"/>
+              <!-- Antenna mast -->
+              <line class="phi-stroke" x1="100" y1="66" x2="100" y2="85"/>
+              <!-- Small dish at antenna top -->
+              <path class="phi-stroke phi-thick" d="M 84 76 Q 100 88 116 76"/>
+              <!-- Satellite body -->
+              <rect class="phi-stroke phi-thick" x="76" y="96" width="48" height="48" rx="3"/>
+              <!-- Body cross detail -->
+              <line class="phi-stroke phi-thin" x1="76" y1="96"  x2="124" y2="144"/>
+              <line class="phi-stroke phi-thin" x1="124" y1="96" x2="76"  y2="144"/>
+              <!-- Left solar panel -->
+              <rect class="phi-stroke" x="12" y="108" width="60" height="24" rx="2"/>
+              <line class="phi-stroke phi-thin" x1="32"  y1="108" x2="32"  y2="132"/>
+              <line class="phi-stroke phi-thin" x1="52"  y1="108" x2="52"  y2="132"/>
+              <line class="phi-stroke phi-thin" x1="12"  y1="120" x2="72"  y2="120"/>
+              <!-- Left panel arm -->
+              <line class="phi-stroke" x1="72" y1="120" x2="76" y2="120"/>
+              <!-- Right solar panel -->
+              <rect class="phi-stroke" x="128" y="108" width="60" height="24" rx="2"/>
+              <line class="phi-stroke phi-thin" x1="148" y1="108" x2="148" y2="132"/>
+              <line class="phi-stroke phi-thin" x1="168" y1="108" x2="168" y2="132"/>
+              <line class="phi-stroke phi-thin" x1="128" y1="120" x2="188" y2="120"/>
+              <!-- Right panel arm -->
+              <line class="phi-stroke" x1="124" y1="120" x2="128" y2="120"/>
+              <!-- Corner thrusters -->
+              <path class="phi-stroke phi-thin" d="M 76  96  L 68  88"/>
+              <path class="phi-stroke phi-thin" d="M 124 96  L 132 88"/>
+              <path class="phi-stroke phi-thin" d="M 76  144 L 68  152"/>
+              <path class="phi-stroke phi-thin" d="M 124 144 L 132 152"/>
+              <!-- Side antenna -->
+              <line class="phi-stroke phi-thin" x1="124" y1="108" x2="144" y2="92"/>
+              <circle class="phi-dot" cx="147" cy="89" r="3"/>
+              <!-- Label -->
+              <text class="phi-text" x="66" y="175">BLG-001</text>
+              <!-- Dot stars -->
+              <circle class="phi-dot" cx="30"  cy="30"  r="2"/>
+              <circle class="phi-dot" cx="172" cy="25"  r="1.5"/>
+              <circle class="phi-dot" cx="20"  cy="175" r="1.5"/>
+              <circle class="phi-dot" cx="184" cy="188" r="2"/>
+              <circle class="phi-dot" cx="158" cy="228" r="1"/>
+              <!-- 4-pointed stars -->
+              <path class="phi-fill" d="M 162 158 L 163.5 161.5 L 167 163 L 163.5 164.5 L 162 168 L 160.5 164.5 L 157 163 L 160.5 161.5 Z"/>
+              <path class="phi-fill" d="M 30 130 L 31.5 133.5 L 35 135 L 31.5 136.5 L 30 140 L 28.5 136.5 L 25 135 L 28.5 133.5 Z"/>
+            </svg>
+          )}
+
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ── Section shell ── */
+  .page-hero {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── Background ── */
+  .ph-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .ph-bg-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ph-arc-main      { stroke: rgba(56, 182, 255, 0.10); }
+  .ph-arc-secondary { stroke: rgba(56, 182, 255, 0.05); }
+  .ph-bg-star       { fill:   rgba(56, 182, 255, 0.18); }
+  .ph-bg-star-4pt   { fill:   rgba(56, 182, 255, 0.14); }
+
+  .ph-glow {
+    position: absolute;
+    top: -40px;
+    left: -5%;
+    width: 50%;
+    height: 80%;
+    background: radial-gradient(ellipse at 30% 40%, rgba(56, 182, 255, 0.045) 0%, transparent 65%);
+  }
+
+  /* ── Annotations ── */
+  .ph-annotation {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .ph-annotation--tr { top: 20px; right: 32px; }
+  .ph-annotation--bl { bottom: 20px; left: 32px; }
+  .ph-anno-code { color: var(--blue); opacity: 0.8; }
+  .ph-anno-sep  { opacity: 0.3; }
+
+  /* ── Layout ── */
+  .ph-inner {
+    position: relative;
+    z-index: 1;
+    padding: 56px 0 64px;
+  }
+
+  .ph-inner--illustrated {
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .ph-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ph-headline {
+    font-size: clamp(40px, 5vw, 60px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    max-width: 520px;
+    margin-bottom: 20px;
+    color: var(--text-2);
+  }
+
+  /* Accent span inside headline */
+  .ph-headline :global(.ph-accent) { color: var(--blue); }
+
+  .ph-sub {
+    font-size: 16px;
+    color: var(--text-3);
+    max-width: 480px;
+    line-height: 1.75;
+  }
+
+  /* ── Illustration ── */
+  @keyframes ph-float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-8px); }
+  }
+
+  .ph-illustration {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: var(--blue);
+    opacity: 0.82;
+    animation: ph-float 7s ease-in-out infinite;
+  }
+
+  .ph-svg {
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+  }
+
+  /* SVG element classes (phi = page-hero illustration) */
+  .phi-stroke {
+    stroke: currentColor;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.6;
+  }
+  .phi-thick  { stroke-width: 2.2; }
+  .phi-thin   { stroke-width: 1; stroke-opacity: 0.55; }
+  .phi-dashed { stroke-dasharray: 5 4; }
+  .phi-fill   { fill: currentColor; stroke: none; opacity: 0.85; }
+  .phi-dot    { fill: currentColor; opacity: 0.45; }
+  .phi-visor  {
+    fill: currentColor;
+    fill-opacity: 0.12;
+    stroke: currentColor;
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .phi-text {
+    fill: currentColor;
+    fill-opacity: 0.60;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7px;
+    letter-spacing: 0.10em;
+  }
+
+  /* ── Light mode ── */
+  [data-theme="light"] .ph-arc-main      { stroke: rgba(3, 105, 161, 0.14); }
+  [data-theme="light"] .ph-arc-secondary { stroke: rgba(3, 105, 161, 0.07); }
+  [data-theme="light"] .ph-bg-star       { fill:   rgba(3, 105, 161, 0.20); }
+  [data-theme="light"] .ph-bg-star-4pt   { fill:   rgba(3, 105, 161, 0.15); }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .ph-inner--illustrated {
+      grid-template-columns: 1fr 180px;
+      gap: 24px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .ph-inner--illustrated { grid-template-columns: 1fr; }
+    .ph-illustration        { display: none; }
+  }
+</style>
