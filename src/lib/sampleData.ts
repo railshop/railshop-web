@@ -129,7 +129,7 @@ export const serviceSamples: Record<string, ServiceSample> = {
       'Businesses in competitive local markets that need to show up first',
       'Service companies ready to grow beyond word-of-mouth',
     ],
-    relatedSlugs: ['seo', 'web-design', 'strategy'],
+    relatedSlugs: ['seo', 'web-design', 'strategy-consulting'],
   },
 
   'seo': {
@@ -229,10 +229,10 @@ export const serviceSamples: Record<string, ServiceSample> = {
       'Businesses that want to build a recognisable brand presence on social',
       'Service companies whose work is visual — landscaping, roofing, construction, HVAC',
     ],
-    relatedSlugs: ['paid-ads', 'seo', 'strategy'],
+    relatedSlugs: ['paid-ads', 'seo', 'strategy-consulting'],
   },
 
-  'strategy': {
+  'strategy-consulting': {
     title: 'Strategy Consulting',
     description:
       'Not sure where to start? We will assess what your business needs and build a clear, prioritised digital growth plan — so you invest in the right things, in the right order.',
@@ -328,7 +328,7 @@ export const serviceSamples: Record<string, ServiceSample> = {
       'Companies that want to move faster without hiring more people',
       'Teams looking to improve their marketing content output without proportional cost increases',
     ],
-    relatedSlugs: ['strategy', 'content-creation', 'paid-ads'],
+    relatedSlugs: ['strategy-consulting', 'content-creation', 'paid-ads'],
   },
 };
 

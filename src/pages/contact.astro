@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/ui/PageHero.astro';
 import { getContactPage, getSiteSettings, getServices, urlForImage } from '../lib/sanity';
 
 let contactPage: any = null;
@@ -61,33 +62,18 @@ const contactSchema = {
   </Fragment>
 
   <!-- ============================================================
-       1. OPEN — tight, conversion-focused
+       1. OPEN — PageHero
        ============================================================ -->
-  <section class="open-section">
-    <div class="open-bg" aria-hidden="true">
-      <svg class="open-grid-svg" viewBox="0 0 1400 400" fill="none" preserveAspectRatio="xMidYMid slice">
-        <line class="open-grid-line" x1="350" y1="0" x2="350" y2="400"/>
-        <line class="open-grid-line" x1="700" y1="0" x2="700" y2="400"/>
-        <line class="open-grid-line" x1="1050" y1="0" x2="1050" y2="400"/>
-        <line class="open-grid-line" x1="0" y1="133" x2="1400" y2="133"/>
-        <line class="open-grid-line" x1="0" y1="266" x2="1400" y2="266"/>
-        <path class="open-corner" d="M 32 20 L 32 52 M 32 20 L 64 20"/>
-        <path class="open-corner" d="M 1368 380 L 1368 348 M 1368 380 L 1336 380"/>
-        <circle class="open-ring open-ring--1" cx="1100" cy="200" r="70"/>
-        <circle class="open-ring open-ring--2" cx="1100" cy="200" r="130"/>
-        <circle class="open-ring open-ring--3" cx="1100" cy="200" r="190"/>
-        <circle class="open-dot" cx="1100" cy="200" r="5"/>
-      </svg>
-      <div class="open-glow"></div>
-    </div>
-    <div class="container">
-      <div class="open-inner">
-        <span class="open-eyebrow">// {openEyebrow}</span>
-        <h1 class="open-heading">{openHeading}</h1>
-        <p class="open-sub">{openSub}</p>
-      </div>
-    </div>
-  </section>
+  <PageHero
+    headline={openHeading ? openHeading : "What's holding your<br /><span class='ph-accent'>marketing back?</span>"}
+    sub={openSub}
+    eyebrow={openEyebrow}
+    centered={true}
+    annoCode="SYS: CONTACT"
+    annoExtra="PORT: OPEN"
+    annoModule="MODULE: CTX-001"
+    illustration="launch"
+  />
 
   <!-- ============================================================
        2. TRUST STRIP — client logos
@@ -269,101 +255,6 @@ const contactSchema = {
 </script>
 
 <style>
-  /* ══════════════════════════════════════
-     1. OPEN SECTION
-  ══════════════════════════════════════ */
-  .open-section {
-    position: relative;
-    overflow: hidden;
-    padding: 80px 0 72px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .open-bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .open-grid-svg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  .open-grid-line {
-    stroke: var(--border);
-    stroke-width: 1;
-    opacity: 0.35;
-  }
-
-  .open-corner {
-    stroke: var(--border);
-    stroke-width: 1.5;
-    opacity: 0.3;
-  }
-
-  .open-ring {
-    fill: none;
-    stroke: var(--blue);
-  }
-
-  .open-ring--1 { opacity: 0.10; stroke-width: 1; }
-  .open-ring--2 { opacity: 0.06; stroke-width: 1; }
-  .open-ring--3 { opacity: 0.03; stroke-width: 1; }
-
-  .open-dot {
-    fill: var(--blue);
-    opacity: 0.25;
-  }
-
-  .open-glow {
-    position: absolute;
-    top: -40px;
-    left: -5%;
-    width: 55%;
-    height: 100%;
-    background: radial-gradient(ellipse at 30% 50%, rgba(56, 182, 255, 0.04) 0%, transparent 65%);
-  }
-
-  .open-inner {
-    position: relative;
-    z-index: 1;
-    max-width: 640px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .open-eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--blue);
-    opacity: 0.8;
-    margin-bottom: 18px;
-  }
-
-  .open-heading {
-    font-size: var(--fs-h1);
-    font-weight: 800;
-    color: var(--text-2);
-    letter-spacing: -0.035em;
-    line-height: 1.05;
-    margin-bottom: 20px;
-  }
-
-  .open-sub {
-    font-size: 16px;
-    color: var(--text-3);
-    line-height: 1.7;
-    max-width: 460px;
-  }
-
   /* ══════════════════════════════════════
      2. TRUST STRIP
   ══════════════════════════════════════ */

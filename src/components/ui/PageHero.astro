@@ -2,12 +2,14 @@
 interface Props {
   headline: string;
   sub: string;
+  eyebrow?: string;
+  centered?: boolean;
   annoCode?: string;
   annoExtra?: string;
   annoModule?: string;
-  illustration?: 'targeting' | 'planet' | 'astronaut' | 'broadcast';
+  illustration?: 'targeting' | 'planet' | 'astronaut' | 'broadcast' | 'launch';
 }
-const { headline, sub, annoCode, annoExtra, annoModule, illustration } = Astro.props;
+const { headline, sub, eyebrow, centered, annoCode, annoExtra, annoModule, illustration } = Astro.props;
 ---
 
 <section class="page-hero">
@@ -52,8 +54,9 @@ const { headline, sub, annoCode, annoExtra, annoModule, illustration } = Astro.p
 
   <!-- Content -->
   <div class="container">
-    <div class={`ph-inner${illustration ? ' ph-inner--illustrated' : ''}`}>
+    <div class={`ph-inner${illustration && !centered ? ' ph-inner--illustrated' : ''}${illustration && centered ? ' ph-inner--centered' : ''}`}>
       <div class="ph-content">
+        {eyebrow && <span class="ph-eyebrow">// {eyebrow}</span>}
         <h1 class="ph-headline" set:html={headline} />
         <p class="ph-sub">{sub}</p>
       </div>
@@ -283,6 +286,72 @@ const { headline, sub, annoCode, annoExtra, annoModule, illustration } = Astro.p
             </svg>
           )}
 
+          <!-- ── LAUNCH VEHICLE (Contact) ── -->
+          {illustration === 'launch' && (
+            <svg class="ph-svg" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Corner bracket upper right -->
+              <path class="phi-stroke phi-thin" d="M 164 18 L 164 34 M 164 18 L 180 18"/>
+              <!-- Outer dashed lock ring -->
+              <circle class="phi-stroke phi-thin phi-dashed" cx="100" cy="116" r="72"/>
+              <!-- Inner solid lock ring -->
+              <circle class="phi-stroke" cx="100" cy="116" r="54"/>
+              <!-- Crosshair ticks on rings -->
+              <line class="phi-stroke phi-thin" x1="22" y1="116" x2="40" y2="116"/>
+              <line class="phi-stroke phi-thin" x1="160" y1="116" x2="178" y2="116"/>
+              <line class="phi-stroke phi-thin" x1="100" y1="36" x2="100" y2="54"/>
+              <line class="phi-stroke phi-thin" x1="100" y1="178" x2="100" y2="196"/>
+
+              <!-- ── Rocket ── -->
+              <!-- Nose cone -->
+              <path class="phi-stroke phi-thick" d="M 86 78 Q 100 36 114 78"/>
+              <!-- Body sides -->
+              <line class="phi-stroke phi-thick" x1="86" y1="78" x2="86" y2="158"/>
+              <line class="phi-stroke phi-thick" x1="114" y1="78" x2="114" y2="158"/>
+              <!-- Body detail bands -->
+              <line class="phi-stroke phi-thin" x1="86" y1="124" x2="114" y2="124"/>
+              <line class="phi-stroke phi-thin" x1="86" y1="140" x2="114" y2="140"/>
+              <!-- Porthole window -->
+              <circle class="phi-stroke" cx="100" cy="100" r="8"/>
+              <circle class="phi-dot" cx="100" cy="100" r="3"/>
+              <!-- Left fin -->
+              <path class="phi-stroke phi-thick" d="M 86 140 Q 70 156 62 176 L 86 170"/>
+              <!-- Right fin -->
+              <path class="phi-stroke phi-thick" d="M 114 140 Q 130 156 138 176 L 114 170"/>
+              <!-- Nozzle -->
+              <path class="phi-stroke phi-thick" d="M 86 158 L 90 168 L 110 168 L 114 158"/>
+              <!-- Engine bell curve -->
+              <path class="phi-stroke phi-thin" d="M 90 168 Q 100 174 110 168"/>
+
+              <!-- Launch pad -->
+              <line class="phi-stroke phi-thin" x1="64" y1="184" x2="136" y2="184"/>
+              <!-- Hold-down arms -->
+              <line class="phi-stroke phi-thin" x1="86" y1="172" x2="76" y2="184"/>
+              <line class="phi-stroke phi-thin" x1="114" y1="172" x2="124" y2="184"/>
+              <!-- Pad support legs -->
+              <line class="phi-stroke phi-thin" x1="70" y1="184" x2="66" y2="196"/>
+              <line class="phi-stroke phi-thin" x1="130" y1="184" x2="134" y2="196"/>
+              <!-- Flame deflector trench -->
+              <path class="phi-stroke phi-thin" d="M 66 196 L 66 202 L 134 202 L 134 196"/>
+
+              <!-- Exhaust plumes (pre-ignition, dashed) -->
+              <path class="phi-stroke phi-thin phi-dashed" d="M 94 174 Q 84 192 76 210"/>
+              <path class="phi-stroke phi-thin phi-dashed" d="M 100 174 Q 100 194 100 214"/>
+              <path class="phi-stroke phi-thin phi-dashed" d="M 106 174 Q 116 192 124 210"/>
+
+              <!-- Label -->
+              <text class="phi-text" x="34" y="246">T-MINUS: 00</text>
+              <!-- Dot stars -->
+              <circle class="phi-dot" cx="18"  cy="54"  r="1.5"/>
+              <circle class="phi-dot" cx="186" cy="70"  r="2"/>
+              <circle class="phi-dot" cx="186" cy="196" r="1.5"/>
+              <circle class="phi-dot" cx="18"  cy="228" r="1"/>
+              <circle class="phi-dot" cx="152" cy="244" r="1.5"/>
+              <!-- 4-pointed stars -->
+              <path class="phi-fill" d="M 168 46 L 169.5 49.5 L 173 51 L 169.5 52.5 L 168 56 L 166.5 52.5 L 163 51 L 166.5 49.5 Z"/>
+              <path class="phi-fill" d="M 22 196 L 23.5 199.5 L 27 201 L 23.5 202.5 L 22 206 L 20.5 202.5 L 17 201 L 20.5 199.5 Z"/>
+            </svg>
+          )}
+
         </div>
       )}
     </div>
@@ -360,10 +429,53 @@ const { headline, sub, annoCode, annoExtra, annoModule, illustration } = Astro.p
     gap: 40px;
   }
 
+  /* Centered layout (contact page) — text centered, illustration floats right */
+  .ph-inner--centered {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .ph-inner--centered .ph-content {
+    align-items: center;
+    max-width: 640px;
+    width: 100%;
+  }
+
+  .ph-inner--centered .ph-headline {
+    max-width: 600px;
+    text-align: center;
+  }
+
+  .ph-inner--centered .ph-sub {
+    max-width: 520px;
+    text-align: center;
+  }
+
+  .ph-inner--centered .ph-illustration {
+    position: absolute;
+    right: -10px;
+    top: calc(50% - 100px);
+    width: 150px;
+  }
+
   .ph-content {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .ph-eyebrow {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--blue);
+    opacity: 0.85;
+    margin-bottom: 18px;
   }
 
   .ph-headline {
@@ -453,5 +565,6 @@ const { headline, sub, annoCode, annoExtra, annoModule, illustration } = Astro.p
   @media (max-width: 768px) {
     .ph-inner--illustrated { grid-template-columns: 1fr; }
     .ph-illustration        { display: none; }
+    .ph-inner--centered .ph-illustration { display: none; }
   }
 </style>
