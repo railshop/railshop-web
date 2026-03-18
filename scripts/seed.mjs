@@ -267,7 +267,7 @@ async function seed() {
     _type: 'contactPage',
     seo: {
       metaTitle: 'Contact - Railshop',
-      metaDescription: 'Book a call with Railshop or send us a message. We respond within one business day.',
+      metaDescription: "Book a free 30-minute discovery call with Railshop. No pitch. Honest perspective on what's holding your marketing back.",
     },
     hero: {
       eyebrow: '// Contact',
@@ -286,7 +286,7 @@ async function seed() {
       briefFooter: "If we're not the right fit, we'll say so and point you somewhere better.",
     },
     sendAMessage: {
-      heading: 'Prefer to send a message instead?',
+      heading: 'Not ready to book? Send us a note.',
       sub: "Tell us about your business and what you're trying to achieve. We'll review it and follow up within one business day.",
       responseStat1Value: '~4h',
       responseStat1Label: 'Avg. response time',

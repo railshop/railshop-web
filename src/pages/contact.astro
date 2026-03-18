@@ -1,39 +1,28 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getContactPage, getSiteSettings, getServices } from '../lib/sanity';
+import { getContactPage, getSiteSettings, getServices, getAboutPage, urlForImage } from '../lib/sanity';
 
 let contactPage: any = null;
 let settings: any = null;
 let services: any[] = [];
+let aboutPage: any = null;
 try {
-  [contactPage, settings, services] = await Promise.all([
-    getContactPage(), getSiteSettings(), getServices(),
+  [contactPage, settings, services, aboutPage] = await Promise.all([
+    getContactPage(), getSiteSettings(), getServices(), getAboutPage(),
   ]);
 } catch (_) {}
 
-// Singleton content with fallbacks
-const heroHeadline   = contactPage?.hero?.headline ?? null;
-const heroSubhead    = contactPage?.hero?.subhead  ?? null;
-const bookHeading    = contactPage?.bookACall?.heading  ?? 'Book a Call';
-const bookSubhead    = contactPage?.bookACall?.subhead  ?? 'Pick a time that works for you. We\'ll come prepared.';
-const agendaItems    = contactPage?.bookACall?.agendaItems?.length > 0
-  ? contactPage.bookACall.agendaItems
-  : [
-      "A straight read on where your digital presence stands",
-      "Honest perspective on what we'd prioritize first",
-      "No obligation. We'll tell you if we're not the right fit",
-      "If it's a match, a clear path to getting started",
-    ];
-const briefFooter    = contactPage?.bookACall?.briefFooter ?? "If we're not the right fit, we'll say so and point you somewhere better.";
-const msgHeading     = contactPage?.sendAMessage?.heading ?? 'Prefer to send a message instead?';
-const msgSub         = contactPage?.sendAMessage?.sub     ?? 'Tell us about your business and what you\'re trying to achieve. We\'ll review it and follow up within one business day.';
-const stat1Value     = contactPage?.sendAMessage?.responseStat1Value ?? '~4h';
-const stat1Label     = contactPage?.sendAMessage?.responseStat1Label ?? 'Avg. response time';
-const stat2Value     = contactPage?.sendAMessage?.responseStat2Value ?? '100%';
-const stat2Label     = contactPage?.sendAMessage?.responseStat2Label ?? 'Responses sent';
-const socialProof    = contactPage?.sendAMessage?.socialProofText ?? 'Most of our best client relationships started with a single message.';
-const hubspotUrl     = settings?.hubspotMeetingsUrl ?? 'https://launch.railshop.co/meetings/andrew-opalinski?embed=true';
-const address        = settings?.address ?? '33 East Pittsburgh Street\nGreensburg, PA 15601';
+// Content with fallbacks
+const msgHeading  = contactPage?.sendAMessage?.heading ?? 'Not ready to book? Send us a note.';
+const msgSub      = contactPage?.sendAMessage?.sub     ?? 'Tell us about your business and what you\'re trying to achieve. We\'ll review it and follow up within one business day.';
+const stat1Value  = contactPage?.sendAMessage?.responseStat1Value ?? '~4h';
+const stat1Label  = contactPage?.sendAMessage?.responseStat1Label ?? 'Avg. response time';
+const stat2Value  = contactPage?.sendAMessage?.responseStat2Value ?? '100%';
+const stat2Label  = contactPage?.sendAMessage?.responseStat2Label ?? 'Responses sent';
+const socialProof = contactPage?.sendAMessage?.socialProofText ?? 'Most of our best client relationships started with a single message.';
+
+// Client logos for trust strip
+const clientLogos: any[] = aboutPage?.clientLogos ?? [];
 
 // Service pills — from Sanity or fallback
 const servicePills = services.length > 0
@@ -50,114 +39,91 @@ const servicePills = services.length > 0
 
 <BaseLayout
   title={contactPage?.seo?.metaTitle ?? 'Contact — Railshop'}
-  description={contactPage?.seo?.metaDescription ?? 'Book a call with Railshop or send us a message. We respond within one business day.'}
+  description={contactPage?.seo?.metaDescription ?? 'Book a free 30-minute discovery call with Railshop. No pitch. Honest perspective on what\'s holding your marketing back.'}
 >
 
   <!-- ============================================================
-       1. HERO
+       1. OPEN — tight, conversion-focused
        ============================================================ -->
-  <section class="hero">
-    <div class="hero-bg" aria-hidden="true">
-      <svg class="hero-grid-svg" viewBox="0 0 1400 480" fill="none" preserveAspectRatio="xMidYMid slice">
-        <line class="grid-line" x1="350" y1="0" x2="350" y2="480"/>
-        <line class="grid-line" x1="700" y1="0" x2="700" y2="480"/>
-        <line class="grid-line" x1="1050" y1="0" x2="1050" y2="480"/>
-        <line class="grid-line" x1="0" y1="160" x2="1400" y2="160"/>
-        <line class="grid-line" x1="0" y1="320" x2="1400" y2="320"/>
-        <path class="corner-bracket" d="M 32 24 L 32 60 M 32 24 L 68 24"/>
-        <path class="corner-bracket" d="M 1368 456 L 1368 420 M 1368 456 L 1332 456"/>
-        <line class="tick-mark" x1="350" y1="468" x2="350" y2="480"/>
-        <line class="tick-mark" x1="700" y1="468" x2="700" y2="480"/>
-        <line class="tick-mark" x1="1050" y1="468" x2="1050" y2="480"/>
-        <!-- Signal pulse rings (decorative) -->
-        <circle class="signal-ring signal-ring--1" cx="1100" cy="220" r="60"/>
-        <circle class="signal-ring signal-ring--2" cx="1100" cy="220" r="110"/>
-        <circle class="signal-ring signal-ring--3" cx="1100" cy="220" r="160"/>
-        <circle class="signal-dot" cx="1100" cy="220" r="5"/>
+  <section class="open-section">
+    <div class="open-bg" aria-hidden="true">
+      <svg class="open-grid-svg" viewBox="0 0 1400 400" fill="none" preserveAspectRatio="xMidYMid slice">
+        <line class="open-grid-line" x1="350" y1="0" x2="350" y2="400"/>
+        <line class="open-grid-line" x1="700" y1="0" x2="700" y2="400"/>
+        <line class="open-grid-line" x1="1050" y1="0" x2="1050" y2="400"/>
+        <line class="open-grid-line" x1="0" y1="133" x2="1400" y2="133"/>
+        <line class="open-grid-line" x1="0" y1="266" x2="1400" y2="266"/>
+        <path class="open-corner" d="M 32 20 L 32 52 M 32 20 L 64 20"/>
+        <path class="open-corner" d="M 1368 380 L 1368 348 M 1368 380 L 1336 380"/>
+        <circle class="open-ring open-ring--1" cx="1100" cy="200" r="70"/>
+        <circle class="open-ring open-ring--2" cx="1100" cy="200" r="130"/>
+        <circle class="open-ring open-ring--3" cx="1100" cy="200" r="190"/>
+        <circle class="open-dot" cx="1100" cy="200" r="5"/>
       </svg>
-      <div class="hero-glow"></div>
+      <div class="open-glow"></div>
     </div>
-
-    <div class="hero-annotation hero-annotation--tr" aria-hidden="true">
-      <span class="anno-code">SYS: CONTACT</span>
-      <span class="anno-sep">·</span>
-      <span class="anno-coord">CTR-001</span>
-    </div>
-    <div class="hero-annotation hero-annotation--bl" aria-hidden="true">
-      <span class="anno-code">// INBOUND SIGNAL OPEN</span>
-    </div>
-
     <div class="container">
-      <div class="hero-inner">
-        <div class="hero-left">
-          {heroHeadline ? (
-            <h1 class="hero-headline" set:html={heroHeadline.replace(/\n/g, '<br />')} />
-          ) : (
-            <h1 class="hero-headline">
-              Let's talk about<br />
-              <span class="hero-accent">your business.</span>
-            </h1>
-          )}
-          <p class="hero-sub">
-            {heroSubhead ?? "A straightforward conversation about where you're trying to go and whether we're the right team to help you get there."}
-          </p>
-
-        </div>
+      <div class="open-inner">
+        <span class="open-eyebrow">// Free · 30 Min Discovery Call</span>
+        <h1 class="open-heading">What's holding your marketing back?</h1>
+        <p class="open-sub">Pick a time below. We'll come prepared with a straight read on your situation.</p>
       </div>
     </div>
   </section>
 
   <!-- ============================================================
-       2. BOOK A CALL
+       2. TRUST STRIP — client logos
        ============================================================ -->
-  <section class="contact-section" id="hubspot-meetings">
-    <div class="container contact-grid">
-
-      <!-- Left: Call Brief -->
-      <div class="book-col">
-        <h2 class="book-heading">{bookHeading}</h2>
-        <p class="book-subhead">{bookSubhead}</p>
-
-        <!-- Call Agenda card -->
-        <div class="brief-card">
-          <div class="brief-header">
-            <span class="brief-label">// WHAT TO EXPECT</span>
-            <span class="brief-duration">30 MIN</span>
-          </div>
-          <ol class="brief-steps">
-            {agendaItems.map((title: string, i: number) => (
-              <li class="brief-step">
-                <span class="brief-step-code">{String(i + 1).padStart(2, '0')}</span>
-                <div class="brief-step-body">
-                  <span class="brief-step-title">{title}</span>
-                </div>
-              </li>
+  {clientLogos.length > 0 && (
+    <div class="trust-strip">
+      <div class="container">
+        <div class="trust-inner">
+          <span class="trust-eyebrow">// We've worked with</span>
+          <div class="trust-logos">
+            {clientLogos.map((client: any) => (
+              <div class="trust-logo-slot">
+                {client.logo
+                  ? <img src={urlForImage(client.logo).url()} alt={client.name} loading="lazy" />
+                  : <span class="trust-logo-name">{client.name}</span>
+                }
+              </div>
             ))}
-          </ol>
-          <div class="brief-footer">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>{briefFooter}</span>
           </div>
         </div>
-
-        <!-- Office -->
-        <div class="office-block">
-          <span class="office-eyebrow">// Our Office</span>
-          <address class="office-addr" set:html={address.replace(/\n/g, '<br />')} />
-        </div>
       </div>
+    </div>
+  )}
 
-      <!-- Right: HubSpot Meetings embed -->
-      <div class="meetings-embed-col" aria-label="Book a meeting with Railshop">
-        <div class="meetings-iframe-container" data-src={hubspotUrl}></div>
-        <script type="text/javascript" src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js" async></script>
-      </div>
-
+  <!-- ============================================================
+       3. BOOK A CALL — CALENDLY
+       ============================================================ -->
+  <section class="cal-section" id="book-a-call">
+    <div class="container">
+      <div
+        class="calendly-inline-widget"
+        data-url="https://calendly.com/drew-railshop/30min?hide_gdpr_banner=1"
+        style="min-width:320px;height:700px;"
+      ></div>
     </div>
   </section>
 
+  <!-- Calendly: set theme-matched colors before widget.js initialises -->
+  <script is:inline>
+    (function () {
+      var el = document.querySelector('.calendly-inline-widget');
+      if (!el) return;
+      var isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+      var base = 'https://calendly.com/drew-railshop/30min?hide_gdpr_banner=1';
+      el.setAttribute('data-url', isDark
+        ? base + '&background_color=111315&text_color=f8fafc&primary_color=38b6ff'
+        : base + '&background_color=ffffff&text_color=0f172a&primary_color=0369a1'
+      );
+    })();
+  </script>
+  <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
   <!-- ============================================================
-       3. SEND A MESSAGE
+       4. SEND A MESSAGE — secondary path
        ============================================================ -->
   <div class="section-rule" aria-hidden="true">
     <div class="section-rule-line"></div>
@@ -165,7 +131,7 @@ const servicePills = services.length > 0
     <div class="section-rule-line"></div>
   </div>
 
-  <section class="message-section" id="message-accordion">
+  <section class="message-section" id="send-a-message">
     <div class="container">
       <div class="message-header">
         <div class="message-header-left">
@@ -195,7 +161,6 @@ const servicePills = services.length > 0
       >
         <input type="hidden" name="form-name" value="contact" />
 
-        <!-- Row 1: Name + Email -->
         <div class="form-grid form-grid--2">
           <div class="field-group">
             <label class="field-label" for="name">Name <span class="field-required">*</span></label>
@@ -207,7 +172,6 @@ const servicePills = services.length > 0
           </div>
         </div>
 
-        <!-- Row 2: Phone + Source -->
         <div class="form-grid form-grid--2">
           <div class="field-group">
             <label class="field-label" for="phone">Phone</label>
@@ -226,7 +190,6 @@ const servicePills = services.length > 0
           </div>
         </div>
 
-        <!-- Interests -->
         <fieldset class="field-group field-group--fieldset">
           <legend class="field-label">What are you interested in?</legend>
           <div class="pill-group" id="pill-group" role="group" aria-label="Services of interest">
@@ -237,7 +200,6 @@ const servicePills = services.length > 0
           <input type="hidden" name="interests" id="interests-input" />
         </fieldset>
 
-        <!-- Message -->
         <div class="field-group">
           <label class="field-label" for="message">Message</label>
           <textarea
@@ -267,7 +229,6 @@ const servicePills = services.length > 0
 </BaseLayout>
 
 <script>
-  // ── Pill selection ──
   const pills = document.querySelectorAll<HTMLButtonElement>('#pill-group .pill');
   const interestsInput = document.getElementById('interests-input') as HTMLInputElement;
   const selected = new Set<string>();
@@ -287,119 +248,173 @@ const servicePills = services.length > 0
       interestsInput.value = Array.from(selected).join(', ');
     });
   });
-
 </script>
 
 <style>
   /* ══════════════════════════════════════
-     1. HERO
+     1. OPEN SECTION
   ══════════════════════════════════════ */
-  .hero {
+  .open-section {
     position: relative;
     overflow: hidden;
+    padding: 80px 0 72px;
     border-bottom: 1px solid var(--border);
   }
 
-  .hero-bg {
+  .open-bg {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    overflow: hidden;
   }
 
-  .hero-grid-svg {
+  .open-grid-svg {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
   }
 
-  .grid-line {
+  .open-grid-line {
     stroke: var(--border);
     stroke-width: 1;
-    opacity: 0.4;
-  }
-
-  .corner-bracket {
-    stroke: var(--border);
-    stroke-width: 1.5;
     opacity: 0.35;
   }
 
-  .tick-mark {
+  .open-corner {
     stroke: var(--border);
-    stroke-width: 1;
-    opacity: 0.5;
+    stroke-width: 1.5;
+    opacity: 0.3;
   }
 
-  /* Signal rings — decorative concentric circles */
-  .signal-ring {
+  .open-ring {
     fill: none;
     stroke: var(--blue);
   }
 
-  .signal-ring--1 { opacity: 0.12; stroke-width: 1; }
-  .signal-ring--2 { opacity: 0.07; stroke-width: 1; }
-  .signal-ring--3 { opacity: 0.04; stroke-width: 1; }
+  .open-ring--1 { opacity: 0.10; stroke-width: 1; }
+  .open-ring--2 { opacity: 0.06; stroke-width: 1; }
+  .open-ring--3 { opacity: 0.03; stroke-width: 1; }
 
-  .signal-dot {
+  .open-dot {
     fill: var(--blue);
-    opacity: 0.3;
+    opacity: 0.25;
   }
 
-  .hero-glow {
+  .open-glow {
     position: absolute;
     top: -40px;
     left: -5%;
-    width: 50%;
-    height: 80%;
-    background: radial-gradient(ellipse at 30% 40%, rgba(56, 182, 255, 0.04) 0%, transparent 65%);
+    width: 55%;
+    height: 100%;
+    background: radial-gradient(ellipse at 30% 50%, rgba(56, 182, 255, 0.04) 0%, transparent 65%);
   }
 
-  /* Corner annotations */
-  .hero-annotation {
-    position: absolute;
+  .open-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    margin: 0 auto;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 6px;
+    text-align: center;
+  }
+
+  .open-eyebrow {
     font-family: 'JetBrains Mono', monospace;
     font-size: 9px;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--blue);
+    opacity: 0.8;
+    margin-bottom: 18px;
+  }
+
+  .open-heading {
+    font-size: var(--fs-h1);
+    font-weight: 800;
+    color: var(--text-2);
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+
+  .open-sub {
+    font-size: 16px;
+    color: var(--text-3);
+    line-height: 1.7;
+    max-width: 460px;
+  }
+
+  /* ══════════════════════════════════════
+     2. TRUST STRIP
+  ══════════════════════════════════════ */
+  .trust-strip {
+    padding: 28px 0 4px;
+  }
+
+  .trust-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .trust-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--text-3);
     opacity: 0.4;
-    pointer-events: none;
   }
 
-  .hero-annotation--tr { top: 20px; right: 32px; }
-  .hero-annotation--bl { bottom: 20px; left: 32px; }
-
-  .anno-code { color: var(--blue); opacity: 0.8; }
-  .anno-sep  { opacity: 0.3; }
-
-  /* Hero content */
-  .hero-inner {
-    position: relative;
-    z-index: 1;
-    padding: 56px 0 64px;
-  }
-
-  .hero-left {
+  .trust-logos {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    max-width: 600px;
+    align-items: center;
+    justify-content: center;
+    gap: 56px;
+    flex-wrap: wrap;
   }
 
-  .hero-accent { color: var(--blue); }
+  .trust-logo-slot img {
+    display: block;
+    object-fit: contain;
+    opacity: 0.5;
+    filter: brightness(0) invert(1);
+    transition: opacity 0.2s;
+  }
 
-  .hero-sub {
-    font-size: 17px;
+  .trust-logo-slot img:hover { opacity: 0.75; }
+
+  /* Per-logo sizing — order matches Sanity clientLogos array */
+  .trust-logo-slot:nth-child(1) img { width: 150px; height: 38px; } /* Window Nation — very wide */
+  .trust-logo-slot:nth-child(2) img { width: 160px; height: 44px; } /* Vector Security — compact */
+  .trust-logo-slot:nth-child(3) img { width: 160px; height: 44px; } /* Fire & Ice */
+  .trust-logo-slot:nth-child(4) img { width: 130px; height: 36px; } /* JP Operations */
+
+  .trust-logo-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
     color: var(--text-3);
-    line-height: 1.75;
-    max-width: 480px;
+    opacity: 0.4;
+    text-transform: uppercase;
   }
 
+  /* ══════════════════════════════════════
+     3. BOOK A CALL — CALENDLY
+  ══════════════════════════════════════ */
+  .cal-section {
+    padding: 4px 0 64px;
+    border-bottom: 1px solid var(--border);
+    scroll-margin-top: 72px;
+  }
+
+  .calendly-inline-widget {
+    display: block;
+    width: 100%;
+  }
 
   /* ══════════════════════════════════════
      SHARED: SECTION RULE DIVIDER
@@ -431,184 +446,7 @@ const servicePills = services.length > 0
   }
 
   /* ══════════════════════════════════════
-     2. BOOK A CALL
-  ══════════════════════════════════════ */
-  .contact-section {
-    padding: 64px 0 72px;
-    border-bottom: 1px solid var(--border);
-    scroll-margin-top: 72px;
-  }
-
-  .contact-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
-    gap: 64px;
-    align-items: start;
-  }
-
-  /* Left column */
-  .book-col {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0;
-  }
-
-  .book-heading {
-    font-size: clamp(26px, 3vw, 38px);
-    font-weight: 800;
-    color: var(--text-2);
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    margin-bottom: 12px;
-  }
-
-  .book-subhead {
-    font-size: 15px;
-    color: var(--text-3);
-    line-height: 1.75;
-    margin-bottom: 28px;
-  }
-
-  /* Call Agenda card */
-  .brief-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    overflow: hidden;
-    margin-bottom: 24px;
-  }
-
-  .brief-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 20px;
-    border-bottom: 1px solid var(--border);
-    background: var(--surface-2);
-  }
-
-  .brief-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--blue);
-    opacity: 0.8;
-  }
-
-  .brief-duration {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--text-3);
-    opacity: 0.5;
-    background: var(--surface-3);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: 2px 8px;
-  }
-
-  .brief-steps {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .brief-step {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--border);
-    transition: background 0.15s ease;
-  }
-
-  .brief-step:last-child { border-bottom: none; }
-  .brief-step:hover { background: var(--surface-2); }
-
-  .brief-step-code {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.12em;
-    color: var(--blue);
-    opacity: 0.5;
-    flex-shrink: 0;
-    width: 18px;
-    margin-top: 2px;
-  }
-
-  .brief-step-body {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-  }
-
-  .brief-step-title {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-2);
-  }
-
-  .brief-step-desc {
-    font-size: 12px;
-    color: var(--text-3);
-    line-height: 1.55;
-  }
-
-  .brief-footer {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 14px 20px;
-    border-top: 1px solid var(--border);
-    background: rgba(52, 211, 153, 0.04);
-  }
-
-  .brief-footer svg { flex-shrink: 0; margin-top: 1px; }
-
-  .brief-footer span {
-    font-size: 12px;
-    color: var(--text-3);
-    line-height: 1.55;
-    font-style: italic;
-  }
-
-  .office-block {
-    margin-top: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .office-eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--blue);
-    opacity: 0.65;
-  }
-
-  .office-addr {
-    font-size: 13px;
-    color: var(--text-3);
-    line-height: 1.6;
-    font-style: normal;
-  }
-
-
-
-  /* ── HubSpot embed alignment ── */
-  .meetings-embed-col {
-    padding-top: 46px;
-    max-width: 100%;
-    overflow: hidden;
-  }
-
-  /* ══════════════════════════════════════
-     3. SEND A MESSAGE
+     4. SEND A MESSAGE
   ══════════════════════════════════════ */
   .message-section {
     padding: 64px 0 96px;
@@ -631,11 +469,11 @@ const servicePills = services.length > 0
   }
 
   .message-heading {
-    font-size: clamp(26px, 3vw, 38px);
-    font-weight: 800;
+    font-size: clamp(20px, 2.5vw, 30px);
+    font-weight: 700;
     color: var(--text-2);
-    letter-spacing: -0.03em;
-    line-height: 1.1;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
     margin-bottom: 10px;
   }
 
@@ -646,7 +484,6 @@ const servicePills = services.length > 0
     max-width: 420px;
   }
 
-  /* Response stats */
   .message-header-right {
     display: flex;
     align-items: center;
@@ -699,14 +536,8 @@ const servicePills = services.length > 0
     padding: 40px;
   }
 
-  .form-grid {
-    display: grid;
-    gap: 20px;
-  }
-
-  .form-grid--2 {
-    grid-template-columns: 1fr 1fr;
-  }
+  .form-grid { display: grid; gap: 20px; }
+  .form-grid--2 { grid-template-columns: 1fr 1fr; }
 
   .field-group {
     display: flex;
@@ -730,10 +561,7 @@ const servicePills = services.length > 0
     color: var(--text-3);
   }
 
-  .field-required {
-    color: var(--blue);
-    opacity: 0.7;
-  }
+  .field-required { color: var(--blue); opacity: 0.7; }
 
   .field-input {
     background: var(--surface-2);
@@ -771,12 +599,7 @@ const servicePills = services.length > 0
     line-height: 1.65;
   }
 
-  /* ── Pill group ── */
-  .pill-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
+  .pill-group { display: flex; flex-wrap: wrap; gap: 8px; }
 
   .pill {
     background: var(--surface-2);
@@ -800,7 +623,6 @@ const servicePills = services.length > 0
     color: var(--blue);
   }
 
-  /* ── Form footer ── */
   .form-footer {
     display: flex;
     align-items: center;
@@ -850,30 +672,20 @@ const servicePills = services.length > 0
      RESPONSIVE
   ══════════════════════════════════════ */
   @media (max-width: 1024px) {
-    .contact-grid {
-      grid-template-columns: 1fr;
-      gap: 40px;
-    }
-    .meetings-col { min-height: 600px; }
     .message-header { grid-template-columns: 1fr; gap: 24px; }
     .message-header-right { justify-content: flex-start; }
   }
 
   @media (max-width: 768px) {
-    .hero-annotation--tr,
-    .hero-annotation--bl { display: none; }
-
+    .trust-logos { gap: 28px; }
+    .trust-logo-slot img { width: 160px; height: 46px; }
     .form-grid--2 { grid-template-columns: 1fr; }
-
     .contact-form { padding: 28px 20px; }
-
     .form-footer { flex-direction: column; align-items: flex-start; }
     .submit-btn { width: 100%; justify-content: center; }
-
   }
 
   @media (max-width: 640px) {
     .section-rule { display: none; }
-    .office-row { flex-direction: column; align-items: flex-start; }
   }
 </style>
