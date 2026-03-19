@@ -129,8 +129,8 @@ async function seed() {
       subhead: "Railshop is a boutique growth partner for home and consumer service brands. We build what your business needs and nothing it doesn't.",
     },
     servicesSection: {
-      title: 'Services built for measurable growth',
-      intro: 'Six ways we help service businesses compete and grow online. Every engagement starts with your goals, not a default package.',
+      title: 'Built to perform.',
+      subtitle: 'Six services, all tied to one thing: growing your revenue.',
     },
     whoWeServe: {
       headline: 'Built for service businesses ready to grow.',
@@ -317,7 +317,7 @@ async function seed() {
     {
       _id: 'service-web-design',      slug: 'web-design',
       title: 'Web Design & Development',
-      description: 'High-converting websites built for service businesses. Strategy-first, not template-first.',
+      description: 'High-converting websites built for service businesses.',
       icon: '⬡', order: 1,
       seo: { metaTitle: 'Web Design & Development - Railshop', metaDescription: 'Fast, conversion-focused websites built for service businesses. We design and build sites that look the part, load fast, and turn visitors into leads.' },
       whatIsIncluded: [
@@ -349,7 +349,7 @@ async function seed() {
     {
       _id: 'service-paid-ads',      slug: 'paid-ads',
       title: 'Paid Ads',
-      description: 'Google Ads, LSA, and Meta campaigns built around your cost-per-lead goals. Not vanity metrics.',
+      description: 'Google, LSA, and Meta campaigns driven by cost-per-lead.',
       icon: '◈', order: 2,
       seo: { metaTitle: 'Paid Ads - Railshop', metaDescription: 'Google, Meta, and beyond: campaigns built to drive leads, not just clicks. We manage paid advertising end-to-end for service businesses that need a reliable lead pipeline.' },
       whatIsIncluded: [
@@ -381,7 +381,7 @@ async function seed() {
     {
       _id: 'service-seo',      slug: 'seo',
       title: 'SEO',
-      description: 'Local and technical SEO that compounds over time and reduces your reliance on paid.',
+      description: 'Local and technical SEO that compounds over time.',
       icon: '◎', order: 3,
       seo: { metaTitle: 'SEO - Railshop', metaDescription: 'Sustainable organic growth through technical SEO and content that ranks. We build search visibility that grows month over month.' },
       whatIsIncluded: [
@@ -412,7 +412,7 @@ async function seed() {
     {
       _id: 'service-content-creation',      slug: 'content-creation',
       title: 'Content Creation',
-      description: 'Video and photo content that builds authority and keeps your brand visible between campaigns.',
+      description: 'Video and photo that builds authority and brand visibility.',
       icon: '▣', order: 4,
       seo: { metaTitle: 'Content Creation - Railshop', metaDescription: 'Video and photo content that builds authority and keeps your brand visible between campaigns.' },
       whatIsIncluded: [
@@ -443,7 +443,7 @@ async function seed() {
     {
       _id: 'service-strategy-consulting',      slug: 'strategy-consulting',
       title: 'Strategy Consulting',
-      description: "Not sure where to start? We'll audit your full digital presence and build a prioritized plan.",
+      description: 'We audit your digital presence and build a prioritized plan.',
       icon: '◇', order: 5,
       seo: { metaTitle: 'Strategy Consulting - Railshop', metaDescription: 'Not sure where to start? We will assess what your business needs and build a clear, prioritised digital growth plan.' },
       whatIsIncluded: [
@@ -474,7 +474,7 @@ async function seed() {
     {
       _id: 'service-ai-integration',      slug: 'ai-integration',
       title: 'AI Integration',
-      description: 'Practical AI implementation that reduces cost, saves time, and gives your business a real edge.',
+      description: 'AI tools that cut costs, save time, and give you a real edge.',
       icon: '⬡', order: 6,
       seo: { metaTitle: 'AI Integration - Railshop', metaDescription: 'Practical AI implementation that saves time, reduces cost, and gives your business a real edge.' },
       whatIsIncluded: [

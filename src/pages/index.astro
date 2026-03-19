@@ -33,12 +33,12 @@ try {
 
 // Placeholder services if Sanity is empty
 const displayServices = services.length > 0 ? services : [
-  { _id: '1', title: 'Web Design & Development', description: 'High-converting websites built for service businesses. Strategy-first, not template-first.', slug: { current: 'web-design' } },
-  { _id: '2', title: 'Paid Ads', description: 'Google Ads, LSA, and Meta campaigns built around your cost-per-lead goals. Not vanity metrics.', slug: { current: 'paid-ads' } },
-  { _id: '3', title: 'SEO', description: 'Local and technical SEO that compounds over time and reduces your reliance on paid ads.', slug: { current: 'seo' } },
-  { _id: '4', title: 'Content Creation', description: 'Video and photo content that builds authority and keeps your brand visible between campaigns.', slug: { current: 'content-creation' } },
-  { _id: '5', title: 'Strategy Consulting', description: 'Not sure where to start? We\'ll audit your full digital presence and build a prioritized plan.', slug: { current: 'strategy' } },
-  { _id: '6', title: 'AI Integration', description: 'Practical AI implementation that reduces cost, saves time, and gives your business a real edge.', slug: { current: 'ai-integration' } },
+  { _id: '1', title: 'Web Design & Development', description: 'High-converting websites built for service businesses.', slug: { current: 'web-design' } },
+  { _id: '2', title: 'Paid Ads', description: 'Google, LSA, and Meta campaigns driven by cost-per-lead.', slug: { current: 'paid-ads' } },
+  { _id: '3', title: 'SEO', description: 'Local and technical SEO that compounds over time.', slug: { current: 'seo' } },
+  { _id: '4', title: 'Content Creation', description: 'Video and photo that builds authority and brand visibility.', slug: { current: 'content-creation' } },
+  { _id: '5', title: 'Strategy Consulting', description: 'We audit your digital presence and build a prioritized plan.', slug: { current: 'strategy' } },
+  { _id: '6', title: 'AI Integration', description: 'AI tools that cut costs, save time, and give you a real edge.', slug: { current: 'ai-integration' } },
 ];
 
 // Placeholder posts if Sanity is empty
@@ -59,8 +59,8 @@ const proofStats = (homePage?.proofStats?.length > 0 ? homePage.proofStats : [
 // Singleton content with fallbacks
 const heroHeadline = homePage?.hero?.headline ?? null;
 const heroSubhead  = homePage?.hero?.subhead  ?? null;
-const servicesSectionTitle = homePage?.servicesSection?.title ?? 'Services built for measurable growth';
-const servicesSectionIntro = homePage?.servicesSection?.intro ?? 'Six ways we help service businesses compete and grow online. Every engagement starts with your goals, not a default package.';
+const servicesSectionTitle    = homePage?.servicesSection?.title    ?? 'Built to perform.';
+const servicesSectionSubtitle = homePage?.servicesSection?.subtitle ?? 'Six services, all tied to one thing: growing your revenue.';
 const whoTitle     = homePage?.whoWeServe?.headline ?? 'Built for service businesses ready to grow.';
 const whoBody      = homePage?.whoWeServe?.body ?? "You run a great operation. Your digital presence should reflect that and drive real leads. Whether you're a local landscaping company or a regional security provider, we build what your business needs to compete and win online.";
 const whoCtaLabel  = homePage?.whoWeServe?.ctaLabel ?? 'See If We\'re a Fit';
@@ -332,22 +332,20 @@ const serviceIcons = [
   <section class="services-section">
     <div class="container">
       <div class="services-header">
-        <div class="services-header-left">
-          <h2 class="services-title" set:html={servicesSectionTitle.replace(/\n/g, '<br />')} />
-        </div>
-        <p class="services-intro">{servicesSectionIntro}</p>
+        <h2 class="services-title" set:html={servicesSectionTitle.replace(/\n/g, '<br />')} />
+        <p class="services-subtitle">{servicesSectionSubtitle}</p>
       </div>
       <div class="services-grid">
         {displayServices.map((svc, i) => (
-          <a href={`/services/${svc.slug.current}`} class="svc-row">
-            <div class="svc-row-left">
-              <span class="svc-idx">0{i + 1}</span>
+          <a href={`/services/${svc.slug.current}`} class="svc-card">
+            <div class="svc-card-top">
               <span class="svc-icon" set:html={serviceIcons[i]} />
-              <h3 class="svc-title">{svc.title}</h3>
+              <span class="svc-idx">0{i + 1}</span>
             </div>
+            <h3 class="svc-title">{svc.title}</h3>
             <p class="svc-desc">{svc.description}</p>
             <span class="svc-arrow">
-              Learn more
+              View Service
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </span>
           </a>
@@ -461,7 +459,6 @@ const serviceIcons = [
           <SectionTag label="From the Blog" />
           <h2 class="blog-title" set:html={blogTitle.replace(/\n/g, '<br />')} />
         </div>
-        <p class="blog-intro">{blogIntro}</p>
       </div>
 
       <div class="blog-list">
@@ -786,10 +783,7 @@ const serviceIcons = [
   }
 
   .services-header {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: end;
+    text-align: center;
     margin-bottom: 52px;
   }
 
@@ -801,58 +795,44 @@ const serviceIcons = [
     line-height: 1.1;
   }
 
-  .services-intro {
+  .services-subtitle {
+    margin-top: 12px;
     font-size: 16px;
     color: var(--text-3);
-    line-height: 1.75;
-    align-self: end;
-    max-width: 440px;
+    line-height: 1.6;
   }
 
   /* List-style rows instead of a card grid */
   .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .svc-card {
     display: flex;
     flex-direction: column;
+    gap: 12px;
+    padding: 28px;
     border: 1px solid var(--border);
     border-radius: 2px;
-    overflow: hidden;
-  }
-
-  .svc-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr auto;
-    align-items: center;
-    gap: 32px;
-    padding: 28px 32px;
-    border-bottom: 1px solid var(--border);
     text-decoration: none;
-    position: relative;
-    transition: background 0.2s ease;
+    transition: border-color 0.2s ease, transform 0.2s ease;
   }
 
-  .svc-row::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: var(--blue);
-    opacity: 0;
-    transition: opacity 0.2s ease;
+  .svc-card:hover {
+    border-color: var(--border-2);
+    transform: translateY(-1px);
   }
 
-  .svc-row:last-child { border-bottom: none; }
+  .svc-card:hover .svc-arrow { color: var(--blue); transform: translateX(3px); }
+  .svc-card:hover .svc-title { color: var(--blue); }
 
-  .svc-row:hover { background: var(--surface); }
-  .svc-row:hover::before { opacity: 1; }
-  .svc-row:hover .svc-arrow { color: var(--blue); transform: translateX(3px); }
-  .svc-row:hover .svc-title { color: var(--blue); }
-
-  .svc-row-left {
+  .svc-card-top {
     display: flex;
     align-items: center;
-    gap: 16px;
+    justify-content: space-between;
+    margin-bottom: 4px;
   }
 
   .svc-idx {
@@ -861,13 +841,10 @@ const serviceIcons = [
     letter-spacing: 0.08em;
     color: var(--text-3);
     opacity: 0.35;
-    flex-shrink: 0;
-    width: 20px;
   }
 
   .svc-icon {
     color: var(--blue);
-    flex-shrink: 0;
     opacity: 0.85;
   }
 
@@ -883,6 +860,7 @@ const serviceIcons = [
     font-size: 14px;
     color: var(--text-3);
     line-height: 1.7;
+    flex: 1;
   }
 
   .svc-arrow {
@@ -893,6 +871,7 @@ const serviceIcons = [
     font-weight: 600;
     color: var(--text-3);
     white-space: nowrap;
+    margin-top: 4px;
     transition: color 0.2s ease, transform 0.2s ease;
   }
 
@@ -944,7 +923,6 @@ const serviceIcons = [
     margin-bottom: 12px;
   }
 
-  /* 2-column credential grid */
   .who-tag-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -967,7 +945,6 @@ const serviceIcons = [
   }
 
   .who-tag-item:nth-child(even) { border-right: none; }
-
   .who-tag-item:nth-last-child(-n+2) { border-bottom: none; }
 
   .who-tag-item:hover {
@@ -1201,10 +1178,6 @@ const serviceIcons = [
   .blog-section { padding: 96px 0; }
 
   .blog-header {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: end;
     margin-bottom: 48px;
   }
 
@@ -1215,13 +1188,6 @@ const serviceIcons = [
     line-height: 1.1;
     letter-spacing: -0.03em;
     margin-top: 18px;
-  }
-
-  .blog-intro {
-    font-size: 16px;
-    color: var(--text-3);
-    line-height: 1.75;
-    align-self: end;
   }
 
   /* Horizontal rows — editorial list style */
@@ -1340,10 +1306,6 @@ const serviceIcons = [
       border-top: 1px solid var(--border);
     }
 
-    .svc-row {
-      grid-template-columns: 1fr 1fr auto;
-    }
-
     .blog-row {
       grid-template-columns: 20px 100px 1fr auto;
       gap: 20px;
@@ -1356,21 +1318,15 @@ const serviceIcons = [
     .hero-inner { grid-template-columns: 1fr; }
     .hero-illustration { display: none; }
 
-    .services-header,
     .who-inner,
-    .about-inner,
-    .blog-header {
+    .about-inner {
       grid-template-columns: 1fr;
       gap: 28px;
     }
 
-    .svc-row {
+    .services-grid {
       grid-template-columns: 1fr;
-      gap: 12px;
-      padding: 20px 20px;
     }
-
-    .svc-arrow { display: none; }
 
     .proof-grid {
       grid-template-columns: repeat(2, 1fr);
