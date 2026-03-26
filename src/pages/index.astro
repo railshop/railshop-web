@@ -8,7 +8,7 @@ import {
   getSiteSettings,
   getHomePage,
   getServices,
-  getFeaturedCaseStudy,
+  getCaseStudies,
   getPosts,
 } from '../lib/sanity';
 
@@ -16,15 +16,15 @@ import {
 let settings: any = null;
 let homePage: any = null;
 let services: any[] = [];
-let featuredCase: any = null;
+let caseStudies: any[] = [];
 let posts: any[] = [];
 
 try {
-  [settings, homePage, services, featuredCase, posts] = await Promise.all([
+  [settings, homePage, services, caseStudies, posts] = await Promise.all([
     getSiteSettings(),
     getHomePage(),
     getServices(),
-    getFeaturedCaseStudy(),
+    getCaseStudies(),
     getPosts(3),
   ]);
 } catch (_) {
@@ -61,32 +61,49 @@ const heroHeadline = homePage?.hero?.headline ?? null;
 const heroSubhead  = homePage?.hero?.subhead  ?? null;
 const servicesSectionTitle    = homePage?.servicesSection?.title    ?? 'Built to perform.';
 const servicesSectionSubtitle = homePage?.servicesSection?.subtitle ?? 'Six services, all tied to one thing: growing your revenue.';
-const whoTitle     = homePage?.whoWeServe?.headline ?? 'Built for service businesses ready to grow.';
+const whoTitle     = homePage?.whoWeServe?.headline ?? 'Industries we serve.';
 const whoBody      = homePage?.whoWeServe?.body ?? "You run a great operation. Your digital presence should reflect that and drive real leads. Whether you're a local landscaping company or a regional security provider, we build what your business needs to compete and win online.";
 const whoCtaLabel  = homePage?.whoWeServe?.ctaLabel ?? 'See If We\'re a Fit';
 const industries   = homePage?.whoWeServe?.industries?.length > 0
   ? homePage.whoWeServe.industries
-  : ['Concrete & Hardscape', 'Construction', 'Excavation', 'Home & Business Security', 'HVAC', 'Landscaping', 'Plumbing', 'Roofing', 'Windows & Doors'];
+  : ['Concrete & Hardscape', 'Construction', 'Excavation', 'Financial Services', 'Home & Business Security', 'HVAC', 'Landscaping', 'Nonprofit', 'Plumbing', 'Roofing', 'Windows & Doors'];
 const aboutTitle   = homePage?.aboutTeaser?.title ?? 'Enterprise experience.\nBoutique delivery.';
-const aboutBody    = homePage?.aboutTeaser?.body ?? "Railshop is a digital growth partner co-founded by a corporate marketing leader and a product management leader in software. We spent years at the senior level inside national brands, building and scaling the kinds of digital programs most agencies only claim to understand. We started Railshop to bring that experience directly to growing service businesses, without the overhead.";
-const aboutCards   = homePage?.aboutTeaser?.cards?.length > 0 ? homePage.aboutTeaser.cards : [
-  { eyebrow: '01', heading: 'Senior-Only Team',              body: 'Every engagement is led by us directly. Senior work start to finish, not handed down the line.' },
-  { eyebrow: '02', heading: 'The Right People, Every Time',  body: 'When a project needs a specialist, we know exactly who to call and why.' },
-  { eyebrow: '03', heading: 'Built to Partner',              body: "We're built for long-term partnerships where each program builds on the last." },
-];
+const aboutBody    = homePage?.aboutTeaser?.body ?? "Co-founded by a corporate marketing leader and a software product leader, Railshop brings senior-level experience from national brands directly to growing service businesses. Every engagement is led by us. We're built for long-term partnerships where each program builds on the last.";
 const blogTitle    = homePage?.blogTeaser?.title ?? 'Straight talk on digital marketing.';
 const blogIntro    = homePage?.blogTeaser?.intro ?? "Written by practitioners running live campaigns. What's working, what's changed, and what to ignore.";
 const ctaTitle     = homePage?.ctaBanner?.title ?? 'Ready to grow your<br />service business online?';
 const ctaSubtitle  = homePage?.ctaBanner?.subtitle ?? 'We take on a limited number of new clients. Book a call to see if we\'re the right fit.';
 
-// Featured case study content
-const caseQuote = featuredCase?.homepagePullQuote ?? 'From local HVAC company to regional market leader.';
-const caseBody  = featuredCase?.homepageBody ?? "A family-owned HVAC business ready to scale but stuck on word-of-mouth and slow seasons. We built their full digital program and grew with them for five years. The result: 4x revenue growth and an 8x blended return on ad spend.";
-const caseStats = featuredCase?.stats?.length > 0 ? featuredCase.stats : [
-  { value: '8x',  label: 'Blended ROAS' },
-  { value: '4x',  label: 'Revenue Growth' },
-  { value: '5yr', label: 'Partnership' },
-];
+// Case studies — take first 3, fallback to placeholder
+const displayCases = (caseStudies?.length > 0 ? caseStudies.slice(0, 3) : [
+  {
+    _id: 'cs-1',
+    title: 'From local HVAC company to regional market leader.',
+    slug: { current: 'hvac-market-leader' },
+    industry: 'HVAC',
+    homepagePullQuote: 'From local HVAC company to regional market leader.',
+    homepageBody: "A family-owned HVAC business stuck on word-of-mouth and slow seasons. We built their full digital program over five years and turned it into a regional market leader.",
+    stats: [{ value: '8x', label: 'Blended ROAS' }, { value: '4x', label: 'Revenue Growth' }, { value: '5yr', label: 'Partnership' }],
+  },
+  {
+    _id: 'cs-2',
+    title: 'From zero digital presence to fully booked seasons.',
+    slug: { current: 'landscaping-digital-presence' },
+    industry: 'Landscaping',
+    homepagePullQuote: 'From zero digital presence to fully booked seasons.',
+    homepageBody: "A regional landscaping company with no website and no online visibility. We built their site, launched local SEO, and ran targeted paid search to fill their calendar.",
+    stats: [{ value: '3.2x', label: 'ROAS' }, { value: 'Page 1', label: 'Rankings in 90 Days' }, { value: 'Booked', label: 'First Spring Season' }],
+  },
+  {
+    _id: 'cs-3',
+    title: 'Scaling a home security brand beyond door-to-door.',
+    slug: { current: 'home-security-digital-acquisition' },
+    industry: 'Home Security',
+    homepagePullQuote: 'Scaling a home security brand beyond door-to-door.',
+    homepageBody: "A home security company over-reliant on door-to-door sales. We built a scalable inbound channel with paid search, local SEO, and a website that converts.",
+    stats: [{ value: '2.8x', label: 'Lead Volume' }, { value: '-47%', label: 'CPL vs. Industry' }, { value: '2yr', label: 'Engagement' }],
+  },
+]);
 const caseStatColors = ['cs-green', 'cs-blue', 'cs-gold'];
 
 const homeSchema = {
@@ -331,13 +348,13 @@ const serviceIcons = [
        ============================================================ -->
   <section class="services-section">
     <div class="container">
-      <div class="services-header">
+      <div class="services-header" data-animate>
         <h2 class="services-title" set:html={servicesSectionTitle.replace(/\n/g, '<br />')} />
         <p class="services-subtitle">{servicesSectionSubtitle}</p>
       </div>
       <div class="services-grid">
         {displayServices.map((svc, i) => (
-          <a href={`/services/${svc.slug.current}`} class="svc-card">
+          <a href={`/services/${svc.slug.current}`} class="svc-card" data-animate data-delay={i * 60}>
             <div class="svc-card-top">
               <span class="svc-icon" set:html={serviceIcons[i]} />
               <span class="svc-idx">0{i + 1}</span>
@@ -355,67 +372,74 @@ const serviceIcons = [
   </section>
 
   <!-- ============================================================
-       4. WHO WE SERVE
+       4. CASE STUDIES (3-up alternating)
        ============================================================ -->
-  <section class="who-section">
-    <div class="container who-inner">
-      <div class="who-copy">
-        <h2 class="who-title">{whoTitle}</h2>
-        <p class="who-desc">{whoBody}</p>
-        <Button href="/contact" variant="primary">{whoCtaLabel}</Button>
+  <section class="case-section">
+    <div class="container">
+      <div class="case-section-header" data-animate>
+        <h2 class="case-section-title">Proven results.</h2>
+        <p class="case-section-sub">Real growth for service businesses, from first click to lasting results.</p>
       </div>
-      <div class="who-tags-col">
-        <p class="who-tags-heading">// Industries Served</p>
-        <div class="who-tag-grid">
-          {industries.map((ind, i) => (
-            <div class="who-tag-item">
-              <span class="who-tag-idx">{String(i + 1).padStart(2, '0')}</span>
-              <span class="who-tag-name">{ind}</span>
+
+      <div class="case-stack">
+        {displayCases.map((cs: any, i: number) => {
+          const stats = cs.stats?.length > 0 ? cs.stats.slice(0, 3) : [];
+          const reversed = i === 1;
+          return (
+            <div class={`case-wrap ${reversed ? 'case-wrap--reversed' : ''}`} data-animate data-delay={i * 80}>
+              <div class="case-content">
+                <span class="case-industry">{cs.industry}</span>
+                <h3 class="case-quote">{cs.homepagePullQuote ?? cs.title}</h3>
+                <p class="case-body">{cs.homepageBody ?? cs.excerpt}</p>
+                <div class="case-stats">
+                  {stats.map((stat: any, si: number) => (
+                    <div class="case-stat">
+                      <span class={`cs-val ${caseStatColors[si] ?? 'cs-green'}`}>{stat.value}</span>
+                      <span class="cs-lbl">{stat.label}</span>
+                    </div>
+                  ))}
+                </div>
+                <Button href={`/work/${cs.slug?.current ?? '#'}`} variant="secondary">
+                  Read the Case Study
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </Button>
+              </div>
+              <div class="case-visual">
+                <div class="img-placeholder">
+                  <svg class="img-placeholder-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                </div>
+              </div>
             </div>
-          ))}
-          <div class="who-tag-item who-tag-item--more">
-            <span class="who-tag-idx">+</span>
-            <span class="who-tag-name">More</span>
-          </div>
-        </div>
+          );
+        })}
+      </div>
+
+      <div class="case-all">
+        <Button href="/work" variant="secondary">View All Case Studies</Button>
       </div>
     </div>
   </section>
 
   <!-- ============================================================
-       5. FEATURED CASE STUDY
+       5. WHO WE SERVE — title + ticker bar
        ============================================================ -->
-  <section class="case-section">
+  <section class="who-section">
     <div class="container">
-      <div class="case-wrap">
-        <div class="case-content">
-          <div class="case-meta">
-            <SectionTag label="Client Results" />
-          </div>
-          <h2 class="case-quote">{caseQuote}</h2>
-          <p class="case-body">{caseBody}</p>
-          <div class="case-stats">
-            {caseStats.map((stat: any, i: number) => (
-              <div class="case-stat">
-                <span class={`cs-val ${caseStatColors[i] ?? 'cs-green'}`}>{stat.value}</span>
-                <span class="cs-lbl">{stat.label}</span>
-              </div>
-            ))}
-          </div>
-          <Button href={featuredCase ? `/work/${featuredCase.slug.current}` : '/work/hvac-market-leader'} variant="secondary">
-            Read the Case Study
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </Button>
-        </div>
-        <div class="case-visual">
-          <img
-            src="/images/F&I Scaled 1500.jpg"
-            alt="HVAC business owner reviewing campaign results"
-            class="case-img"
-            loading="lazy"
-            decoding="async"
-          />
-          <div class="case-img-tag" aria-hidden="true">REF · HVAC-001</div>
+      <h2 class="who-title" data-animate>{whoTitle}</h2>
+    </div>
+    <div class="who-ticker-bar">
+      <div class="who-ticker-mask">
+        <div class="who-ticker-track">
+          {[...Array(2)].map(() => (
+            <div class="who-ticker-set" aria-hidden="true">
+              {industries.map((ind) => (
+                <Fragment>
+                  <span class="who-ticker-item">{ind}</span>
+                  <span class="who-ticker-dot" aria-hidden="true">·</span>
+                </Fragment>
+              ))}
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -425,26 +449,21 @@ const serviceIcons = [
        6. ABOUT TEASER
        ============================================================ -->
   <section class="about-section">
-    <div class="container about-inner">
-      <div class="about-copy">
-        <h2 class="about-title" set:html={aboutTitle.replace(/\n/g, '<br />')} />
-        <p class="about-body">{aboutBody}</p>
-        <Button href="/about" variant="primary">
-          Our Story
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </Button>
-      </div>
-      <div class="about-specs">
-        <div class="about-specs-header" aria-hidden="true">// MISSION PARAMETERS</div>
-        {aboutCards.map((card: any, i: number) => (
-          <div class="about-spec-row">
-            <span class="about-spec-key">PARAM.{String(i + 1).padStart(2, '0')}</span>
-            <div class="about-spec-body">
-              <p class="about-spec-label">{card.heading ?? card.label}</p>
-              <p class="about-spec-desc">{card.body ?? card.desc}</p>
-            </div>
+    <div class="container">
+      <div class="about-wrap" data-animate>
+        <div class="about-copy">
+          <h2 class="about-title" set:html={aboutTitle.replace(/\n/g, '<br />')} />
+          <p class="about-body">{aboutBody}</p>
+          <Button href="/about" variant="primary">
+            Our Story
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </Button>
+        </div>
+        <div class="about-visual">
+          <div class="img-placeholder">
+            <svg class="img-placeholder-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
           </div>
-        ))}
+        </div>
       </div>
     </div>
   </section>
@@ -454,7 +473,7 @@ const serviceIcons = [
        ============================================================ -->
   <section class="blog-section">
     <div class="container">
-      <div class="blog-header">
+      <div class="blog-header" data-animate>
         <div>
           <SectionTag label="From the Blog" />
           <h2 class="blog-title" set:html={blogTitle.replace(/\n/g, '<br />')} />
@@ -463,7 +482,7 @@ const serviceIcons = [
 
       <div class="blog-list">
         {displayPosts.map((post, i) => (
-          <a href={`/blog/${post.slug.current}`} class="blog-row">
+          <a href={`/blog/${post.slug.current}`} class="blog-row" data-animate data-delay={i * 60}>
             <span class="blog-row-num">0{i + 1}</span>
             <div class="blog-row-date">
               {new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
@@ -670,7 +689,7 @@ const serviceIcons = [
   .hero-accent {
     font-style: normal;
     font-weight: 800;
-    color: var(--blue);
+    color: var(--text-2);
     display: block;
   }
 
@@ -876,27 +895,10 @@ const serviceIcons = [
   }
 
   /* ══════════════════════════════════════
-     4. WHO WE SERVE
+     5. WHO WE SERVE — title + ticker bar
   ══════════════════════════════════════ */
   .who-section {
-    background: var(--surface);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 96px 0;
-  }
-
-  .who-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: start;
-  }
-
-  .who-copy {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    align-items: flex-start;
+    padding: 96px 0 0;
   }
 
   .who-title {
@@ -905,74 +907,89 @@ const serviceIcons = [
     color: var(--text-2);
     line-height: 1.15;
     letter-spacing: -0.03em;
+    text-align: center;
+    margin-bottom: 48px;
   }
 
-  .who-desc {
-    font-size: 16px;
-    color: var(--text-3);
-    line-height: 1.75;
-  }
-
-  .who-tags-heading {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--blue);
-    opacity: 0.65;
-    margin-bottom: 12px;
-  }
-
-  .who-tag-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border: 1px solid var(--border);
-    border-radius: 2px;
+  .who-ticker-bar {
+    background: var(--blue);
+    padding: 18px 0;
     overflow: hidden;
   }
 
-  .who-tag-item {
+  .who-ticker-mask {
+    max-width: calc(1200px - var(--space-6) * 2);
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .who-ticker-track {
+    display: flex;
+    width: max-content;
+    animation: ticker 30s linear infinite;
+  }
+
+  .who-ticker-bar:hover .who-ticker-track {
+    animation-play-state: paused;
+  }
+
+  .who-ticker-set {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 11px 14px;
-    border-bottom: 1px solid var(--border);
-    border-right: 1px solid var(--border);
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-3);
-    transition: background 0.15s, color 0.15s;
-  }
-
-  .who-tag-item:nth-child(even) { border-right: none; }
-  .who-tag-item:nth-last-child(-n+2) { border-bottom: none; }
-
-  .who-tag-item:hover {
-    background: var(--surface-2);
-    color: var(--text);
-  }
-
-  .who-tag-idx {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.08em;
-    color: var(--blue);
-    opacity: 0.5;
     flex-shrink: 0;
-    width: 18px;
   }
 
-  .who-tag-name { line-height: 1.3; }
+  .who-ticker-item {
+    font-size: 13px;
+    font-weight: 600;
+    color: #111315;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
 
-  .who-tag-item--more {
-    font-style: italic;
+  .who-ticker-dot {
+    margin: 0 20px;
+    font-size: 18px;
+    font-weight: 800;
+    color: #111315;
     opacity: 0.4;
   }
 
+  @keyframes ticker {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
   /* ══════════════════════════════════════
-     5. CASE STUDY
+     4. CASE STUDIES — 3-up alternating
   ══════════════════════════════════════ */
   .case-section { padding: 96px 0; }
+
+  .case-section-header {
+    margin-bottom: 52px;
+  }
+
+  .case-section-title {
+    font-size: clamp(28px, 3.5vw, 42px);
+    font-weight: 800;
+    color: var(--text-2);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+
+  .case-section-sub {
+    margin-top: 12px;
+    font-size: 16px;
+    color: var(--text-3);
+    line-height: 1.6;
+  }
+
+  .case-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
 
   .case-wrap {
     display: grid;
@@ -980,27 +997,32 @@ const serviceIcons = [
     border: 1px solid var(--border);
     border-radius: 2px;
     overflow: hidden;
-    min-height: 480px;
+    min-height: 420px;
   }
 
+  .case-wrap--reversed .case-content { order: 2; }
+  .case-wrap--reversed .case-visual  { order: 1; border-left: none; border-right: 1px solid var(--border); }
+
   .case-content {
-    padding: 52px 48px;
+    padding: 48px 44px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 24px;
+    gap: 20px;
     justify-content: center;
   }
 
-  .case-meta {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
+  .case-industry {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue);
+    opacity: 0.7;
   }
 
   .case-quote {
-    font-size: clamp(22px, 2.8vw, 32px);
+    font-size: clamp(20px, 2.5vw, 28px);
     font-weight: 800;
     color: var(--text-2);
     line-height: 1.2;
@@ -1009,14 +1031,14 @@ const serviceIcons = [
   }
 
   .case-body {
-    font-size: 15px;
+    font-size: 16px;
     color: var(--text-3);
     line-height: 1.75;
   }
 
   .case-stats {
     display: flex;
-    gap: 36px;
+    gap: 32px;
     flex-wrap: wrap;
   }
 
@@ -1027,7 +1049,7 @@ const serviceIcons = [
   }
 
   .cs-val {
-    font-size: 30px;
+    font-size: 28px;
     font-weight: 800;
     letter-spacing: -0.03em;
     line-height: 1;
@@ -1050,47 +1072,42 @@ const serviceIcons = [
     position: relative;
     border-left: 1px solid var(--border);
     overflow: hidden;
+    background: var(--surface);
   }
 
-  .case-img {
+  .img-placeholder {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    filter: saturate(0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface);
   }
 
-  .case-img-tag {
-    position: absolute;
-    bottom: 14px;
-    right: 14px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 8px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.45);
-    background: rgba(0,0,0,0.35);
-    padding: 3px 7px;
-    border-radius: 2px;
-    backdrop-filter: blur(4px);
+  .img-placeholder-icon {
+    color: var(--text-3);
+    opacity: 0.15;
+  }
+
+  .case-all {
+    margin-top: 32px;
+    display: flex;
+    justify-content: center;
   }
 
   /* ══════════════════════════════════════
      6. ABOUT
   ══════════════════════════════════════ */
   .about-section {
-    background: var(--surface);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
     padding: 96px 0;
   }
 
-  .about-inner {
+  .about-wrap {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 80px;
+    gap: 60px;
     align-items: center;
+    min-height: 420px;
   }
 
   .about-copy {
@@ -1098,6 +1115,7 @@ const serviceIcons = [
     flex-direction: column;
     align-items: flex-start;
     gap: 24px;
+    justify-content: center;
   }
 
   .about-title {
@@ -1114,63 +1132,19 @@ const serviceIcons = [
     line-height: 1.75;
   }
 
-
-  /* Mission parameter spec sheet */
-  .about-specs {
-    border: 1px solid var(--border);
-    border-radius: 2px;
+  .about-visual {
+    position: relative;
     overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    min-height: 380px;
   }
 
-  .about-specs-header {
-    padding: 9px 20px;
-    background: var(--surface-2);
-    border-bottom: 1px solid var(--border);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--blue);
-    opacity: 0.6;
+  .about-visual .img-placeholder {
+    position: absolute;
+    inset: 0;
   }
 
-  .about-spec-row {
-    display: grid;
-    grid-template-columns: 90px 1fr;
-    gap: 20px;
-    align-items: start;
-    padding: 22px 20px;
-    border-bottom: 1px solid var(--border);
-    background: var(--bg);
-    transition: background 0.15s;
-  }
-
-  .about-spec-row:last-child { border-bottom: none; }
-
-  .about-spec-row:hover { background: var(--surface-2); }
-
-  .about-spec-key {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    color: var(--blue);
-    opacity: 0.7;
-    padding-top: 2px;
-    flex-shrink: 0;
-  }
-
-  .about-spec-label {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--text-2);
-    margin-bottom: 5px;
-  }
-
-  .about-spec-desc {
-    font-size: 13px;
-    color: var(--text-3);
-    line-height: 1.6;
-  }
 
   /* ══════════════════════════════════════
      7. BLOG — horizontal editorial rows
@@ -1251,7 +1225,7 @@ const serviceIcons = [
   }
 
   .blog-row-excerpt {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--text-3);
     line-height: 1.55;
   }
@@ -1318,10 +1292,13 @@ const serviceIcons = [
     .hero-inner { grid-template-columns: 1fr; }
     .hero-illustration { display: none; }
 
-    .who-inner,
-    .about-inner {
+    .about-wrap {
       grid-template-columns: 1fr;
-      gap: 28px;
+    }
+
+    .about-visual {
+      min-height: 240px;
+      order: -1;
     }
 
     .services-grid {
@@ -1339,10 +1316,13 @@ const serviceIcons = [
       grid-template-columns: 1fr;
     }
 
+    .case-wrap--reversed .case-content { order: unset; }
+    .case-wrap--reversed .case-visual  { order: -1; border-right: none; }
+
     .case-visual {
       border-left: none;
       border-bottom: 1px solid var(--border);
-      min-height: 260px;
+      min-height: 200px;
       order: -1;
     }
 
@@ -1359,11 +1339,48 @@ const serviceIcons = [
 
     .blog-row-date { margin-bottom: 4px; }
 
-    .who-tag-grid { grid-template-columns: 1fr; }
-    .who-tag-item { border-right: none; }
-    .who-tag-item:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
-    .who-tag-item:last-child { border-bottom: none; }
+  }
 
-    .about-spec-row { grid-template-columns: 1fr; gap: 6px; }
+  /* ══════════════════════════════════════
+     SCROLL ANIMATIONS
+  ══════════════════════════════════════ */
+  [data-animate] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  [data-animate].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-animate] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
   }
 </style>
+
+<script>
+  const els = document.querySelectorAll('[data-animate]');
+
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const delay = el.dataset.delay ? parseInt(el.dataset.delay, 10) : 0;
+          setTimeout(() => el.classList.add('is-visible'), delay);
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    els.forEach((el) => observer.observe(el));
+  } else {
+    els.forEach((el) => el.classList.add('is-visible'));
+  }
+</script>

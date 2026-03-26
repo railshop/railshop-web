@@ -14,8 +14,8 @@ try {
 
 // Open section
 const openEyebrow = contactPage?.openSection?.eyebrow  ?? 'Free · 30 Min Discovery Call';
-const openHeading = contactPage?.openSection?.headline ?? "What's holding your marketing back?";
-const openSub     = contactPage?.openSection?.sub      ?? "Pick a time below. We'll come prepared with a straight read on your situation.";
+const openHeading = contactPage?.openSection?.headline ?? null;
+const openSub     = contactPage?.openSection?.sub      ?? "No pitch, no pressure. Book a call and we'll walk through your current setup, what's working, and where to focus next.";
 
 // Send a Message section
 const msgHeading  = contactPage?.sendAMessage?.heading ?? 'Not ready to book? Send us a note.';
@@ -27,7 +27,12 @@ const stat2Label  = contactPage?.sendAMessage?.responseStat2Label ?? 'Responses 
 const socialProof = contactPage?.sendAMessage?.socialProofText ?? 'Most of our best client relationships started with a single message.';
 
 // Client logos for trust strip
-const clientLogos: any[] = contactPage?.clientLogos ?? [];
+const clientLogos: any[] = contactPage?.clientLogos ?? [
+  { name: 'Window Nation', logo: null, _localSrc: '/images/logos/window nation logo_cropped.png' },
+  { name: 'Vector Security', logo: null, _localSrc: '/images/logos/vector security logo.svg' },
+  { name: 'Fire & Ice', logo: null, _localSrc: '/images/logos/fire and ice logo.png' },
+  { name: 'JP Operations', logo: null, _localSrc: '/images/logos/jp operations logo.svg' },
+];
 
 // Service pills — from Sanity or fallback
 const servicePills = services.length > 0
@@ -68,10 +73,9 @@ const contactSchema = {
        1. OPEN — PageHero
        ============================================================ -->
   <PageHero
-    headline={openHeading ? openHeading : "What's holding your<br /><span class='ph-accent'>marketing back?</span>"}
+    headline={openHeading ?? "Let's talk about<br />what's next."}
     sub={openSub}
     eyebrow={openEyebrow}
-    centered={true}
     annoCode="SYS: CONTACT"
     annoExtra="PORT: OPEN"
     annoModule="MODULE: CTX-001"
@@ -91,7 +95,9 @@ const contactSchema = {
               <div class="trust-logo-slot">
                 {client.logo
                   ? <img src={urlForImage(client.logo).url()} alt={client.name} loading="lazy" />
-                  : <span class="trust-logo-name">{client.name}</span>
+                  : client._localSrc
+                    ? <img src={client._localSrc} alt={client.name} loading="lazy" />
+                    : <span class="trust-logo-name">{client.name}</span>
                 }
               </div>
             ))}
@@ -370,7 +376,7 @@ const contactSchema = {
   }
 
   .message-sub {
-    font-size: 15px;
+    font-size: 16px;
     color: var(--text-3);
     line-height: 1.7;
     max-width: 420px;

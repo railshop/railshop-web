@@ -18,12 +18,14 @@ export default defineConfig({
     }),
     react(),
     sitemap(),
-    sanity({
-      projectId: env.PUBLIC_SANITY_PROJECT_ID,
-      dataset: env.PUBLIC_SANITY_DATASET ?? 'production',
-      useCdn: false,
-      stega: { enabled: false },
-      studioBasePath: '/studio',
-    }),
+    ...(env.PUBLIC_SANITY_PROJECT_ID
+      ? [sanity({
+          projectId: env.PUBLIC_SANITY_PROJECT_ID,
+          dataset: env.PUBLIC_SANITY_DATASET ?? 'production',
+          useCdn: false,
+          stega: { enabled: false },
+          studioBasePath: '/studio',
+        })]
+      : []),
   ],
 });

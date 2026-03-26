@@ -6,9 +6,14 @@
 export interface ServiceSample {
   title: string;
   description: string;
+  intro: string[];
+  image?: string;
+  imageLabel?: string;
   deliverables: string[];
   approach: { step: string; detail: string }[];
   whoFor: string[];
+  closing: string;
+  testimonial?: { quote: string; author: string; role: string };
   relatedSlugs: string[];
 }
 
@@ -34,10 +39,17 @@ export const serviceSamples: Record<string, ServiceSample> = {
     title: 'Web Design & Development',
     description:
       'Fast, conversion-focused websites built for service businesses. We design and build sites that look the part, load fast, and turn visitors into leads.',
+    intro: [
+      'Every project starts with discovery, understanding your goals, your audience, and what your competitors are doing well. From there, we plan the sitemap and wireframes before a single pixel gets designed.',
+      'We design custom, desktop and mobile, simultaneously. No templates, no page builders. Development happens on a modern, maintainable stack that loads fast and won\'t become a liability in two years. Core Web Vitals, on-page SEO foundations, contact forms, call tracking, CRM integration, and GA4 conversion tracking are built in from day one, not bolted on after launch.',
+      'After go-live, you get documentation, support, and a site you can actually manage without calling us for every change.',
+    ],
+    image: '/images/office.jpg',
+    imageLabel: '// RAILSHOP HQ',
     deliverables: [
       'Discovery session: goals, audience, and competitive review',
       'Sitemap and wireframe planning',
-      'Custom design — desktop and mobile',
+      'Custom design for desktop and mobile',
       'Development on a modern, maintainable stack',
       'Contact forms, call tracking, and CRM integration',
       'Core Web Vitals optimization for speed and performance',
@@ -54,7 +66,7 @@ export const serviceSamples: Record<string, ServiceSample> = {
       {
         step: 'Design',
         detail:
-          'We design for conversion first and aesthetics second — though we take both seriously. Every layout decision has a reason. We design desktop and mobile simultaneously, not as an afterthought.',
+          'We design for conversion first and aesthetics second, though we take both seriously. Every layout decision has a reason. We design desktop and mobile simultaneously, not as an afterthought.',
       },
       {
         step: 'Build',
@@ -64,27 +76,38 @@ export const serviceSamples: Record<string, ServiceSample> = {
       {
         step: 'Integrate',
         detail:
-          'Forms connect to your CRM. Calls are tracked. GA4 is configured with the right events. If you run ads, conversion tracking is set up before launch — not after.',
+          'Forms connect to your CRM. Calls are tracked. GA4 is configured with the right events. If you run ads, conversion tracking is set up before launch, not after.',
       },
       {
         step: 'Launch & Optimise',
         detail:
-          'We handle the launch and monitor performance in the first weeks. After 30 and 90 days, we review conversion data and make refinements based on real user behaviour — not assumptions.',
+          'We handle the launch and monitor performance in the first weeks. After 30 and 90 days, we review conversion data and make refinements based on real user behaviour, not assumptions.',
       },
     ],
     whoFor: [
       'Service businesses with an outdated site that is losing them leads',
       'New businesses that need a professional web presence from day one',
       'Companies running paid ads to a site that is not converting',
-      'Businesses that want a site that can grow with them — not one they will outgrow in a year',
+      'Businesses that want a site that can grow with them, not one they will outgrow in a year',
     ],
+    closing: 'This tends to be the right fit for service businesses with an outdated site that\'s costing them leads, new businesses that need a professional web presence from day one, or companies running paid ads to a site that just isn\'t converting. If your website hasn\'t kept up with your business, we should talk.',
+    testimonial: {
+      quote: 'We went from no web presence at all to fully booked by April. The website looks great, we\'re showing up on Google, and the ads actually bring in real customers.',
+      author: 'Owner',
+      role: 'Regional Landscaping Company',
+    },
     relatedSlugs: ['paid-ads', 'seo', 'content-creation'],
   },
 
   'paid-ads': {
     title: 'Paid Ads',
     description:
-      'Google, Meta, and beyond — campaigns built to drive leads, not just clicks. We manage paid advertising end-to-end for service businesses that need a reliable lead pipeline.',
+      'Google, Meta, and beyond. Campaigns built to drive leads, not just clicks. We manage paid advertising end-to-end for service businesses that need a reliable lead pipeline.',
+    intro: [
+      'If you\'re already running ads, we start with a full audit: account structure, targeting, wasted spend, and whether your conversion tracking is actually accurate. Most accounts we inherit have significant recoverable efficiency. If you\'re starting fresh, we do the competitive research before spending a dollar.',
+      'We build campaigns across Google Search, Performance Max, and Meta with proper conversion tracking, call tracking, negative keyword management, and audience exclusions from day one. Budget pacing and bid strategy are managed weekly, not monthly. Ad copy and creative direction come from us, not a generic template.',
+      'Reporting is monthly, in plain language, with clear next steps. You\'ll always know what\'s working, what\'s not, and what we\'re doing about it.',
+    ],
     deliverables: [
       'Platform audit and competitive landscape review',
       'Campaign strategy and channel mix recommendation',
@@ -100,7 +123,7 @@ export const serviceSamples: Record<string, ServiceSample> = {
       {
         step: 'Audit',
         detail:
-          'If you are already running ads, we start with a full review — structure, targeting, wasted spend, and conversion tracking accuracy. Most accounts we inherit have significant recoverable efficiency. If you are starting fresh, we do competitive research before we spend a dollar.',
+          'If you are already running ads, we start with a full review: structure, targeting, wasted spend, and conversion tracking accuracy. Most accounts we inherit have significant recoverable efficiency. If you are starting fresh, we do competitive research before we spend a dollar.',
       },
       {
         step: 'Strategy',
@@ -115,7 +138,7 @@ export const serviceSamples: Record<string, ServiceSample> = {
       {
         step: 'Optimise',
         detail:
-          'Weekly bid and budget reviews. Monthly creative refreshes. Ongoing negative keyword management. We do not set campaigns and forget them — we treat your ad spend like it is our own.',
+          'Weekly bid and budget reviews. Monthly creative refreshes. Ongoing negative keyword management. We do not set campaigns and forget them. We treat your ad spend like it is our own.',
       },
       {
         step: 'Scale',
@@ -129,6 +152,7 @@ export const serviceSamples: Record<string, ServiceSample> = {
       'Businesses in competitive local markets that need to show up first',
       'Service companies ready to grow beyond word-of-mouth',
     ],
+    closing: 'This is a good fit for service businesses that need a consistent flow of qualified leads, companies running ads themselves but not seeing the results they expect, or businesses in competitive local markets where showing up first matters. If you\'re ready to grow beyond word-of-mouth, let\'s talk.',
     relatedSlugs: ['seo', 'web-design', 'strategy-consulting'],
   },
 
@@ -136,6 +160,11 @@ export const serviceSamples: Record<string, ServiceSample> = {
     title: 'SEO',
     description:
       'Sustainable organic growth through technical SEO and content that ranks. We build search visibility that compounds over time and drives leads without paying for every click.',
+    intro: [
+      'We start with a full technical audit: crawl errors, indexation issues, page speed, mobile usability, and schema markup. Technical problems get fixed before content work begins. Building on a broken foundation is wasted effort.',
+      'From there, we do keyword research mapped to your actual services and locations, optimize every key page (title tags, headers, internal links, schema), and build content that answers real customer questions. For local businesses, that means service pages, location pages, Google Business Profile optimization, and local citation building.',
+      'SEO is a long game. We set realistic expectations, track rankings, traffic, and leads from organic search monthly, and adjust priorities based on what\'s gaining traction.',
+    ],
     deliverables: [
       'Full technical SEO audit: crawlability, indexation, site speed',
       'Keyword research and opportunity mapping by service and location',
@@ -150,12 +179,12 @@ export const serviceSamples: Record<string, ServiceSample> = {
       {
         step: 'Audit',
         detail:
-          'We run a full technical audit first — crawl errors, indexation issues, page speed, mobile usability, and schema markup. Technical problems get fixed before content work begins. Building on a broken foundation is wasted effort.',
+          'We run a full technical audit first: crawl errors, indexation issues, page speed, mobile usability, and schema markup. Technical problems get fixed before content work begins. Building on a broken foundation is wasted effort.',
       },
       {
         step: 'Keyword Research',
         detail:
-          'We identify the searches your ideal customers are making — by service type, location, and intent. We look at search volume, competition, and what you can realistically rank for in your timeframe. Then we prioritise.',
+          'We identify the searches your ideal customers are making, by service type, location, and intent. We look at search volume, competition, and what you can realistically rank for in your timeframe. Then we prioritise.',
       },
       {
         step: 'On-Page Optimisation',
@@ -165,12 +194,12 @@ export const serviceSamples: Record<string, ServiceSample> = {
       {
         step: 'Content',
         detail:
-          'We build content that answers real customer questions and targets real search terms — not generic filler. For local service businesses, this means service pages, location pages, and FAQ content that drives qualified traffic.',
+          'We build content that answers real customer questions and targets real search terms, not generic filler. For local service businesses, this means service pages, location pages, and FAQ content that drives qualified traffic.',
       },
       {
         step: 'Track & Iterate',
         detail:
-          'We track rankings, traffic, and leads from organic search. Monthly reporting shows progress, and we adjust priorities based on what is gaining traction. SEO is a long game — we set realistic expectations and show consistent progress.',
+          'We track rankings, traffic, and leads from organic search. Monthly reporting shows progress, and we adjust priorities based on what is gaining traction. SEO is a long game. We set realistic expectations and show consistent progress.',
       },
     ],
     whoFor: [
@@ -179,6 +208,7 @@ export const serviceSamples: Record<string, ServiceSample> = {
       'Companies that have a website but get no organic traffic from it',
       'Businesses playing a long game and wanting compounding visibility over time',
     ],
+    closing: 'This works well for service businesses that want leads without paying for every click, local businesses not showing up in Google Maps or local results, or companies with a website that gets no organic traffic. If you\'re playing the long game and want visibility that compounds, we should talk.',
     relatedSlugs: ['web-design', 'content-creation', 'paid-ads'],
   },
 
@@ -186,6 +216,11 @@ export const serviceSamples: Record<string, ServiceSample> = {
     title: 'Content Creation',
     description:
       'Video and photo content that builds authority and keeps your brand visible between campaigns. We create content that works hard across your website, ads, and social channels.',
+    intro: [
+      'We start with what you need the content to do: build trust, generate leads, support ads, rank on YouTube. Different goals require different formats. We plan before we produce.',
+      'Production is professional and efficient. We handle pre-production (shot lists, interview questions, scheduling) so shoot days are maximized. On location, we capture what makes your work good: the craft, the team, the results. Authentic content, not staged.',
+      'One shoot becomes many pieces. A hero video, short-form cuts for Reels and TikTok, social clips, and stills. Everything is edited, color graded, captioned, and exported for every platform. And it\'s all planned for distribution, not just creation.',
+    ],
     deliverables: [
       'Content strategy and format planning',
       'On-location video production (service walkthroughs, team, testimonials)',
@@ -200,7 +235,7 @@ export const serviceSamples: Record<string, ServiceSample> = {
       {
         step: 'Strategy',
         detail:
-          'We start with what you need the content to do — build trust, generate leads, support ads, rank on YouTube. Different goals require different formats. We plan before we produce.',
+          'We start with what you need the content to do: build trust, generate leads, support ads, rank on YouTube. Different goals require different formats. We plan before we produce.',
       },
       {
         step: 'Production Planning',
@@ -210,32 +245,38 @@ export const serviceSamples: Record<string, ServiceSample> = {
       {
         step: 'Production',
         detail:
-          'Professional video and photography on location at your business. We capture what makes your work good — the craft, the team, the results. Content that is authentic, not staged.',
+          'Professional video and photography on location at your business. We capture what makes your work good: the craft, the team, the results. Content that is authentic, not staged.',
       },
       {
         step: 'Post-Production',
         detail:
-          'Editing, colour grading, captions, and format exports for every platform. One shoot becomes many pieces of content — a hero video, short-form cuts, social clips, and stills.',
+          'Editing, colour grading, captions, and format exports for every platform. One shoot becomes many pieces of content: a hero video, short-form cuts, social clips, and stills.',
       },
       {
         step: 'Distribution',
         detail:
-          'Content is planned for distribution, not just creation. We advise on where to post, when, and how — and how it connects to your paid ads and SEO strategy for maximum reach.',
+          'Content is planned for distribution, not just creation. We advise on where to post, when, and how, and how it connects to your paid ads and SEO strategy for maximum reach.',
       },
     ],
     whoFor: [
       'Service businesses with no good photos or video of their actual work',
       'Companies running ads and needing fresh creative on a regular basis',
       'Businesses that want to build a recognisable brand presence on social',
-      'Service companies whose work is visual — landscaping, roofing, construction, HVAC',
+      'Service companies whose work is visual, like landscaping, roofing, construction, and HVAC',
     ],
+    closing: 'This is a natural fit for service businesses with no good photos or video of their actual work, companies running ads that need fresh creative regularly, or businesses whose work is visual, like landscaping, roofing, construction, and HVAC. If you want to build a recognizable brand presence, we should talk.',
     relatedSlugs: ['paid-ads', 'seo', 'strategy-consulting'],
   },
 
   'strategy-consulting': {
     title: 'Strategy Consulting',
     description:
-      'Not sure where to start? We will assess what your business needs and build a clear, prioritised digital growth plan — so you invest in the right things, in the right order.',
+      'Not sure where to start? We will assess what your business needs and build a clear, prioritised digital growth plan so you invest in the right things, in the right order.',
+    intro: [
+      'We start with a structured conversation about your business: revenue goals, current lead sources, what\'s been tried, what your best customers look like, and where you want to be in 12 months. Context shapes strategy.',
+      'From there, we audit your full digital footprint: website performance, search visibility, ad account history, social presence, and competitive positioning. We assess your current tools and vendors, identify gaps and quick wins, and map your customer journey from first touch to close.',
+      'You get a written 90-day action plan: specific activities, recommended channels, budget splits, success metrics, and who owns what. Clear enough to execute without us, and practical enough that you\'ll want to keep us involved.',
+    ],
     deliverables: [
       'Digital presence audit: website, search, social, and ads',
       'Competitor analysis across key digital channels',
@@ -250,7 +291,7 @@ export const serviceSamples: Record<string, ServiceSample> = {
       {
         step: 'Discovery',
         detail:
-          'We start with a structured conversation about your business — revenue goals, current lead sources, what has been tried, what your best customers look like, and where you want to be in 12 months. Context shapes strategy.',
+          'We start with a structured conversation about your business: revenue goals, current lead sources, what has been tried, what your best customers look like, and where you want to be in 12 months. Context shapes strategy.',
       },
       {
         step: 'Audit',
@@ -260,12 +301,12 @@ export const serviceSamples: Record<string, ServiceSample> = {
       {
         step: 'Prioritisation',
         detail:
-          'Not everything can or should be done at once. We prioritise based on impact, cost, and your current capacity. The highest-leverage activities come first — the ones that will move the needle fastest given your budget and team.',
+          'Not everything can or should be done at once. We prioritise based on impact, cost, and your current capacity. The highest-leverage activities come first, the ones that will move the needle fastest given your budget and team.',
       },
       {
         step: 'Plan',
         detail:
-          'You receive a written 90-day action plan: specific activities, recommended channels, budget splits, success metrics, and who owns what. Clear enough to execute without us — practical enough that you will want to.',
+          'You receive a written 90-day action plan: specific activities, recommended channels, budget splits, success metrics, and who owns what. Clear enough to execute without us, and practical enough that you will want to.',
       },
       {
         step: 'Handoff or Retainer',
@@ -279,6 +320,7 @@ export const serviceSamples: Record<string, ServiceSample> = {
       'Businesses preparing for a growth phase and wanting a clear plan before they invest',
       'Teams that want an experienced outside perspective on their current approach',
     ],
+    closing: 'This works well for business owners who know they need to do more digitally but aren\'t sure where to start, companies that have been spending on marketing without clear results, or teams preparing for a growth phase who want a clear plan before they invest. If you want an experienced outside perspective, we should talk.',
     relatedSlugs: ['paid-ads', 'seo', 'web-design'],
   },
 
@@ -286,6 +328,11 @@ export const serviceSamples: Record<string, ServiceSample> = {
     title: 'AI Integration',
     description:
       'Practical AI implementation that saves time, reduces cost, and gives your business a real edge. We cut through the hype and identify where AI actually creates value for service businesses.',
+    intro: [
+      'We map your current business processes and identify where AI can genuinely help: repetitive tasks, content production, customer communication, reporting, scheduling. We separate real opportunity from hype.',
+      'We recommend the right tools for your specific situation, not the most popular ones. Then we design workflows that fit how your team actually works, configure the tools, build the integrations, create templates and prompts, and connect everything to your existing systems. We handle the technical setup so your team can focus on using it.',
+      'After implementation, we train your team with practical, role-specific guidance. AI tools evolve fast, and we stay current so you don\'t have to.',
+    ],
     deliverables: [
       'AI opportunity audit: where AI can save time or reduce cost in your operations',
       'Tool evaluation and recommendation (ChatGPT, Claude, Zapier AI, and others)',
@@ -299,12 +346,12 @@ export const serviceSamples: Record<string, ServiceSample> = {
       {
         step: 'Opportunity Audit',
         detail:
-          'We map your current business processes and identify where AI can genuinely help — repetitive tasks, content production, customer communication, reporting, and scheduling. We separate real opportunity from AI hype.',
+          'We map your current business processes and identify where AI can genuinely help: repetitive tasks, content production, customer communication, reporting, and scheduling. We separate real opportunity from AI hype.',
       },
       {
         step: 'Tool Selection',
         detail:
-          'We recommend the right tools for your specific situation — not the most popular ones, the most useful ones for your business and team. We evaluate cost, learning curve, integration capability, and actual ROI.',
+          'We recommend the right tools for your specific situation, not the most popular ones, but the most useful ones for your business and team. We evaluate cost, learning curve, integration capability, and actual ROI.',
       },
       {
         step: 'Workflow Design',
@@ -319,7 +366,7 @@ export const serviceSamples: Record<string, ServiceSample> = {
       {
         step: 'Train & Iterate',
         detail:
-          'We train your team on the new workflows with practical, role-specific guidance. After 30 days, we review what is working and refine. AI tools evolve fast — we stay current so you do not have to.',
+          'We train your team on the new workflows with practical, role-specific guidance. After 30 days, we review what is working and refine. AI tools evolve fast, and we stay current so you do not have to.',
       },
     ],
     whoFor: [
@@ -328,6 +375,7 @@ export const serviceSamples: Record<string, ServiceSample> = {
       'Companies that want to move faster without hiring more people',
       'Teams looking to improve their marketing content output without proportional cost increases',
     ],
+    closing: 'This is a good fit for service businesses spending too much time on repetitive admin, business owners curious about AI but unsure what\'s actually useful, or teams looking to move faster without hiring more people. If you want to cut through the noise and find what actually works, we should talk.',
     relatedSlugs: ['strategy-consulting', 'content-creation', 'paid-ads'],
   },
 };
@@ -338,15 +386,15 @@ export const serviceSamples: Record<string, ServiceSample> = {
 export const caseStudySamples: Record<string, CaseStudySample> = {
   'hvac-market-leader': {
     title: 'From local HVAC company to regional market leader.',
-    client: 'Confidential — Family-Owned HVAC Company',
+    client: 'Confidential, Family-Owned HVAC Company',
     industry: 'HVAC',
     excerpt:
-      'A family-owned HVAC business stuck on word-of-mouth and slow seasons. We built their digital foundation — web, paid search, SEO, and content — and grew with them for five years.',
+      'A family-owned HVAC business stuck on word-of-mouth and slow seasons. We built their digital foundation (web, paid search, SEO, and content) and grew with them for five years.',
     results: '8x blended ROAS · 4x revenue growth',
     duration: '5-year partnership',
     services: ['Web Design & Development', 'Paid Ads', 'SEO', 'Content Creation'],
     challenge:
-      'The business had been running for over a decade on referrals and seasonal door hangers. Revenue was flat and highly seasonal — summer AC calls and winter heating emergencies were feast-or-famine. They had no website, no Google presence, and no way for a homeowner searching online to find them. A younger competitor was eating their market with a basic website and Google Ads. The owners knew they needed to go digital but had no idea where to start.',
+      'The business had been running for over a decade on referrals and seasonal door hangers. Revenue was flat and highly seasonal. Summer AC calls and winter heating emergencies were feast-or-famine. They had no website, no Google presence, and no way for a homeowner searching online to find them. A younger competitor was eating their market with a basic website and Google Ads. The owners knew they needed to go digital but had no idea where to start.',
     approach: [
       {
         heading: 'Website & Digital Foundation',
@@ -358,11 +406,11 @@ export const caseStudySamples: Record<string, CaseStudySample> = {
       },
       {
         heading: 'Paid Search Launch',
-        body: 'We launched Google Search campaigns targeting high-intent HVAC terms — emergency AC repair, furnace replacement, HVAC installation — with campaigns structured by service type and geography. Budgets were set conservatively in Year 1 and scaled as conversion data matured. Call tracking tied every lead back to a specific keyword and campaign.',
+        body: 'We launched Google Search campaigns targeting high-intent HVAC terms (emergency AC repair, furnace replacement, HVAC installation) with campaigns structured by service type and geography. Budgets were set conservatively in Year 1 and scaled as conversion data matured. Call tracking tied every lead back to a specific keyword and campaign.',
       },
       {
         heading: 'Content & Authority Building',
-        body: 'We produced a regular cadence of service and seasonal content — maintenance guides, comparison posts, and local area pages — that compounded over time. By Year 3, organic search was driving 40% of all inbound leads at zero marginal cost per lead.',
+        body: 'We produced a regular cadence of service and seasonal content, including maintenance guides, comparison posts, and local area pages, that compounded over time. By Year 3, organic search was driving 40% of all inbound leads at zero marginal cost per lead.',
       },
     ],
     outcomes: [
@@ -373,7 +421,7 @@ export const caseStudySamples: Record<string, CaseStudySample> = {
     ],
     testimonial: {
       quote:
-        "Railshop built us from nothing online to the point where we're turning away work in the summer. The website, the ads, the Google presence — they built all of it and it just keeps compounding. Best investment we've ever made in the business.",
+        "Railshop built us from nothing online to the point where we're turning away work in the summer. The website, the ads, the Google presence, they built all of it and it just keeps compounding. Best investment we've ever made in the business.",
       author: 'Owner',
       role: 'Family-Owned HVAC Company',
     },
@@ -381,7 +429,7 @@ export const caseStudySamples: Record<string, CaseStudySample> = {
 
   'landscaping-digital-presence': {
     title: 'From zero digital presence to fully booked seasons.',
-    client: 'Confidential — Regional Landscaping Company',
+    client: 'Confidential, Regional Landscaping Company',
     industry: 'Landscaping',
     excerpt:
       'A regional landscaping company with no website and no online visibility. We built their site, launched local SEO, and ran targeted paid search during peak seasons.',
@@ -389,11 +437,11 @@ export const caseStudySamples: Record<string, CaseStudySample> = {
     duration: '2-year engagement',
     services: ['Web Design & Development', 'SEO', 'Paid Ads'],
     challenge:
-      'The company had built a strong reputation through word-of-mouth over eight years but had never invested in digital. They had no website, no Google Business Profile, and were not showing up for any local search terms. A slow spring booking period prompted the owner to look at what competitors were doing online — and the gap was significant. They needed to build their entire digital presence from scratch, quickly, before the peak season.',
+      'The company had built a strong reputation through word-of-mouth over eight years but had never invested in digital. They had no website, no Google Business Profile, and were not showing up for any local search terms. A slow spring booking period prompted the owner to look at what competitors were doing online, and the gap was significant. They needed to build their entire digital presence from scratch, quickly, before the peak season.',
     approach: [
       {
         heading: 'Website in 4 Weeks',
-        body: 'We prioritised speed without sacrificing quality. The site launched in four weeks with service pages for each offering — lawn care, landscaping design, hardscape, seasonal clean-up — and location pages for their primary service areas. Contact forms and click-to-call prominent on every page.',
+        body: 'We prioritised speed without sacrificing quality. The site launched in four weeks with service pages for each offering (lawn care, landscaping design, hardscape, seasonal clean-up) and location pages for their primary service areas. Contact forms and click-to-call prominent on every page.',
       },
       {
         heading: 'Google Business Profile & Local SEO',
@@ -401,7 +449,7 @@ export const caseStudySamples: Record<string, CaseStudySample> = {
       },
       {
         heading: 'Seasonal Paid Search',
-        body: 'We ran Google Search campaigns during the high-intent spring booking window — late February through May — targeting lawn care and landscaping terms across the service area. Campaigns paused in winter and ramped up again in spring, keeping the budget efficient and the calendar full.',
+        body: 'We ran Google Search campaigns during the high-intent spring booking window, late February through May, targeting lawn care and landscaping terms across the service area. Campaigns paused in winter and ramped up again in spring, keeping the budget efficient and the calendar full.',
       },
     ],
     outcomes: [
@@ -412,7 +460,7 @@ export const caseStudySamples: Record<string, CaseStudySample> = {
     ],
     testimonial: {
       quote:
-        "We went from no web presence at all to fully booked by April. The website looks great, we're showing up on Google, and the ads actually bring in real customers — not junk leads. Couldn't be happier.",
+        "We went from no web presence at all to fully booked by April. The website looks great, we're showing up on Google, and the ads actually bring in real customers, not junk leads. Couldn't be happier.",
       author: 'Owner',
       role: 'Regional Landscaping Company',
     },
@@ -420,27 +468,27 @@ export const caseStudySamples: Record<string, CaseStudySample> = {
 
   'excavation-digital-foundation': {
     title: 'Building a digital foundation for a growing excavation company.',
-    client: 'Confidential — Excavation Contractor',
+    client: 'Confidential, Excavation Contractor',
     industry: 'Excavation',
     excerpt:
-      'An excavation contractor relying entirely on referrals with no digital presence. We built their brand online — site, local SEO, and Google Ads — opening up a new inbound lead channel.',
+      'An excavation contractor relying entirely on referrals with no digital presence. We built their brand online with a site, local SEO, and Google Ads, opening up a new inbound lead channel.',
     results: 'New inbound channel · 68% lower CPL vs. industry avg',
     duration: '18-month engagement',
     services: ['Web Design & Development', 'SEO', 'Paid Ads', 'Strategy Consulting'],
     challenge:
-      'The contractor had a strong reputation locally but zero online presence — no website, not listed on Google, nothing. All work came through word-of-mouth and relationships with general contractors. The owner wanted to diversify lead sources and reduce dependence on any single referral network. The challenge was that excavation is a low-volume, high-value category — quality mattered more than volume, and the website and ads needed to filter for the right types of projects.',
+      'The contractor had a strong reputation locally but zero online presence. No website, not listed on Google, nothing. All work came through word-of-mouth and relationships with general contractors. The owner wanted to diversify lead sources and reduce dependence on any single referral network. The challenge was that excavation is a low-volume, high-value category where quality mattered more than volume, and the website and ads needed to filter for the right types of projects.',
     approach: [
       {
         heading: 'Brand & Website',
-        body: 'We started with the brand — a professional identity that matched the scale and quality of the work. The website featured project photography, a clear service breakdown (site prep, utility trenching, land clearing, demolition), and a contact form that asked qualifying questions to filter out low-value enquiries from the start.',
+        body: 'We started with the brand, a professional identity that matched the scale and quality of the work. The website featured project photography, a clear service breakdown (site prep, utility trenching, land clearing, demolition), and a contact form that asked qualifying questions to filter out low-value enquiries from the start.',
       },
       {
         heading: 'Google Ads for High-Intent Search',
-        body: 'Excavation search volume is low but intent is high — someone searching for an excavation contractor usually has a project ready to go. We built tightly structured campaigns around specific service terms and ran them within a defined geographic radius. Cost-per-lead came in 68% below the industry benchmark within three months.',
+        body: 'Excavation search volume is low but intent is high. Someone searching for an excavation contractor usually has a project ready to go. We built tightly structured campaigns around specific service terms and ran them within a defined geographic radius. Cost-per-lead came in 68% below the industry benchmark within three months.',
       },
       {
         heading: 'Local SEO for Contractor Searches',
-        body: 'We optimised for the searches that general contractors and property developers use — "excavation contractor near me," "site preparation contractor," and similar. Reviews from existing clients were collected systematically and the Google Business Profile was built out with project photos and service descriptions.',
+        body: 'We optimised for the searches that general contractors and property developers use, like "excavation contractor near me," "site preparation contractor," and similar. Reviews from existing clients were collected systematically and the Google Business Profile was built out with project photos and service descriptions.',
       },
     ],
     outcomes: [
@@ -451,7 +499,7 @@ export const caseStudySamples: Record<string, CaseStudySample> = {
     ],
     testimonial: {
       quote:
-        "We had never gotten a lead from the internet in 12 years of business. Now we get inbound enquiries every week from people we've never met. The quality is good too — they're real projects, not tire-kickers.",
+        "We had never gotten a lead from the internet in 12 years of business. Now we get inbound enquiries every week from people we've never met. The quality is good too. They're real projects, not tire-kickers.",
       author: 'Owner',
       role: 'Excavation Contractor',
     },
@@ -459,23 +507,23 @@ export const caseStudySamples: Record<string, CaseStudySample> = {
 
   'home-security-digital-acquisition': {
     title: 'Scaling a home security brand beyond door-to-door.',
-    client: 'Confidential — Regional Home Security Company',
+    client: 'Confidential, Regional Home Security Company',
     industry: 'Home Security',
     excerpt:
-      'A regional home security company over-reliant on door-to-door sales. We built their digital acquisition engine — paid search, local SEO, and a converting website — to create a scalable inbound channel.',
+      'A regional home security company over-reliant on door-to-door sales. We built their digital acquisition engine, including paid search, local SEO, and a converting website, to create a scalable inbound channel.',
     results: '2.8× lead volume · 47% lower CPL',
     duration: '2-year engagement',
     services: ['Web Design & Development', 'Paid Ads', 'SEO'],
     challenge:
-      'The company had grown to a reasonable size through door-to-door sales — an expensive, inconsistent, and increasingly difficult channel. Customer acquisition cost was high, sales rep turnover was a constant problem, and the business had no digital presence to fall back on. Leadership wanted to build a scalable inbound channel that could eventually reduce dependence on door-to-door entirely. The challenge was competing against national security brands with far larger ad budgets.',
+      'The company had grown to a reasonable size through door-to-door sales, an expensive, inconsistent, and increasingly difficult channel. Customer acquisition cost was high, sales rep turnover was a constant problem, and the business had no digital presence to fall back on. Leadership wanted to build a scalable inbound channel that could eventually reduce dependence on door-to-door entirely. The challenge was competing against national security brands with far larger ad budgets.',
     approach: [
       {
         heading: 'Conversion-Focused Website',
-        body: 'The existing website was a brochure with no clear calls to action and no conversion tracking. We rebuilt it around the customer journey — what a homeowner thinking about security wants to know, what objections they have, and what it takes to get them to request a quote. Trust signals, clear pricing tiers, and prominent calls-to-action at every scroll depth.',
+        body: 'The existing website was a brochure with no clear calls to action and no conversion tracking. We rebuilt it around the customer journey: what a homeowner thinking about security wants to know, what objections they have, and what it takes to get them to request a quote. Trust signals, clear pricing tiers, and prominent calls-to-action at every scroll depth.',
       },
       {
-        heading: 'Google Search — Local Intent Targeting',
-        body: 'We targeted the high-intent local search terms that national brands often under-invest in — "[city] home security," "home alarm installation near me," and specific product and service terms. Being locally relevant gave us a quality score and relevance advantage over national competitors. CPL came in 47% below the industry average within the first 90 days.',
+        heading: 'Google Search: Local Intent Targeting',
+        body: 'We targeted the high-intent local search terms that national brands often under-invest in, like "[city] home security," "home alarm installation near me," and specific product and service terms. Being locally relevant gave us a quality score and relevance advantage over national competitors. CPL came in 47% below the industry average within the first 90 days.',
       },
       {
         heading: 'SEO & Review Strategy',

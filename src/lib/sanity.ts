@@ -108,7 +108,7 @@ export async function getCaseStudies() {
   return sanityClient.fetch(
     `*[_type == "caseStudy"] | order(publishedAt desc) {
       _id, title, slug, excerpt, client, industry, featured, publishedAt,
-      stats, homepagePullQuote, homepageBody,
+      stats, homepagePullQuote, homepageBody, services, coverImage,
       "categories": categories[]->{ title, slug }
     }`
   );
