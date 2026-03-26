@@ -37,6 +37,8 @@ const data = {
                   ? service.approach
                   : sample?.approach ?? [],
   ctaHeadline:  service?.ctaHeadline ?? null,
+  tools:        sample?.tools ?? [],
+  videos:       sample?.videos ?? [],
 };
 
 // Related work — case studies that include this service
@@ -177,6 +179,63 @@ const serviceSchema = {
       </div>
     </div>
   </section>
+
+  <!-- ============================================================
+       2b. TOOLS WE USE
+       ============================================================ -->
+  {data.tools.length > 0 && (
+    <section class="tools-section">
+      <div class="container">
+        <div class="tools-inner">
+          <span class="tools-label">Tools we use</span>
+          <div class="tools-strip">
+            {data.tools.map((tool) => (
+              <div class="tools-item" title={tool.name}>
+                {tool.svg ? (
+                  <span class="tools-icon" set:html={tool.svg} />
+                ) : tool.img ? (
+                  <img class="tools-img" src={tool.img} alt={tool.name} width="28" height="28" />
+                ) : null}
+                <span class="tools-name">{tool.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ============================================================
+       2c. VIDEO PORTFOLIO
+       ============================================================ -->
+  {data.videos.length > 0 && (
+    <section class="videos-section">
+      <div class="container">
+        <div class="videos-header">
+          <span class="videos-label">// RECENT WORK</span>
+          <div class="videos-rule"></div>
+        </div>
+        <div class="videos-grid">
+          {data.videos.map((video) => (
+            <div class="video-card">
+              <div class="video-embed">
+                <div class="video-placeholder">
+                  <svg class="video-play-icon" width="48" height="48" viewBox="0 0 48 48" fill="none">
+                    <circle cx="24" cy="24" r="23" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
+                    <path d="M20 16l12 8-12 8V16z" fill="currentColor" opacity="0.5"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="video-info">
+                <h3 class="video-title">{video.title}</h3>
+                <p class="video-caption">{video.caption}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- ============================================================
        3. HOW WE WORK — interactive step rows
@@ -438,6 +497,173 @@ const serviceSchema = {
   .ov-tick--tr { top: 8px; right: 8px; border-top: 1px solid var(--border-2); border-right: 1px solid var(--border-2); opacity: 0.5; }
   .ov-tick--bl { bottom: 8px; left: 8px; border-bottom: 1px solid var(--border-2); border-left: 1px solid var(--border-2); opacity: 0.5; }
   .ov-tick--br { bottom: 8px; right: 8px; border-bottom: 1px solid var(--border-2); border-right: 1px solid var(--border-2); opacity: 0.5; }
+
+  /* ══════════════════════════════════════
+     2b. TOOLS WE USE
+  ══════════════════════════════════════ */
+  .tools-section {
+    border-top: 1px solid var(--border);
+  }
+
+  .tools-inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    padding: var(--space-6) 0;
+  }
+
+  .tools-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    opacity: 0.45;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .tools-strip {
+    display: flex;
+    align-items: center;
+    gap: var(--space-10);
+  }
+
+  .tools-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--text-3);
+    opacity: 0.4;
+    transition: opacity 0.2s ease;
+  }
+
+  .tools-item:hover {
+    opacity: 0.7;
+  }
+
+  .tools-icon {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .tools-img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: brightness(0) invert(0.65);
+  }
+
+  .tools-name {
+    font-size: 12px;
+    font-weight: var(--fw-medium);
+    color: var(--text-3);
+    white-space: nowrap;
+  }
+
+  /* ══════════════════════════════════════
+     2c. VIDEO PORTFOLIO
+  ══════════════════════════════════════ */
+  .videos-section {
+    padding: var(--space-14) 0 var(--space-16);
+  }
+
+  .videos-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+
+  .videos-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--fs-micro);
+    letter-spacing: var(--ls-widest);
+    text-transform: uppercase;
+    color: var(--blue);
+    opacity: 0.65;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .videos-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .videos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-5);
+  }
+
+  .video-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+  }
+
+  .video-card:hover {
+    border-color: var(--border-2);
+  }
+
+  .video-embed {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: var(--surface);
+    overflow: hidden;
+  }
+
+  .video-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface);
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .video-card:hover .video-placeholder {
+    background: var(--surface-2);
+  }
+
+  .video-play-icon {
+    color: var(--text-3);
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  .video-card:hover .video-play-icon {
+    color: var(--blue);
+    transform: scale(1.08);
+  }
+
+  .video-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .video-title {
+    font-size: 14px;
+    font-weight: var(--fw-bold);
+    color: var(--text-2);
+    letter-spacing: var(--ls-snug);
+  }
+
+  .video-caption {
+    font-size: 12px;
+    color: var(--text-3);
+    line-height: var(--lh-body);
+  }
 
   /* ══════════════════════════════════════
      3. HOW WE WORK — step rows
@@ -733,6 +959,19 @@ const serviceSchema = {
   @media (max-width: 768px) {
     .hero-annotation--tr,
     .hero-annotation--bl { display: none; }
+
+    .tools-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-4);
+    }
+
+    .tools-strip {
+      gap: var(--space-6);
+      flex-wrap: wrap;
+    }
+
+    .videos-grid { grid-template-columns: 1fr; }
 
     .process-step-detail { padding-left: 0; }
     .process-row { padding: var(--space-5) var(--space-5); }
